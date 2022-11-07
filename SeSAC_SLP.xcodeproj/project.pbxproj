@@ -18,6 +18,16 @@
 		902B0FCA2918E3F200D03C0E /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 902B0FC92918E3F200D03C0E /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		902B0FCC2918E3F200D03C0E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 902B0FCB2918E3F200D03C0E /* FirebaseAuth */; };
 		902B0FCE2918E3F200D03C0E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 902B0FCD2918E3F200D03C0E /* FirebaseCrashlytics */; };
+		902B0FD72918FEBE00D03C0E /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FD62918FEBE00D03C0E /* BaseView.swift */; };
+		902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FD8291915FE00D03C0E /* BaseViewController.swift */; };
+		902B0FDD29193A0F00D03C0E /* SignUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FDC29193A0F00D03C0E /* SignUPViewController.swift */; };
+		902B0FE029193AFC00D03C0E /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FDF29193AFC00D03C0E /* SignView.swift */; };
+		902B0FE3291952F700D03C0E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 902B0FE2291952F700D03C0E /* SnapKit */; };
+		902B0FE5291965BF00D03C0E /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FE4291965BF00D03C0E /* VerificationViewController.swift */; };
+		902B0FE7291965DE00D03C0E /* VerifrcationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FE6291965DE00D03C0E /* VerifrcationView.swift */; };
+		902B0FE92919665500D03C0E /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FE82919665500D03C0E /* Enum.swift */; };
+		902B0FEB29196E9B00D03C0E /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FEA29196E9B00D03C0E /* Color.swift */; };
+		902B0FED29196EA900D03C0E /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FEC29196EA900D03C0E /* UILabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +41,15 @@
 		902B0FB72918BC2000D03C0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		902B0FBD2918BD0000D03C0E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		902B0FBF2918C08600D03C0E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		902B0FD62918FEBE00D03C0E /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		902B0FD8291915FE00D03C0E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		902B0FDC29193A0F00D03C0E /* SignUPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUPViewController.swift; sourceTree = "<group>"; };
+		902B0FDF29193AFC00D03C0E /* SignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
+		902B0FE4291965BF00D03C0E /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
+		902B0FE6291965DE00D03C0E /* VerifrcationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifrcationView.swift; sourceTree = "<group>"; };
+		902B0FE82919665500D03C0E /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
+		902B0FEA29196E9B00D03C0E /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		902B0FEC29196EA900D03C0E /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +58,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				902B0FCE2918E3F200D03C0E /* FirebaseCrashlytics in Frameworks */,
+				902B0FE3291952F700D03C0E /* SnapKit in Frameworks */,
 				902B0FCA2918E3F200D03C0E /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				902B0FCC2918E3F200D03C0E /* FirebaseAuth in Frameworks */,
 			);
@@ -67,6 +87,10 @@
 		902B0FA82918BC1C00D03C0E /* SeSAC_SLP */ = {
 			isa = PBXGroup;
 			children = (
+				902B0FD42918FE6B00D03C0E /* Scene */,
+				902B0FD32918FE6000D03C0E /* New Group */,
+				902B0FD22918FE4100D03C0E /* Network */,
+				902B0FD12918FDEB00D03C0E /* Constent */,
 				902B0FBF2918C08600D03C0E /* GoogleService-Info.plist */,
 				902B0FA92918BC1C00D03C0E /* AppDelegate.swift */,
 				902B0FAB2918BC1C00D03C0E /* SceneDelegate.swift */,
@@ -77,6 +101,59 @@
 				902B0FB72918BC2000D03C0E /* Info.plist */,
 			);
 			path = SeSAC_SLP;
+			sourceTree = "<group>";
+		};
+		902B0FD12918FDEB00D03C0E /* Constent */ = {
+			isa = PBXGroup;
+			children = (
+				902B0FEA29196E9B00D03C0E /* Color.swift */,
+				902B0FEC29196EA900D03C0E /* UILabel.swift */,
+			);
+			path = Constent;
+			sourceTree = "<group>";
+		};
+		902B0FD22918FE4100D03C0E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		902B0FD32918FE6000D03C0E /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		902B0FD42918FE6B00D03C0E /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				902B0FDE29193AE600D03C0E /* Sign */,
+				902B0FD52918FE7400D03C0E /* Base */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		902B0FD52918FE7400D03C0E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				902B0FD62918FEBE00D03C0E /* BaseView.swift */,
+				902B0FD8291915FE00D03C0E /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		902B0FDE29193AE600D03C0E /* Sign */ = {
+			isa = PBXGroup;
+			children = (
+				902B0FDC29193A0F00D03C0E /* SignUPViewController.swift */,
+				902B0FDF29193AFC00D03C0E /* SignView.swift */,
+				902B0FE4291965BF00D03C0E /* VerificationViewController.swift */,
+				902B0FE6291965DE00D03C0E /* VerifrcationView.swift */,
+				902B0FE82919665500D03C0E /* Enum.swift */,
+			);
+			path = Sign;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -99,6 +176,7 @@
 				902B0FC92918E3F200D03C0E /* FirebaseAnalyticsWithoutAdIdSupport */,
 				902B0FCB2918E3F200D03C0E /* FirebaseAuth */,
 				902B0FCD2918E3F200D03C0E /* FirebaseCrashlytics */,
+				902B0FE2291952F700D03C0E /* SnapKit */,
 			);
 			productName = SeSAC_SLP;
 			productReference = 902B0FA62918BC1C00D03C0E /* SeSAC_SLP.app */;
@@ -130,6 +208,7 @@
 			mainGroup = 902B0F9D2918BC1C00D03C0E;
 			packageReferences = (
 				902B0FC82918E3F200D03C0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				902B0FE1291952F700D03C0E /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 902B0FA72918BC1C00D03C0E /* Products */;
 			projectDirPath = "";
@@ -160,9 +239,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */,
 				902B0FAE2918BC1C00D03C0E /* ViewController.swift in Sources */,
+				902B0FEB29196E9B00D03C0E /* Color.swift in Sources */,
+				902B0FE5291965BF00D03C0E /* VerificationViewController.swift in Sources */,
+				902B0FE029193AFC00D03C0E /* SignView.swift in Sources */,
 				902B0FAA2918BC1C00D03C0E /* AppDelegate.swift in Sources */,
 				902B0FAC2918BC1C00D03C0E /* SceneDelegate.swift in Sources */,
+				902B0FE7291965DE00D03C0E /* VerifrcationView.swift in Sources */,
+				902B0FED29196EA900D03C0E /* UILabel.swift in Sources */,
+				902B0FDD29193A0F00D03C0E /* SignUPViewController.swift in Sources */,
+				902B0FE92919665500D03C0E /* Enum.swift in Sources */,
+				902B0FD72918FEBE00D03C0E /* BaseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +486,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		902B0FE1291952F700D03C0E /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -415,6 +511,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 902B0FC82918E3F200D03C0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		902B0FE2291952F700D03C0E /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 902B0FE1291952F700D03C0E /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
