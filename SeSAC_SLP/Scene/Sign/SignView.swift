@@ -9,11 +9,15 @@ import UIKit
 
 import SnapKit
 
+enum CommonSignView {
+    case first
+    case nickName
+}
+
 final class SignView: BaseView {
     
     let titleLabel: UILabel = {
         let view = UILabel()
-        view.text = literalString.scene.title(vc: .first)
         return view
     }()
     
@@ -35,7 +39,7 @@ final class SignView: BaseView {
     let nextButton: UIButton = {
         let view = UIButton()
         view.setTitle(literalString.nextButton.title(vc: .first), for: .normal)
-        view.backgroundColor = .green
+        view.backgroundColor = CutsomColorSet.green
         view.clipsToBounds = true
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         return view
@@ -64,7 +68,7 @@ final class SignView: BaseView {
         
         inputTextField.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(76)
-            make.centerX.equalTo(self.snp.centerX)
+            make.leading.equalTo(self.snp.leading).offset(28)
         }
         
         textFieldSectionBar.snp.makeConstraints { make in
@@ -79,6 +83,16 @@ final class SignView: BaseView {
             make.height.equalTo(48)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.centerX.equalTo(self.snp.centerX)
+        }
+    }
+    
+    func Setcontents(type: CommonSignView) {
+        switch type {
+        case .first:
+            titleLabel.text = literalString.scene.title(vc: .first)
+            
+        case .nickName:
+            titleLabel.text = literalString.scene.title(vc: .nickname)
         }
     }
 }

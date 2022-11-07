@@ -35,7 +35,9 @@ enum BaseColorSet {
     case systemColor(status: String, color: UIColor)
 }
 
- struct CutsomColor {
+ struct CutsomColorSet {
+//     private init() { }
+     
     static let white: BaseColorSet = .base("white", color: .white)
     static let black: BaseColorSet = .base("black", color: .black)
     static let green: BaseColorSet = .brandcolor("green", color: UIColor(hex: "#49DC92"))

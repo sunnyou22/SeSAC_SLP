@@ -8,7 +8,7 @@
 import Foundation
 
 enum Vc {
-    case first, second
+    case first, second, nickname, birthDay, email, gender
 }
 
 enum literalString: Int, CaseIterable {
@@ -23,6 +23,14 @@ enum literalString: Int, CaseIterable {
                 return "새싹 서비스 이용을 위해\n휴대폰 번호를 입력해주세요"
             case .second:
                 return "인증번호가 문자로 전송되었어요"
+            case .nickname:
+                return "닉네임을 입력해 주세요"
+            case .birthDay:
+                return "생년월일을 알려주세요"
+            case .email:
+                return "이메일을 입력해 주세요"
+            case .gender:
+                return "성별을 선택해주세요"
             }
         case .nextButton:
             switch vc {
@@ -30,6 +38,8 @@ enum literalString: Int, CaseIterable {
                 return "인증 문자 받기"
             case .second:
                 return "인증하고 시작하기"
+            default:
+                return "다음"
             }
         }
     }
