@@ -72,3 +72,23 @@ enum CommonSignView {
     case signIn
 }
 
+
+extension BaseView {
+    
+   static func setCustomView(type: Vc) -> BaseView {
+        switch type {
+        case .first:
+            return SignUpView()
+        case .second:
+            return VerificationView()
+        case .nickname:
+            return SignUpView()
+        case .birthDay:
+            return PickerView()
+        case .email:
+            return EmailView()
+        case .gender:
+            return GenderView()
+        }
+    }
+}

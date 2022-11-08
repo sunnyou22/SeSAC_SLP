@@ -9,12 +9,13 @@ import UIKit
 
 class SignUpViewController: BaseViewController {
     
-    let mainView: UIView = SignView()
-    var viewtype: CommonSignView
+    let vc: Vc
+    var mainView = SignUpView()
+    var viewtype: BaseView
     
-    init(viewtype: CommonSignView, view: UIView) {
+    init(viewtype: BaseView, vc: Vc) {
         self.viewtype = viewtype
-        self.mainView = view
+        self.vc = vc
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,6 +31,32 @@ class SignUpViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        switch vc {
+        case .first:
+            mainView.nextButton.addTarget(self, action: #selector(goReceiveVerificationNumView), for: .touchUpInside)
+        case .second:
+            mainView.nextButton.addTarget(self, action: #selector(goReceiveVerificationNickNameView), for: .touchUpInside)
+        case .nickname:
+            break
+        case .birthDay:
+            break
+        case .email:
+            break
+        case .gender:
+            break
+        }
+    }
     
+    @objc func goReceiveVerificationNumView() {
+        let vc = SignUpViewController(viewtype: .setCustomView(type: .second), vc: .second)
+        vc.mainView.setcontents(type: .second, view: vc.mainView.titleLabel)
+        transition(vc, .push)
+    }
+    
+    @objc func goReceiveVerificationNickNameView() {
+        let vc = SignUpViewController(viewtype: .setCustomView(type: .nickname), vc: .nickname)
+        vc.mainView.setcontents(type: .nickname, view: vc.mainView.titleLabel)
+        transition(vc, .push)
     }
 }

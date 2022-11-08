@@ -21,13 +21,22 @@ class BaseView: UIView {
     
     func configure() { }
     func setConstraints() { }
-    func Setcontents(type: CommonSignView, vc: Vc, view: UILabel) {
+    
+    
+    func setcontents(type: Vc, view: UILabel) {
         switch type {
-        case .verification:
-            view.text = literalString.sceneTitle.title(vc: vc)
-        case .signIn:
-            view.text = literalString.sceneTitle.title(vc: vc)
-            
+        case .first:
+            return view.text = literalString.sceneTitle.title(vc: .first)
+        case .second:
+            return view.text = literalString.sceneTitle.title(vc: .second)
+        case .nickname:
+            return view.text = literalString.sceneTitle.title(vc: .nickname)
+        case .birthDay:
+            return view.text = literalString.sceneTitle.title(vc: .birthDay)
+        case .email:
+            return view.text = literalString.sceneTitle.title(vc: .email)
+        case .gender:
+            return view.text = literalString.sceneTitle.title(vc: .gender)
         }
     }
 }

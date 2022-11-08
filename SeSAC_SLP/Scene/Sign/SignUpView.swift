@@ -9,16 +9,19 @@ import UIKit
 
 import SnapKit
 
-final class SignView: BaseView {
+final class SignUpView: BaseView {
     
     let titleLabel: UILabel = {
         let view = UILabel()
+        
+        view.text = "테스트제목입니다. SignUpView"
+        view.font = .Display1_R20
         return view
     }()
     
     let inputTextField: UITextField = {
         let view = UITextField()
-        view.placeholder = "test Textfield 입니다"
+        view.placeholder = "test Textfield 입니다, SignUpView"
         view.textAlignment = .left
         view.keyboardType = .namePhonePad
 //        view.text = 하이픈으로 구분해주는 기능넣기
@@ -34,7 +37,7 @@ final class SignView: BaseView {
     let nextButton: UIButton = {
         let view = UIButton()
         view.setTitle(literalString.nextButton.title(vc: .first), for: .normal)
-        view.backgroundColor = .setBaseColor(color: .white)
+        view.backgroundColor = .setBrandColor(color: .green)
         view.clipsToBounds = true
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         return view
@@ -42,6 +45,8 @@ final class SignView: BaseView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .setBaseColor(color: .white)
+    
     }
     
     required init?(coder: NSCoder) {
