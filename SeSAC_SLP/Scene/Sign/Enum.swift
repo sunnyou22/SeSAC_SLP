@@ -7,11 +7,41 @@
 
 import Foundation
 
+/*
+ 
+ */
+
 //MARK: - 문자열 처리
 
 enum Vc {
-    case first, second, nickname, birthDay, email, gender
+    case first(SignUpView)
+    case second(VerificationView)
+    case nickname(SignUpView)
+    case birthDay(PickerView)
+    case email(EmailView)
+    case gender(GenderView)
 }
+
+extension BaseView {
+    
+   static func setCustomView(type: Vc) -> BaseView {
+        switch type {
+        case .first:
+            return SignUpView()
+        case .second:
+            return VerificationView()
+        case .nickname:
+            return SignUpView()
+        case .birthDay:
+            return PickerView()
+        case .email:
+            return EmailView()
+        case .gender:
+            return GenderView()
+        }
+    }
+}
+
 
 enum literalString: Int, CaseIterable {
     case sceneTitle
@@ -70,25 +100,4 @@ enum CustomCornerRadius: CGFloat {
 enum CommonSignView {
     case verification
     case signIn
-}
-
-
-extension BaseView {
-    
-   static func setCustomView(type: Vc) -> BaseView {
-        switch type {
-        case .first:
-            return SignUpView()
-        case .second:
-            return VerificationView()
-        case .nickname:
-            return SignUpView()
-        case .birthDay:
-            return PickerView()
-        case .email:
-            return EmailView()
-        case .gender:
-            return GenderView()
-        }
-    }
 }
