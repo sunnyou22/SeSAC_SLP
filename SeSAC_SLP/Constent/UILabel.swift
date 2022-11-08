@@ -7,7 +7,7 @@
 import UIKit
 
 extension UILabel {
-    static func CustomFont(label: UILabel, _ text: String) {
+    func setBaseLabelStatus(label: UILabel, _ text: String) {
         let style = NSMutableParagraphStyle()
         let fontSize: CGFloat = 20
         let lineheight = fontSize * 1.6  //font size * multiple

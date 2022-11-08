@@ -9,13 +9,14 @@ import UIKit
 
 class SignUpViewController: BaseViewController {
     
-    let mainView = SignView()
+    let mainView: UIView = SignView()
     var viewtype: CommonSignView
     
-//    init(viewtype: CommonSignView) {
-//        self.viewtype = viewtype
-//        super.init(nibName: nil, bundle: nil)
-//    }
+    init(viewtype: CommonSignView, view: UIView) {
+        self.viewtype = viewtype
+        self.mainView = view
+        super.init(nibName: nil, bundle: nil)
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

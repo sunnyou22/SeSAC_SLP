@@ -21,5 +21,14 @@ class BaseView: UIView {
     
     func configure() { }
     func setConstraints() { }
+    func Setcontents(type: CommonSignView, vc: Vc, view: UILabel) {
+        switch type {
+        case .verification:
+            view.text = literalString.sceneTitle.title(vc: vc)
+        case .signIn:
+            view.text = literalString.sceneTitle.title(vc: vc)
+            
+        }
+    }
 }
 

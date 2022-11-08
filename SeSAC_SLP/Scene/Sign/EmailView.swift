@@ -1,18 +1,25 @@
 //
-//  SignView.swift
+//  EmailView.swift
 //  SeSAC_SLP
 //
-//  Created by 방선우 on 2022/11/07.
+//  Created by 방선우 on 2022/11/08.
 //
 
 import UIKit
 
 import SnapKit
 
-final class SignView: BaseView {
+final class EmailView: BaseView {
     
     let titleLabel: UILabel = {
         let view = UILabel()
+        view.text = "테스트 타이틀입니다"
+        return view
+    }()
+    
+    let subTitleLabel: UILabel = {
+        let view = UILabel()
+        view.text = "테스트 서브타이틀입니다"
         return view
     }()
     
@@ -49,7 +56,7 @@ final class SignView: BaseView {
     }
     
     override func configure() {
-        [titleLabel, inputTextField, textFieldSectionBar, nextButton].forEach {
+        [titleLabel, subTitleLabel, inputTextField, textFieldSectionBar, nextButton].forEach {
             self.addSubview($0)
         }
         self.backgroundColor = .white
@@ -61,8 +68,13 @@ final class SignView: BaseView {
             make.centerX.equalTo(self.snp.centerX)
         }
         
+        subTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.centerX.equalTo(self.snp.centerX)
+        }
+        
         inputTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(76)
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(76)
             make.leading.equalTo(self.snp.leading).offset(28)
         }
         

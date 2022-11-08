@@ -28,6 +28,9 @@
 		902B0FE92919665500D03C0E /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FE82919665500D03C0E /* Enum.swift */; };
 		902B0FEB29196E9B00D03C0E /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FEA29196E9B00D03C0E /* Color.swift */; };
 		902B0FED29196EA900D03C0E /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FEC29196EA900D03C0E /* UILabel.swift */; };
+		902B0FEF291A15E500D03C0E /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FEE291A15E500D03C0E /* PickerView.swift */; };
+		902B0FF5291A41DC00D03C0E /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FF4291A41DC00D03C0E /* EmailView.swift */; };
+		902B0FF7291A461600D03C0E /* GenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FF6291A461600D03C0E /* GenderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +53,9 @@
 		902B0FE82919665500D03C0E /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		902B0FEA29196E9B00D03C0E /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		902B0FEC29196EA900D03C0E /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
+		902B0FEE291A15E500D03C0E /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
+		902B0FF4291A41DC00D03C0E /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
+		902B0FF6291A461600D03C0E /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +157,10 @@
 				902B0FDF29193AFC00D03C0E /* SignView.swift */,
 				902B0FE4291965BF00D03C0E /* VerificationViewController.swift */,
 				902B0FE6291965DE00D03C0E /* VerifrcationView.swift */,
+				902B0FEE291A15E500D03C0E /* PickerView.swift */,
 				902B0FE82919665500D03C0E /* Enum.swift */,
+				902B0FF4291A41DC00D03C0E /* EmailView.swift */,
+				902B0FF6291A461600D03C0E /* GenderView.swift */,
 			);
 			path = Sign;
 			sourceTree = "<group>";
@@ -242,8 +251,10 @@
 				902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */,
 				902B0FAE2918BC1C00D03C0E /* ViewController.swift in Sources */,
 				902B0FEB29196E9B00D03C0E /* Color.swift in Sources */,
+				902B0FF5291A41DC00D03C0E /* EmailView.swift in Sources */,
 				902B0FE5291965BF00D03C0E /* VerificationViewController.swift in Sources */,
 				902B0FE029193AFC00D03C0E /* SignView.swift in Sources */,
+				902B0FF7291A461600D03C0E /* GenderView.swift in Sources */,
 				902B0FAA2918BC1C00D03C0E /* AppDelegate.swift in Sources */,
 				902B0FAC2918BC1C00D03C0E /* SceneDelegate.swift in Sources */,
 				902B0FE7291965DE00D03C0E /* VerifrcationView.swift in Sources */,
@@ -251,6 +262,7 @@
 				902B0FDD29193A0F00D03C0E /* SignUPViewController.swift in Sources */,
 				902B0FE92919665500D03C0E /* Enum.swift in Sources */,
 				902B0FD72918FEBE00D03C0E /* BaseView.swift in Sources */,
+				902B0FEF291A15E500D03C0E /* PickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,7 +14,7 @@ final class VerificationView: BaseView {
     
     let titleLabel: UILabel = {
         let view = UILabel()
-        view.text = literalString.scene.title(vc: .second)
+        view.text = literalString.sceneTitle.title(vc: .second)
         return view
     }()
     
@@ -68,7 +68,7 @@ final class VerificationView: BaseView {
         [titleLabel, rePostButton, inputTextField, countingLabel, textFieldSectionBar, nextButton].forEach {
             self.addSubview($0)
         }
-        self.backgroundColor = .white
+        self.backgroundColor = .setBaseColor(color: .white)
     }
     
     override func setConstraints() {

@@ -7,17 +7,20 @@
 
 import Foundation
 
+//MARK: - 문자열 처리
+
 enum Vc {
     case first, second, nickname, birthDay, email, gender
 }
 
 enum literalString: Int, CaseIterable {
-    case scene
+    case sceneTitle
+    case subTitle
     case nextButton
     
     func title(vc: Vc) -> String {
         switch self {
-        case .scene:
+        case .sceneTitle:
             switch vc {
             case .first:
                 return "새싹 서비스 이용을 위해\n휴대폰 번호를 입력해주세요"
@@ -32,6 +35,7 @@ enum literalString: Int, CaseIterable {
             case .gender:
                 return "성별을 선택해주세요"
             }
+            
         case .nextButton:
             switch vc {
             case .first:
@@ -41,10 +45,30 @@ enum literalString: Int, CaseIterable {
             default:
                 return "다음"
             }
+           
+        case .subTitle:
+            switch vc {
+            case .email:
+                return "휴대폰 번호 변경 시 인증을 위해 사용해요"
+            case .gender:
+                return "새싹 찾기 기능을 이용하기 위해서 필요해요!"
+            default:
+                return ""
+            }
         }
     }
 }
 
+//MARK: - layer처리
+
 enum CustomCornerRadius: CGFloat {
     case button = 8
 }
+
+//MARK: - 뷰 나누기
+
+enum CommonSignView {
+    case verification
+    case signIn
+}
+
