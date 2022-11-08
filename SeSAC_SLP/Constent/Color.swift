@@ -28,29 +28,83 @@ extension UIColor {
     }
 }
 
-enum BaseColorSet {
-    case base(_ : String, color: UIColor)
-    case brandcolor(_ : String, color: UIColor)
-    case gray(num: Int, color: UIColor)
-    case systemColor(status: String, color: UIColor)
+extension UIColor {
+    static func setBaseColor(color: BaseColorSet) -> UIColor {
+        switch color {
+        case .white:
+            return .white
+        case .black:
+            return .black
+        }
+    }
+    
+    static func setBrandColor(color: BrandColor) -> UIColor {
+        switch color {
+        case .green:
+            return UIColor(hex: "#49DC92")
+        case .whiteGreen:
+            return UIColor(hex: "#CDF4E1")
+        case .yellowGreen:
+            return UIColor(hex: "#B2EB61")
+        }
+    }
+    
+    static func setGray(color: Gray) -> UIColor {
+        switch color {
+        case .gray1:
+            return UIColor(hex: "#F7F7F7")
+        case .gray2:
+            return UIColor(hex: "#EFEFEF")
+        case .gray3:
+            return UIColor(hex: "#E2E2E2")
+        case .gray4:
+            return UIColor(hex: "#D1D1D1")
+        case .gray5:
+            return UIColor(hex: "#BDBDBD")
+        case .gray6:
+            return UIColor(hex: "#AAAAAA")
+        case .gray7:
+            return UIColor(hex: "#888888")
+        }
+    }
+    
+    static func setStatus(color: StatusColor) -> UIColor {
+        switch color {
+        case .success:
+            return UIColor(hex: "#628FE5")
+        case .error:
+            return UIColor(hex: "#E9666B")
+        case .focus:
+            return UIColor(hex: "#333333")
+        }
+    }
 }
 
- struct CutsomColorSet {
-//     private init() { }
-     
-    static let white: BaseColorSet = .base("white", color: .white)
-    static let black: BaseColorSet = .base("black", color: .black)
-    static let green: BaseColorSet = .brandcolor("green", color: UIColor(hex: "#49DC92"))
-    static let whiteGreen: BaseColorSet = .brandcolor("whitegreen", color: UIColor(hex: "#CDF4E1"))
-    static let yellowGreen: BaseColorSet = .brandcolor("yellowgreen", color: UIColor(hex: "#B2EB61"))
-    static let gray1: BaseColorSet = .gray(num: 1, color: UIColor(hex: "#F7F7F7"))
-    static let gray2: BaseColorSet = .gray(num: 2, color: UIColor(hex: "#EFEFEF"))
-    static let gray3: BaseColorSet = .gray(num: 3, color: UIColor(hex: "#E2E2E2"))
-    static let gray4: BaseColorSet = .gray(num: 4, color: UIColor(hex: "#D1D1D1"))
-    static let gray5: BaseColorSet = .gray(num: 5, color: UIColor(hex: "#BDBDBD"))
-    static let gray6: BaseColorSet = .gray(num: 6, color: UIColor(hex: "#AAAAAA"))
-    static let gray7: BaseColorSet = .gray(num: 7, color: UIColor(hex: "#888888"))
-    static let success: BaseColorSet = .systemColor(status: "success", color: UIColor(hex: "#628FE5"))
-    static let error: BaseColorSet = .systemColor(status: "error", color: UIColor(hex: "#E9666B"))
-    static let focus: BaseColorSet = .systemColor(status: "focus", color: UIColor(hex: "#333333"))
+enum BaseColorSet {
+    case black
+    case white
 }
+
+enum BrandColor {
+    case green
+    case whiteGreen
+    case yellowGreen
+}
+
+enum Gray {
+    case gray1
+    case gray2
+    case gray3
+    case gray4
+    case gray5
+    case gray6
+    case gray7
+}
+
+enum StatusColor {
+    case success
+    case error
+    case focus
+}
+
+

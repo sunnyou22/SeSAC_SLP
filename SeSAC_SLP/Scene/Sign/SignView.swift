@@ -39,7 +39,7 @@ final class SignView: BaseView {
     let nextButton: UIButton = {
         let view = UIButton()
         view.setTitle(literalString.nextButton.title(vc: .first), for: .normal)
-        view.backgroundColor = CutsomColorSet.green
+        view.backgroundColor = .setBaseColor(color: .white)
         view.clipsToBounds = true
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         return view
