@@ -12,12 +12,17 @@ final class GenderView: BaseView {
     let titleLabel: UILabel = {
         let view = UILabel()
         view.text = "테스트 타이틀입니다"
+        view.numberOfLines = 0
+        view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20, lineHeight: 1.6, view.text!)
+        view.textAlignment = .center
         return view
     }()
     
     let subTitleLabel: UILabel = {
         let view = UILabel()
         view.text = "테스트 서브타이틀입니다"
+        view.setBaseLabelStatus(fontsize: 16, font: .title2_R16, lineHeight: 1.6, view.text!)
+        view.textAlignment = .center
         return view
     }()
     
@@ -32,7 +37,8 @@ final class GenderView: BaseView {
 // ✅ Configuration.
         var config = UIButton.Configuration.plain()
         config.title = "남자"
-        config.image = UIImage(systemName: "man")
+        config.baseForegroundColor = .black
+        config.image = UIImage(named: "man")
         config.imagePlacement = .top
         config.imagePadding = 0
 
@@ -51,7 +57,8 @@ final class GenderView: BaseView {
 // ✅ Configuration.
         var config = UIButton.Configuration.plain()
         config.title = "여자"
-        config.image = UIImage(systemName: "woman")
+        config.baseForegroundColor = .black
+        config.image = UIImage(named: "woman")
         config.imagePlacement = .top
         config.imagePadding = 0
 
@@ -63,7 +70,7 @@ final class GenderView: BaseView {
     let nextButton: UIButton = {
         let view = UIButton()
         view.setTitle(literalString.nextButton.title(vc: .first), for: .normal)
-        view.backgroundColor = .setBaseColor(color: .white)
+        view.backgroundColor = .setBrandColor(color: .green)
         view.clipsToBounds = true
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         return view
@@ -79,6 +86,8 @@ final class GenderView: BaseView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .setBaseColor(color: .white)
+        setcontents(type: .gender, label: titleLabel, button: nextButton, subtitle: subTitleLabel)
     }
     
     required init?(coder: NSCoder) {
@@ -88,7 +97,7 @@ final class GenderView: BaseView {
     override func configure() {
         
         [manButton, womanButton].forEach { stackView.addArrangedSubview($0) }
-        [titleLabel, subTitleLabel, manButton, womanButton, nextButton].forEach {
+        [titleLabel, subTitleLabel, stackView, nextButton].forEach {
             self.addSubview($0)
         }
         self.backgroundColor = .white
@@ -96,23 +105,23 @@ final class GenderView: BaseView {
     
     override func setConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide).offset(124)
+            make.bottom.equalTo(subTitleLabel.snp.top).offset(-8)
             make.centerX.equalTo(self.snp.centerX)
         }
         
         subTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.height.equalTo(120)
+            make.bottom.equalTo(stackView.snp.top).offset(-76)
             make.centerX.equalTo(self.snp.centerX)
         }
         
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(subTitleLabel.snp.bottom).offset(32)
-            make.centerX.equalTo(self.snp.centerX)
+            make.bottom.equalTo(nextButton.snp.top).offset(-32)
+            make.height.equalTo(120)
+            make.horizontalEdges.equalToSuperview().inset(16)
         }
         
         nextButton.snp.makeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(32)
+            make.top.equalTo(self.snp.centerY)
             make.height.equalTo(48)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.centerX.equalTo(self.snp.centerX)

@@ -10,6 +10,7 @@ import UIKit
 class ComponentView: BaseView {
     
     var str: String
+    let spacing = 16
     
     init(str: String) {
         self.str = str
@@ -45,13 +46,15 @@ class ComponentView: BaseView {
     
     override func setConstraints() {
         label.snp.makeConstraints { make in
-            make.trailing.equalTo(self.snp.leading)
+            make.trailing.equalTo(self.snp.trailing).priority(251)
             make.centerY.equalTo(self.snp.centerY)
         }
         
         button.snp.makeConstraints { make in
-            make.leading.equalTo(28)
-            make.trailing.equalTo(label.snp.leading)
+            make.leading.greaterThanOrEqualTo(self.snp.leading).offset(28)
+            make.trailing.lessThanOrEqualTo(label.snp.leading).offset(-40)
+            make.width.equalTo(32)
+            make.centerY.equalTo(self.snp.centerY)
         }
         
         sectionBar.snp.makeConstraints { make in
@@ -59,16 +62,19 @@ class ComponentView: BaseView {
             make.leading.equalTo(self.snp.leading)
             make.trailing.equalTo(label.snp.leading)
             make.height.equalTo(1)
+
         }
     }
 }
-
 
 final class PickerView: BaseView {
     
     let titleLabel: UILabel = {
         let view = UILabel()
         view.text = "테스트타이틀입니다"
+        view.numberOfLines = 0
+        view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20, lineHeight: 1.6, view.text!)
+        view.textAlignment = .center
         return view
     }()
     
@@ -79,7 +85,7 @@ final class PickerView: BaseView {
     let nextButton: UIButton = {
         let view = UIButton()
         view.setTitle(literalString.nextButton.title(vc: .first), for: .normal)
-        view.backgroundColor = .setBaseColor(color: .white)
+        view.backgroundColor = .setBrandColor(color: .green)
         view.clipsToBounds = true
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         return view
@@ -87,14 +93,17 @@ final class PickerView: BaseView {
     
     let stackView: UIStackView = {
         let view = UIStackView()
+        
         view.axis = .horizontal
-        view.distribution = .fill
-        view.spacing = 28
+        view.distribution = .fillEqually
+        view.spacing = 16
         return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .setBaseColor(color: .white)
+        setcontents(type: .birthDay, label: titleLabel, button: nextButton, subtitle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -108,17 +117,19 @@ final class PickerView: BaseView {
     
     override func setConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide).offset(124)
+            make.bottom.equalTo(stackView.snp.top).offset(-92)
             make.centerX.equalTo(self.snp.centerX)
         }
         
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(80)
+            make.bottom.equalTo(nextButton.snp.top).offset(-72)
+            make.height.equalTo(48)
+            make.horizontalEdges.equalToSuperview().inset(20)
             make.centerX.equalTo(self.snp.centerX)
         }
         
         nextButton.snp.makeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(72)
+            make.top.equalTo(self.snp.centerY)
             make.height.equalTo(48)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.centerX.equalTo(self.snp.centerX)

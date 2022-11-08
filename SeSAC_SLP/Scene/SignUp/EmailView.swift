@@ -14,12 +14,18 @@ final class EmailView: BaseView {
     let titleLabel: UILabel = {
         let view = UILabel()
         view.text = "테스트 타이틀입니다"
+        view.numberOfLines = 0
+        view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20, lineHeight: 1.6, view.text!)
+        view.textAlignment = .center
         return view
     }()
     
     let subTitleLabel: UILabel = {
         let view = UILabel()
         view.text = "테스트 서브타이틀입니다"
+        view.numberOfLines = 0
+        view.setBaseLabelStatus(fontsize: 16, font: .title2_R16, lineHeight: 1.6, view.text!)
+        view.textAlignment = .center
         return view
     }()
     
@@ -41,7 +47,7 @@ final class EmailView: BaseView {
     let nextButton: UIButton = {
         let view = UIButton()
         view.setTitle(literalString.nextButton.title(vc: .first), for: .normal)
-        view.backgroundColor = .setBaseColor(color: .white)
+        view.backgroundColor = .setBrandColor(color: .green)
         view.clipsToBounds = true
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         return view
@@ -49,6 +55,8 @@ final class EmailView: BaseView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .setBaseColor(color: .white)
+        setcontents(type: .email, label: titleLabel, button: nextButton, subtitle: subTitleLabel)
     }
     
     required init?(coder: NSCoder) {
@@ -64,17 +72,17 @@ final class EmailView: BaseView {
     
     override func setConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide).offset(124)
+            make.bottom.equalTo(subTitleLabel.snp.top).offset(-8)
             make.centerX.equalTo(self.snp.centerX)
         }
         
         subTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.bottom.equalTo(inputTextField.snp.top).offset(-76)
             make.centerX.equalTo(self.snp.centerX)
         }
         
         inputTextField.snp.makeConstraints { make in
-            make.top.equalTo(subTitleLabel.snp.bottom).offset(76)
+            make.bottom.equalTo(nextButton.snp.top).offset(-76)
             make.leading.equalTo(self.snp.leading).offset(28)
         }
         
@@ -86,7 +94,7 @@ final class EmailView: BaseView {
         }
         
         nextButton.snp.makeConstraints { make in
-            make.top.equalTo(textFieldSectionBar.snp.bottom).offset(72)
+            make.top.equalTo(self.snp.centerY)
             make.height.equalTo(48)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.centerX.equalTo(self.snp.centerX)

@@ -21,22 +21,29 @@ class BaseView: UIView {
     
     func configure() { }
     func setConstraints() { }
-    
-    
-    func setcontents(type: Vc, view: UILabel) {
+    // 아니면 이니셜라이징
+    func setcontents(type: Vc, label: UILabel, button: UIButton, subtitle: UILabel?) {
         switch type {
         case .first:
-            return view.text = literalString.sceneTitle.title(vc: .first)
+            label.text = literalString.sceneTitle.title(vc: .first)
+            button.setTitle(literalString.nextButton.title(vc: .first), for: .normal)
         case .second:
-            return view.text = literalString.sceneTitle.title(vc: .second)
+            label.text = literalString.sceneTitle.title(vc: .second)
+            button.setTitle(literalString.nextButton.title(vc: .second), for: .normal)
         case .nickname:
-            return view.text = literalString.sceneTitle.title(vc: .nickname)
+            label.text = literalString.sceneTitle.title(vc: .nickname)
+            button.setTitle(literalString.nextButton.title(vc: .nickname), for: .normal)
         case .birthDay:
-            return view.text = literalString.sceneTitle.title(vc: .birthDay)
+            label.text = literalString.sceneTitle.title(vc: .birthDay)
+            button.setTitle(literalString.nextButton.title(vc: .birthDay), for: .normal)
         case .email:
-            return view.text = literalString.sceneTitle.title(vc: .email)
+            label.text = literalString.sceneTitle.title(vc: .email)
+            button.setTitle(literalString.nextButton.title(vc: .email), for: .normal)
+            subtitle?.text = literalString.subTitle.title(vc: .email)
         case .gender:
-            return view.text = literalString.sceneTitle.title(vc: .gender)
+            label.text = literalString.sceneTitle.title(vc: .gender)
+            button.setTitle(literalString.nextButton.title(vc: .email), for: .normal)
+            subtitle?.text = literalString.subTitle.title(vc: .gender)
         }
     }
 }

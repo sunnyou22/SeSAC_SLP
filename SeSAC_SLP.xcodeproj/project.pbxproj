@@ -34,6 +34,12 @@
 		902B0FF9291A507D00D03C0E /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FF8291A507D00D03C0E /* Transition.swift */; };
 		902B0FFC291A57A700D03C0E /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 902B0FFB291A57A700D03C0E /* RxCocoa */; };
 		902B0FFE291A57A700D03C0E /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 902B0FFD291A57A700D03C0E /* RxSwift */; };
+		902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B1006291AB76600D03C0E /* NicknameViewController.swift */; };
+		902B1009291AB78B00D03C0E /* BirthDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B1008291AB78B00D03C0E /* BirthDayViewController.swift */; };
+		902B100B291AB85D00D03C0E /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B100A291AB85D00D03C0E /* EmailViewController.swift */; };
+		902B100D291AB87700D03C0E /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B100C291AB87700D03C0E /* GenderViewController.swift */; };
+		902B1010291AE9E300D03C0E /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B100F291AE9E300D03C0E /* OnboardingViewController.swift */; };
+		902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B1013291AEB1100D03C0E /* ViewControllerList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +66,12 @@
 		902B0FF4291A41DC00D03C0E /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
 		902B0FF6291A461600D03C0E /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
 		902B0FF8291A507D00D03C0E /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
+		902B1006291AB76600D03C0E /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
+		902B1008291AB78B00D03C0E /* BirthDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthDayViewController.swift; sourceTree = "<group>"; };
+		902B100A291AB85D00D03C0E /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
+		902B100C291AB87700D03C0E /* GenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderViewController.swift; sourceTree = "<group>"; };
+		902B100F291AE9E300D03C0E /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		902B1013291AEB1100D03C0E /* ViewControllerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +154,11 @@
 		902B0FD42918FE6B00D03C0E /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				902B0FDE29193AE600D03C0E /* Sign */,
+				902B100E291AE93500D03C0E /* Onboarding */,
+				902B1002291AB69C00D03C0E /* SignUp */,
+				902B1001291AB65300D03C0E /* Verification */,
+				902B0FDE29193AE600D03C0E /* SignIn */,
+				902B0FE82919665500D03C0E /* Enum.swift */,
 				902B0FD52918FE7400D03C0E /* Base */,
 			);
 			path = Scene;
@@ -157,19 +173,45 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		902B0FDE29193AE600D03C0E /* Sign */ = {
+		902B0FDE29193AE600D03C0E /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
 				902B0FDC29193A0F00D03C0E /* SignUPViewController.swift */,
 				902B0FDF29193AFC00D03C0E /* SignUpView.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		902B1001291AB65300D03C0E /* Verification */ = {
+			isa = PBXGroup;
+			children = (
 				902B0FE4291965BF00D03C0E /* VerificationViewController.swift */,
 				902B0FE6291965DE00D03C0E /* VerifrcationView.swift */,
-				902B0FEE291A15E500D03C0E /* PickerView.swift */,
-				902B0FF4291A41DC00D03C0E /* EmailView.swift */,
-				902B0FF6291A461600D03C0E /* GenderView.swift */,
-				902B0FE82919665500D03C0E /* Enum.swift */,
 			);
-			path = Sign;
+			path = Verification;
+			sourceTree = "<group>";
+		};
+		902B1002291AB69C00D03C0E /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				902B1006291AB76600D03C0E /* NicknameViewController.swift */,
+				902B1008291AB78B00D03C0E /* BirthDayViewController.swift */,
+				902B0FEE291A15E500D03C0E /* PickerView.swift */,
+				902B100A291AB85D00D03C0E /* EmailViewController.swift */,
+				902B0FF4291A41DC00D03C0E /* EmailView.swift */,
+				902B100C291AB87700D03C0E /* GenderViewController.swift */,
+				902B0FF6291A461600D03C0E /* GenderView.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		902B100E291AE93500D03C0E /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				902B100F291AE9E300D03C0E /* OnboardingViewController.swift */,
+				902B1013291AEB1100D03C0E /* ViewControllerList.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +301,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */,
+				902B100D291AB87700D03C0E /* GenderViewController.swift in Sources */,
+				902B1009291AB78B00D03C0E /* BirthDayViewController.swift in Sources */,
 				902B0FAE2918BC1C00D03C0E /* ViewController.swift in Sources */,
+				902B1010291AE9E300D03C0E /* OnboardingViewController.swift in Sources */,
 				902B0FEB29196E9B00D03C0E /* Color.swift in Sources */,
+				902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */,
 				902B0FF5291A41DC00D03C0E /* EmailView.swift in Sources */,
+				902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */,
 				902B0FE5291965BF00D03C0E /* VerificationViewController.swift in Sources */,
 				902B0FE029193AFC00D03C0E /* SignUpView.swift in Sources */,
 				902B0FF9291A507D00D03C0E /* Transition.swift in Sources */,
@@ -269,6 +316,7 @@
 				902B0FAA2918BC1C00D03C0E /* AppDelegate.swift in Sources */,
 				902B0FAC2918BC1C00D03C0E /* SceneDelegate.swift in Sources */,
 				902B0FE7291965DE00D03C0E /* VerifrcationView.swift in Sources */,
+				902B100B291AB85D00D03C0E /* EmailViewController.swift in Sources */,
 				902B0FED29196EA900D03C0E /* UILabel.swift in Sources */,
 				902B0FDD29193A0F00D03C0E /* SignUPViewController.swift in Sources */,
 				902B0FE92919665500D03C0E /* Enum.swift in Sources */,

@@ -13,15 +13,6 @@ import Foundation
 
 //MARK: - 문자열 처리
 
-enum Vc {
-    case first(SignUpView)
-    case second(VerificationView)
-    case nickname(SignUpView)
-    case birthDay(PickerView)
-    case email(EmailView)
-    case gender(GenderView)
-}
-
 extension BaseView {
     
    static func setCustomView(type: Vc) -> BaseView {
@@ -42,6 +33,20 @@ extension BaseView {
     }
 }
 
+enum Vc {
+    case first
+       
+    case second
+        
+    case nickname
+        
+    case birthDay
+      
+    case email
+        
+    case gender
+     
+}
 
 enum literalString: Int, CaseIterable {
     case sceneTitle

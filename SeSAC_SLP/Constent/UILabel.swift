@@ -7,13 +7,13 @@
 import UIKit
 
 extension UILabel {
-    func setBaseLabelStatus(fontsize: CGFloat, _ text: String) {
+    func setBaseLabelStatus(fontsize: CGFloat, font: UIFont, lineHeight: CGFloat, _ text: String) {
         let style = NSMutableParagraphStyle()
-        let fontSize: CGFloat = 20
-        let lineheight = fontSize * 1.6  //font size * multiple
+        let fontSize: CGFloat = fontsize
+        let lineheight = fontSize * lineHeight //font size * multiple
         style.minimumLineHeight = lineheight
         style.maximumLineHeight = lineheight
-        
+        self.textAlignment = .center
         self.attributedText = NSAttributedString(
             string: text,
             attributes: [
@@ -21,7 +21,7 @@ extension UILabel {
                 .baselineOffset: (lineheight - fontSize) / 4
             ])
         
-        self.font = .systemFont(ofSize: fontSize, weight: .regular)
+        self.font = font
     }
 }
 
