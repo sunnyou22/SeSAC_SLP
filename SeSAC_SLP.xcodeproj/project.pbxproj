@@ -40,6 +40,7 @@
 		902B100D291AB87700D03C0E /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B100C291AB87700D03C0E /* GenderViewController.swift */; };
 		902B1010291AE9E300D03C0E /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B100F291AE9E300D03C0E /* OnboardingViewController.swift */; };
 		902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B1013291AEB1100D03C0E /* ViewControllerList.swift */; };
+		902B1016291B7ABD00D03C0E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B1015291B7ABD00D03C0E /* SignUpViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,8 @@
 		902B100C291AB87700D03C0E /* GenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderViewController.swift; sourceTree = "<group>"; };
 		902B100F291AE9E300D03C0E /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		902B1013291AEB1100D03C0E /* ViewControllerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerList.swift; sourceTree = "<group>"; };
+		902B1015291B7ABD00D03C0E /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		902B1017291BA1FD00D03C0E /* SeSAC_SLP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SeSAC_SLP.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,7 @@
 		902B0FA82918BC1C00D03C0E /* SeSAC_SLP */ = {
 			isa = PBXGroup;
 			children = (
+				902B1017291BA1FD00D03C0E /* SeSAC_SLP.entitlements */,
 				902B0FD42918FE6B00D03C0E /* Scene */,
 				902B0FD32918FE6000D03C0E /* New Group */,
 				902B0FD22918FE4100D03C0E /* Network */,
@@ -178,6 +182,7 @@
 			children = (
 				902B0FDC29193A0F00D03C0E /* SignUPViewController.swift */,
 				902B0FDF29193AFC00D03C0E /* SignUpView.swift */,
+				902B1015291B7ABD00D03C0E /* SignUpViewModel.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -313,6 +318,7 @@
 				902B0FE029193AFC00D03C0E /* SignUpView.swift in Sources */,
 				902B0FF9291A507D00D03C0E /* Transition.swift in Sources */,
 				902B0FF7291A461600D03C0E /* GenderView.swift in Sources */,
+				902B1016291B7ABD00D03C0E /* SignUpViewModel.swift in Sources */,
 				902B0FAA2918BC1C00D03C0E /* AppDelegate.swift in Sources */,
 				902B0FAC2918BC1C00D03C0E /* SceneDelegate.swift in Sources */,
 				902B0FE7291965DE00D03C0E /* VerifrcationView.swift in Sources */,
@@ -466,6 +472,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SeSAC_SLP/SeSAC_SLP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8L83798C5;
@@ -498,6 +505,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SeSAC_SLP/SeSAC_SLP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8L83798C5;

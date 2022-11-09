@@ -23,7 +23,7 @@ final class SignUpView: BaseView {
     
     let inputTextField: UITextField = {
         let view = UITextField()
-        view.placeholder = "test Textfield 입니다, SignUpView"
+        view.placeholder = "휴대폰 번호(-없이 숫자만 입력)"
         view.textAlignment = .left
         view.keyboardType = .namePhonePad
         //        view.text = 하이픈으로 구분해주는 기능넣기
@@ -38,7 +38,7 @@ final class SignUpView: BaseView {
     
     lazy var nextButton: UIButton = {
         let view = UIButton()
-        view.backgroundColor = .setBrandColor(color: .green)
+        view.backgroundColor = .setGray(color: .gray6)
         view.clipsToBounds = true
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         return view
@@ -87,29 +87,4 @@ final class SignUpView: BaseView {
             make.centerX.equalTo(self.snp.centerX)
         }
     }
-    
-    //    func setcontents(type: Vc, label: UILabel, button: UIButton, subtitle: UILabel?) {
-    //        switch type {
-    //        case .first:
-    //            label.text = literalString.sceneTitle.title(vc: .first)
-    //            button.setTitle(literalString.nextButton.title(vc: .first), for: .normal)
-    //        case .second:
-    //            label.text = literalString.sceneTitle.title(vc: .second)
-    //            button.setTitle(literalString.nextButton.title(vc: .second), for: .normal)
-    //        case .nickname:
-    //            label.text = literalString.sceneTitle.title(vc: .nickname)
-    //            button.setTitle(literalString.nextButton.title(vc: .nickname), for: .normal)
-    //        case .birthDay:
-    //            label.text = literalString.sceneTitle.title(vc: .birthDay)
-    //            button.setTitle(literalString.nextButton.title(vc: .birthDay), for: .normal)
-    //        case .email:
-    //            label.text = literalString.sceneTitle.title(vc: .email)
-    //            button.setTitle(literalString.nextButton.title(vc: .email), for: .normal)
-    //            subtitle?.text = literalString.subTitle.title(vc: .email)
-    //        case .gender:
-    //            label.text = literalString.sceneTitle.title(vc: .gender)
-    //            button.setTitle(literalString.nextButton.title(vc: .email), for: .normal)
-    //            subtitle?.text = literalString.subTitle.title(vc: .gender)
-    //        }
-    //    }
 }

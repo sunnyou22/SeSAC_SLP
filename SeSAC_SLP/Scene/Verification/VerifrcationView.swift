@@ -62,7 +62,7 @@ final class VerificationView: BaseView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .setBaseColor(color: .white)
+        self.backgroundColor = .setGray(color: .gray6)
         setcontents(type: .second, label: titleLabel, button: nextButton, subtitle: nil)
     }
     

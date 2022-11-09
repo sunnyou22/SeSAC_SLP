@@ -7,9 +7,15 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+import FirebaseAuth
+
 class SignUpViewController: BaseViewController {
     
-  var mainView = SignUpView()
+    var mainView = SignUpView()
+    let viewModel = SignUpViewModel()
+    let disposedBag = DisposeBag()
     
     override func loadView() {
         super.loadView()
@@ -19,47 +25,75 @@ class SignUpViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-            mainView.nextButton.addTarget(self, action: #selector(goReceiveVerificationNumView), for: .touchUpInside)
-//        case .second(let secondView):
-//            secondView.nextButton.addTarget(self, action: #selector(goReceiveVerificationNickNameView), for: .touchUpInside)
-//        case .nickname(let nickName):
-//            nickName.nextButton.addTarget(self, action: #selector(goSignUpBirthView), for: .touchUpInside)
-//        case .birthDay(let birthDay):
-//            birthDay.nextButton.addTarget(self, action: #selector(goSignUpEmailView), for: .touchUpInside)
-//        case .email(let emailView):
-//            emailView.nextButton.addTarget(self, action: #selector(goSignUpGenderView), for: .touchUpInside)
-//        case .gender(let gender):
-//            break
-        }
-
-    
-    @objc func goReceiveVerificationNumView() {
-        let vc = VerificationViewController()
-        transition(vc, .push)
+        bindData()
+       
+//        mainView.nextButton.addTarget(self, action: #selector(goReceiveVerificationNumView), for: .touchUpInside)
+        mainView.inputTextField.addTarget(self, action: #selector(changedTextfield), for: .editingChanged)
     }
     
-//    @objc func goReceiveVerificationNickNameView() {
-//        let vc = SignUpViewController(viewtype: .setCustomView(type: .nickname), vc: .nickname)
-//        vc.mainView.setcontents(type: .nickname, view: vc.mainView.titleLabel)
-//        transition(vc, .push)
-//    }
+    func bindData() {
+        //여기서 이벤트를 받음냐
+        viewModel.textfield
+            .withUnretained(self)
+            .subscribe(onNext: { vc, text in
+                print(text, "=======")
+                vc.mainView.inputTextField.text = text.applyPatternOnNumbers(pattern: "###-####-####", replacmentCharacter: "#")
+            }).disposed(by: disposedBag)
+        
+        viewModel.buttonValid
+            .withUnretained(self)
+            .bind { vc, bool in
+                vc.mainView.nextButton.isEnabled = bool ? true : false
+                vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
+            }.disposed(by: disposedBag)
+        
+        mainView.nextButton.rx
+            .tap
+            .withUnretained(self)
+            .bind { vc, _ in
+                guard let text = vc.mainView.inputTextField.text else {return}
+                let rawnum = text.applyPatternOnNumbers(pattern: "###########", replacmentCharacter: "#")
+                let result = rawnum.dropFirst(1)
+                print(result, String(result), "😵‍💫😵‍💫😵‍💫😵‍💫")
+                vc.verification(num: String(result))
+//                let viewcontroller = VerificationViewController()
+//                vc.transition(viewcontroller, .push)
+            }.disposed(by: disposedBag)
+            
+    }
 //
-//    @objc func goSignUpBirthView() {
-//        let vc = SignUpViewController(viewtype: .setCustomView(type: .birthDay), vc: .birthDay)
-//        vc.mainView.setcontents(type: .birthDay, view: vc.mainView.titleLabel)
-//        transition(vc, .push)
-//    }
+//    @objc func goReceiveVerificationNumView() {
 //
-//    @objc func goSignUpEmailView() {
-//        let vc = SignUpViewController(viewtype: .setCustomView(type: .email), vc: .email)
-//        vc.mainView.setcontents(type: .email, view: vc.mainView.titleLabel)
-//        transition(vc, .push)
 //    }
-//
-//    @objc func goSignUpGenderView() {
-//        let vc = SignUpViewController(viewtype: .setCustomView(type: .gender), vc: .gender)
-//        vc.mainView.setcontents(type: .gender, view: vc.mainView.titleLabel)
-//        transition(vc, .push)
-//    }
+    
+    @objc func changedTextfield() {
+        guard let text = mainView.inputTextField.text else { return }
+        viewModel.textfield.accept(text)
+        
+        if text.count == 13, text.starts(with: "010") {
+            viewModel.buttonValid.accept(true)
+   
+        } else {
+            viewModel.buttonValid.accept(false)
+        }
+    }
+    
+    func verification(num: String) {
+        let verificationID = UserDefaults.standard.string(forKey: "authVerificationID") // 이 부분 이해하기
+
+        Auth.auth().languageCode = "kr"
+        PhoneAuthProvider.provider()
+            .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { (verificationID, error) in
+//                if let id = verificationID {
+//                    UserDefaults.standard.set("\(id)", forKey: "authVerificationID")
+//                    print("success🥰🥰")
+//                }
+                if let error = error {
+                    print(error.localizedDescription, "🥲😡")
+                    return
+                }
+                UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+                print("success🥰🥰")
+            }
+    }
 }
