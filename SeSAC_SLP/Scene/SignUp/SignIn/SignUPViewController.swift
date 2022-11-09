@@ -55,45 +55,44 @@ class SignUpViewController: BaseViewController {
                 let rawnum = text.applyPatternOnNumbers(pattern: "###########", replacmentCharacter: "#")
                 let result = rawnum.dropFirst(1)
                 print(result, String(result), "😵‍💫😵‍💫😵‍💫😵‍💫")
-                vc.verification(num: String(result))
-//                let viewcontroller = VerificationViewController()
-//                vc.transition(viewcontroller, .push)
+//                vc.verification(num: String(result))
+                let viewcontroller = VerificationViewController()
+                vc.transition(viewcontroller, .push)
             }.disposed(by: disposedBag)
-            
+  
+        // 로딩바를 터치하면 로딩바가 없어지고 인증과정도 리셋되게
     }
-//
-//    @objc func goReceiveVerificationNumView() {
-//
-//    }
-    
+
     @objc func changedTextfield() {
         guard let text = mainView.inputTextField.text else { return }
         viewModel.textfield.accept(text)
-        
         if text.count == 13, text.starts(with: "010") {
             viewModel.buttonValid.accept(true)
-   
         } else {
             viewModel.buttonValid.accept(false)
         }
     }
     
     func verification(num: String) {
-        let verificationID = UserDefaults.standard.string(forKey: "authVerificationID") // 이 부분 이해하기
-
+        
+        mainView.loadingBar.startAnimating() // verifyPhoneNumber 메서드는 원래 요청이 시간 초과되지 않는 한 두 번째 SMS를 보내지 않습니다.
+        mainView.nextButton.isEnabled = false
+        
         Auth.auth().languageCode = "kr"
         PhoneAuthProvider.provider()
-            .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { (verificationID, error) in
-//                if let id = verificationID {
-//                    UserDefaults.standard.set("\(id)", forKey: "authVerificationID")
-//                    print("success🥰🥰")
-//                }
+            .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
                 if let error = error {
                     print(error.localizedDescription, "🥲😡")
                     return
+                } else {
+                    
+                    // 메인뷰로 넘어가게하기
+                    
+                    UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+                    print("success🥰🥰")
+                    self?.mainView.loadingBar.stopAnimating()
+                    self?.mainView.nextButton.isEnabled = true
                 }
-                UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
-                print("success🥰🥰")
             }
     }
 }

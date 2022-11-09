@@ -160,8 +160,6 @@
 			children = (
 				902B100E291AE93500D03C0E /* Onboarding */,
 				902B1002291AB69C00D03C0E /* SignUp */,
-				902B1001291AB65300D03C0E /* Verification */,
-				902B0FDE29193AE600D03C0E /* SignIn */,
 				902B0FE82919665500D03C0E /* Enum.swift */,
 				902B0FD52918FE7400D03C0E /* Base */,
 			);
@@ -199,6 +197,8 @@
 		902B1002291AB69C00D03C0E /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				902B0FDE29193AE600D03C0E /* SignIn */,
+				902B1001291AB65300D03C0E /* Verification */,
 				902B1006291AB76600D03C0E /* NicknameViewController.swift */,
 				902B1008291AB78B00D03C0E /* BirthDayViewController.swift */,
 				902B0FEE291A15E500D03C0E /* PickerView.swift */,

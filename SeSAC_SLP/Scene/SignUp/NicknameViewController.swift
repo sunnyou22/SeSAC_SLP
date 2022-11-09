@@ -7,13 +7,40 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 class NicknameViewController: BaseViewController {
 
     var mainView = SignUpView()
-
+    let viewModel = SignUpViewModel()
+    let disposedBag = DisposeBag()
+    
     override func loadView() {
         super.loadView()
         view = mainView
+    }
+    
+    func bindData() {
+        viewModel.buttonValid
+            .withUnretained(self)
+            .bind { vc, bool in
+                vc.mainView.nextButton.isEnabled = bool ? true : false
+                vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
+            }.disposed(by: disposedBag)
+        
+        mainView.nextButton.rx
+            .tap
+            .withUnretained(self)
+            .bind { vc, _ in
+                guard let text = vc.mainView.inputTextField.text else {return}
+                let rawnum = text.applyPatternOnNumbers(pattern: "###########", replacmentCharacter: "#")
+                let result = rawnum.dropFirst(1)
+                print(result, String(result), "😵‍💫😵‍💫😵‍💫😵‍💫")
+                //                vc.verification(num: String(result))
+                let viewcontroller = NicknameViewController()
+                vc.transition(viewcontroller, .push)
+            }.disposed(by: disposedBag)
     }
 
     override func viewDidLoad() {
