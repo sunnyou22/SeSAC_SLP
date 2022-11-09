@@ -92,23 +92,40 @@ class VerificationViewController: BaseViewController {
             if let error = error {
                 //토스트띄우기
                 
-                let alert = UIAlertController(title: "알 수 없는 사용자", message: "회원가입화면으로 넘어가시겠습니까?", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "네", style: .default) { [weak self] _ in
-                    let viewcontroller = NicknameViewController()
-                    self?.transition(viewcontroller, .push)
-                    
-                }
-                let cancel = UIAlertAction(title: "아니오", style: .cancel)
-                alert.addAction(ok)
-                alert.addAction(cancel)
-                
-                self?.present(alert, animated: true)
-                
-                
                 print("Unable to login with Phone : error[\(error)]🥲😡")
                 return
             } else {
                 print("Phone Number user is signed in \(String(describing: result?.user.uid))🥰🥰")
+                
+                let currentUser = Auth.auth().currentUser
+                currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+                    if let error = error {
+                        print(error, "idtoken을 받아올 수 없습니다.")
+                        return
+                    } else {
+                        guard let phoneNum = UserDefaults.standard.string(forKey: "phoneNumber") else { return
+                        }
+                        viewModel.logInNetwork(phoneNumber: phoneNum., idtoken: idToken)
+                        viewModel.login
+                            .subscribe { user in
+                                print("\(user)님 반갑습니다😽😽")
+                            } onError: { [weak self] guest in
+                                
+                                let alert = UIAlertController(title: "알 수 없는 사용자", message: "회원가입화면으로 넘어가시겠습니까?", preferredStyle: .alert)
+                                let ok = UIAlertAction(title: "네", style: .default) { [weak self] _ in
+                                    let viewcontroller = NicknameViewController()
+                                    self?.transition(viewcontroller, .push)
+                                }
+                                
+                                let cancel = UIAlertAction(title: "아니오", style: .cancel)
+                                alert.addAction(ok)
+                                alert.addAction(cancel)
+                                
+                                self?.present(alert, animated: true)
+                            }
+
+                        
+                    }
             }
         }
     }
@@ -127,11 +144,11 @@ class VerificationViewController: BaseViewController {
                     
                     return
                 } else {
-                    UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
-                    print("success🥰🥰")
-                    self?.mainView.loadingBar.stopAnimating()
-                    self?.mainView.nextButton.isEnabled = true
-                }
+                        UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+                        print("success🥰🥰")
+                        self?.mainView.loadingBar.stopAnimating()
+                        self?.mainView.nextButton.isEnabled = true
+                    }
             }
     }
 }
