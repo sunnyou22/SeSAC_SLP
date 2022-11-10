@@ -11,6 +11,7 @@ import RxCocoa
 import RxSwift
 import FirebaseCore
 import FirebaseAuth
+import Toast
 
 class VerificationViewController: BaseViewController {
     
@@ -25,7 +26,7 @@ class VerificationViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        credential()
+        //        credential()
         bindData()
         mainView.inputTextField.addTarget(self, action: #selector(changedTextfield), for: .editingChanged)
     }
@@ -50,7 +51,7 @@ class VerificationViewController: BaseViewController {
             .withUnretained(self)
             .bind { vc, _ in
                 guard let phoneNumber = UserDefaults.standard.string(forKey: "phoneNumber") else { return }
-//                vc.verification(num: phoneNumber)
+                //                vc.verification(num: phoneNumber)
                 print("클릭이된당😇")
             }.disposed(by: disposedBag)
         
@@ -60,12 +61,11 @@ class VerificationViewController: BaseViewController {
             .bind { vc, _ in
                 vc.credential()
                 print("클릭된당")
-                //                let viewcontroller = NicknameViewController()
-                //                vc.transition(viewcontroller, .push)
+                
             }.disposed(by: disposedBag)
     }
     
-    
+    // Rx로 바꿔줘야함
     @objc func changedTextfield() {
         guard let text = mainView.inputTextField.text else { return }
         viewModel.textfield.accept(text)
@@ -74,7 +74,7 @@ class VerificationViewController: BaseViewController {
         } else {
             viewModel.buttonValid.accept(false)
         }
-       
+        
     }
     
     func credential() {
@@ -87,10 +87,20 @@ class VerificationViewController: BaseViewController {
             withVerificationID: verificationID,
             verificationCode: verificationCode
         )
-
+        
         Auth.auth().signIn(with: credential) { [weak self] result, error in
             if let error = error {
-                //토스트띄우기
+                
+                switch error {
+                case AuthErrorCode.missingVerificationID:
+                    self?.view.makeToast("전화 번호 인증 실패") // 타이머의 시간이 지났을 때의 메서드에 해당 오류를 던져야함
+                case AuthErrorCode.invalidVerificationID:
+                    self?.view.makeToast("전화 번호 인증 실패")
+                case AuthErrorCode.invalidUserToken:
+                    self?.view.makeToast("에러가 발생했습니다. 잠시 후 다시 시도해주세요.")
+                default:
+                    self?.view.makeToast("에러가 발생했습니다. 다시 시도해주세요.")
+                }
                 
                 print("Unable to login with Phone : error[\(error)]🥲😡")
                 return
@@ -105,12 +115,12 @@ class VerificationViewController: BaseViewController {
                     } else {
                         guard let phoneNum = UserDefaults.standard.string(forKey: "phoneNumber") else { return
                         }
-                        viewModel.logInNetwork(phoneNumber: phoneNum., idtoken: idToken)
-                        viewModel.login
+                        self?.viewModel.logInNetwork(phoneNumber: phoneNum, idtoken: idToken!)
+                        self?.viewModel.login
                             .subscribe { user in
-                                print("\(user)님 반갑습니다😽😽")
+                                print("\(user)님 \(phoneNum) 반갑습니다😽😽")
                             } onError: { [weak self] guest in
-                                
+                                print("\(guest)님 \(phoneNum) 누구세여? 🔴🔴")
                                 let alert = UIAlertController(title: "알 수 없는 사용자", message: "회원가입화면으로 넘어가시겠습니까?", preferredStyle: .alert)
                                 let ok = UIAlertAction(title: "네", style: .default) { [weak self] _ in
                                     let viewcontroller = NicknameViewController()
@@ -122,33 +132,25 @@ class VerificationViewController: BaseViewController {
                                 alert.addAction(cancel)
                                 
                                 self?.present(alert, animated: true)
-                            }
-
-                        
+                            }.disposed(by: DisposeBag())
                     }
+                }
             }
         }
-    }
-    
-    func verification(num: String) {
-        let verificationID = UserDefaults.standard.string(forKey: "authVerificationID") // 이 부분 이해하기
         
-        mainView.loadingBar.startAnimating()
-        mainView.nextButton.isEnabled = false
-        
-        Auth.auth().languageCode = "kr"
-        PhoneAuthProvider.provider()
-            .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
-                if let error = error {
-                    print(error.localizedDescription, "🥲😡")
-                    
-                    return
-                } else {
+        func verification(num: String) {
+   
+            Auth.auth().languageCode = "kr"
+            PhoneAuthProvider.provider()
+                .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
+                    if let error = error {
+                        print(error.localizedDescription, "🥲😡")
+                                                return
+                    } else {
                         UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
                         print("success🥰🥰")
-                        self?.mainView.loadingBar.stopAnimating()
-                        self?.mainView.nextButton.isEnabled = true
                     }
-            }
+                }
+        }
     }
 }

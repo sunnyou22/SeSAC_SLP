@@ -18,15 +18,16 @@ enum SignUpError: Int, Error {
     case ClientError = 501
 }
 
-// MARK: - Welcome
+// MARK: - SignUp
 struct SignUp: Codable {
     let phoneNumber, fcMtoken, nick, birth: String
     let email: String
     let gender: Int
-
+    
     enum CodingKeys: String, CodingKey {
         case phoneNumber
-        case fcMtoken = UserDefaults.standard.string(forKey: "FCMToken")
+        case fcMtoken = "FCMtoken"
+//        UserDefaults.standard.string(forKey: "FCMToken")
         case nick, birth, email, gender
     }
 }
@@ -56,7 +57,8 @@ struct LogIn: Codable {
         case id = "_id"
         case v = "__v"
         case uid, phoneNumber, email
-        case fcMtoken = UserDefaults.standard.string(forKey: "FCMToken")
+        case fcMtoken = "FCMtoken"
+//        UserDefaults.standard.string(forKey: "FCMToken")
         case nick, birth, gender, study, comment, reputation, sesac, sesacCollection, background, backgroundCollection, purchaseToken
         case transactionID = "transactionId"
         case reviewedBefore, reportedNum, reportedUser, dodgepenalty, dodgeNum, ageMin, ageMax, searchable, createdAt

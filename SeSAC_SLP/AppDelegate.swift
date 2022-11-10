@@ -43,7 +43,7 @@ extension AppDelegate: MessagingDelegate {
     //사용자가 앱을 삭제하거나, 핸드폰 기종을 바꿀 때 등으로 토큰에 대한 정보가 바뀔 때 불리는 메서드
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
       print("Firebase registration token: \(String(describing: fcmToken))")
-        UserDefaults.standard.set(idToken, forKey: "FCMToken")
+//        UserDefaults.standard.set(idToken, forKey: "FCMToken")
 
       let dataDict: [String: String] = ["token": fcmToken ?? ""]
       NotificationCenter.default.post(

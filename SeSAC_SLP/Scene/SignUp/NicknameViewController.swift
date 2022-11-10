@@ -19,6 +19,7 @@ class NicknameViewController: BaseViewController {
     override func loadView() {
         super.loadView()
         view = mainView
+        mainView.setcontents(type: .nickname, label: mainView.titleLabel, button: mainView.nextButton, subtitle: nil)
     }
     
     func bindData() {

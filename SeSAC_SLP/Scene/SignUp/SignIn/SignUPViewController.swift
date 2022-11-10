@@ -9,7 +9,9 @@ import UIKit
 
 import RxSwift
 import RxCocoa
+import FirebaseCore
 import FirebaseAuth
+import Toast
 
 class SignUpViewController: BaseViewController {
     
@@ -26,8 +28,8 @@ class SignUpViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bindData()
-       
-//        mainView.nextButton.addTarget(self, action: #selector(goReceiveVerificationNumView), for: .touchUpInside)
+        
+        //        mainView.nextButton.addTarget(self, action: #selector(goReceiveVerificationNumView), for: .touchUpInside)
         mainView.inputTextField.addTarget(self, action: #selector(changedTextfield), for: .editingChanged)
     }
     
@@ -43,7 +45,6 @@ class SignUpViewController: BaseViewController {
         viewModel.buttonValid
             .withUnretained(self)
             .bind { vc, bool in
-                vc.mainView.nextButton.isEnabled = bool ? true : false
                 vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
             }.disposed(by: disposedBag)
         
@@ -55,14 +56,16 @@ class SignUpViewController: BaseViewController {
                 let rawnum = text.applyPatternOnNumbers(pattern: "###########", replacmentCharacter: "#")
                 let result = rawnum.dropFirst(1)
                 print(result, String(result), "😵‍💫😵‍💫😵‍💫😵‍💫")
-//                vc.verification(num: String(result))
-                let viewcontroller = VerificationViewController()
-                vc.transition(viewcontroller, .push)
+                if vc.viewModel.buttonValid.value == false {
+                    vc.view.makeToast("잘못된 전화번호 형식입니다.")
+                } else {
+                    vc.verification(num: String(result))
+                }
             }.disposed(by: disposedBag)
-  
+        
         // 로딩바를 터치하면 로딩바가 없어지고 인증과정도 리셋되게
     }
-
+    
     @objc func changedTextfield() {
         guard let text = mainView.inputTextField.text else { return }
         viewModel.textfield.accept(text)
@@ -75,24 +78,30 @@ class SignUpViewController: BaseViewController {
     
     func verification(num: String) {
         
-        mainView.loadingBar.startAnimating() // verifyPhoneNumber 메서드는 원래 요청이 시간 초과되지 않는 한 두 번째 SMS를 보내지 않습니다.
-        mainView.nextButton.isEnabled = false
+    // verifyPhoneNumber 메서드는 원래 요청이 시간 초과되지 않는 한 두 번째 SMS를 보내지 않습니다.
         
         Auth.auth().languageCode = "kr"
         PhoneAuthProvider.provider()
             .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
                 if let error = error {
-                    print(error.localizedDescription, "🥲😡")
+                    switch error {
+                    case AuthErrorCode.invalidPhoneNumber:
+                        self?.view.makeToast("잘못된 전화번호 형식입니다.")
+                        // 이거 어떻게 실험할 수 있지 흠...
+                    case AuthErrorCode.tooManyRequests:
+                        self?.view.makeToast("과도한 인증 시도가 있었습니다. 나중에 다시 시도해 주세요.")
+                    default:
+                        self?.view.makeToast("에러가 발생했습니다. 다시 시도해주세요")
+                    }
+                    print(error.localizedDescription, error, "🥲😡")
                     return
                 } else {
-                    
-                    // 메인뷰로 넘어가게하기
-                    
+                    let viewcontroller = VerificationViewController()
+                    self?.transition(viewcontroller, .push)
                     UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
                     print("success🥰🥰")
-                    self?.mainView.loadingBar.stopAnimating()
-                    self?.mainView.nextButton.isEnabled = true
                 }
             }
     }
 }
+
