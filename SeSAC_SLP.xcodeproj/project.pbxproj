@@ -14,7 +14,6 @@
 		902B0FB32918BC2000D03C0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 902B0FB22918BC2000D03C0E /* Assets.xcassets */; };
 		902B0FB62918BC2000D03C0E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 902B0FB42918BC2000D03C0E /* LaunchScreen.storyboard */; };
 		902B0FBE2918BD0000D03C0E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 902B0FBD2918BD0000D03C0E /* .gitignore */; };
-		902B0FC02918C08600D03C0E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 902B0FBF2918C08600D03C0E /* GoogleService-Info.plist */; };
 		902B0FD72918FEBE00D03C0E /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FD62918FEBE00D03C0E /* BaseView.swift */; };
 		902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FD8291915FE00D03C0E /* BaseViewController.swift */; };
 		902B0FDD29193A0F00D03C0E /* SignUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FDC29193A0F00D03C0E /* SignUPViewController.swift */; };
@@ -46,6 +45,7 @@
 		902B102C291C542700D03C0E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102B291C542700D03C0E /* FirebaseAuth */; };
 		902B102E291C542700D03C0E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102D291C542700D03C0E /* FirebaseCrashlytics */; };
 		902B1030291C542700D03C0E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102F291C542700D03C0E /* FirebaseMessaging */; };
+		9095C4DE291D13730055D1B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */; };
 		90DA96C7291CE03500B5CA76 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 90DA96C6291CE03500B5CA76 /* Toast */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +59,6 @@
 		902B0FB52918BC2000D03C0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		902B0FB72918BC2000D03C0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		902B0FBD2918BD0000D03C0E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		902B0FBF2918C08600D03C0E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		902B0FD62918FEBE00D03C0E /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		902B0FD8291915FE00D03C0E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		902B0FDC29193A0F00D03C0E /* SignUPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUPViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +83,7 @@
 		902B101B291C1A0000D03C0E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		902B101D291C1A8E00D03C0E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		902B101F291C1AF200D03C0E /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,8 +131,8 @@
 				902B0FD32918FE6000D03C0E /* New Group */,
 				902B0FD22918FE4100D03C0E /* Network */,
 				902B0FD12918FDEB00D03C0E /* Constent */,
-				902B0FBF2918C08600D03C0E /* GoogleService-Info.plist */,
 				902B0FA92918BC1C00D03C0E /* AppDelegate.swift */,
+				9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */,
 				902B0FAB2918BC1C00D03C0E /* SceneDelegate.swift */,
 				902B0FAD2918BC1C00D03C0E /* ViewController.swift */,
 				902B0FAF2918BC1C00D03C0E /* Main.storyboard */,
@@ -312,7 +312,7 @@
 			files = (
 				902B0FBE2918BD0000D03C0E /* .gitignore in Resources */,
 				902B0FB62918BC2000D03C0E /* LaunchScreen.storyboard in Resources */,
-				902B0FC02918C08600D03C0E /* GoogleService-Info.plist in Resources */,
+				9095C4DE291D13730055D1B7 /* GoogleService-Info.plist in Resources */,
 				902B0FB32918BC2000D03C0E /* Assets.xcassets in Resources */,
 				902B0FB12918BC1C00D03C0E /* Main.storyboard in Resources */,
 			);
@@ -496,6 +496,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SeSAC_SLP/SeSAC_SLP.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8L83798C5;
@@ -512,8 +513,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bangsunu.SeSAC-SLP";
+				PRODUCT_BUNDLE_IDENTIFIER = com.memolease.sesacslp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -529,6 +531,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SeSAC_SLP/SeSAC_SLP.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8L83798C5;
@@ -545,8 +548,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bangsunu.SeSAC-SLP";
+				PRODUCT_BUNDLE_IDENTIFIER = com.memolease.sesacslp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

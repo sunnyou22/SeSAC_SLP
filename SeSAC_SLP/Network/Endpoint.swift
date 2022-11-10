@@ -49,5 +49,19 @@ extension SeSACAPI {
         }
     }
 
-    
+    var parameter: [String: Any] {
+        switch self {
+        case .signUp(let nick, let phoneNumber, let birth, let email, let gender):
+            return [
+                "nick": nick,
+                "phoneNumber": phoneNumber,
+                "birth": birth,
+                "email": email,
+                "gender": gender
+            ]
+        case .logIn:
+            return ["":""]
+        default: return ["":""]
+        }
+    }
 }

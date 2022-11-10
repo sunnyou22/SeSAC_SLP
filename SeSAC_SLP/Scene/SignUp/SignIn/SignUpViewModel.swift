@@ -20,7 +20,7 @@ class SignUpViewModel {
         
         let api = SeSACAPI.signUp(nick: nick, phoneNumber: phoneNumber, birth: birth, email: email, gender: gender)
         
-        Network.shared.requestSeSAC(type: SignUp.self, method: .post, url: api.url, headers: api.getheader(idtoken: idtoken)) { [weak self] response in
+        Network.shared.requestSeSAC(type: SignUp.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] response in
             
             switch response {
             case .success(let success):
@@ -31,16 +31,17 @@ class SignUpViewModel {
         }
     }
     
-    func logInNetwork(phoneNumber: String, idtoken: String) {
+    func logInNetwork(phoneNumber: String, idtoken: String, completion: @escaping (() -> Void)) {
         let api = SeSACAPI.logIn(phoneNumber: phoneNumber)
         
-        Network.shared.requestSeSAC(type: LogIn.self, method: .get, url: api.url, headers: api.getheader(idtoken: idtoken)) { [weak self] response in
-            
+        Network.shared.requestSeSAC(type: LogIn.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] response in
             switch response {
             case .success(let success):
+            print("나 성공")
                 self?.login.onNext(success)
             case .failure(let failure):
                 self?.login.onError(failure)
+                completion()
             }
         }
     }

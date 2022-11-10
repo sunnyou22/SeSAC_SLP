@@ -83,6 +83,7 @@ class SignUpViewController: BaseViewController {
         Auth.auth().languageCode = "kr"
         PhoneAuthProvider.provider()
             .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
+                UserDefaults.standard.set("+82\(num)", forKey: "phoneNumber")
                 if let error = error {
                     switch error {
                     case AuthErrorCode.invalidPhoneNumber:

@@ -14,7 +14,7 @@ final class Network {
     
     private init() { }
     
-    func requestSeSAC<T: Decodable>(type: T.Type = T.self, method: HTTPMethod, url: URL, headers: HTTPHeaders, completion: @escaping (Result<T, Error>) -> Void) {
+    func requestSeSAC<T: Decodable>(type: T.Type = T.self, url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, headers: HTTPHeaders, completion: @escaping ((Result<T, Error>) -> Void)) {
         
         AF.request(url, method: method, headers: headers).responseDecodable(of: T.self) { response in
             switch response.result {

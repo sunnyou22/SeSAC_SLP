@@ -59,7 +59,6 @@ final class SignUpView: BaseView {
         super.init(frame: frame)
         self.backgroundColor = .setBaseColor(color: .white)
         setcontents(type: .first, label: titleLabel, button: nextButton, subtitle: nil)
-        
     }
     
     required init?(coder: NSCoder) {
