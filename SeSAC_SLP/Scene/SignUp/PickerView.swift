@@ -12,6 +12,14 @@ class ComponentView: BaseView {
     var str: String
     let spacing = 16
     
+    let datePiceker: UIDatePicker = {
+       let view = UIDatePicker()
+        view.datePickerMode = .date
+        view.preferredDatePickerStyle = .wheels
+        view.locale = Locale(identifier: "ko-kr")
+        return view
+    }()
+    
     init(str: String) {
         self.str = str
         super.init(frame: .zero)
@@ -21,9 +29,12 @@ class ComponentView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let button: UIButton = {
-        let view = UIButton()
-        view.backgroundColor = .brown
+    lazy var dateTextField: UITextField = {
+        let view = UITextField()
+        view.inputView = datePiceker
+        view.textColor = .setBaseColor(color: .black)
+        view.font = .title4_R14
+        view.tintColor = .clear
 //        view.setContentHuggingPriority(UILayoutPriority(249), for: .horizontal)
         return view
     }()
@@ -31,6 +42,7 @@ class ComponentView: BaseView {
    lazy var label: UILabel = { [weak self] in
         let view = UILabel()
         view.text = self?.str
+       view.textColor = .setBaseColor(color: .black)
         return view
     }()
     
@@ -41,7 +53,7 @@ class ComponentView: BaseView {
     }()
     
     override func configure() {
-        [label, button, sectionBar].forEach { self.addSubview($0) }
+        [label, dateTextField, sectionBar].forEach { self.addSubview($0) }
     }
     
     override func setConstraints() {
@@ -50,10 +62,10 @@ class ComponentView: BaseView {
             make.centerY.equalTo(self.snp.centerY)
         }
         
-        button.snp.makeConstraints { make in
-            make.leading.greaterThanOrEqualTo(self.snp.leading).offset(28)
-            make.trailing.lessThanOrEqualTo(label.snp.leading).offset(-40)
-            make.width.equalTo(32)
+        dateTextField.snp.makeConstraints { make in
+            make.leading.equalTo(self.snp.leading).offset(28)
+//            make.trailing.lessThanOrEqualTo(label.snp.leading).offset(-40)
+            make.width.greaterThanOrEqualTo(32)
             make.centerY.equalTo(self.snp.centerY)
         }
         
@@ -62,11 +74,11 @@ class ComponentView: BaseView {
             make.leading.equalTo(self.snp.leading)
             make.trailing.equalTo(label.snp.leading)
             make.height.equalTo(1)
-
         }
     }
 }
 
+//MARK: mainview
 final class PickerView: BaseView {
     
     let titleLabel: UILabel = {
@@ -75,6 +87,7 @@ final class PickerView: BaseView {
         view.numberOfLines = 0
         view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20, lineHeight: 1.6, view.text!)
         view.textAlignment = .center
+        view.tintColor = .setBaseColor(color: .black)
         return view
     }()
     

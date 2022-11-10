@@ -97,4 +97,9 @@ final class SignUpView: BaseView {
             make.centerX.equalTo(self.snp.centerX)
         }
     }
+    
+    func setInputTextField() {
+        inputTextField.becomeFirstResponder()
+        inputTextField.keyboardType = .default
+    }
 }

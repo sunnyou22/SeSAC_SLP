@@ -19,7 +19,14 @@ class NicknameViewController: BaseViewController {
     override func loadView() {
         super.loadView()
         view = mainView
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        mainView.backgroundColor = .setBaseColor(color: .white)
         mainView.setcontents(type: .nickname, label: mainView.titleLabel, button: mainView.nextButton, subtitle: nil)
+        mainView.setInputTextField()
+        bindData()
     }
     
     func bindData() {
@@ -33,7 +40,9 @@ class NicknameViewController: BaseViewController {
             .withUnretained(self)
             .bind { vc, bool in
                 UserDefaults.nickname = vc.mainView.inputTextField.text
+                print("닉네임 🚀 \(UserDefaults.nickname)")
                 vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
+                vc.viewModel.buttonValid.accept(bool)
             }.disposed(by: disposedBag)
         
         // 버튼 탭
@@ -41,26 +50,11 @@ class NicknameViewController: BaseViewController {
             .tap
             .withUnretained(self)
             .bind { vc, _ in
-                guard let text = vc.mainView.inputTextField.text else {return}
-                let rawnum = text.applyPatternOnNumbers(pattern: "###########", replacmentCharacter: "#")
-                let result = rawnum.dropFirst(1)
-                print(result, String(result), "😵‍💫😵‍💫😵‍💫😵‍💫")
-                //                vc.verification(num: String(result))
-                let viewcontroller = NicknameViewController()
-                vc.transition(viewcontroller, .push)
+                let viewcontroller = BirthDayViewController()
+                if vc.viewModel.buttonValid.value {
+                    vc.transition(viewcontroller, .push)
+                }
             }.disposed(by: disposedBag)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        mainView.backgroundColor = .setBaseColor(color: .white)
-        mainView.setcontents(type: .first, label: mainView.titleLabel, button: mainView.nextButton, subtitle: nil)
-        mainView.nextButton.addTarget(self, action: #selector(goReceiveVerificationNumView), for: .touchUpInside)
-    }
-
-    @objc func goReceiveVerificationNumView() {
-        let vc = BirthDayViewController()
-        transition(vc, .push)
     }
 }
 

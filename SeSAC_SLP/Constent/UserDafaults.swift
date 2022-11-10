@@ -27,4 +27,7 @@ extension UserDefaults {
 
     @UserDeaultHelper(key: "nickname", defaultValue: "")
     static var nickname: String?
+    
+    @UserDeaultHelper(key: "date", defaultValue: "")
+    static var date: String
 }
