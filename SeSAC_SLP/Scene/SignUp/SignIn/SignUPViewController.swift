@@ -57,7 +57,7 @@ class SignUpViewController: BaseViewController {
                 let result = rawnum.dropFirst(1)
                 print(result, String(result), "😵‍💫😵‍💫😵‍💫😵‍💫")
                 if vc.viewModel.buttonValid.value == false {
-                    vc.view.makeToast("잘못된 전화번호 형식입니다.")
+                    vc.view.makeToast("잘못된 전화번호 형식입니다.", position: .center)
                 } else {
                     vc.verification(num: String(result))
                 }
@@ -87,12 +87,12 @@ class SignUpViewController: BaseViewController {
                 if let error = error {
                     switch error {
                     case AuthErrorCode.invalidPhoneNumber:
-                        self?.view.makeToast("잘못된 전화번호 형식입니다.")
+                        self?.view.makeToast("잘못된 전화번호 형식입니다.", position: .center)
                         // 이거 어떻게 실험할 수 있지 흠...
                     case AuthErrorCode.tooManyRequests:
-                        self?.view.makeToast("과도한 인증 시도가 있었습니다. 나중에 다시 시도해 주세요.")
+                        self?.view.makeToast("과도한 인증 시도가 있었습니다. 나중에 다시 시도해 주세요.", position: .center)
                     default:
-                        self?.view.makeToast("에러가 발생했습니다. 다시 시도해주세요")
+                        self?.view.makeToast("에러가 발생했습니다. 다시 시도해주세요", position: .center)
                     }
                     print(error.localizedDescription, error, "🥲😡")
                     return

@@ -30,4 +30,7 @@ extension UserDefaults {
     
     @UserDeaultHelper(key: "date", defaultValue: "")
     static var date: String
+    
+    @UserDeaultHelper(key: "email", defaultValue: "")
+    static var email: String
 }

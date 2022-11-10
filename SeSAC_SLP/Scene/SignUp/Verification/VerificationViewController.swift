@@ -91,13 +91,13 @@ class VerificationViewController: BaseViewController {
                 
                 switch error {
                 case AuthErrorCode.missingVerificationID:
-                    self?.view.makeToast("전화 번호 인증 실패") // 타이머의 시간이 지났을 때의 메서드에 해당 오류를 던져야함
+                    self?.view.makeToast("전화 번호 인증 실패", position: .center) // 타이머의 시간이 지났을 때의 메서드에 해당 오류를 던져야함
                 case AuthErrorCode.invalidVerificationID:
-                    self?.view.makeToast("전화 번호 인증 실패")
+                    self?.view.makeToast("전화 번호 인증 실패", position: .center)
                 case AuthErrorCode.invalidUserToken:
-                    self?.view.makeToast("에러가 발생했습니다. 잠시 후 다시 시도해주세요.")
+                    self?.view.makeToast("에러가 발생했습니다. 잠시 후 다시 시도해주세요.", position: .center)
                 default:
-                    self?.view.makeToast("에러가 발생했습니다. 다시 시도해주세요.")
+                    self?.view.makeToast("에러가 발생했습니다. 다시 시도해주세요.", position: .center)
                 }
                 
                 print("Unable to login with Phone : error[\(error)]🥲😡")
@@ -147,11 +147,11 @@ class VerificationViewController: BaseViewController {
 //                                    let viewcontroller = NicknameViewController()
 //                                    self?.transition(viewcontroller, .push)
 //                                }
-//                                
+//
 //                                let cancel = UIAlertAction(title: "아니오", style: .cancel)
 //                                alert.addAction(ok)
 //                                alert.addAction(cancel)
-//                                
+//
 //                                self?.present(alert, animated: true)
 //                            }.disposed(by: DisposeBag())
                     }
