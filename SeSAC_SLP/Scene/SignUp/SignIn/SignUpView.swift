@@ -34,7 +34,7 @@ final class SignUpView: BaseView {
     
     let inputTextField: UITextField = {
         let view = UITextField()
-        view.placeholder = "휴대폰 번호(-없이 숫자만 입력)"
+        view.placeholder = "휴대폰 번호(-없이 숫자만 입력)" // 닉네임 뷰랑 구분해서 넣기
         view.textAlignment = .left
         view.keyboardType = .namePhonePad
         //        view.text = 하이픈으로 구분해주는 기능넣기

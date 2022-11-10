@@ -16,6 +16,9 @@ class SignUpViewModel {
     var buttonValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var nextbutton: ControlEvent<Void>?
     
+    //MARK: 닉네임
+    
+    
     func signUpNetwork(nick: String, phoneNumber: String, birth: String, email: String, gender: Int, idtoken: String) {
         
         let api = SeSACAPI.signUp(nick: nick, phoneNumber: phoneNumber, birth: birth, email: email, gender: gender)

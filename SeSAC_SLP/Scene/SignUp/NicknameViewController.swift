@@ -23,13 +23,20 @@ class NicknameViewController: BaseViewController {
     }
     
     func bindData() {
-        viewModel.buttonValid
+        
+        //텍스트 필드, 버튼 탭
+        mainView.inputTextField
+            .rx
+            .text
+            .orEmpty
+            .map { ($0.count < 10 && $0.count > 1) }
             .withUnretained(self)
             .bind { vc, bool in
-                vc.mainView.nextButton.isEnabled = bool ? true : false
+                UserDefaults.nickname = vc.mainView.inputTextField.text
                 vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
             }.disposed(by: disposedBag)
         
+        // 버튼 탭
         mainView.nextButton.rx
             .tap
             .withUnretained(self)
