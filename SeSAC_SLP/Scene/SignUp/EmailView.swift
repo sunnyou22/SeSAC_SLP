@@ -17,6 +17,7 @@ final class EmailView: BaseView {
         view.numberOfLines = 0
         view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20, lineHeight: 1.6, view.text!)
         view.textAlignment = .center
+        view.textColor = .setBaseColor(color: .black)
         return view
     }()
     

@@ -101,6 +101,14 @@ class BirthDayViewController: BaseViewController {
                 vc.mainView.dateView.dateTextField.textColor = bool ? .setBaseColor(color: .black) : .setGray(color: .gray7)
                 print("😫", bool)
             }.disposed(by: disposedBag)
+        
+        mainView.nextButton.rx
+            .tap
+            .withUnretained(self)
+            .bind { vc, _ in
+                let viewcontroller = EmailViewController()
+                vc.transition(viewcontroller, .push)
+            }.disposed(by: disposedBag)
     }
 }
 

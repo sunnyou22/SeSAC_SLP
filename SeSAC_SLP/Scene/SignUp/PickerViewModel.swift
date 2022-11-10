@@ -17,7 +17,16 @@ final class PickerViewModel {
     
     func checkValidAge(date: Date) -> Bool {
         let calendar = Calendar(identifier: .gregorian)
+        let datecomponent = calendar.dateComponents([.year, .month, .day], from: Date())
         guard let minimundate = calendar.date(byAdding: .year, value: 17, to: date) else { return false }
-        return Date() > minimundate
+        let minimundateComponent = calendar.dateComponents([.year, .month, .day], from: minimundate)
+        guard let today = calendar.date(from: datecomponent) else {
+            print("🥺 checkValidAge 가드문 갇힘")
+            return false }
+        guard let birthDay = calendar.date(from: minimundateComponent) else {
+            print("🥺 checkValidAge 가드문 갇힘")
+            return false }
+
+        return today >= birthDay
     }
 }

@@ -78,7 +78,7 @@ class SignUpViewController: BaseViewController {
     
     func verification(num: String) {
         
-    // verifyPhoneNumber 메서드는 원래 요청이 시간 초과되지 않는 한 두 번째 SMS를 보내지 않습니다.
+        // verifyPhoneNumber 메서드는 원래 요청이 시간 초과되지 않는 한 두 번째 SMS를 보내지 않습니다.
         
         Auth.auth().languageCode = "kr"
         PhoneAuthProvider.provider()
