@@ -33,4 +33,10 @@ extension UserDefaults {
     
     @UserDeaultHelper(key: "email", defaultValue: "")
     static var email: String
+    
+    @UserDeaultHelper(key: "man", defaultValue: 1)
+    static var man: Int
+    
+    @UserDeaultHelper(key: "woman", defaultValue: 0)
+    static var woman: Int
 }
