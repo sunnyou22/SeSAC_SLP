@@ -29,6 +29,21 @@ class NicknameViewController: BaseViewController {
         bindData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        SignUpViewModel.test
+            .withUnretained(self)
+            .bind { vc, bool in
+                print("들어오나요오오오오오오오옹ㄴ")
+            if bool {
+                print("들어오나욘")
+                vc.mainView.makeToast("닉네임 다시 설정해주세요", duration: 1, position: .center)
+                vc.mainView.inputTextField.text = UserDefaults.nickname
+            }
+            }.disposed(by: disposedBag)
+    }
+    
     func bindData() {
         
         //텍스트 필드, 버튼 탭

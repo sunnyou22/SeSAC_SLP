@@ -10,6 +10,8 @@ import Foundation
 import RxCocoa
 import RxSwift
 import Toast
+import FirebaseCore
+import FirebaseAuth
 
 class GenderViewController: BaseViewController {
     
@@ -54,20 +56,51 @@ class GenderViewController: BaseViewController {
         mainView.nextButton.rx
             .tap
             .withUnretained(self)
-            .bind { vc, _ in
+            .bind { vc, test in
                 if vc.viewModel.buttonValid.value {
-                    let viewcontroller = SignUpViewController() //임시
                     vc.viewModel.signUpNetwork (
                         nick: UserDefaults.nickname!, FCMtoken: UserDefaults.FCMToken,
                         phoneNumber: UserDefaults.phoneNumber,
                         birth: UserDefaults.date!,
                         email: UserDefaults.email,
                         gender: UserDefaults.gender,
-                        idtoken: UserDefaults.idtoken)
-                    //                    vc.transition(viewcontroller, .push)
+                        idtoken: UserDefaults.idtoken) { error in
+                            switch error {
+                            case SignUpError.FirebaseTokenError:
+                                vc.getIdtoken()
+                            case SignUpError.InvaliedNickName:
+                                
+                                vc.mainView.makeToast("사용할 수 없는 닉네임입니다", duration: 1, position: .center) { didTap in
+                                    SignUpViewModel.test.accept(true)
+                                    let viewcontroller = NicknameViewController()
+//                                    vc.navigationController?.pushViewController(viewcontroller, animated: true)
+                                                                        vc.navigationController?.popToViewController(viewcontroller, animated: true)
+                                }
+                                
+                            default:
+                                print("기타")
+                            }
+                        }
                 } else {
                     vc.mainView.makeToast("성별을 선택해주세요", duration: 1, position: .center)
                 }
             }.disposed(by: disposedBag)
     }
+    
+    func getIdtoken() {
+        let currentUser = Auth.auth().currentUser
+        currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+            if let error = error {
+                print(error, "idtoken을 받아올 수 없습니다.")
+                return
+            } else {
+                guard let idtoken = idToken else { return }
+                
+                UserDefaults.idtoken = idtoken
+                
+            }
+        }
+        
+    }
+    
 }

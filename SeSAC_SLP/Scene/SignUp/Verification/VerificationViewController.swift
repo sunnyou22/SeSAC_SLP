@@ -29,6 +29,7 @@ class VerificationViewController: BaseViewController {
         bindData()
         mainView.inputTextField.addTarget(self, action: #selector(changedTextfield), for: .editingChanged)
         print( UserDefaults.idtoken, "🚀")
+        print("저나번호", UserDefaults.phoneNumber, UserDefaults.repostNum)
     }
     
     func bindData() {
@@ -57,12 +58,9 @@ class VerificationViewController: BaseViewController {
             .tap
             .withUnretained(self)
             .bind { vc, _ in
-//                vc.credential()
+                vc.credential()
                 vc.getNetwork() // 임시
-                
-                let viewcontroller = NicknameViewController()
-                vc.transition(viewcontroller, .push)
-                print("클릭된당")
+                print("클릭된당", UserDefaults.phoneNumber, UserDefaults.repostNum)
                 
             }.disposed(by: disposedBag)
     }
@@ -107,51 +105,87 @@ class VerificationViewController: BaseViewController {
                 return
             } else {
                 print("Phone Number user is signed in \(String(describing: result?.user.uid))🥰🥰")
-                
-                let currentUser = Auth.auth().currentUser
-                currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
-                    if let error = error {
-                        print(error, "idtoken을 받아올 수 없습니다.")
-                        return
-                    } else {
-                   
-                        guard let idtoken = idToken else { return }
-                        print(UserDefaults.phoneNumber ,"🚀🚀🚀🚀phoneNumber", idtoken, "🚀🚀🚀")
-                        UserDefaults.idtoken = idtoken
-//                        self?.getNetwork()
-                        
-                    }
-                }
             }
+            
         }
     }
     
     func getNetwork() {
-        let DBidtoken = UserDefaults.idtoken
+  
         let phoneNum = UserDefaults.phoneNumber
-        viewModel.logInNetwork(phoneNumber: phoneNum, idtoken: DBidtoken) { [weak self] in
-            let alert = UIAlertController(title: "알 수 없는 사용자", message: "회원가입화면으로 넘어가시겠습니까?", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "네", style: .default) { [weak self] _ in
+        
+        viewModel.logInNetwork(phoneNumber: phoneNum, idtoken: UserDefaults.idtoken) { [weak self] error in
+            
+            switch error {
+            case SignUpError.FirebaseTokenError:
+                guard let DBitoken = self?.getIDTokenForcingRefresh() else { return }
+                UserDefaults.idtoken = DBitoken
                 let viewcontroller = NicknameViewController()
                 self?.transition(viewcontroller, .push)
+            case SignUpError.SignInUser:
+                self?.mainView.makeToast("이미 가입한 회원입니다.", duration: 0.7, position: .center) { didTap in
+                    //                let viewcontroller = 메인뷰컨
+                }
+            case SignUpError.NotsignUpUser:
+                let alert = UIAlertController(title: "알 수 없는 사용자", message: "회원가입화면으로 넘어가시겠습니까?", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "네", style: .default) { [weak self] _ in
+                    guard let DBitoken = self?.getIDTokenForcingRefresh() else { return }
+                    UserDefaults.idtoken = DBitoken
+                    let viewcontroller = NicknameViewController()
+                    self?.transition(viewcontroller, .push)
+                }
+                
+                let cancel = UIAlertAction(title: "아니오", style: .cancel)
+                alert.addAction(ok)
+                alert.addAction(cancel)
+                
+                self?.present(alert, animated: true)
+            default:
+                self?.mainView.makeToast("네트워크 통신상태를 확인해주세요!", duration: 0.7, position: .center)
             }
-        
-            let cancel = UIAlertAction(title: "아니오", style: .cancel)
-            alert.addAction(ok)
-            alert.addAction(cancel)
             
-            self?.present(alert, animated: true)
+            
         }
     }
+
+    func getIDTokenForcingRefresh() -> String? {
+        let currentUser = Auth.auth().currentUser
+        currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+            if let error = error {
+                print(error, "idtoken을 받아올 수 없습니다.")
+                return
+            } else {
+                guard let idtoken = idToken else { return }
+                print(UserDefaults.phoneNumber ,"🚀🚀🚀🚀phoneNumber", idtoken, "🚀🚀🚀")
+            UserDefaults.idtoken = idtoken
+        }
+    }
+        return UserDefaults.idtoken
+}
+
+func setVerification(num: String) {
     
-    func setVerification(num: String) {
+    // verifyPhoneNumber 메서드는 원래 요청이 시간 초과되지 않는 한 두 번째 SMS를 보내지 않습니다.
+    
         Auth.auth().languageCode = "kr"
         PhoneAuthProvider.provider()
             .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
+                UserDefaults.phoneNumber = "+82\(num)"
                 if let error = error {
-                    print(error.localizedDescription, "🥲😡")
+                    switch error {
+                    case AuthErrorCode.invalidPhoneNumber:
+                        self?.view.makeToast("잘못된 전화번호 형식입니다.", position: .center)
+                        // 이거 어떻게 실험할 수 있지 흠...
+                    case AuthErrorCode.tooManyRequests:
+                        self?.view.makeToast("과도한 인증 시도가 있었습니다. 나중에 다시 시도해 주세요.", position: .center)
+                    default:
+                        self?.view.makeToast("에러가 발생했습니다. 다시 시도해주세요", position: .center)
+                    }
+                    print(error.localizedDescription, error, "🥲😡")
                     return
                 } else {
+                    let viewcontroller = VerificationViewController()
+                    self?.transition(viewcontroller, .push)
                     UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
                     print("success🥰🥰")
                 }

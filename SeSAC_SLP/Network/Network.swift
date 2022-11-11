@@ -14,16 +14,16 @@ final class Network {
     
     private init() { }
     
-    func requestSeSAC<T: Decodable>(type: T.Type = T.self, url: URL, parameter: [String:Any]?, method: HTTPMethod, headers: HTTPHeaders, completion: @escaping ((Result<T, Error>) -> Void)) {
+    func requestSeSAC<T: Decodable>(type: T.Type = T.self, url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, headers: HTTPHeaders, completion: @escaping ((Result<T, Error>) -> Void)) {
         
         AF.request(url, method: method, parameters: parameter, encoding: URLEncoding.httpBody, headers: headers)
-            .validate(statusCode: 200...201)
             .responseDecodable(of: T.self)
         { response in
                 
             switch response.result {
             case .success(let data):
                 completion(.success(data))
+                guard let statusCode = response.response?.statusCode else { return }
                 print("🚀🚀 성공")
                 print("🚀\n\(data)")
                 
@@ -32,6 +32,16 @@ final class Network {
                 guard let error = SignUpError(rawValue: statusCode) else { return }
                 
                 print("🔴 SignUpError", response.response?.statusCode, error)
+                /*
+                 🔴 SignUpError Optional(401) FirebaseTokenError
+                 (lldb) po statusCode
+                 202
+
+                 (lldb) po response.response?.statusCode
+                 ▿ Optional<Int>
+                   - some : 202
+
+                 */
                 completion(.failure(error))
             }
         }
