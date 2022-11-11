@@ -12,6 +12,7 @@ import RxSwift
 import Toast
 import FirebaseCore
 import FirebaseAuth
+import UIKit
 
 class GenderViewController: BaseViewController {
     
@@ -72,9 +73,9 @@ class GenderViewController: BaseViewController {
                                 
                                 vc.mainView.makeToast("사용할 수 없는 닉네임입니다", duration: 1, position: .center) { didTap in
                                     SignUpViewModel.test.accept(true)
-                                    let viewcontroller = NicknameViewController()
-//                                    vc.navigationController?.pushViewController(viewcontroller, animated: true)
-                                                                        vc.navigationController?.popToViewController(viewcontroller, animated: true)
+                                    
+                                    guard let viewControllers : [UIViewController] = self.navigationController?.viewControllers as? [UIViewController] else { return  }
+                                    self.navigationController?.popToViewController(viewControllers[viewControllers.count - 4 ], animated: true)
                                 }
                                 
                             default:

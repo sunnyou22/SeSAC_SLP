@@ -39,7 +39,6 @@ class NicknameViewController: BaseViewController {
             if bool {
                 print("들어오나욘")
                 vc.mainView.makeToast("닉네임 다시 설정해주세요", duration: 1, position: .center)
-                vc.mainView.inputTextField.text = UserDefaults.nickname
             }
             }.disposed(by: disposedBag)
     }
