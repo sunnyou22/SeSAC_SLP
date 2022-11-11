@@ -32,6 +32,7 @@ class GenderViewController: BaseViewController {
                 vc.mainView.manButton.backgroundColor = .setBrandColor(color: .whiteGreen)
                 vc.mainView.womanButton.backgroundColor = .clear
                 vc.viewModel.buttonValid.accept(true)
+                UserDefaults.gender = 1
             }.disposed(by: disposedBag)
         
         mainView.womanButton.rx
@@ -41,6 +42,7 @@ class GenderViewController: BaseViewController {
                 vc.mainView.womanButton.backgroundColor = .setBrandColor(color: .whiteGreen)
                 vc.mainView.manButton.backgroundColor = .clear
                 vc.viewModel.buttonValid.accept(true)
+                UserDefaults.gender = 0
             }.disposed(by: disposedBag)
         
         viewModel.buttonValid
@@ -55,7 +57,16 @@ class GenderViewController: BaseViewController {
             .bind { vc, _ in
                 if vc.viewModel.buttonValid.value {
                     let viewcontroller = SignUpViewController() //임시
-                    vc.transition(viewcontroller, .push)
+                    vc.viewModel.signUpNetwork (
+                        nick: UserDefaults.nickname!, FCMtoken: UserDefaults.FCMToken,
+                        phoneNumber: UserDefaults.phoneNumber,
+                        birth: UserDefaults.date!,
+                        email: UserDefaults.email,
+                        gender: UserDefaults.gender,
+                        idtoken: UserDefaults.idtoken)
+                    //                    vc.transition(viewcontroller, .push)
+                } else {
+                    vc.mainView.makeToast("성별을 선택해주세요", duration: 1, position: .center)
                 }
             }.disposed(by: disposedBag)
     }

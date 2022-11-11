@@ -60,6 +60,7 @@ class SignUpViewController: BaseViewController {
                     vc.view.makeToast("잘못된 전화번호 형식입니다.", position: .center)
                 } else {
                     vc.verification(num: String(result))
+                    UserDefaults.repostNum = String(result)
                 }
             }.disposed(by: disposedBag)
         
@@ -83,7 +84,7 @@ class SignUpViewController: BaseViewController {
         Auth.auth().languageCode = "kr"
         PhoneAuthProvider.provider()
             .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
-                UserDefaults.standard.set("+82\(num)", forKey: "phoneNumber")
+                UserDefaults.phoneNumber = "+82\(num)"
                 if let error = error {
                     switch error {
                     case AuthErrorCode.invalidPhoneNumber:

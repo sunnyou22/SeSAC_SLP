@@ -17,7 +17,7 @@ struct URLConstant {
 }
 
 enum SeSACAPI {
-    case signUp(nick: String, phoneNumber: String, birth: String, email: String, gender: Int)
+    case signUp(phoneNumber: String, FCMtoken: String, nick: String, birth: Date, email: String, gender: Int)
     case logIn(phoneNumber: String)
 }
 
@@ -51,17 +51,17 @@ extension SeSACAPI {
 
     var parameter: [String: Any] {
         switch self {
-        case .signUp(let nick, let phoneNumber, let birth, let email, let gender):
+        case .signUp(let phoneNumber, let FCMtoken, let nick, let birth, let email, let gender):
             return [
-                "nick": nick,
                 "phoneNumber": phoneNumber,
+                "FCMtoken": FCMtoken,
+                "nick": nick,
                 "birth": birth,
                 "email": email,
                 "gender": gender
             ]
         case .logIn:
             return ["":""]
-        default: return ["":""]
         }
     }
 }

@@ -8,6 +8,7 @@
 import RxCocoa
 import RxSwift
 import Alamofire
+import Foundation
 
 class SignUpViewModel {
     let signup = PublishSubject<SignUp>()
@@ -19,9 +20,9 @@ class SignUpViewModel {
     //MARK: 닉네임
     
     
-    func signUpNetwork(nick: String, phoneNumber: String, birth: String, email: String, gender: Int, idtoken: String) {
+    func signUpNetwork(nick: String, FCMtoken: String, phoneNumber: String, birth: Date, email: String, gender: Int, idtoken: String) {
         
-        let api = SeSACAPI.signUp(nick: nick, phoneNumber: phoneNumber, birth: birth, email: email, gender: gender)
+        let api = SeSACAPI.signUp(phoneNumber: phoneNumber, FCMtoken: FCMtoken, nick: nick, birth: birth, email: email, gender: gender)
         
         Network.shared.requestSeSAC(type: SignUp.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] response in
             
@@ -37,7 +38,7 @@ class SignUpViewModel {
     func logInNetwork(phoneNumber: String, idtoken: String, completion: @escaping (() -> Void)) {
         let api = SeSACAPI.logIn(phoneNumber: phoneNumber)
         
-        Network.shared.requestSeSAC(type: LogIn.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] response in
+        Network.shared.requestSeSAC(type: LogIn.self, url: api.url, parameter: api.parameter, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] response in
             switch response {
             case .success(let success):
             print("나 성공")

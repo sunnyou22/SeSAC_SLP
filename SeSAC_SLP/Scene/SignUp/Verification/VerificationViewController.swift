@@ -28,6 +28,7 @@ class VerificationViewController: BaseViewController {
         super.viewDidLoad()
         bindData()
         mainView.inputTextField.addTarget(self, action: #selector(changedTextfield), for: .editingChanged)
+        print( UserDefaults.idtoken, "🚀")
     }
     
     func bindData() {
@@ -48,16 +49,19 @@ class VerificationViewController: BaseViewController {
             .tap
             .withUnretained(self)
             .bind { vc, _ in
-                guard let phoneNumber = UserDefaults.standard.string(forKey: "phoneNumber") else { return }
-                //                vc.verification(num: phoneNumber)
-                print("클릭이된당😇")
+                vc.setVerification(num: UserDefaults.repostNum)
+                print("클릭이된당😇", UserDefaults.repostNum)
             }.disposed(by: disposedBag)
         
         mainView.nextButton.rx
             .tap
             .withUnretained(self)
             .bind { vc, _ in
-                vc.credential()
+//                vc.credential()
+                vc.getNetwork() // 임시
+                
+                let viewcontroller = NicknameViewController()
+                vc.transition(viewcontroller, .push)
                 print("클릭된당")
                 
             }.disposed(by: disposedBag)
@@ -82,8 +86,7 @@ class VerificationViewController: BaseViewController {
         print(verificationID,"😫", verificationCode, "😫😫😫😫😫😫")
         let credential = PhoneAuthProvider.provider().credential(
             withVerificationID: verificationID,
-            verificationCode: "938543"
-//            verificationCode: verificationCode
+            verificationCode: verificationCode
         )
         
         Auth.auth().signIn(with: credential) { [weak self] result, error in
@@ -111,67 +114,47 @@ class VerificationViewController: BaseViewController {
                         print(error, "idtoken을 받아올 수 없습니다.")
                         return
                     } else {
-                        guard let phoneNum = UserDefaults.standard.string(forKey: "phoneNumber") else {
-                            print(UserDefaults.standard.string(forKey: "phoneNumber"), "🚀🚀phoneNumber")
-                            return
-                        }
-                        
+                   
                         guard let idtoken = idToken else { return }
-                        print(phoneNum ,"🚀🚀🚀🚀phoneNumber", idtoken, "🚀🚀🚀")
+                        print(UserDefaults.phoneNumber ,"🚀🚀🚀🚀phoneNumber", idtoken, "🚀🚀🚀")
+                        UserDefaults.idtoken = idtoken
+//                        self?.getNetwork()
                         
-                        UserDefaults.standard.set(idtoken, forKey: "idtoken")
-                        
-                        guard let DBidtoken = UserDefaults.standard.string(forKey: "idtoken") else { return }
-                        
-                        self?.viewModel.logInNetwork(phoneNumber: phoneNum, idtoken: DBidtoken) {
-                            let alert = UIAlertController(title: "알 수 없는 사용자", message: "회원가입화면으로 넘어가시겠습니까?", preferredStyle: .alert)
-                            let ok = UIAlertAction(title: "네", style: .default) { [weak self] _ in
-                                let viewcontroller = NicknameViewController()
-                                self?.transition(viewcontroller, .push)
-                            }
-                            
-                            let cancel = UIAlertAction(title: "아니오", style: .cancel)
-                            alert.addAction(ok)
-                            alert.addAction(cancel)
-                            
-                            self?.present(alert, animated: true)
-                        }
-                     
-//                        self?.viewModel.login
-//                            .subscribe { user in
-//                                print("\(user)님 \(phoneNum) 반갑습니다😽😽")
-//                            } onError: { [weak self] guest in
-//                                print("\(guest)님 \(phoneNum) 누구세여? 🔴🔴")
-//                                let alert = UIAlertController(title: "알 수 없는 사용자", message: "회원가입화면으로 넘어가시겠습니까?", preferredStyle: .alert)
-//                                let ok = UIAlertAction(title: "네", style: .default) { [weak self] _ in
-//                                    let viewcontroller = NicknameViewController()
-//                                    self?.transition(viewcontroller, .push)
-//                                }
-//
-//                                let cancel = UIAlertAction(title: "아니오", style: .cancel)
-//                                alert.addAction(ok)
-//                                alert.addAction(cancel)
-//
-//                                self?.present(alert, animated: true)
-//                            }.disposed(by: DisposeBag())
                     }
                 }
             }
         }
+    }
+    
+    func getNetwork() {
+        let DBidtoken = UserDefaults.idtoken
+        let phoneNum = UserDefaults.phoneNumber
+        viewModel.logInNetwork(phoneNumber: phoneNum, idtoken: DBidtoken) { [weak self] in
+            let alert = UIAlertController(title: "알 수 없는 사용자", message: "회원가입화면으로 넘어가시겠습니까?", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "네", style: .default) { [weak self] _ in
+                let viewcontroller = NicknameViewController()
+                self?.transition(viewcontroller, .push)
+            }
         
-        func verification(num: String) {
-   
-            Auth.auth().languageCode = "kr"
-            PhoneAuthProvider.provider()
-                .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
-                    if let error = error {
-                        print(error.localizedDescription, "🥲😡")
-                                                return
-                    } else {
-                        UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
-                        print("success🥰🥰")
-                    }
-                }
+            let cancel = UIAlertAction(title: "아니오", style: .cancel)
+            alert.addAction(ok)
+            alert.addAction(cancel)
+            
+            self?.present(alert, animated: true)
         }
+    }
+    
+    func setVerification(num: String) {
+        Auth.auth().languageCode = "kr"
+        PhoneAuthProvider.provider()
+            .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
+                if let error = error {
+                    print(error.localizedDescription, "🥲😡")
+                    return
+                } else {
+                    UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+                    print("success🥰🥰")
+                }
+            }
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 import FirebaseCore
-//import FirebaseMessaging
+import FirebaseMessaging
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
  
-//        //메세지 대리자 설정
-//        Messaging.messaging().delegate = self
+        //메세지 대리자 설정
+        Messaging.messaging().delegate = self
         
         // Override point for customization after application launch.
         return true
@@ -38,22 +38,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-//extension AppDelegate: MessagingDelegate {
-//
-//    //사용자가 앱을 삭제하거나, 핸드폰 기종을 바꿀 때 등으로 토큰에 대한 정보가 바뀔 때 불리는 메서드
-//    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-//      print("Firebase registration token: \(String(describing: fcmToken))")
-////        UserDefaults.standard.set(idToken, forKey: "FCMToken")
-//
-//      let dataDict: [String: String] = ["token": fcmToken ?? ""]
-//      NotificationCenter.default.post(
-//        name: Notification.Name("FCMToken"),
-//        object: nil,
-//        userInfo: dataDict
-//      )
-//      // TODO: If necessary send token to application server.
-//      // Note: This callback is fired at each app startup and whenever a new token is generated.
-//    }
-//
-//}
+extension AppDelegate: MessagingDelegate {
+
+    //사용자가 앱을 삭제하거나, 핸드폰 기종을 바꿀 때 등으로 토큰에 대한 정보가 바뀔 때 불리는 메서드
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+      print("Firebase registration token: \(String(describing: fcmToken))")
+        UserDefaults.FCMToken = fcmToken!
+
+      let dataDict: [String: String] = ["token": fcmToken ?? ""]
+      NotificationCenter.default.post(
+        name: Notification.Name("FCMToken"),
+        object: nil,
+        userInfo: dataDict
+      )
+      // TODO: If necessary send token to application server.
+      // Note: This callback is fired at each app startup and whenever a new token is generated.
+    }
+
+}
 

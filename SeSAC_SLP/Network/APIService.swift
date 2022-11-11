@@ -10,7 +10,6 @@ import Foundation
 import Alamofire
 
 enum SignUpError: Int, Error {
-    case Success = 200
     case SignInUser = 201
     case InvaliedNickName = 202
     case FirebaseTokenError = 401
@@ -21,15 +20,21 @@ enum SignUpError: Int, Error {
 
 // MARK: - SignUp
 struct SignUp: Codable {
-    let phoneNumber, fcMtoken, nick, birth: String
+    let phoneNumber: String
+    let fcMtoken: String
+    let nick: String
+    let birth: Date
     let email: String
     let gender: Int
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: CodingKey {
         case phoneNumber
-        case fcMtoken = "FCMtoken"
-//        UserDefaults.standard.string(forKey: "FCMToken")
-        case nick, birth, email, gender
+        case fcMtoken
+        //        UserDefaults.standard.string(forKey: "FCMToken")
+        case nick
+        case birth
+        case email
+        case gender
     }
 }
 
@@ -38,7 +43,8 @@ struct LogIn: Codable {
     let id: String
     let v: Int
     let uid, phoneNumber, email, fcMtoken: String
-    let nick, birth: String
+    let nick: String
+    let birth: Date
     let gender: Int
     let study: String
     let comment: [String]
@@ -52,16 +58,16 @@ struct LogIn: Codable {
     let reportedUser: [String]
     let dodgepenalty, dodgeNum, ageMin, ageMax: Int
     let searchable: Int
-    let createdAt: String
+    let createdAt: Date
 
-    enum CodingKeys: String, CodingKey {
-        case id = "_id"
-        case v = "__v"
+    enum CodingKeys: CodingKey {
+        case id
+        case v
         case uid, phoneNumber, email
-        case fcMtoken = "FCMtoken"
+        case fcMtoken
 //        UserDefaults.standard.string(forKey: "FCMToken")
         case nick, birth, gender, study, comment, reputation, sesac, sesacCollection, background, backgroundCollection, purchaseToken
-        case transactionID = "transactionId"
+        case transactionID
         case reviewedBefore, reportedNum, reportedUser, dodgepenalty, dodgeNum, ageMin, ageMax, searchable, createdAt
     }
 }

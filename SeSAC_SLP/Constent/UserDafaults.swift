@@ -25,18 +25,27 @@ struct UserDeaultHelper<Value> {
 
 extension UserDefaults {
 
+    @UserDeaultHelper(key: "phoneNumber", defaultValue: "")
+    static var phoneNumber: String
+    
+    @UserDeaultHelper(key: "FCMToken", defaultValue: "")
+    static var FCMToken: String
+    
     @UserDeaultHelper(key: "nickname", defaultValue: "")
     static var nickname: String?
     
-    @UserDeaultHelper(key: "date", defaultValue: "")
-    static var date: String
+    @UserDeaultHelper(key: "date", defaultValue: nil)
+    static var date: Date?
     
     @UserDeaultHelper(key: "email", defaultValue: "")
     static var email: String
     
-    @UserDeaultHelper(key: "man", defaultValue: 1)
-    static var man: Int
-    
     @UserDeaultHelper(key: "woman", defaultValue: 0)
-    static var woman: Int
+    static var gender: Int
+    
+    @UserDeaultHelper(key: "idtoken", defaultValue: "")
+    static var idtoken: String
+    
+    @UserDeaultHelper(key: "repostNum", defaultValue: "")
+    static var repostNum: String
 }
