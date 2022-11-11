@@ -7,10 +7,6 @@
 
 import Foundation
 
-/*
- 
- */
-
 //MARK: - 문자열 처리
 
 extension BaseView {

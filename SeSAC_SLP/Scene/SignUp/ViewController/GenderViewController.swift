@@ -27,6 +27,10 @@ class GenderViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindData()
+    }
+    
+    func bindData() {
         
         mainView.manButton.rx
             .tap
@@ -59,16 +63,21 @@ class GenderViewController: BaseViewController {
             .withUnretained(self)
             .bind { vc, test in
                 if vc.viewModel.buttonValid.value {
+                    guard let date = UserDefaults.date else {
+                        vc.mainView.makeToast("생년월일을 입력하고 돌와주세요!", duration: 1, position: .center)
+                        return
+                    }
                     vc.viewModel.signUpNetwork (
                         nick: UserDefaults.nickname!, FCMtoken: UserDefaults.FCMToken,
                         phoneNumber: UserDefaults.phoneNumber,
-                        birth: UserDefaults.date!,
+                        birth: date,
                         email: UserDefaults.email,
                         gender: UserDefaults.gender,
                         idtoken: UserDefaults.idtoken) { error in
                             switch error {
                             case SignUpError.FirebaseTokenError:
                                 vc.getIdtoken()
+                                vc.mainView.makeToast("다시 시도해주세요", duration: 1, position: .center)
                             case SignUpError.InvaliedNickName:
                                 
                                 vc.mainView.makeToast("사용할 수 없는 닉네임입니다", duration: 1, position: .center) { didTap in

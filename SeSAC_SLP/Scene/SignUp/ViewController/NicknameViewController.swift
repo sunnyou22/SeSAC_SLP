@@ -38,7 +38,7 @@ class NicknameViewController: BaseViewController {
                 print("들어오나요오오오오오오오옹ㄴ")
             if bool {
                 print("들어오나욘")
-                vc.mainView.makeToast("닉네임 다시 설정해주세요", duration: 1, position: .center)
+                vc.mainView.makeToast("해당 닉네임은 사용할 수 없습니다.", duration: 1, position: .center)
             }
             }.disposed(by: disposedBag)
     }

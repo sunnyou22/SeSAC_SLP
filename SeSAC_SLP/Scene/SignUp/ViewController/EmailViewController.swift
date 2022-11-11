@@ -44,7 +44,7 @@ class EmailViewController: BaseViewController {
                 guard let textfield = vc.mainView.inputTextField.text else { return }
                 vc.viewModel.buttonValid.accept(textfield.isValidEmail(testStr: text))
                 UserDefaults.standard.set(text, forKey: "email")
-                print(UserDefaults.email, "🐭", UserDefaults.standard.string(forKey: "email"))
+                print(UserDefaults.email, "🐭")
                 print(textfield, text, "text😵‍💫😵‍💫😵‍💫😵‍💫", textfield.isValidEmail(testStr: text))
                 print("😮", textfield.isValidEmail(testStr: text))
             }.disposed(by: disposedBag)

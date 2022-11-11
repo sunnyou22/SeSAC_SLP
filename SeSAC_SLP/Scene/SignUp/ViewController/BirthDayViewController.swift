@@ -58,6 +58,10 @@ class BirthDayViewController: BaseViewController {
     }
     
         func changeDate(date: Date) {
+            
+            // 액션을 공유할수없을까
+            
+            
             let calendar = Calendar(identifier: .gregorian)
             let datecomponent = calendar.dateComponents([.year, .month, .day], from: (date))
             guard let year = datecomponent.year else { return }
@@ -70,7 +74,7 @@ class BirthDayViewController: BaseViewController {
             print(year, month, date, "🥺🥺")
             
             UserDefaults.date = CustomFormatter.setformatter(date: date)
-            print(UserDefaults.date, "📍")
+            print(UserDefaults.date!, "📍")
             viewModel.buttonValid.accept(viewModel.checkValidAge(date: date))
             print("🔴🔴", viewModel.checkValidAge(date: date))
         }
