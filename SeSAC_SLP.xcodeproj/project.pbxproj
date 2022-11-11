@@ -190,38 +190,37 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		902B0FDE29193AE600D03C0E /* SignIn */ = {
+		902B0FDE29193AE600D03C0E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				902B0FDC29193A0F00D03C0E /* SignUPViewController.swift */,
-				902B0FDF29193AFC00D03C0E /* SignUpView.swift */,
-				902B1015291B7ABD00D03C0E /* SignUpViewModel.swift */,
+				902B0FE4291965BF00D03C0E /* VerificationViewController.swift */,
+				902B1006291AB76600D03C0E /* NicknameViewController.swift */,
+				902B1008291AB78B00D03C0E /* BirthDayViewController.swift */,
+				902B100A291AB85D00D03C0E /* EmailViewController.swift */,
+				902B100C291AB87700D03C0E /* GenderViewController.swift */,
 			);
-			path = SignIn;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
-		902B1001291AB65300D03C0E /* Verification */ = {
+		902B1001291AB65300D03C0E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				902B0FE4291965BF00D03C0E /* VerificationViewController.swift */,
 				902B0FE6291965DE00D03C0E /* VerifrcationView.swift */,
+				902B0FDF29193AFC00D03C0E /* SignUpView.swift */,
+				902B0FEE291A15E500D03C0E /* PickerView.swift */,
+				902B0FF4291A41DC00D03C0E /* EmailView.swift */,
+				902B0FF6291A461600D03C0E /* GenderView.swift */,
 			);
-			path = Verification;
+			path = View;
 			sourceTree = "<group>";
 		};
 		902B1002291AB69C00D03C0E /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				902B0FDE29193AE600D03C0E /* SignIn */,
-				902B1001291AB65300D03C0E /* Verification */,
-				902B1006291AB76600D03C0E /* NicknameViewController.swift */,
-				902B1008291AB78B00D03C0E /* BirthDayViewController.swift */,
-				902B0FEE291A15E500D03C0E /* PickerView.swift */,
-				9095C4E5291D81770055D1B7 /* PickerViewModel.swift */,
-				902B100A291AB85D00D03C0E /* EmailViewController.swift */,
-				902B0FF4291A41DC00D03C0E /* EmailView.swift */,
-				902B100C291AB87700D03C0E /* GenderViewController.swift */,
-				902B0FF6291A461600D03C0E /* GenderView.swift */,
+				90FE3114291EA8D400C0949E /* ViewModel */,
+				902B0FDE29193AE600D03C0E /* ViewController */,
+				902B1001291AB65300D03C0E /* View */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -233,6 +232,15 @@
 				902B1013291AEB1100D03C0E /* ViewControllerList.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		90FE3114291EA8D400C0949E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				902B1015291B7ABD00D03C0E /* SignUpViewModel.swift */,
+				9095C4E5291D81770055D1B7 /* PickerViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
