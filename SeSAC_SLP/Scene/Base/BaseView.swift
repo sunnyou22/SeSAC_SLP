@@ -46,5 +46,24 @@ class BaseView: UIView {
             subtitle?.text = literalString.subTitle.title(vc: .gender)
         }
     }
+    
+    func setattributeText(view: UILabel, text: String, location: Int = 0, length: Int = 0, baseColor: UIColor, pointColor: UIColor) -> UILabel {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 8
+        paragraphStyle.alignment = .center
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        view.textColor = .black
+        view.numberOfLines = 0
+        
+        let attributeString = text
+        let attributeText = attributeString.setFullAttributed(color: baseColor, paragraphStyle: paragraphStyle)
+        
+        attributeText.addAttributes([
+            .font : UIFont(name: "NotoSansKR-Medium", size: 24)!, .foregroundColor : pointColor], range: NSRange(location: location, length: length))
+        
+        view.attributedText = attributeText
+        
+        return view
+    }
 }
 

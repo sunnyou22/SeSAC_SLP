@@ -21,8 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let vc = NicknameViewController()
-        window?.rootViewController = UINavigationController(rootViewController: vc)
+        let vc = OnboardingViewController()
+        window?.rootViewController = vc
         window?.makeKeyAndVisible()
         
         //네트워크 체크

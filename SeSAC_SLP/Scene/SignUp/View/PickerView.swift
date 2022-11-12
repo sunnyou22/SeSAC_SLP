@@ -85,7 +85,7 @@ final class PickerView: BaseView {
         let view = UILabel()
         view.text = "테스트타이틀입니다"
         view.numberOfLines = 0
-        view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20, lineHeight: 1.6, view.text!)
+        view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20!, lineHeight: 1.6, view.text!)
         view.textAlignment = .center
         view.tintColor = .setBaseColor(color: .black)
         return view

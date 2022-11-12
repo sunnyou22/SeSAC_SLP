@@ -26,7 +26,7 @@ final class SignUpView: BaseView {
         let view = UILabel()
         view.text = "테스트제목입니다. SignUpView"
         view.numberOfLines = 0
-        view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20, lineHeight: 1.6, view.text!)
+        view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20!, lineHeight: 1.6, view.text!)
         view.textAlignment = .center
         
         return view

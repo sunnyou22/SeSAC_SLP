@@ -13,7 +13,7 @@ final class GenderView: BaseView {
         let view = UILabel()
         view.text = "테스트 타이틀입니다"
         view.numberOfLines = 0
-        view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20, lineHeight: 1.6, view.text!)
+        view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20!, lineHeight: 1.6, view.text!)
         view.textAlignment = .center
         view.textColor = .setBaseColor(color: .black)
         return view
@@ -22,7 +22,7 @@ final class GenderView: BaseView {
     let subTitleLabel: UILabel = {
         let view = UILabel()
         view.text = "테스트 서브타이틀입니다"
-        view.setBaseLabelStatus(fontsize: 16, font: .title2_R16, lineHeight: 1.6, view.text!)
+        view.setBaseLabelStatus(fontsize: 16, font: .title2_R16!, lineHeight: 1.6, view.text!)
         view.textAlignment = .center
         view.textColor = .setBaseColor(color: .black)
         return view
