@@ -26,6 +26,7 @@ class NicknameViewController: BaseViewController {
         mainView.backgroundColor = .setBaseColor(color: .white)
         mainView.setcontents(type: .nickname, label: mainView.titleLabel, button: mainView.nextButton, subtitle: nil)
         mainView.setInputTextField()
+        mainView.inputTextField.text = UserDefaults.nickname ?? ""
         bindData()
     }
     
@@ -38,25 +39,34 @@ class NicknameViewController: BaseViewController {
                 print("들어오나요오오오오오오오옹ㄴ")
             if bool {
                 print("들어오나욘")
-                vc.mainView.makeToast("해당 닉네임은 사용할 수 없습니다.", duration: 1, position: .center)
+                vc.mainView.makeToast("해당 닉네임은 사용할 수 없습니다.", duration: 2, position: .center)
             }
             }.disposed(by: disposedBag)
     }
     
     func bindData() {
         
-        //텍스트 필드, 버튼 탭
+        //이벤트 넣어주기
+        viewModel.textfield
+            .map { ($0.count < 10 && $0.count > 1) }
+            .withUnretained(self)
+            .bind { vc, bool in
+                print("닉네임 🚀 \(UserDefaults.nickname)")
+                vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
+                vc.viewModel.buttonValid.accept(bool)
+            }.disposed(by: disposedBag)
+        
+        //텍스트 필드, 버튼 탭, 여기서 이벤트를 발생ㅎ시키
         mainView.inputTextField
             .rx
             .text
             .orEmpty
-            .map { ($0.count < 10 && $0.count > 1) }
             .withUnretained(self)
-            .bind { vc, bool in
-                UserDefaults.nickname = vc.mainView.inputTextField.text
-                print("닉네임 🚀 \(UserDefaults.nickname)")
-                vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
-                vc.viewModel.buttonValid.accept(bool)
+            .bind { vc, text in
+                vc.viewModel.textfield.accept(text)
+                UserDefaults.nickname = text
+                print("닉네임 🚀🚀 \(UserDefaults.nickname)")
+
             }.disposed(by: disposedBag)
         
         // 버튼 탭

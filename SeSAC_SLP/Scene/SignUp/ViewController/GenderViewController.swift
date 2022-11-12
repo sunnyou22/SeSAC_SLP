@@ -27,7 +27,14 @@ class GenderViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        if UserDefaults.gender == nil {
+            mainView.manButton.backgroundColor = .clear
+            mainView.womanButton.backgroundColor = .clear
+        }
+        
         bindData()
+        
     }
     
     func bindData() {
@@ -68,12 +75,12 @@ class GenderViewController: BaseViewController {
                         return
                     }
                     vc.viewModel.signUpNetwork (
-                        nick: UserDefaults.nickname!, FCMtoken: UserDefaults.FCMToken,
-                        phoneNumber: UserDefaults.phoneNumber,
+                        nick: UserDefaults.nickname!, FCMtoken: UserDefaults.FCMToken!,
+                        phoneNumber: UserDefaults.phoneNumber!,
                         birth: date,
-                        email: UserDefaults.email,
-                        gender: UserDefaults.gender,
-                        idtoken: UserDefaults.idtoken) { error in
+                        email: UserDefaults.email!,
+                        gender: UserDefaults.gender!,
+                        idtoken: UserDefaults.idtoken!) { error in
                             switch error {
                             case SignUpError.FirebaseTokenError:
                                 vc.getIdtoken()

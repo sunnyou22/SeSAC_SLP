@@ -50,7 +50,7 @@ class VerificationViewController: BaseViewController {
             .tap
             .withUnretained(self)
             .bind { vc, _ in
-                vc.setVerification(num: UserDefaults.repostNum)
+                vc.setVerification(num: UserDefaults.repostNum!)
                 print("클릭이된당😇", UserDefaults.repostNum)
             }.disposed(by: disposedBag)
         
@@ -112,9 +112,9 @@ class VerificationViewController: BaseViewController {
     
     func getNetwork() {
   
-        let phoneNum = UserDefaults.phoneNumber
+        let phoneNum = UserDefaults.phoneNumber!
         
-        viewModel.logInNetwork(phoneNumber: phoneNum, idtoken: UserDefaults.idtoken) { [weak self] error in
+        viewModel.logInNetwork(phoneNumber: phoneNum, idtoken: UserDefaults.idtoken!) { [weak self] error in
             
             switch error {
             case SignUpError.FirebaseTokenError:

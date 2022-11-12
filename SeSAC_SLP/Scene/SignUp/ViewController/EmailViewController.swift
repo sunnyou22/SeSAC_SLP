@@ -24,36 +24,38 @@ class EmailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(UserDefaults.email, "🐭")
-        
+        mainView.inputTextField.text = UserDefaults.email ?? ""
         bindData()
     }
 
     func bindData() {
+        
+        viewModel.textfield
+            .map { text in
+                text.isValidEmail(testStr: self.mainView.inputTextField.text!)
+            }
+            .withUnretained(self)
+            .bind { vc, bool in
+                vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
+                vc.viewModel.buttonValid.accept(bool)
+                print(UserDefaults.email, bool, "🐭")
+            }.disposed(by: disposedBag)
         
         mainView.inputTextField.rx
             .text
             .orEmpty
             .withUnretained(self)
             .bind { vc, text in
+                UserDefaults.email = text
+                print("text😵‍💫😵‍💫😵‍💫😵‍💫", text, text.isValidEmail(testStr: text))
                 vc.viewModel.textfield.accept(text)
             }.disposed(by: disposedBag)
         
-        viewModel.textfield
-            .withUnretained(self)
-            .bind { vc, text in
-                guard let textfield = vc.mainView.inputTextField.text else { return }
-                vc.viewModel.buttonValid.accept(textfield.isValidEmail(testStr: text))
-                UserDefaults.standard.set(text, forKey: "email")
-                print(UserDefaults.email, "🐭")
-                print(textfield, text, "text😵‍💫😵‍💫😵‍💫😵‍💫", textfield.isValidEmail(testStr: text))
-                print("😮", textfield.isValidEmail(testStr: text))
-            }.disposed(by: disposedBag)
-        
-        viewModel.buttonValid
-            .withUnretained(self)
-            .bind { vc, bool in
-                vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
-            }.disposed(by: disposedBag)
+//        viewModel.buttonValid
+//            .withUnretained(self)
+//            .bind { vc, bool in
+//                vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
+//            }.disposed(by: disposedBag)
         
         mainView.nextButton.rx
             .tap

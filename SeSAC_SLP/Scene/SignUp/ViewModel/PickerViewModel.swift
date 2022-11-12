@@ -13,7 +13,7 @@ final class PickerViewModel {
     var buttonValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     let yearTextField: BehaviorRelay<String> = BehaviorRelay(value: "")
     let monthTextField: BehaviorRelay<String> = BehaviorRelay(value: "")
-    let dateTextField: BehaviorRelay<String> = BehaviorRelay(value: "")
+    let dateTextField: BehaviorRelay<Date> = BehaviorRelay(value: Date())
     
     func checkValidAge(date: Date) -> Bool {
         let calendar = Calendar(identifier: .gregorian)
