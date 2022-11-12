@@ -18,9 +18,7 @@ final class SignUpViewModel {
     var buttonValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var nextbutton: ControlEvent<Void>?
     
-    //MARK: 닉네임
-    
-    
+    //MARK: 닉네임 - 파일매니저로 뺄건지 고민
     func signUpNetwork(nick: String, FCMtoken: String, phoneNumber: String, birth: Date, email: String, gender: Int, idtoken: String, completion: @escaping ((Error) -> Void)) {
         
         let api = SeSACAPI.signUp(phoneNumber: phoneNumber, FCMtoken: FCMtoken, nick: nick, birth: birth, email: email, gender: gender)

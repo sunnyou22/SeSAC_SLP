@@ -43,7 +43,7 @@ extension UserDefaults {
     @UserDeaultHelper(key: "woman", defaultValue: nil)
     static var gender: Int?
     
-    @UserDeaultHelper(key: "idtoken", defaultValue: "")
+    @UserDeaultHelper(key: "idtoken", defaultValue: nil)
     static var idtoken: String?
     
     @UserDeaultHelper(key: "repostNum", defaultValue: "")

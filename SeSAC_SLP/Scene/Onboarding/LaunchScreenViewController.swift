@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Toast
 
 class LaunchScreenViewController: UIViewController {
     
@@ -30,32 +31,49 @@ class LaunchScreenViewController: UIViewController {
         configure()
         setContents()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//            self?.transition(vc, .presentFullScreen)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            //            self?.transition(vc, .presentFullScreen)
             
             let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
             let sceneDelegate = windowScene?.delegate as? SceneDelegate
             
             let transition = CATransition()
             transition.type = .fade
-//            transition.duration = 3
+            //            transition.duration = 3
             sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
             //분기처리
-           
-            if UserDefaults.first {
-                let signViewController = BirthDayViewController()
+            
+            // guard let validIdToken = UserDefaults.idtoken else {
+            
+            if UserDefaults.first == true {
+                // 서버통신해야함
+                //토큰이 있는데, 나머지 회원가입절차를 거치치 않았을 때 기존에 저장해뒀던 유저디폴츠의 값이 nil이 판단해서 절차 완료시키기
+                //토큰이 없을 때 온보딩화면
+                guard UserDefaults.idtoken != nil else {
+                    self?.view.makeToast("인증번호가 만료되었습니다. 다시 로그인 인증절차를 거쳐주세요", duration: 1, position: .center)
+                    let signViewController = SignUpViewController()
+                    let nav = UINavigationController(rootViewController: signViewController)
+                    sceneDelegate?.window?.rootViewController = nav
+                    sceneDelegate?.window?.makeKeyAndVisible()
+                    return
+                }
+                
+                let signViewController = NicknameViewController()
                 let nav = UINavigationController(rootViewController: signViewController)
                 sceneDelegate?.window?.rootViewController = nav
                 sceneDelegate?.window?.makeKeyAndVisible()
+                
             } else {
                 let onboardingViewController = OnboardingViewController()
                 sceneDelegate?.window?.rootViewController = onboardingViewController
                 sceneDelegate?.window?.makeKeyAndVisible()
             }
+            
+            return
         }
     }
     
-  func configure() {
+    func configure() {
         view.addSubview(mainImageView)
         view.addSubview(titleImageView)
     }
