@@ -17,4 +17,5 @@ class BaseViewController: UIViewController {
     }
     
     func configure() { }
+    func setContents() { }
 }

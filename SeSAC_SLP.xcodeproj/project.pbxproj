@@ -45,6 +45,7 @@
 		902B102C291C542700D03C0E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102B291C542700D03C0E /* FirebaseAuth */; };
 		902B102E291C542700D03C0E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102D291C542700D03C0E /* FirebaseCrashlytics */; };
 		902B1030291C542700D03C0E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102F291C542700D03C0E /* FirebaseMessaging */; };
+		907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */; };
 		9095C4DE291D13730055D1B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */; };
 		9095C4E0291D43250055D1B7 /* UserDafaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4DF291D43250055D1B7 /* UserDafaults.swift */; };
 		9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4E3291D554C0055D1B7 /* DateFormatter.swift */; };
@@ -90,6 +91,7 @@
 		902B101B291C1A0000D03C0E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		902B101D291C1A8E00D03C0E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		902B101F291C1AF200D03C0E /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9095C4DF291D43250055D1B7 /* UserDafaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDafaults.swift; sourceTree = "<group>"; };
 		9095C4E3291D554C0055D1B7 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			children = (
 				902B100F291AE9E300D03C0E /* OnboardingViewController.swift */,
 				902B1013291AEB1100D03C0E /* ViewControllerList.swift */,
+				907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */,
 				902B0FF5291A41DC00D03C0E /* EmailView.swift in Sources */,
 				902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */,
+				907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */,
 				902B0FE5291965BF00D03C0E /* VerificationViewController.swift in Sources */,
 				902B0FE029193AFC00D03C0E /* SignUpView.swift in Sources */,
 				90FE3116291EAEFA00C0949E /* NWPathMonitor.swift in Sources */,
