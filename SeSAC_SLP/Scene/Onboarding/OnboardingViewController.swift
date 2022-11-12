@@ -27,14 +27,14 @@ class OnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         mainView.backgroundColor = .setBaseColor(color: .white)
         mainView.pageControl(mainView.pageControl)
         mainView.testScrollView.delegate = self
         contentScrollerivew()
         
         mainView.button.addTarget(self, action: #selector(skipOnboarding), for: .touchUpInside)
-//        mainView.pageControl.addTarget(self, action: #selector(pageChanged), for: .valueChanged)
+        mainView.pageControl.addTarget(self, action: #selector(pageChanged), for: .touchDragInside)
     }
 
     @objc func skipOnboarding() {
@@ -50,15 +50,40 @@ class OnboardingViewController: UIViewController {
         sceneDelegate?.window?.rootViewController = vc
         sceneDelegate?.window?.makeKeyAndVisible()
     }
-    
+//
     @objc func pageChanged() {
-        let index = IndexPath(item: mainView.pageControl.currentPage, section: 0)
-        let viewList = [mainView.firstView, mainView.secondView, mainView.thirdView]
+        if mainView.pageControl.currentPage != 2 {
+            let x = CGFloat(mainView.pageControl.currentPage + 1) * mainView.testScrollView.frame.width
+            mainView.testScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+        } else {
+           mainView.pageControl.currentPage = 2
+            mainView.testScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        }
+//
+//        let index = IndexPath(item: mainView.pageControl.currentPage, section: 0)
+//        let viewList = [mainView.firstView, mainView.secondView, mainView.thirdView]
+//        switch index.item {
+//        case 0:
+//            let positionX = mainView.testScrollView.frame.width * CGFloat(0)
+//            viewList[0].frame = CGRect(x: positionX, y: 0, width: mainView.testScrollView.bounds.width, height: mainView.testScrollView.bounds.height)
+//            mainView.testScrollView.scrollRectToVisible(viewList[0].frame, animated: true)
+//        case 1:
+//            let positionX = mainView.testScrollView.frame.width * CGFloat(1)
+//            viewList[1].frame = CGRect(x: positionX, y: 0, width: mainView.testScrollView.bounds.width, height: mainView.testScrollView.bounds.height)
+//            mainView.testScrollView.scrollRectToVisible(viewList[1].frame, animated: true)
+//        case 2:
+//            let positionX = mainView.testScrollView.frame.width * CGFloat(2)
+//            viewList[2].frame = CGRect(x: positionX, y: 0, width: mainView.testScrollView.bounds.width, height: mainView.testScrollView.bounds.height)
+//            mainView.testScrollView.scrollRectToVisible(viewList[2].frame, animated: true)
+//        default:
+//            let positionX = mainView.testScrollView.frame.width * CGFloat(0)
+//            viewList[0].frame = CGRect(x: positionX, y: 0, width: mainView.testScrollView.bounds.width, height: mainView.testScrollView.bounds.height)
+//            mainView.testScrollView.scrollRectToVisible(viewList[0].frame, animated: true)
+        }
       
         
-        
 //        mainView.collectionView.scrollRectToVisible(rect!, animated: true)
-    }
+//    }
     
     func contentScrollerivew() {
         let viewList = [mainView.firstView, mainView.secondView, mainView.thirdView]

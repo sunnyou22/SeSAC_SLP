@@ -28,7 +28,7 @@ class SignUpViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bindData()
-        
+        UserDefaults.first = true
         //        mainView.nextButton.addTarget(self, action: #selector(goReceiveVerificationNumView), for: .touchUpInside)
         mainView.inputTextField.addTarget(self, action: #selector(changedTextfield), for: .editingChanged)
     }

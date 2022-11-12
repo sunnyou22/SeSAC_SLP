@@ -30,11 +30,29 @@ class LaunchScreenViewController: UIViewController {
         configure()
         setContents()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            let vc = OnboardingViewController()
-            self?.transition(vc, .presentFullScreen)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            self?.transition(vc, .presentFullScreen)
+            
+            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            let sceneDelegate = windowScene?.delegate as? SceneDelegate
+            
+            let transition = CATransition()
+            transition.type = .fade
+//            transition.duration = 3
+            sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
+            //분기처리
+           
+            if UserDefaults.first {
+                let signViewController = OnboardingViewController()
+//                let nav = UINavigationController(rootViewController: signViewController)
+                sceneDelegate?.window?.rootViewController = signViewController
+                sceneDelegate?.window?.makeKeyAndVisible()
+            } else {
+                let onboardingViewController = OnboardingViewController()
+                sceneDelegate?.window?.rootViewController = onboardingViewController
+                sceneDelegate?.window?.makeKeyAndVisible()
+            }
         }
-        
     }
     
   func configure() {

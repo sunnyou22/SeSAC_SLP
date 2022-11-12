@@ -48,4 +48,7 @@ extension UserDefaults {
     
     @UserDeaultHelper(key: "repostNum", defaultValue: "")
     static var repostNum: String?
+    
+    @UserDeaultHelper(key: "first", defaultValue: false)
+    static var first: Bool
 }
