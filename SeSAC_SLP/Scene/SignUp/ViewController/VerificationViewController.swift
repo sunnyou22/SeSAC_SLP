@@ -59,7 +59,7 @@ class VerificationViewController: BaseViewController {
             .withUnretained(self)
             .bind { vc, _ in
                 vc.credential()
-                vc.getNetwork() // 임시
+//                vc.getNetwork() // 임시
                 print("클릭된당", UserDefaults.phoneNumber, UserDefaults.repostNum)
                 
             }.disposed(by: disposedBag)
@@ -104,6 +104,7 @@ class VerificationViewController: BaseViewController {
                 print("Unable to login with Phone : error[\(error)]🥲😡")
                 return
             } else {
+                self?.getNetwork()
                 print("Phone Number user is signed in \(String(describing: result?.user.uid))🥰🥰")
             }
             
@@ -112,9 +113,19 @@ class VerificationViewController: BaseViewController {
     
     func getNetwork() {
   
-        let phoneNum = UserDefaults.phoneNumber!
+        guard let phoneNum = UserDefaults.phoneNumber else {
+            
+            mainView.makeToast("유효하지 않는 번호입니다. 다시 입력해주세요", duration: 0.8, position: .center)
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
         
-        viewModel.logInNetwork(phoneNumber: phoneNum, idtoken: UserDefaults.idtoken!) { [weak self] error in
+        guard let DBidtoken = UserDefaults.idtoken else {
+            print("🔴 Idtoken 없음", #function)
+            return
+        }
+        
+        viewModel.logInNetwork(phoneNumber: phoneNum, idtoken: DBidtoken) { [weak self] error in
             
             switch error {
             case SignUpError.FirebaseTokenError:
@@ -122,7 +133,7 @@ class VerificationViewController: BaseViewController {
                 UserDefaults.idtoken = DBitoken
                 let viewcontroller = NicknameViewController()
                 self?.transition(viewcontroller, .push)
-            case SignUpError.SignInUser:
+            case SignUpError.Success:
                 self?.mainView.makeToast("이미 가입한 회원입니다.", duration: 0.7, position: .center) { didTap in
                     //                let viewcontroller = 메인뷰컨
                 }

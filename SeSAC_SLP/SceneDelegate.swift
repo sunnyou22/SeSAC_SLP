@@ -38,7 +38,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 break
             }
         }
-        
     }
     
     private func loadNetworkErrorWindow(on scene: UIScene) {

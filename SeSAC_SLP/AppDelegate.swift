@@ -19,6 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //메세지 대리자 설정
         Messaging.messaging().delegate = self
         
+        
+        //MARK: 네비게이션 백버튼
+        let backButtonImage = UIImage(named: Icon.navigationBackButton.rawValue)
+        UINavigationBar.appearance().backIndicatorImage = backButtonImage
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backButtonImage
+        UINavigationBar.appearance().tintColor = .setBaseColor(color: .black)
+        
         // Override point for customization after application launch.
         return true
     }

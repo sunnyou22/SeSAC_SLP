@@ -30,6 +30,10 @@ class NicknameViewController: BaseViewController {
         bindData()
     }
     
+    deinit {
+        print("닉네임뷰컨 디이닛 😵‍💫😵‍💫😵‍💫😵‍💫")
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         

@@ -86,14 +86,12 @@ class GenderViewController: BaseViewController {
                                 vc.getIdtoken()
                                 vc.mainView.makeToast("다시 시도해주세요", duration: 1, position: .center)
                             case SignUpError.InvaliedNickName:
-                                
                                 vc.mainView.makeToast("사용할 수 없는 닉네임입니다", duration: 1, position: .center) { didTap in
                                     SignUpViewModel.test.accept(true)
                                     
                                     guard let viewControllers : [UIViewController] = self.navigationController?.viewControllers as? [UIViewController] else { return  }
                                     self.navigationController?.popToViewController(viewControllers[viewControllers.count - 4 ], animated: true)
                                 }
-                                
                             default:
                                 print("기타")
                             }

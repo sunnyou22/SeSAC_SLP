@@ -24,7 +24,7 @@ final class GenderView: BaseView {
         view.text = "테스트 서브타이틀입니다"
         view.setBaseLabelStatus(fontsize: 16, font: .title2_R16!, lineHeight: 1.6, view.text!)
         view.textAlignment = .center
-        view.textColor = .setBaseColor(color: .black)
+        view.textColor = .setGray(color: .gray7)
         return view
     }()
     
@@ -36,7 +36,6 @@ final class GenderView: BaseView {
         view.layer.borderColor = UIColor.setGray(color: .gray3).cgColor
         view.layer.borderWidth = 1
       
-// ✅ Configuration.
         var config = UIButton.Configuration.plain()
         config.title = "남자"
         config.baseForegroundColor = .black
@@ -56,7 +55,7 @@ final class GenderView: BaseView {
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         view.layer.borderColor = UIColor.setGray(color: .gray3).cgColor
         view.layer.borderWidth = 1
-// ✅ Configuration.
+
         var config = UIButton.Configuration.plain()
         config.title = "여자"
         config.baseForegroundColor = .black

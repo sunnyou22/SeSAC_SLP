@@ -17,7 +17,7 @@ class BirthDayViewController: BaseViewController {
     var mainView = PickerView()
 //    let datePicker = UIDatePicker()
     let viewModel = PickerViewModel()
-    let disposedBag = DisposeBag()
+    var disposedBag = DisposeBag()
     
     override func loadView() {
         super.loadView()
@@ -27,20 +27,18 @@ class BirthDayViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-////        showDatePicker()
-//        print(UserDefaults.date," 🟢")
-//        setDateformatter(date: UserDefaults.date ?? Date())
-//        setDate()
-//        bindData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         showDatePicker()
-            print(UserDefaults.date," 🟢")
-            setDateformatter(date: UserDefaults.date ?? Date())
-            setDate()
-            bindData()
+        print(UserDefaults.date," 🟢")
+        setDateformatter(date: UserDefaults.date ?? Date())
+        setDate()
+        bindData()
+        
+      print(UserDefaults.idtoken)
+        
+    }
+
+    deinit {
+        print("디이닛이 되남~~")
     }
     
     func setDateformatter(date: Date) {
@@ -48,16 +46,14 @@ class BirthDayViewController: BaseViewController {
     }
     
     func setDate() {
-        
         //누가 준건지 몰라 근데 date 받음 -> 공통적인 이벤트 처리할 때 좋은 듯
         viewModel.dateTextField
             .withUnretained(self)
             .bind { vc, date in
-                vc.mainView.yearView.datePiceker.date = UserDefaults.date!
-                vc.mainView.monthView.datePiceker.date = UserDefaults.date!
-                vc.mainView.dateView.datePiceker.date = UserDefaults.date!
+                vc.mainView.yearView.datePiceker.date = date
+                vc.mainView.monthView.datePiceker.date = date
+                vc.mainView.dateView.datePiceker.date = date
 
-                
                 //                vc.showDatePicker()
                 UserDefaults.date = CustomFormatter.setformatter(date: date)
 
@@ -117,28 +113,6 @@ class BirthDayViewController: BaseViewController {
         
     }
     
-    //        func changeDate(date: Date) {
-    //
-    //            // 액션을 공유할수없을까
-    //
-    //
-    //            let calendar = Calendar(identifier: .gregorian)
-    //            let datecomponent = calendar.dateComponents([.year, .month, .day], from: (date))
-    //            guard let year = datecomponent.year else { return }
-    //            guard let month = datecomponent.month else { return }
-    //            guard let day = datecomponent.day else { return }
-    //
-    //            mainView.yearView.dateTextField.text = "\(year)"
-    //            mainView.monthView.dateTextField.text = "\(month)"
-    //            mainView.dateView.dateTextField.text = "\(day)"
-    //            print(year, month, date, "🥺🥺")
-    //
-    //            UserDefaults.date = CustomFormatter.setformatter(date: date)
-    //            print(UserDefaults.date!, "📍")
-    //            viewModel.buttonValid.accept(viewModel.checkValidAge(date: date))
-    //            print("🔴🔴", viewModel.checkValidAge(date: date))
-    //        }
-    //
     func showDatePicker() {
         
         let toolbar = UIToolbar()

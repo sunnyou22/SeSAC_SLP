@@ -29,7 +29,8 @@ class SignUpViewController: BaseViewController {
         super.viewDidLoad()
         bindData()
         UserDefaults.first = true
-        //        mainView.nextButton.addTarget(self, action: #selector(goReceiveVerificationNumView), for: .touchUpInside)
+        print( UserDefaults.idtoken, "🚀")
+        print("저나번호", UserDefaults.phoneNumber, UserDefaults.repostNum)
         mainView.inputTextField.addTarget(self, action: #selector(changedTextfield), for: .editingChanged)
     }
     

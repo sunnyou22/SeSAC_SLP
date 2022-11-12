@@ -15,6 +15,7 @@ final class EmailView: BaseView {
         let view = UILabel()
         view.text = "테스트 타이틀입니다"
         view.numberOfLines = 0
+        view.textColor = .setBaseColor(color: .black)
         view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20!, lineHeight: 1.6, view.text!)
         view.textAlignment = .center
         view.textColor = .setBaseColor(color: .black)
@@ -26,19 +27,18 @@ final class EmailView: BaseView {
         view.text = "테스트 서브타이틀입니다"
         view.numberOfLines = 0
         view.setBaseLabelStatus(fontsize: 16, font: .title2_R16!, lineHeight: 1.6, view.text!)
+        view.textColor = .setGray(color: .gray7)
         view.textAlignment = .center
-        view.textColor = .setBaseColor(color: .black)
         return view
     }()
     
     let inputTextField: UITextField = {
         let view = UITextField()
-        view.placeholder = "SeSAC@email.com"
+        let placeholder = NSMutableAttributedString(string: "SeSAC@email.com", attributes: [.foregroundColor : UIColor.setGray(color: .gray7)])
         view.textAlignment = .left
         view.keyboardType = .default
         view.textColor = .setBaseColor(color: .black)
         view.becomeFirstResponder()
-//        view.text = 하이픈으로 구분해주는 기능넣기
         return view
     }()
     
@@ -51,7 +51,7 @@ final class EmailView: BaseView {
     let nextButton: UIButton = {
         let view = UIButton()
         view.setTitle(literalString.nextButton.title(vc: .first), for: .normal)
-        view.backgroundColor = .setBrandColor(color: .green)
+        view.backgroundColor = .setGray(color: .gray6)
         view.clipsToBounds = true
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         return view

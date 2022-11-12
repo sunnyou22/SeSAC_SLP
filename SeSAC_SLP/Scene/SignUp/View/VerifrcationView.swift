@@ -26,6 +26,7 @@ final class VerificationView: BaseView {
     let titleLabel: UILabel = {
         let view = UILabel()
         view.text = "테스트제목입니다"
+        view.textColor = .setBaseColor(color: .black)
         view.numberOfLines = 0
         view.setBaseLabelStatus(fontsize: 20, font: .Display1_R20!, lineHeight: 1.6, view.text!)
         view.textAlignment = .center
@@ -34,10 +35,11 @@ final class VerificationView: BaseView {
     
     let inputTextField: UITextField = {
         let view = UITextField()
-        view.placeholder = "test Textfield 입니다"
+        let placeholder = NSMutableAttributedString(string: "인증 번호 입력", attributes: [.foregroundColor : UIColor.setGray(color: .gray7)])
+        view.attributedPlaceholder = placeholder
         view.textAlignment = .left
         view.keyboardType = .namePhonePad
-//        view.text = 하이픈으로 구분해주는 기능넣기
+        view.textColor = .setBaseColor(color: .black)
         return view
     }()
     

@@ -46,6 +46,7 @@
 		902B102E291C542700D03C0E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102D291C542700D03C0E /* FirebaseCrashlytics */; };
 		902B1030291C542700D03C0E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102F291C542700D03C0E /* FirebaseMessaging */; };
 		907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */; };
+		907636E2292030C800D289AB /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E1292030C800D289AB /* IconSet.swift */; };
 		9095C4DE291D13730055D1B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */; };
 		9095C4E0291D43250055D1B7 /* UserDafaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4DF291D43250055D1B7 /* UserDafaults.swift */; };
 		9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4E3291D554C0055D1B7 /* DateFormatter.swift */; };
@@ -92,6 +93,7 @@
 		902B101D291C1A8E00D03C0E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		902B101F291C1AF200D03C0E /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		907636E1292030C800D289AB /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
 		9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9095C4DF291D43250055D1B7 /* UserDafaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDafaults.swift; sourceTree = "<group>"; };
 		9095C4E3291D554C0055D1B7 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				902B0FF8291A507D00D03C0E /* Transition.swift */,
 				9095C4DF291D43250055D1B7 /* UserDafaults.swift */,
 				9095C4E3291D554C0055D1B7 /* DateFormatter.swift */,
+				907636E1292030C800D289AB /* IconSet.swift */,
 			);
 			path = Constent;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				907636E2292030C800D289AB /* IconSet.swift in Sources */,
 				902B1020291C1AF200D03C0E /* Network.swift in Sources */,
 				902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */,
 				902B100D291AB87700D03C0E /* GenderViewController.swift in Sources */,

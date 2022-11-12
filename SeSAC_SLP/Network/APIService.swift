@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 enum SignUpError: Int, Error {
+    case Success = 200
     case SignInUser = 201
     case InvaliedNickName = 202
     case FirebaseTokenError = 401

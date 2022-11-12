@@ -43,9 +43,9 @@ class LaunchScreenViewController: UIViewController {
             //분기처리
            
             if UserDefaults.first {
-                let signViewController = OnboardingViewController()
-//                let nav = UINavigationController(rootViewController: signViewController)
-                sceneDelegate?.window?.rootViewController = signViewController
+                let signViewController = BirthDayViewController()
+                let nav = UINavigationController(rootViewController: signViewController)
+                sceneDelegate?.window?.rootViewController = nav
                 sceneDelegate?.window?.makeKeyAndVisible()
             } else {
                 let onboardingViewController = OnboardingViewController()
