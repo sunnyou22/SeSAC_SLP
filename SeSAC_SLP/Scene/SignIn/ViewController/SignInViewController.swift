@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import FirebaseCore
 import FirebaseAuth
-import Toast
+//import Toast
 
 class SignInViewController: BaseViewController {
     
@@ -27,21 +27,36 @@ class SignInViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+                                                                                    
         bindData()
+        // 최초진입분기
         UserDefaults.first = true
-        print( UserDefaults.idtoken, "🚀")
+        // 토근 및 전번확인
+        print(UserDefaults.idtoken, "🚀")
         print("저나번호", UserDefaults.phoneNumber, UserDefaults.repostNum)
-        mainView.inputTextField.addTarget(self, action: #selector(changedTextfield), for: .editingChanged)
     }
     
-    func bindData() {
-        //여기서 이벤트를 받음냐
+   private func bindData() {
+        
+        //1. 텍스트필드 편집이벤트 받음(최초이벤트트리거가 필요해)
+        mainView.inputTextField.rx
+            .text
+            .orEmpty
+            .withUnretained(self)
+            .bind(onNext: { vc, text in
+                print(text, "=======")
+                vc.viewModel.changePattern(num: text)
+            }).disposed(by: disposedBag)
+        
+        //3. 옵저버 텍스트 필드 전달받음
         viewModel.textfield
             .withUnretained(self)
-            .subscribe(onNext: { vc, text in
-                print(text, "=======")
-                vc.mainView.inputTextField.text = text.applyPatternOnNumbers(pattern: "###-####-####", replacmentCharacter: "#")
-            }).disposed(by: disposedBag)
+            .bind { vc, text in
+                //변경된 형식의 텍스트를 뷰에 넣어줌
+                vc.mainView.inputTextField.text = text
+                //4. 텍스트필드 유효성 검사 -> 버튼에 대한 유효성검사 이벤트 던짐
+                vc.viewModel.checkVaildPhoneNumber(text: text)
+            }.disposed(by: disposedBag)
         
         viewModel.buttonValid
             .withUnretained(self)
@@ -53,60 +68,25 @@ class SignInViewController: BaseViewController {
             .tap
             .withUnretained(self)
             .bind { vc, _ in
-                guard let text = vc.mainView.inputTextField.text else {return}
-                let rawnum = text.applyPatternOnNumbers(pattern: "###########", replacmentCharacter: "#")
-                let result = rawnum.dropFirst(1)
-                print(result, String(result), "😵‍💫😵‍💫😵‍💫😵‍💫")
-                if vc.viewModel.buttonValid.value == false {
-                    vc.view.makeToast("잘못된 전화번호 형식입니다.", position: .center)
-                } else {
-                    vc.verification(num: String(result))
-                    UserDefaults.repostNum = String(result)
-                }
+                    vc.viewModel.networkWithFireBase()
             }.disposed(by: disposedBag)
         
-        // 로딩바를 터치하면 로딩바가 없어지고 인증과정도 리셋되게
-    }
-    
-    @objc func changedTextfield() {
-        guard let text = mainView.inputTextField.text else { return }
-        viewModel.textfield.accept(text)
-        if text.count == 13, text.starts(with: "010") {
-            viewModel.buttonValid.accept(true)
-        } else {
-            viewModel.buttonValid.accept(false)
-        }
-    }
-    
-    func verification(num: String) {
-        
-        // verifyPhoneNumber 메서드는 원래 요청이 시간 초과되지 않는 한 두 번째 SMS를 보내지 않습니다.
-        LoadingIndicator.showLoading()
-        Auth.auth().languageCode = "kr"
-        PhoneAuthProvider.provider()
-            .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
-                UserDefaults.phoneNumber = "+82\(num)"
-                if let error = error {
-                    switch error {
-                    case AuthErrorCode.invalidPhoneNumber:
-                        self?.view.makeToast("잘못된 전화번호 형식입니다.", position: .center)
-                        // 이거 어떻게 실험할 수 있지 흠...
-                    case AuthErrorCode.tooManyRequests:
-                        self?.view.makeToast("과도한 인증 시도가 있었습니다. 나중에 다시 시도해 주세요.", position: .center)
-                    default:
-                        self?.view.makeToast("에러가 발생했습니다. 다시 시도해주세요", position: .center)
-                    }
-                    LoadingIndicator.hideLoading()
-                    print(error.localizedDescription, error, "🥲😡")
-                    return
-                } else {
+        viewModel.authResult
+            .withUnretained(self)
+            .bind { vc, reponse in
+                switch reponse {
+                case .success:
                     let viewcontroller = VerificationViewController()
-                    self?.transition(viewcontroller, .push)
-                    UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
-                    LoadingIndicator.hideLoading()
-                    print("success🥰🥰")
+                    print("전화번호인증 성공 🟢")
+                    vc.transition(viewcontroller, .push)
+                case .invalidPhoneNumber:
+                    vc.showDefaultToast(message: .invalidPhoneNumber)
+                case .tooManyRequests:
+                    vc.showDefaultToast(message: .tooManyRequests)
+                case .otherError:
+                    vc.showDefaultToast(message: .otherError)
                 }
-            }
+            }.disposed(by: disposedBag)
     }
 }
 

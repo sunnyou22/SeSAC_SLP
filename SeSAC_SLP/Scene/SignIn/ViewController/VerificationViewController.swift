@@ -92,9 +92,9 @@ class VerificationViewController: BaseViewController {
                 
                 switch error {
                 case AuthErrorCode.missingVerificationID:
-                    self?.view.makeToast("전화 번호 인증 실패", position: .center) // 타이머의 시간이 지났을 때의 메서드에 해당 오류를 던져야함
+                    self?.view.makeToast("잘못된 전화번호 형식입니다.", position: .center) // 타이머의 시간이 지났을 때의 메서드에 해당 오류를 던져야함
                 case AuthErrorCode.invalidVerificationID:
-                    self?.view.makeToast("전화 번호 인증 실패", position: .center)
+                    self?.view.makeToast("전화 번호 인증 실패입니다.", position: .center)
                 case AuthErrorCode.invalidUserToken:
                     self?.view.makeToast("유효하지 않는 정보입니다. 잠시 후 다시 시도해주세요.", position: .center)
                 default:

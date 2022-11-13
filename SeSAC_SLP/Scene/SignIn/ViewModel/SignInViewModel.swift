@@ -11,12 +11,51 @@ import Alamofire
 import Foundation
 
 final class SignInViewModel {
-    static var test: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-//    let signup = PublishSubject<SignUp>()
-//    let login = PublishSubject<LogIn>()
+    static var backToNicknameVC: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     let textfield: BehaviorRelay<String> = BehaviorRelay(value: "")
     var buttonValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var nextbutton: ControlEvent<Void>?
+    let authResult = PublishRelay<AuthVerifyPhoneNumber>()
+    
+    //MARK: 로그인화면 - 메서드
+    
+    //2. 텍스트필드 입력 이벤트 감지 -> 옵저버에게 알림
+    func changePattern(num: String) {
+        textfield.accept(num.applyPatternOnNumbers(pattern: "###-####-####", replacmentCharacter: "#"))
+    }
+    
+    func checkVaildPhoneNumber(text: String) {
+        if text.count == 13, text.starts(with: "010") {
+            buttonValid.accept(true)
+        } else {
+           buttonValid.accept(false)
+        }
+    }
+    
+    func networkWithFireBase() {
+      let rawnum = changeTextfieldPattern(num: textfield.value)
+        FirebaseManager.shared.verifyPhoneNumber(rawnum) { [weak self] response in
+            switch response {
+            case .success:
+                self?.authResult.accept(.success)
+            case .otherError:
+                self?.authResult.accept(.otherError)
+            case .invalidPhoneNumber:
+                self?.authResult.accept(.invalidPhoneNumber)
+            case .tooManyRequests:
+                self?.authResult.accept(.tooManyRequests)
+            }
+        }
+    }
+    
+    @discardableResult
+    func changeTextfieldPattern(num: String) -> String {
+        let rawnum = num.applyPatternOnNumbers(pattern: "###########", replacmentCharacter: "#")
+        let result = rawnum.dropFirst(1)
+        UserDefaults.repostNum = String(result)
+        print(result, String(result), "😵‍💫😵‍💫😵‍💫😵‍💫")
+       return String(result)
+    }
     
     //MARK: 닉네임 - 파일매니저로 뺄건지 고민
     func signUpNetwork(nick: String, FCMtoken: String, phoneNumber: String, birth: Date, email: String, gender: Int, idtoken: String, completion: @escaping ((Error) -> Void)) {

@@ -23,7 +23,18 @@ enum AuthVerifyPhoneNumber {
     case invalidPhoneNumber
     case tooManyRequests
     
-    var 
+    var message: String {
+        switch self {
+        case .success:
+            return "전화번호 파베로 보내기 성공"
+        case .otherError:
+            return "에러가 발생했습니다. 다시 시도해주세요"
+        case .invalidPhoneNumber:
+            return "잘못된 전화번호 형식입니다."
+        case .tooManyRequests:
+           return "과도한 인증 시도가 있었습니다. 나중에 다시 시도해 주세요."
+        }
+    }
 }
 
 enum AuthCredential {
@@ -31,4 +42,17 @@ enum AuthCredential {
     case invalidVerificationID
     case invalidUserToken
     case otherError
+    
+    var message: String {
+        switch self {
+        case .missingVerificationID:
+            return "잘못된 전화번호 형식입니다"
+        case .invalidVerificationID:
+            return "전화 번호 인증 실패입니다."
+        case .invalidUserToken:
+            return "유효하지 않는 정보입니다. 잠시 후 다시 시도해주세요."
+        case .otherError:
+            return "에러가 발생했습니다. 다시 시도해주세요."
+        }
+    }
 }

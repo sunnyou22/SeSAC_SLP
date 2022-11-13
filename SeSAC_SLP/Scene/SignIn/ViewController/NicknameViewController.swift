@@ -37,7 +37,7 @@ class NicknameViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        SignInViewModel.test
+        SignInViewModel.backToNicknameVC
             .withUnretained(self)
             .bind { vc, bool in
                 print("들어오나요오오오오오오오옹ㄴ")
