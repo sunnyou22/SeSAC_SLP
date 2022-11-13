@@ -33,6 +33,11 @@ class VerificationViewController: BaseViewController {
     }
     
     func bindData() {
+        
+//        mainView.inputTextField.rx
+//            .text
+//            .
+//        
         viewModel.textfield
             .withUnretained(self)
             .subscribe(onNext: { vc, text in

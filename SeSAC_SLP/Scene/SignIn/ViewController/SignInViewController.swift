@@ -52,6 +52,7 @@ class SignInViewController: BaseViewController {
         viewModel.textfield
             .withUnretained(self)
             .bind { vc, text in
+//                vc.viewModel.changePattern(num: text) -> 바로~ 재귀 호출~~
                 //변경된 형식의 텍스트를 뷰에 넣어줌
                 vc.mainView.inputTextField.text = text
                 //4. 텍스트필드 유효성 검사 -> 버튼에 대한 유효성검사 이벤트 던짐
