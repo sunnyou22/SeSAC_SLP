@@ -17,6 +17,7 @@ class ComponentView: BaseView {
         view.datePickerMode = .date
         view.preferredDatePickerStyle = .wheels
         view.locale = Locale(identifier: "ko-kr")
+        view.date = UserDefaults.date ?? Date()
         return view
     }()
     

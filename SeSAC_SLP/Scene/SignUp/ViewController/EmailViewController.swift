@@ -23,6 +23,7 @@ class EmailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(UserDefaults.date, "✅✅✅✅✅")
         print(UserDefaults.email, "🐭")
         mainView.inputTextField.text = UserDefaults.email ?? ""
         bindData()

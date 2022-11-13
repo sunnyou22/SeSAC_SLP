@@ -11,11 +11,12 @@ import RxSwift
 
 final class PickerViewModel {
     var buttonValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    let yearTextField: BehaviorRelay<String> = BehaviorRelay(value: "")
-    let monthTextField: BehaviorRelay<String> = BehaviorRelay(value: "")
-    let dateTextField: BehaviorRelay<Date> = BehaviorRelay(value: Date())
+//    let yearTextField: BehaviorRelay<String> = BehaviorRelay(value: "")
+//    let monthTextField: BehaviorRelay<String> = BehaviorRelay(value: "")
+    let dateTextField: BehaviorRelay<Date> = BehaviorRelay(value: UserDefaults.date ?? Date())
     
     func checkValidAge(date: Date) -> Bool {
+        
         let calendar = Calendar(identifier: .gregorian)
         let datecomponent = calendar.dateComponents([.year, .month, .day], from: Date())
         guard let minimundate = calendar.date(byAdding: .year, value: 17, to: date) else { return false }
@@ -26,7 +27,9 @@ final class PickerViewModel {
         guard let birthDay = calendar.date(from: minimundateComponent) else {
             print("🥺 checkValidAge 가드문 갇힘")
             return false }
-
+        
         return today >= birthDay
     }
 }
+
+
