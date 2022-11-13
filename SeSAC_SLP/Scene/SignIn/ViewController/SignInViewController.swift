@@ -81,7 +81,7 @@ class SignInViewController: BaseViewController {
     func verification(num: String) {
         
         // verifyPhoneNumber 메서드는 원래 요청이 시간 초과되지 않는 한 두 번째 SMS를 보내지 않습니다.
-        
+        LoadingIndicator.showLoading()
         Auth.auth().languageCode = "kr"
         PhoneAuthProvider.provider()
             .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
@@ -96,12 +96,14 @@ class SignInViewController: BaseViewController {
                     default:
                         self?.view.makeToast("에러가 발생했습니다. 다시 시도해주세요", position: .center)
                     }
+                    LoadingIndicator.hideLoading()
                     print(error.localizedDescription, error, "🥲😡")
                     return
                 } else {
                     let viewcontroller = VerificationViewController()
                     self?.transition(viewcontroller, .push)
                     UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+                    LoadingIndicator.hideLoading()
                     print("success🥰🥰")
                 }
             }

@@ -48,12 +48,14 @@
 		907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */; };
 		907636E2292030C800D289AB /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E1292030C800D289AB /* IconSet.swift */; };
 		907636E529203FAA00D289AB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E429203FAA00D289AB /* HomeViewController.swift */; };
-		907636E72921747E00D289AB /* SettingTopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E62921747E00D289AB /* SettingTopViewController.swift */; };
+		907636E72921747E00D289AB /* DelayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E62921747E00D289AB /* DelayModel.swift */; };
+		907636E92921783000D289AB /* SetInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E82921783000D289AB /* SetInitialViewController.swift */; };
 		9095C4DE291D13730055D1B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */; };
 		9095C4E0291D43250055D1B7 /* UserDafaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4DF291D43250055D1B7 /* UserDafaults.swift */; };
 		9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4E3291D554C0055D1B7 /* DateFormatter.swift */; };
 		9095C4E6291D81770055D1B7 /* PickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4E5291D81770055D1B7 /* PickerViewModel.swift */; };
 		90DA96C7291CE03500B5CA76 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 90DA96C6291CE03500B5CA76 /* Toast */; };
+		90FD72622921849900BB0077 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72612921849900BB0077 /* Error.swift */; };
 		90FE3116291EAEFA00C0949E /* NWPathMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE3115291EAEFA00C0949E /* NWPathMonitor.swift */; };
 		90FE3118291EB8AF00C0949E /* NoNetWorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE3117291EB8AF00C0949E /* NoNetWorkView.swift */; };
 		90FE311D291F996500C0949E /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 90FE311B291F996500C0949E /* NotoSansKR-Medium.otf */; };
@@ -97,11 +99,13 @@
 		907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		907636E1292030C800D289AB /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
 		907636E429203FAA00D289AB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		907636E62921747E00D289AB /* SettingTopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTopViewController.swift; sourceTree = "<group>"; };
+		907636E62921747E00D289AB /* DelayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayModel.swift; sourceTree = "<group>"; };
+		907636E82921783000D289AB /* SetInitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetInitialViewController.swift; sourceTree = "<group>"; };
 		9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9095C4DF291D43250055D1B7 /* UserDafaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDafaults.swift; sourceTree = "<group>"; };
 		9095C4E3291D554C0055D1B7 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		9095C4E5291D81770055D1B7 /* PickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewModel.swift; sourceTree = "<group>"; };
+		90FD72612921849900BB0077 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		90FE3115291EAEFA00C0949E /* NWPathMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NWPathMonitor.swift; sourceTree = "<group>"; };
 		90FE3117291EB8AF00C0949E /* NoNetWorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoNetWorkView.swift; sourceTree = "<group>"; };
 		90FE311B291F996500C0949E /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
@@ -174,7 +178,8 @@
 				9095C4DF291D43250055D1B7 /* UserDafaults.swift */,
 				9095C4E3291D554C0055D1B7 /* DateFormatter.swift */,
 				907636E1292030C800D289AB /* IconSet.swift */,
-				907636E62921747E00D289AB /* SettingTopViewController.swift */,
+				907636E62921747E00D289AB /* DelayModel.swift */,
+				907636E82921783000D289AB /* SetInitialViewController.swift */,
 			);
 			path = Constent;
 			sourceTree = "<group>";
@@ -187,6 +192,7 @@
 				902B101F291C1AF200D03C0E /* Network.swift */,
 				90FE3115291EAEFA00C0949E /* NWPathMonitor.swift */,
 				90FE3117291EB8AF00C0949E /* NoNetWorkView.swift */,
+				90FD72612921849900BB0077 /* Error.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -383,7 +389,7 @@
 				902B100D291AB87700D03C0E /* GenderViewController.swift in Sources */,
 				902B1009291AB78B00D03C0E /* BirthDayViewController.swift in Sources */,
 				902B0FAE2918BC1C00D03C0E /* ViewController.swift in Sources */,
-				907636E72921747E00D289AB /* SettingTopViewController.swift in Sources */,
+				907636E72921747E00D289AB /* DelayModel.swift in Sources */,
 				902B1010291AE9E300D03C0E /* OnboardingViewController.swift in Sources */,
 				902B0FEB29196E9B00D03C0E /* Color.swift in Sources */,
 				902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */,
@@ -402,11 +408,13 @@
 				902B0FE7291965DE00D03C0E /* VerifrcationView.swift in Sources */,
 				902B100B291AB85D00D03C0E /* EmailViewController.swift in Sources */,
 				902B0FED29196EA900D03C0E /* UILabel.swift in Sources */,
+				907636E92921783000D289AB /* SetInitialViewController.swift in Sources */,
 				902B0FDD29193A0F00D03C0E /* SignInViewController.swift in Sources */,
 				902B0FE92919665500D03C0E /* Enum.swift in Sources */,
 				902B0FD72918FEBE00D03C0E /* BaseView.swift in Sources */,
 				90FE3118291EB8AF00C0949E /* NoNetWorkView.swift in Sources */,
 				9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */,
+				90FD72622921849900BB0077 /* Error.swift in Sources */,
 				9095C4E6291D81770055D1B7 /* PickerViewModel.swift in Sources */,
 				902B101C291C1A0000D03C0E /* APIService.swift in Sources */,
 				902B0FEF291A15E500D03C0E /* PickerView.swift in Sources */,

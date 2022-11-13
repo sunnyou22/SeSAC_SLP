@@ -130,7 +130,7 @@ class VerificationViewController: BaseViewController {
       func setVerification(num: String) {
           
           // verifyPhoneNumber 메서드는 원래 요청이 시간 초과되지 않는 한 두 번째 SMS를 보내지 않습니다.
-      
+          LoadingIndicator.showLoading()
           Auth.auth().languageCode = "kr"
           PhoneAuthProvider.provider()
               .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
@@ -151,9 +151,11 @@ class VerificationViewController: BaseViewController {
                           self?.view.makeToast("에러가 발생했습니다. 다시 시도해주세요", position: .center)
                       }
                       print(error.localizedDescription, error, "🔴")
+                      LoadingIndicator.hideLoading()
                       return
                   } else {
                       self?.getIDTokenForcingRefresh()
+                      LoadingIndicator.hideLoading()
                       print("success ✅")
                   }
               }
@@ -169,11 +171,12 @@ class VerificationViewController: BaseViewController {
         
         viewModel.logInNetwork(idtoken: DBidtoken) {  [weak self] successValue in
             
-            if UserDefaults.phoneNumber != nil {
+            guard UserDefaults.phoneNumber != nil else {
                 self?.mainView.makeToast("인증이력이 있으시군요! 회원가입화면으로 이동하겠습니다.", duration: 0.7, position: .center) { didTap in
                     let viewcontroller = NicknameViewController()
                     self?.transition(viewcontroller, .push)
                 }
+                return
             }
             self?.mainView.makeToast("이미 가입한 회원입니다.", duration: 0.7, position: .center) { didTap in
                 self?.setInitialViewController(to: HomeViewController())
