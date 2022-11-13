@@ -25,7 +25,7 @@ final class SignInViewModel {
     }
     
     func checkVaildPhoneNumber(text: String) {
-        if text.count == 13, text.starts(with: "010") {
+        if text.count == 13, (text.starts(with: "010") || text.starts(with: "011")) {
             buttonValid.accept(true)
         } else {
            buttonValid.accept(false)
