@@ -28,8 +28,8 @@ class VerificationViewController: BaseViewController {
         super.viewDidLoad()
         bindData()
         mainView.inputTextField.addTarget(self, action: #selector(changedTextfield), for: .editingChanged)
-        print( UserDefaults.idtoken, "🚀")
-        print("저나번호", UserDefaults.phoneNumber, UserDefaults.repostNum)
+        print( UserDefaults.idtoken, "🔓")
+        print("저나번호☎️", UserDefaults.phoneNumber, UserDefaults.repostNum)
     }
     
     func bindData() {
@@ -51,7 +51,7 @@ class VerificationViewController: BaseViewController {
             .withUnretained(self)
             .bind { vc, _ in
                 vc.setVerification(num: UserDefaults.repostNum!)
-                print("클릭이된당😇", UserDefaults.repostNum)
+                print("UserDefaults.repostNum ☎️", UserDefaults.repostNum)
             }.disposed(by: disposedBag)
         
         mainView.nextButton.rx
@@ -59,8 +59,7 @@ class VerificationViewController: BaseViewController {
             .withUnretained(self)
             .bind { vc, _ in
                 vc.credential()
-//                vc.getNetwork() // 임시
-                print("클릭된당", UserDefaults.phoneNumber, UserDefaults.repostNum)
+                print(" UserDefaults.phoneNumber, UserDefaults.repostNum ☎️", UserDefaults.phoneNumber, UserDefaults.repostNum)
                 
             }.disposed(by: disposedBag)
     }
@@ -81,7 +80,7 @@ class VerificationViewController: BaseViewController {
         guard let verificationID = UserDefaults.standard.string(forKey: "authVerificationID") else { return } // 이 부분 이해하기
         guard let verificationCode = mainView.inputTextField.text else { return }
         
-        print(verificationID,"😫", verificationCode, "😫😫😫😫😫😫")
+        print(verificationID,"✖️", verificationCode, "🔓", #function)
         let credential = PhoneAuthProvider.provider().credential(
             withVerificationID: verificationID,
             verificationCode: verificationCode
@@ -101,16 +100,17 @@ class VerificationViewController: BaseViewController {
                     self?.view.makeToast("에러가 발생했습니다. 다시 시도해주세요.", position: .center)
                 }
                 
-                print("Unable to login with Phone : error[\(error)]🥲😡")
+                print("Unable to login with Phone : error[\(error)] 🔴")
                 return
             } else {
                 self?.getNetwork()
-                print("Phone Number user is signed in \(String(describing: result?.user.uid))🥰🥰")
+                print("Phone Number user is signed in \(String(describing: result?.user.uid))  ☎️✅")
             }
             
         }
     }
     
+    //MARK: 서버랑 소통 - 토큰인증
     func getNetwork() {
   
         guard let phoneNum = UserDefaults.phoneNumber else {
@@ -125,20 +125,29 @@ class VerificationViewController: BaseViewController {
             return
         }
         
-        viewModel.logInNetwork(phoneNumber: phoneNum, idtoken: DBidtoken) { [weak self] error in
+        viewModel.logInNetwork(phoneNumber: phoneNum, idtoken: DBidtoken) { [weak self] response in
             
-            switch error {
-            case SignUpError.FirebaseTokenError:
-                guard let DBitoken = self?.getIDTokenForcingRefresh() else { return }
-                UserDefaults.idtoken = DBitoken
-                let viewcontroller = NicknameViewController()
-                self?.transition(viewcontroller, .push)
+            switch response {
+                
             case SignUpError.Success:
+                print(#function, "로그인 성공 ✅", response)
                 self?.mainView.makeToast("이미 가입한 회원입니다.", duration: 0.7, position: .center) { didTap in
-                    //                let viewcontroller = 메인뷰컨
+                    let viewcontroller = HomeViewController()
+                    self?.transition(viewcontroller, .presentFullScreen)
                 }
+                
+            case SignUpError.FirebaseTokenError:
+                print(#function, "idtoken만료 🔴", response)
+                    guard let DBitoken = self?.getIDTokenForcingRefresh() else { return }
+                    UserDefaults.idtoken = DBitoken
+                self?.mainView.makeToast("인증이력이 있으시군요! 회원가입화면으로 이동하겠습니다.", duration: 0.7, position: .center) { didTap in
+                    let viewcontroller = NicknameViewController()
+                    self?.transition(viewcontroller, .push)
+                }
+                
             case SignUpError.NotsignUpUser:
-                let alert = UIAlertController(title: "알 수 없는 사용자", message: "회원가입화면으로 넘어가시겠습니까?", preferredStyle: .alert)
+                print(#function, "신규가입자 🔴", response)
+                let alert = UIAlertController(title: "첫방문을 환영합니다:)", message: "회원가입화면으로 넘어가시겠습니까?", preferredStyle: .alert)
                 let ok = UIAlertAction(title: "네", style: .default) { [weak self] _ in
                     guard let DBitoken = self?.getIDTokenForcingRefresh() else { return }
                     UserDefaults.idtoken = DBitoken
@@ -152,53 +161,59 @@ class VerificationViewController: BaseViewController {
                 
                 self?.present(alert, animated: true)
             default:
-                self?.mainView.makeToast("네트워크 통신상태를 확인해주세요!", duration: 0.7, position: .center)
+                print(#function, "알 수 없는 응답값 🟠", response)
+                // 경우의 수 생각해보기 ☑️
+                self?.mainView.makeToast("알 수 없는 에러가 발생했습니다. 앱을 재실행해주세요!", duration: 0.7, position: .center)
             }
             
             
         }
     }
-
+    
     func getIDTokenForcingRefresh() -> String? {
         let currentUser = Auth.auth().currentUser
         currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
             if let error = error {
-                print(error, "idtoken을 받아올 수 없습니다.")
+                print(error, "🔴 idtoken을 받아올 수 없습니다.")
                 return
             } else {
                 guard let idtoken = idToken else { return }
-                print(UserDefaults.phoneNumber ,"🚀🚀🚀🚀phoneNumber", idtoken, "🚀🚀🚀")
-            UserDefaults.idtoken = idtoken
+                UserDefaults.idtoken = idtoken
+            }
         }
-    }
         return UserDefaults.idtoken
-}
-
-func setVerification(num: String) {
+    }
     
-    // verifyPhoneNumber 메서드는 원래 요청이 시간 초과되지 않는 한 두 번째 SMS를 보내지 않습니다.
+    //MARK: 파베랑 소통 - 번호 인증
+    func setVerification(num: String) {
+        
+        // verifyPhoneNumber 메서드는 원래 요청이 시간 초과되지 않는 한 두 번째 SMS를 보내지 않습니다.
     
         Auth.auth().languageCode = "kr"
         PhoneAuthProvider.provider()
             .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { [weak self] (verificationID, error) in
+                
                 UserDefaults.phoneNumber = "+82\(num)"
+                print("☎️ UserDefaults.phoneNumber 가 잘 설정됐남 ",  UserDefaults.phoneNumber)
                 if let error = error {
                     switch error {
                     case AuthErrorCode.invalidPhoneNumber:
                         self?.view.makeToast("잘못된 전화번호 형식입니다.", position: .center)
-                        // 이거 어떻게 실험할 수 있지 흠...
+                  
                     case AuthErrorCode.tooManyRequests:
                         self?.view.makeToast("과도한 인증 시도가 있었습니다. 나중에 다시 시도해 주세요.", position: .center)
+                    
                     default:
+                        print(#function, "파베 에러들 중 하나 발생 🔴")
                         self?.view.makeToast("에러가 발생했습니다. 다시 시도해주세요", position: .center)
                     }
-                    print(error.localizedDescription, error, "🥲😡")
+                    print(error.localizedDescription, error, "🔴")
                     return
                 } else {
                     let viewcontroller = VerificationViewController()
                     self?.transition(viewcontroller, .push)
                     UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
-                    print("success🥰🥰")
+                    print("success ✅")
                 }
             }
     }

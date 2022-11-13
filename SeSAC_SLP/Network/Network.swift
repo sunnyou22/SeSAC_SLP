@@ -40,7 +40,6 @@ final class Network {
                  (lldb) po response.response?.statusCode
                  ▿ Optional<Int>
                    - some : 202
-
                  */
                 completion(.failure(error))
             }
