@@ -68,7 +68,12 @@ class SignInViewController: BaseViewController {
             .tap
             .withUnretained(self)
             .bind { vc, _ in
+                if vc.viewModel.buttonValid.value {
                     vc.viewModel.networkWithFireBase()
+                } else {
+                    vc.showDefaultToast(message: .invalidPhoneNumber)
+                }
+                   
             }.disposed(by: disposedBag)
         
         viewModel.authResult

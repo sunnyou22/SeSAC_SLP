@@ -32,9 +32,9 @@ import Toast
 
 extension UIViewController {
     func showDefaultToast(message: AuthVerifyPhoneNumber) {
-       var ToastStyle = ToastStyle()
-        ToastStyle.backgroundColor = .green
-        ToastStyle.messageColor = .white
-        view.makeToast(message.message, duration: 1, position: .center)
+       var style = ToastStyle()
+        style.backgroundColor = .systemGray3
+        style.messageColor = .white
+        view.makeToast(message.message, duration: 1, position: .center, style: style)
     }
 }
