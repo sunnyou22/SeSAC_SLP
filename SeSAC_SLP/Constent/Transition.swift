@@ -27,4 +27,19 @@ extension UIViewController {
             self.present(nav, animated: true)
         }
     }
+    
+    func setInitialViewController(to: UIViewController) {
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        
+        let transition = CATransition()
+        transition.type = .fade
+        transition.duration = 2
+        sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
+        
+        let signViewController = to
+        let nav = UINavigationController(rootViewController: signViewController)
+        sceneDelegate?.window?.rootViewController = nav
+        sceneDelegate?.window?.makeKeyAndVisible()
+    }
 }

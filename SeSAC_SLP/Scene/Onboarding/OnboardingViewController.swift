@@ -46,7 +46,7 @@ class OnboardingViewController: UIViewController {
         transition.duration = 0.3
         sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
 
-        let vc = SignUpViewController()
+        let vc = SignInViewController()
         sceneDelegate?.window?.rootViewController = vc
         sceneDelegate?.window?.makeKeyAndVisible()
     }

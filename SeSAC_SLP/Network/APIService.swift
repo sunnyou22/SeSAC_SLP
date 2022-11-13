@@ -22,20 +22,15 @@ enum SignUpError: Int, Error {
 // MARK: - SignUp
 struct SignUp: Codable {
     let phoneNumber: String
-    let fcMtoken: String
+    let fcmToken: String
     let nick: String
-    let birth: Date
+    let birth: String
     let email: String
     let gender: Int
     
-    enum CodingKeys: CodingKey {
-        case phoneNumber
-        case fcMtoken
-        //        UserDefaults.standard.string(forKey: "FCMToken")
-        case nick
-        case birth
-        case email
-        case gender
+    enum CodingKeys: String, CodingKey {
+        case phoneNumber, nick, birth, email, gender
+        case fcmToken = "FCMtoken"
     }
 }
 
@@ -44,8 +39,7 @@ struct LogIn: Codable {
     let id: String
     let v: Int
     let uid, phoneNumber, email, fcMtoken: String
-    let nick: String
-    let birth: Date
+    let nick, birth: String
     let gender: Int
     let study: String
     let comment: [String]
@@ -59,17 +53,16 @@ struct LogIn: Codable {
     let reportedUser: [String]
     let dodgepenalty, dodgeNum, ageMin, ageMax: Int
     let searchable: Int
-    let createdAt: Date
-
-    enum CodingKeys: CodingKey {
-        case id
-        case v
+    let createdAt: String
+    
+    //string을 없애도 200으로 통신이 되지만 error로 들어옴
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case v = "__v"
         case uid, phoneNumber, email
-        case fcMtoken
-//        UserDefaults.standard.string(forKey: "FCMToken")
+        case fcMtoken = "FCMtoken"
         case nick, birth, gender, study, comment, reputation, sesac, sesacCollection, background, backgroundCollection, purchaseToken
-        case transactionID
+        case transactionID = "transactionId"
         case reviewedBefore, reportedNum, reportedUser, dodgepenalty, dodgeNum, ageMin, ageMax, searchable, createdAt
     }
 }
-

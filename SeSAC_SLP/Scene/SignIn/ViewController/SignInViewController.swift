@@ -1,5 +1,5 @@
 //
-//  SignUPViewController.swift
+//  SignInViewController.swift
 //  SeSAC_SLP
 //
 //  Created by 방선우 on 2022/11/07.
@@ -13,10 +13,10 @@ import FirebaseCore
 import FirebaseAuth
 import Toast
 
-class SignUpViewController: BaseViewController {
+class SignInViewController: BaseViewController {
     
     var mainView = SignUpView()
-    let viewModel = SignUpViewModel()
+    let viewModel = SignInViewModel()
     let disposedBag = DisposeBag()
     
     override func loadView() {

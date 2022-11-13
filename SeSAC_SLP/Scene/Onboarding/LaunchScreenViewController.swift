@@ -31,7 +31,7 @@ class LaunchScreenViewController: UIViewController {
         configure()
         setContents()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { 
             //            self?.transition(vc, .presentFullScreen)
             
             let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
@@ -46,7 +46,7 @@ class LaunchScreenViewController: UIViewController {
             if UserDefaults.first == true {
                 //토큰이 있는데, 나머지 회원가입절차를 거치치 않았을 때 기존에 저장해뒀던 유저디폴츠의 값이 nil이 판단해서 절차 완료시키기
                 //토큰이 없을 때 온보딩화면
-                    let signViewController = SignUpViewController()
+                    let signViewController = VerificationViewController()
                     let nav = UINavigationController(rootViewController: signViewController)
                     sceneDelegate?.window?.rootViewController = nav
                     sceneDelegate?.window?.makeKeyAndVisible()

@@ -7,6 +7,17 @@
 
 import Foundation
 
+enum UserDaultsKey: String, CaseIterable {
+    case idtoken
+    case phoneNumber
+    case FCMToken
+    case nickname
+    case date
+    case email
+    case woman
+    case repostNum
+}
+
 @propertyWrapper
 struct UserDeaultHelper<Value> {
     let key: String

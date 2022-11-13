@@ -17,7 +17,7 @@ import UIKit
 class GenderViewController: BaseViewController {
     
     var mainView = GenderView()
-    var viewModel = SignUpViewModel()
+    var viewModel = SignInViewModel()
     var disposedBag = DisposeBag()
     
     override func loadView() {
@@ -80,21 +80,24 @@ class GenderViewController: BaseViewController {
                         birth: date,
                         email: UserDefaults.email!,
                         gender: UserDefaults.gender!,
-                        idtoken: UserDefaults.idtoken!) { error in
+                        idtoken: UserDefaults.idtoken!) { [weak self] error in
                             switch error {
                             case SignUpError.FirebaseTokenError:
                                 vc.getIdtoken()
                                 vc.mainView.makeToast("다시 시도해주세요", duration: 1, position: .center)
                             case SignUpError.InvaliedNickName:
                                 vc.mainView.makeToast("사용할 수 없는 닉네임입니다", duration: 1, position: .center) { didTap in
-                                    SignUpViewModel.test.accept(true)
+                                    SignInViewModel.test.accept(true)
                                     
-                                    guard let viewControllers : [UIViewController] = self.navigationController?.viewControllers as? [UIViewController] else { return  }
-                                    self.navigationController?.popToViewController(viewControllers[viewControllers.count - 4 ], animated: true)
+                                    guard let viewControllers : [UIViewController] = self?.navigationController?.viewControllers as? [UIViewController] else { return  }
+                                    self?.navigationController?.popToViewController(viewControllers[viewControllers.count - 4 ], animated: true)
                                 }
                             default:
                                 print("기타")
                             }
+                            // 회원가입 성공시 idtoken을 제외한 유저디폴츠 삭제 및 홈화면으로 window 갈아끼우기
+                            self?.deleteUserDefaults()
+                            self?.setInitialViewController(to: HomeViewController())
                         }
                 } else {
                     vc.mainView.makeToast("성별을 선택해주세요", duration: 1, position: .center)
@@ -116,6 +119,13 @@ class GenderViewController: BaseViewController {
             }
         }
         
+    }
+    
+    func deleteUserDefaults() {
+        for key in 1...UserDaultsKey.allCases.count {
+            UserDefaults.standard.removeObject(forKey: UserDaultsKey.allCases[key].rawValue)
+        }
+            
     }
     
 }

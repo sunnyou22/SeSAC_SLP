@@ -13,7 +13,7 @@ import RxCocoa
 class NicknameViewController: BaseViewController {
 
     var mainView = SignUpView()
-    let viewModel = SignUpViewModel()
+    let viewModel = SignInViewModel()
     let disposedBag = DisposeBag()
     
     override func loadView() {
@@ -37,7 +37,7 @@ class NicknameViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        SignUpViewModel.test
+        SignInViewModel.test
             .withUnretained(self)
             .bind { vc, bool in
                 print("들어오나요오오오오오오오옹ㄴ")

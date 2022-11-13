@@ -16,7 +16,7 @@
 		902B0FBE2918BD0000D03C0E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 902B0FBD2918BD0000D03C0E /* .gitignore */; };
 		902B0FD72918FEBE00D03C0E /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FD62918FEBE00D03C0E /* BaseView.swift */; };
 		902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FD8291915FE00D03C0E /* BaseViewController.swift */; };
-		902B0FDD29193A0F00D03C0E /* SignUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FDC29193A0F00D03C0E /* SignUPViewController.swift */; };
+		902B0FDD29193A0F00D03C0E /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FDC29193A0F00D03C0E /* SignInViewController.swift */; };
 		902B0FE029193AFC00D03C0E /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FDF29193AFC00D03C0E /* SignUpView.swift */; };
 		902B0FE3291952F700D03C0E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 902B0FE2291952F700D03C0E /* SnapKit */; };
 		902B0FE5291965BF00D03C0E /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FE4291965BF00D03C0E /* VerificationViewController.swift */; };
@@ -36,7 +36,7 @@
 		902B100D291AB87700D03C0E /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B100C291AB87700D03C0E /* GenderViewController.swift */; };
 		902B1010291AE9E300D03C0E /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B100F291AE9E300D03C0E /* OnboardingViewController.swift */; };
 		902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B1013291AEB1100D03C0E /* ViewControllerList.swift */; };
-		902B1016291B7ABD00D03C0E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B1015291B7ABD00D03C0E /* SignUpViewModel.swift */; };
+		902B1016291B7ABD00D03C0E /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B1015291B7ABD00D03C0E /* SignInViewModel.swift */; };
 		902B101A291C18D000D03C0E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 902B1019291C18D000D03C0E /* Alamofire */; };
 		902B101C291C1A0000D03C0E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B101B291C1A0000D03C0E /* APIService.swift */; };
 		902B101E291C1A8E00D03C0E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B101D291C1A8E00D03C0E /* Endpoint.swift */; };
@@ -48,6 +48,7 @@
 		907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */; };
 		907636E2292030C800D289AB /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E1292030C800D289AB /* IconSet.swift */; };
 		907636E529203FAA00D289AB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E429203FAA00D289AB /* HomeViewController.swift */; };
+		907636E72921747E00D289AB /* SettingTopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E62921747E00D289AB /* SettingTopViewController.swift */; };
 		9095C4DE291D13730055D1B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */; };
 		9095C4E0291D43250055D1B7 /* UserDafaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4DF291D43250055D1B7 /* UserDafaults.swift */; };
 		9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4E3291D554C0055D1B7 /* DateFormatter.swift */; };
@@ -71,7 +72,7 @@
 		902B0FBD2918BD0000D03C0E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		902B0FD62918FEBE00D03C0E /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		902B0FD8291915FE00D03C0E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		902B0FDC29193A0F00D03C0E /* SignUPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUPViewController.swift; sourceTree = "<group>"; };
+		902B0FDC29193A0F00D03C0E /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		902B0FDF29193AFC00D03C0E /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		902B0FE4291965BF00D03C0E /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
 		902B0FE6291965DE00D03C0E /* VerifrcationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifrcationView.swift; sourceTree = "<group>"; };
@@ -88,7 +89,7 @@
 		902B100C291AB87700D03C0E /* GenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderViewController.swift; sourceTree = "<group>"; };
 		902B100F291AE9E300D03C0E /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		902B1013291AEB1100D03C0E /* ViewControllerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerList.swift; sourceTree = "<group>"; };
-		902B1015291B7ABD00D03C0E /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		902B1015291B7ABD00D03C0E /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		902B1017291BA1FD00D03C0E /* SeSAC_SLP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SeSAC_SLP.entitlements; sourceTree = "<group>"; };
 		902B101B291C1A0000D03C0E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		902B101D291C1A8E00D03C0E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		907636E1292030C800D289AB /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
 		907636E429203FAA00D289AB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		907636E62921747E00D289AB /* SettingTopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTopViewController.swift; sourceTree = "<group>"; };
 		9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9095C4DF291D43250055D1B7 /* UserDafaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDafaults.swift; sourceTree = "<group>"; };
 		9095C4E3291D554C0055D1B7 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				9095C4DF291D43250055D1B7 /* UserDafaults.swift */,
 				9095C4E3291D554C0055D1B7 /* DateFormatter.swift */,
 				907636E1292030C800D289AB /* IconSet.swift */,
+				907636E62921747E00D289AB /* SettingTopViewController.swift */,
 			);
 			path = Constent;
 			sourceTree = "<group>";
@@ -193,7 +196,7 @@
 			children = (
 				907636E329203F9100D289AB /* Home */,
 				902B100E291AE93500D03C0E /* Onboarding */,
-				902B1002291AB69C00D03C0E /* SignUp */,
+				902B1002291AB69C00D03C0E /* SignIn */,
 				902B0FE82919665500D03C0E /* Enum.swift */,
 				902B0FD52918FE7400D03C0E /* Base */,
 			);
@@ -212,7 +215,7 @@
 		902B0FDE29193AE600D03C0E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				902B0FDC29193A0F00D03C0E /* SignUPViewController.swift */,
+				902B0FDC29193A0F00D03C0E /* SignInViewController.swift */,
 				902B0FE4291965BF00D03C0E /* VerificationViewController.swift */,
 				902B1006291AB76600D03C0E /* NicknameViewController.swift */,
 				902B1008291AB78B00D03C0E /* BirthDayViewController.swift */,
@@ -234,14 +237,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		902B1002291AB69C00D03C0E /* SignUp */ = {
+		902B1002291AB69C00D03C0E /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
 				90FE3114291EA8D400C0949E /* ViewModel */,
 				902B0FDE29193AE600D03C0E /* ViewController */,
 				902B1001291AB65300D03C0E /* View */,
 			);
-			path = SignUp;
+			path = SignIn;
 			sourceTree = "<group>";
 		};
 		902B100E291AE93500D03C0E /* Onboarding */ = {
@@ -265,7 +268,7 @@
 		90FE3114291EA8D400C0949E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				902B1015291B7ABD00D03C0E /* SignUpViewModel.swift */,
+				902B1015291B7ABD00D03C0E /* SignInViewModel.swift */,
 				9095C4E5291D81770055D1B7 /* PickerViewModel.swift */,
 			);
 			path = ViewModel;
@@ -380,6 +383,7 @@
 				902B100D291AB87700D03C0E /* GenderViewController.swift in Sources */,
 				902B1009291AB78B00D03C0E /* BirthDayViewController.swift in Sources */,
 				902B0FAE2918BC1C00D03C0E /* ViewController.swift in Sources */,
+				907636E72921747E00D289AB /* SettingTopViewController.swift in Sources */,
 				902B1010291AE9E300D03C0E /* OnboardingViewController.swift in Sources */,
 				902B0FEB29196E9B00D03C0E /* Color.swift in Sources */,
 				902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */,
@@ -392,13 +396,13 @@
 				902B0FF9291A507D00D03C0E /* Transition.swift in Sources */,
 				9095C4E0291D43250055D1B7 /* UserDafaults.swift in Sources */,
 				902B0FF7291A461600D03C0E /* GenderView.swift in Sources */,
-				902B1016291B7ABD00D03C0E /* SignUpViewModel.swift in Sources */,
+				902B1016291B7ABD00D03C0E /* SignInViewModel.swift in Sources */,
 				902B0FAA2918BC1C00D03C0E /* AppDelegate.swift in Sources */,
 				902B0FAC2918BC1C00D03C0E /* SceneDelegate.swift in Sources */,
 				902B0FE7291965DE00D03C0E /* VerifrcationView.swift in Sources */,
 				902B100B291AB85D00D03C0E /* EmailViewController.swift in Sources */,
 				902B0FED29196EA900D03C0E /* UILabel.swift in Sources */,
-				902B0FDD29193A0F00D03C0E /* SignUPViewController.swift in Sources */,
+				902B0FDD29193A0F00D03C0E /* SignInViewController.swift in Sources */,
 				902B0FE92919665500D03C0E /* Enum.swift in Sources */,
 				902B0FD72918FEBE00D03C0E /* BaseView.swift in Sources */,
 				90FE3118291EB8AF00C0949E /* NoNetWorkView.swift in Sources */,

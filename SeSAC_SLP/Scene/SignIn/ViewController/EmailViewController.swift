@@ -13,7 +13,7 @@ import Toast
 class EmailViewController: BaseViewController {
     
     var mainView = EmailView()
-    var viewModel = SignUpViewModel()
+    var viewModel = SignInViewModel()
     let disposedBag = DisposeBag()
     
     override func loadView() {
