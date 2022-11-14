@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 import FirebaseAuth
 
 final class FirebaseManager {
@@ -38,12 +39,63 @@ final class FirebaseManager {
                     print(error.localizedDescription, error, "🥲😡")
                     return
                 } else {
-                    UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+                    UserDefaults.authVerificationID = verificationID!
                     LoadingIndicator.hideLoading()
                     print("success🥰🥰")
                     resultMessage(.success)
                 }
             }
+    }
+    
+    //idtoken ✅
+    func credential(text: String, autoResult: @escaping ((AuthCredentialText) -> Void)) {
+        // error코드화면전화테스트
+        let verificationID = UserDefaults.authVerificationID
+        let verificationCode = text
+        print(verificationID,"✖️", verificationCode, "🔓", #function)
+        
+        let credential = PhoneAuthProvider.provider().credential(
+            withVerificationID: verificationID,
+            verificationCode: verificationCode
+        )
+        
+        Auth.auth().signIn(with: credential) { result, error in
+            
+            if let error = error {
+                
+                switch error {
+                case AuthErrorCode.missingVerificationID:
+                    autoResult(.missingVerificationID)
+                case AuthErrorCode.invalidVerificationID:
+                    autoResult(.invalidVerificationID)
+                case AuthErrorCode.invalidUserToken:
+                    autoResult(.invalidUserToken)
+                default:
+                    autoResult(.missingVerificationID)
+                }
+                print("Unable to login with Phone : error[\(error)] 🔴")
+                return
+            } else {
+                autoResult(.success)
+                print("Phone Number user is signed in \(String(describing: result?.user.uid))  ☎️✅")
+            }
+            
+        }
+    }
+    
+    @discardableResult
+    func getIDTokenForcingRefresh() -> String? {
+        let currentUser = Auth.auth().currentUser
+        currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+            if let error = error {
+                print(error, "🔴 idtoken을 받아올 수 없습니다.")
+                return
+            } else {
+                guard let idtoken = idToken else { return }
+                UserDefaults.idtoken = idtoken
+            }
+        }
+        return UserDefaults.idtoken
     }
 }
 

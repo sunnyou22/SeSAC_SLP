@@ -31,10 +31,18 @@ import Toast
 //}
 
 extension UIViewController {
-    func showDefaultToast(message: AuthVerifyPhoneNumber) {
-       var style = ToastStyle()
-        style.backgroundColor = .systemGray3
-        style.messageColor = .white
-        view.makeToast(message.message, duration: 1, position: .center, style: style)
+    func showDefaultToast(message: CustomAuth, completion: (() -> Void)? = nil) {
+        var style = ToastStyle()
+         style.backgroundColor = .systemGray3
+         style.messageColor = .white
+        
+        switch message {
+        case .AuthVerifyPhoneNumber(let phoneNum):
+            view.makeToast(phoneNum.message, duration: 1, position: .center, style: style)
+        case .AuthCredentialText(let credential):
+            view.makeToast(credential.message, duration: 1, position: .center, style: style)
+        case .SignUpError(let error):
+            view.makeToast(error.message, duration: 1, position: .center)
+        }
     }
 }

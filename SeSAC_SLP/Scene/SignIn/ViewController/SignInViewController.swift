@@ -33,7 +33,7 @@ class SignInViewController: BaseViewController {
         UserDefaults.first = true
         // 토근 및 전번확인
         print(UserDefaults.idtoken, "🚀")
-        print("저나번호", UserDefaults.phoneNumber, UserDefaults.repostNum)
+        print("저나번호", UserDefaults.phoneNumber, UserDefaults.phoneNumber)
     }
     
    private func bindData() {
@@ -52,7 +52,6 @@ class SignInViewController: BaseViewController {
         viewModel.textfield
             .withUnretained(self)
             .bind { vc, text in
-//                vc.viewModel.changePattern(num: text) -> 바로~ 재귀 호출~~
                 //변경된 형식의 텍스트를 뷰에 넣어줌
                 vc.mainView.inputTextField.text = text
                 //4. 텍스트필드 유효성 검사 -> 버튼에 대한 유효성검사 이벤트 던짐
@@ -70,14 +69,14 @@ class SignInViewController: BaseViewController {
             .withUnretained(self)
             .bind { vc, _ in
                 if vc.viewModel.buttonValid.value {
-                    vc.viewModel.networkWithFireBase()
+                    vc.viewModel.networkWithFireBase(num: vc.viewModel.textfield.value)
                 } else {
-                    vc.showDefaultToast(message: .invalidPhoneNumber)
+                    vc.showDefaultToast(message: .AuthVerifyPhoneNumber(.invalidPhoneNumber))
                 }
                    
             }.disposed(by: disposedBag)
         
-        viewModel.authResult
+        viewModel.authPhoneNumResult
             .withUnretained(self)
             .bind { vc, reponse in
                 switch reponse {
@@ -86,11 +85,11 @@ class SignInViewController: BaseViewController {
                     print("전화번호인증 성공 🟢")
                     vc.transition(viewcontroller, .push)
                 case .invalidPhoneNumber:
-                    vc.showDefaultToast(message: .invalidPhoneNumber)
+                    vc.showDefaultToast(message: .AuthVerifyPhoneNumber(.invalidPhoneNumber))
                 case .tooManyRequests:
-                    vc.showDefaultToast(message: .tooManyRequests)
+                    vc.showDefaultToast(message: .AuthVerifyPhoneNumber(.tooManyRequests))
                 case .otherError:
-                    vc.showDefaultToast(message: .otherError)
+                    vc.showDefaultToast(message: .AuthVerifyPhoneNumber(.otherError))
                 }
             }.disposed(by: disposedBag)
     }

@@ -14,8 +14,6 @@ enum UserDaultsKey: String, CaseIterable {
     case nickname
     case date
     case email
-    case woman
-    case repostNum
 }
 
 @propertyWrapper
@@ -56,10 +54,10 @@ extension UserDefaults {
     
     @UserDeaultHelper(key: "idtoken", defaultValue: nil)
     static var idtoken: String?
-    
-    @UserDeaultHelper(key: "repostNum", defaultValue: "")
-    static var repostNum: String?
-    
+
     @UserDeaultHelper(key: "first", defaultValue: false)
     static var first: Bool
+    
+    @UserDeaultHelper(key: "authVerificationID", defaultValue: "")
+    static var authVerificationID: String
 }
