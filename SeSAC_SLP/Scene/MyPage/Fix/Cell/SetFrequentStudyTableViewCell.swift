@@ -37,12 +37,25 @@ class SetFrequentStudyTableViewCell: BaseTableViewCell {
     }
     
     override func configuration() {
+        [title, section, textField].forEach { self.addSubview($0) }
         
     }
     
     override func setConstraints() {
+        
+        title.snp.makeConstraints { make in
+            make.leading.equalTo(self.contentView.snp.leading)
+            make.centerX.equalTo(self.contentView.snp.centerX)
+        }
+        
         section.snp.makeConstraints { make in
+            make.trailing.equalTo(self.contentView.snp.leading)
             make.width.equalTo(164)
+        }
+        
+        textField.snp.makeConstraints { make in
+            make.centerX.equalTo(self.title.snp.centerX)
+            make.leading.equalTo(section.snp.leading).offset(12)
         }
     }
 }

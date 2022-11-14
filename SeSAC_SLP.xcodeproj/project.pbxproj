@@ -72,6 +72,9 @@
 		90FD72B32922838B00BB0077 /* WishStudyTavleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72B22922838B00BB0077 /* WishStudyTavleViewCell.swift */; };
 		90FD72B5292283A500BB0077 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72B4292283A500BB0077 /* ReviewTableViewCell.swift */; };
 		90FD72B929228B6300BB0077 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72B829228B6300BB0077 /* CollectionView.swift */; };
+		90FD72BB2922B44600BB0077 /* AgeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72BA2922B44600BB0077 /* AgeSlider.swift */; };
+		90FD72BD2922B78C00BB0077 /* ThumbButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72BC2922B78C00BB0077 /* ThumbButton.swift */; };
+		90FD72BF2922B7C100BB0077 /* UIButtom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72BE2922B7C100BB0077 /* UIButtom.swift */; };
 		90FE3116291EAEFA00C0949E /* NWPathMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE3115291EAEFA00C0949E /* NWPathMonitor.swift */; };
 		90FE3118291EB8AF00C0949E /* NoNetWorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE3117291EB8AF00C0949E /* NoNetWorkView.swift */; };
 		90FE311D291F996500C0949E /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 90FE311B291F996500C0949E /* NotoSansKR-Medium.otf */; };
@@ -138,6 +141,9 @@
 		90FD72B22922838B00BB0077 /* WishStudyTavleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishStudyTavleViewCell.swift; sourceTree = "<group>"; };
 		90FD72B4292283A500BB0077 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		90FD72B829228B6300BB0077 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionView.swift; path = SeSAC_SLP/Scene/MyPage/CollectionView.swift; sourceTree = SOURCE_ROOT; };
+		90FD72BA2922B44600BB0077 /* AgeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSlider.swift; sourceTree = "<group>"; };
+		90FD72BC2922B78C00BB0077 /* ThumbButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbButton.swift; sourceTree = "<group>"; };
+		90FD72BE2922B7C100BB0077 /* UIButtom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtom.swift; sourceTree = "<group>"; };
 		90FE3115291EAEFA00C0949E /* NWPathMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NWPathMonitor.swift; sourceTree = "<group>"; };
 		90FE3117291EB8AF00C0949E /* NoNetWorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoNetWorkView.swift; sourceTree = "<group>"; };
 		90FE311B291F996500C0949E /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
@@ -326,6 +332,7 @@
 		90FD72952922703C00BB0077 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				90FD72C02922C37C00BB0077 /* Slider */,
 				90FD72B729228AF300BB0077 /* Common */,
 				90FD72B6292283C000BB0077 /* Total */,
 				90FD72AE2922803C00BB0077 /* Expandable */,
@@ -389,6 +396,16 @@
 				90FD72B829228B6300BB0077 /* CollectionView.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		90FD72C02922C37C00BB0077 /* Slider */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72BA2922B44600BB0077 /* AgeSlider.swift */,
+				90FD72BE2922B7C100BB0077 /* UIButtom.swift */,
+				90FD72BC2922B78C00BB0077 /* ThumbButton.swift */,
+			);
+			path = Slider;
 			sourceTree = "<group>";
 		};
 		90FE3114291EA8D400C0949E /* ViewModel */ = {
@@ -504,6 +521,7 @@
 			files = (
 				90FD726729218B4A00BB0077 /* FirebaseManager.swift in Sources */,
 				907636E2292030C800D289AB /* IconSet.swift in Sources */,
+				90FD72BF2922B7C100BB0077 /* UIButtom.swift in Sources */,
 				90FD72B32922838B00BB0077 /* WishStudyTavleViewCell.swift in Sources */,
 				902B1020291C1AF200D03C0E /* Network.swift in Sources */,
 				902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */,
@@ -521,9 +539,11 @@
 				902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */,
 				902B0FF5291A41DC00D03C0E /* EmailView.swift in Sources */,
 				902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */,
+				90FD72BD2922B78C00BB0077 /* ThumbButton.swift in Sources */,
 				90FD72A22922721700BB0077 /* SignOutTableViewCell.swift in Sources */,
 				90FD72A829227AF300BB0077 /* Common.swift in Sources */,
 				90FD729A2922714100BB0077 /* GenderTableViewCell.swift in Sources */,
+				90FD72BB2922B44600BB0077 /* AgeSlider.swift in Sources */,
 				90FD729E2922719500BB0077 /* SwitchTableViewCell.swift in Sources */,
 				907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */,
 				90FD72B12922834500BB0077 /* TitleTableViewCell.swift in Sources */,
