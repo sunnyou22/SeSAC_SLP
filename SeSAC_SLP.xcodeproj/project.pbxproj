@@ -58,6 +58,20 @@
 		90FD72622921849900BB0077 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72612921849900BB0077 /* Error.swift */; };
 		90FD7264292187AF00BB0077 /* CautionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD7263292187AF00BB0077 /* CautionModel.swift */; };
 		90FD726729218B4A00BB0077 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD726629218B4A00BB0077 /* FirebaseManager.swift */; };
+		90FD72972922705300BB0077 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72962922705300BB0077 /* ContentView.swift */; };
+		90FD729A2922714100BB0077 /* GenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72992922714100BB0077 /* GenderTableViewCell.swift */; };
+		90FD729C2922718500BB0077 /* SetFrequentStudyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD729B2922718500BB0077 /* SetFrequentStudyTableViewCell.swift */; };
+		90FD729E2922719500BB0077 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD729D2922719500BB0077 /* SwitchTableViewCell.swift */; };
+		90FD72A0292271D100BB0077 /* MatchingAgeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD729F292271D100BB0077 /* MatchingAgeTableViewCell.swift */; };
+		90FD72A22922721700BB0077 /* SignOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72A12922721700BB0077 /* SignOutTableViewCell.swift */; };
+		90FD72A42922722400BB0077 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72A32922722400BB0077 /* BaseTableViewCell.swift */; };
+		90FD72A829227AF300BB0077 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72A729227AF300BB0077 /* Common.swift */; };
+		90FD72AB29227EA800BB0077 /* ExpandableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72AA29227EA800BB0077 /* ExpandableTableView.swift */; };
+		90FD72AD29227F9500BB0077 /* FixedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72AC29227F9500BB0077 /* FixedTableView.swift */; };
+		90FD72B12922834500BB0077 /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72B02922834500BB0077 /* TitleTableViewCell.swift */; };
+		90FD72B32922838B00BB0077 /* WishStudyTavleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72B22922838B00BB0077 /* WishStudyTavleViewCell.swift */; };
+		90FD72B5292283A500BB0077 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72B4292283A500BB0077 /* ReviewTableViewCell.swift */; };
+		90FD72B929228B6300BB0077 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72B829228B6300BB0077 /* CollectionView.swift */; };
 		90FE3116291EAEFA00C0949E /* NWPathMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE3115291EAEFA00C0949E /* NWPathMonitor.swift */; };
 		90FE3118291EB8AF00C0949E /* NoNetWorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE3117291EB8AF00C0949E /* NoNetWorkView.swift */; };
 		90FE311D291F996500C0949E /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 90FE311B291F996500C0949E /* NotoSansKR-Medium.otf */; };
@@ -110,6 +124,20 @@
 		90FD72612921849900BB0077 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		90FD7263292187AF00BB0077 /* CautionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CautionModel.swift; sourceTree = "<group>"; };
 		90FD726629218B4A00BB0077 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		90FD72962922705300BB0077 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		90FD72992922714100BB0077 /* GenderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderTableViewCell.swift; sourceTree = "<group>"; };
+		90FD729B2922718500BB0077 /* SetFrequentStudyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFrequentStudyTableViewCell.swift; sourceTree = "<group>"; };
+		90FD729D2922719500BB0077 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		90FD729F292271D100BB0077 /* MatchingAgeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingAgeTableViewCell.swift; sourceTree = "<group>"; };
+		90FD72A12922721700BB0077 /* SignOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutTableViewCell.swift; sourceTree = "<group>"; };
+		90FD72A32922722400BB0077 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		90FD72A729227AF300BB0077 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		90FD72AA29227EA800BB0077 /* ExpandableTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTableView.swift; sourceTree = "<group>"; };
+		90FD72AC29227F9500BB0077 /* FixedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedTableView.swift; sourceTree = "<group>"; };
+		90FD72B02922834500BB0077 /* TitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TitleTableViewCell.swift; path = ../../../../../../../../Music/TitleTableViewCell.swift; sourceTree = "<group>"; };
+		90FD72B22922838B00BB0077 /* WishStudyTavleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishStudyTavleViewCell.swift; sourceTree = "<group>"; };
+		90FD72B4292283A500BB0077 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
+		90FD72B829228B6300BB0077 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionView.swift; path = SeSAC_SLP/Scene/MyPage/CollectionView.swift; sourceTree = SOURCE_ROOT; };
 		90FE3115291EAEFA00C0949E /* NWPathMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NWPathMonitor.swift; sourceTree = "<group>"; };
 		90FE3117291EB8AF00C0949E /* NoNetWorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoNetWorkView.swift; sourceTree = "<group>"; };
 		90FE311B291F996500C0949E /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
@@ -206,6 +234,7 @@
 		902B0FD42918FE6B00D03C0E /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				90FD72952922703C00BB0077 /* MyPage */,
 				907636E329203F9100D289AB /* Home */,
 				902B100E291AE93500D03C0E /* Onboarding */,
 				902B1002291AB69C00D03C0E /* SignIn */,
@@ -219,6 +248,7 @@
 			children = (
 				902B0FD62918FEBE00D03C0E /* BaseView.swift */,
 				902B0FD8291915FE00D03C0E /* BaseViewController.swift */,
+				90FD72A32922722400BB0077 /* BaseTableViewCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -289,6 +319,74 @@
 			isa = PBXGroup;
 			children = (
 				902B0FE82919665500D03C0E /* Enum.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		90FD72952922703C00BB0077 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72B729228AF300BB0077 /* Common */,
+				90FD72B6292283C000BB0077 /* Total */,
+				90FD72AE2922803C00BB0077 /* Expandable */,
+				90FD72A929227E7400BB0077 /* Fix */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		90FD72982922713000BB0077 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72992922714100BB0077 /* GenderTableViewCell.swift */,
+				90FD729B2922718500BB0077 /* SetFrequentStudyTableViewCell.swift */,
+				90FD729D2922719500BB0077 /* SwitchTableViewCell.swift */,
+				90FD729F292271D100BB0077 /* MatchingAgeTableViewCell.swift */,
+				90FD72A12922721700BB0077 /* SignOutTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		90FD72A929227E7400BB0077 /* Fix */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72AC29227F9500BB0077 /* FixedTableView.swift */,
+				90FD72982922713000BB0077 /* Cell */,
+			);
+			path = Fix;
+			sourceTree = "<group>";
+		};
+		90FD72AE2922803C00BB0077 /* Expandable */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72AA29227EA800BB0077 /* ExpandableTableView.swift */,
+				90FD72AF2922808900BB0077 /* Cell */,
+			);
+			path = Expandable;
+			sourceTree = "<group>";
+		};
+		90FD72AF2922808900BB0077 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72B02922834500BB0077 /* TitleTableViewCell.swift */,
+				90FD72B22922838B00BB0077 /* WishStudyTavleViewCell.swift */,
+				90FD72B4292283A500BB0077 /* ReviewTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		90FD72B6292283C000BB0077 /* Total */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72962922705300BB0077 /* ContentView.swift */,
+			);
+			path = Total;
+			sourceTree = "<group>";
+		};
+		90FD72B729228AF300BB0077 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72A729227AF300BB0077 /* Common.swift */,
+				90FD72B829228B6300BB0077 /* CollectionView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -406,20 +504,32 @@
 			files = (
 				90FD726729218B4A00BB0077 /* FirebaseManager.swift in Sources */,
 				907636E2292030C800D289AB /* IconSet.swift in Sources */,
+				90FD72B32922838B00BB0077 /* WishStudyTavleViewCell.swift in Sources */,
 				902B1020291C1AF200D03C0E /* Network.swift in Sources */,
 				902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */,
 				907636E529203FAA00D289AB /* HomeViewController.swift in Sources */,
 				902B100D291AB87700D03C0E /* GenderViewController.swift in Sources */,
 				902B1009291AB78B00D03C0E /* BirthDayViewController.swift in Sources */,
 				902B0FAE2918BC1C00D03C0E /* ViewController.swift in Sources */,
+				90FD72B5292283A500BB0077 /* ReviewTableViewCell.swift in Sources */,
+				90FD729C2922718500BB0077 /* SetFrequentStudyTableViewCell.swift in Sources */,
 				907636E72921747E00D289AB /* DelayModel.swift in Sources */,
+				90FD72AD29227F9500BB0077 /* FixedTableView.swift in Sources */,
+				90FD72AB29227EA800BB0077 /* ExpandableTableView.swift in Sources */,
 				902B1010291AE9E300D03C0E /* OnboardingViewController.swift in Sources */,
 				902B0FEB29196E9B00D03C0E /* Color.swift in Sources */,
 				902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */,
 				902B0FF5291A41DC00D03C0E /* EmailView.swift in Sources */,
 				902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */,
+				90FD72A22922721700BB0077 /* SignOutTableViewCell.swift in Sources */,
+				90FD72A829227AF300BB0077 /* Common.swift in Sources */,
+				90FD729A2922714100BB0077 /* GenderTableViewCell.swift in Sources */,
+				90FD729E2922719500BB0077 /* SwitchTableViewCell.swift in Sources */,
 				907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */,
+				90FD72B12922834500BB0077 /* TitleTableViewCell.swift in Sources */,
+				90FD72B929228B6300BB0077 /* CollectionView.swift in Sources */,
 				902B0FE5291965BF00D03C0E /* VerificationViewController.swift in Sources */,
+				90FD72A42922722400BB0077 /* BaseTableViewCell.swift in Sources */,
 				902B0FE029193AFC00D03C0E /* SignUpView.swift in Sources */,
 				90FE3116291EAEFA00C0949E /* NWPathMonitor.swift in Sources */,
 				902B0FF9291A507D00D03C0E /* Transition.swift in Sources */,
@@ -430,12 +540,14 @@
 				902B0FAC2918BC1C00D03C0E /* SceneDelegate.swift in Sources */,
 				902B0FE7291965DE00D03C0E /* VerifrcationView.swift in Sources */,
 				902B100B291AB85D00D03C0E /* EmailViewController.swift in Sources */,
+				90FD72972922705300BB0077 /* ContentView.swift in Sources */,
 				902B0FED29196EA900D03C0E /* UILabel.swift in Sources */,
 				907636E92921783000D289AB /* SetInitialViewController.swift in Sources */,
 				902B0FDD29193A0F00D03C0E /* SignInViewController.swift in Sources */,
 				902B0FE92919665500D03C0E /* Enum.swift in Sources */,
 				902B0FD72918FEBE00D03C0E /* BaseView.swift in Sources */,
 				90FE3118291EB8AF00C0949E /* NoNetWorkView.swift in Sources */,
+				90FD72A0292271D100BB0077 /* MatchingAgeTableViewCell.swift in Sources */,
 				9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */,
 				90FD72622921849900BB0077 /* Error.swift in Sources */,
 				90FD7264292187AF00BB0077 /* CautionModel.swift in Sources */,
