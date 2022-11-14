@@ -140,8 +140,8 @@ final class SignInViewModel {
                     
                     return
                 }
-                self?.autoUserStaus.accept(.SignInUser)
                 
+                self?.autoUserStaus.accept(.SignInUser)
             case .failure(let failure):
                 
                 switch failure {

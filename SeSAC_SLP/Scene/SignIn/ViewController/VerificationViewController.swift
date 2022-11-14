@@ -39,7 +39,7 @@ class VerificationViewController: BaseViewController {
             .withUnretained(self)
             .bind(onNext: { vc, text in
                 print(text, "=======")
-                vc.viewModel.changePattern(num: text)
+                vc.viewModel.checkValidCode(text: text)
             }).disposed(by: disposedBag)
         
         
@@ -47,7 +47,7 @@ class VerificationViewController: BaseViewController {
             .withUnretained(self)
             .bind { vc, text in
                 vc.mainView.inputTextField.text = text
-                vc.viewModel.checkValidCode(text: text)
+               
             }.disposed(by: disposedBag)
         
         viewModel.buttonValid
@@ -134,21 +134,12 @@ class VerificationViewController: BaseViewController {
                     
                 case .NotsignUpUser:
                     vc.showDefaultToast(message: .SignUpError(.NotsignUpUser)) { [weak self] in
-                        let alert = UIAlertController(title: "첫방문을 환영합니다:)", message: "회원가입화면으로 넘어가시겠습니까?", preferredStyle: .alert)
-                        let ok = UIAlertAction(title: "네", style: .default) { [weak self] _ in
+                        vc.showSelectedAlert(title: "첫방문을 환영합니다:)", message: "회원가입화면으로 넘어가시겠습니까?") { _ in
                             guard let DBitoken = FirebaseManager.shared.getIDTokenForcingRefresh() else { return }
                             UserDefaults.idtoken = DBitoken
                             let viewcontroller = NicknameViewController()
                             self?.transition(viewcontroller, .push)
-                            
                         }
-                        
-                        
-                        let cancel = UIAlertAction(title: "아니오", style: .cancel)
-                        alert.addAction(ok)
-                        alert.addAction(cancel)
-                        
-                        self?.present(alert, animated: true)
                     }
                 default:
                     vc.showDefaultToast(message: .SignUpError(.ClientError)) {

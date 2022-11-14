@@ -38,11 +38,39 @@ extension UIViewController {
         
         switch message {
         case .AuthVerifyPhoneNumber(let phoneNum):
-            view.makeToast(phoneNum.message, duration: 1, position: .center, style: style)
+            view.makeToast(phoneNum.message, duration: 1, position: .center, style: style) { didTap in
+                guard let tapCompletion = completion?() else {
+                    return
+                }
+                tapCompletion
+            }
         case .AuthCredentialText(let credential):
-            view.makeToast(credential.message, duration: 1, position: .center, style: style)
+            view.makeToast(credential.message, duration: 1, position: .center, style: style) { didTap in
+                guard let tapCompletion = completion?() else {
+                    return
+                }
+                tapCompletion
+            }
         case .SignUpError(let error):
-            view.makeToast(error.message, duration: 1, position: .center)
+            view.makeToast(error.message, duration: 1, position: .center) { didTap in
+                guard let tapCompletion = completion?() else {
+                    return
+                }
+                tapCompletion
+            }
         }
     }
+    
+    func showSelectedAlert(title: String?, message: String, okCompletion: ((UIAlertAction) -> Void)?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "네", style: .default, handler: okCompletion)
+        
+        let cancel = UIAlertAction(title: "아니오", style: .cancel)
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true)
+    }
 }
+
+                            

@@ -209,7 +209,6 @@
 				907636E329203F9100D289AB /* Home */,
 				902B100E291AE93500D03C0E /* Onboarding */,
 				902B1002291AB69C00D03C0E /* SignIn */,
-				902B0FE82919665500D03C0E /* Enum.swift */,
 				902B0FD52918FE7400D03C0E /* Base */,
 			);
 			path = Scene;
@@ -252,6 +251,7 @@
 		902B1002291AB69C00D03C0E /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
+				90FD72682922444800BB0077 /* Common */,
 				90FE3114291EA8D400C0949E /* ViewModel */,
 				902B0FDE29193AE600D03C0E /* ViewController */,
 				902B1001291AB65300D03C0E /* View */,
@@ -283,6 +283,14 @@
 				90FD726629218B4A00BB0077 /* FirebaseManager.swift */,
 			);
 			path = Firebase;
+			sourceTree = "<group>";
+		};
+		90FD72682922444800BB0077 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				902B0FE82919665500D03C0E /* Enum.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		90FE3114291EA8D400C0949E /* ViewModel */ = {
