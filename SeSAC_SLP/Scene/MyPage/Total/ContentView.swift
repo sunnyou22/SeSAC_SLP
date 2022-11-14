@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import SnapKit
 
 // 스크롤뷰의 content뷰랑 갈아끼워줄 아이
 
 class ContentView: BaseView {
     
-    let ImageView: UIImageView = {
+    let imageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(systemName: "heart.fill")
         view.contentMode = .scaleAspectFill
@@ -23,8 +24,18 @@ class ContentView: BaseView {
         return view
     }()
     
-    let FixedTableViw: FixedTableView = {
-        let view = FixedTableView()
+    let fixedView: FixedView = {
+        let view = FixedView()
         return view
     }()
+
+    override func configure() {
+        [imageView, expandableTableView, fixedView].forEach { self.addSubview($0) }
+    }
+    
+    override func setConstraints() {
+        imageView.snp.makeConstraints { make in
+            imageView
+        }
+    }
 }

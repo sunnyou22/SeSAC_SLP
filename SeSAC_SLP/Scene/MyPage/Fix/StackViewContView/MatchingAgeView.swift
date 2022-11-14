@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MatchingAgeTableViewCell: BaseTableViewCell {
+class MatchingAgeView: BaseView {
     
     let title: UILabel = {
        let view = UILabel()
@@ -27,24 +27,34 @@ class MatchingAgeTableViewCell: BaseTableViewCell {
         slider.maxValue = 65
         slider.lower = 1
         slider.upper = 30
-        slider.addTarget(self, action: #selector(changeValue), for: .valueChanged)
         return slider
     }()
     
-  
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func configuration() {
-        <#code#>
+    override func configure() {
+        [title, ageLable, trackBar].forEach { self.addSubview($0) }
     }
     
     override func setConstraints() {
-        <#code#>
+        title.snp.makeConstraints { make in
+            make.leading.equalTo(self.snp.leading)
+            make.centerX.equalTo(self.snp.centerX)
+        }
+        
+        ageLable.snp.makeConstraints { make in
+            make.trailing.equalTo(self.snp.trailing)
+            make.centerX.equalTo(self.snp.centerX)
+        }
+        
+        trackBar.snp.makeConstraints { make in
+            make.top.equalTo(title.snp.bottom).offset(12)
+        }
     }
 }

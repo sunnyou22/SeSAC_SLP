@@ -1,5 +1,5 @@
 //
-//  SetFrequentStudyTableViewCell.swift
+//  SetFrequentStudyView.swift
 //  SeSAC_SLP
 //
 //  Created by 방선우 on 2022/11/14.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SetFrequentStudyTableViewCell: BaseTableViewCell {
+class SetFrequentStudyView: BaseView {
     
     let title: UILabel = {
        let view = UILabel()
@@ -28,28 +28,27 @@ class SetFrequentStudyTableViewCell: BaseTableViewCell {
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func configuration() {
+    override func configure() {
         [title, section, textField].forEach { self.addSubview($0) }
         
     }
     
     override func setConstraints() {
-        
         title.snp.makeConstraints { make in
-            make.leading.equalTo(self.contentView.snp.leading)
-            make.centerX.equalTo(self.contentView.snp.centerX)
+            make.leading.equalTo(self.snp.leading)
+            make.centerX.equalTo(self.snp.centerX)
         }
         
         section.snp.makeConstraints { make in
-            make.trailing.equalTo(self.contentView.snp.leading)
+            make.trailing.equalTo(self.snp.leading)
             make.width.equalTo(164)
         }
         

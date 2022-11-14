@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SwitchTableViewCell: BaseTableViewCell {
+class SwitchView: BaseView {
      
     let title: UILabel = {
        let view = UILabel()
@@ -22,27 +22,27 @@ class SwitchTableViewCell: BaseTableViewCell {
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func configuration() {
+    override func configure() {
         [title, switchButton].forEach { self.addSubview($0) }
     }
     
     override func setConstraints() {
         title.snp.makeConstraints { make in
-            make.centerX.equalTo(self.contentView.snp.centerX)
-            make.leading.equalTo(self.contentView.snp.leading)
+            make.centerX.equalTo(self.snp.centerX)
+            make.leading.equalTo(self.snp.leading)
         }
         
         switchButton.snp.makeConstraints { make in
-            make.trailing.equalTo(self.contentView.snp.trailing)
-            make.centerX.equalTo(self.contentView.snp.centerX)
+            make.trailing.equalTo(self.snp.trailing)
+            make.centerX.equalTo(self.snp.centerX)
         }
     }
 }
