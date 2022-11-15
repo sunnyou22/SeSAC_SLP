@@ -54,6 +54,7 @@
 		9095C4E0291D43250055D1B7 /* UserDafaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4DF291D43250055D1B7 /* UserDafaults.swift */; };
 		9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4E3291D554C0055D1B7 /* DateFormatter.swift */; };
 		9095C4E6291D81770055D1B7 /* PickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4E5291D81770055D1B7 /* PickerViewModel.swift */; };
+		90A55C78292418FB0005F56D /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A55C77292418FB0005F56D /* Header.swift */; };
 		90DA96C7291CE03500B5CA76 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 90DA96C6291CE03500B5CA76 /* Toast */; };
 		90FD72622921849900BB0077 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72612921849900BB0077 /* Error.swift */; };
 		90FD7264292187AF00BB0077 /* CautionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD7263292187AF00BB0077 /* CautionModel.swift */; };
@@ -82,6 +83,7 @@
 		90FD72CD29236BDA00BB0077 /* BackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72CC29236BDA00BB0077 /* BackCollectionViewCell.swift */; };
 		90FD72CF2923749400BB0077 /* BaseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72CE2923749400BB0077 /* BaseCollectionView.swift */; };
 		90FD72D12923915100BB0077 /* TableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72D02923915100BB0077 /* TableViewViewModel.swift */; };
+		90FD72D62923FFD400BB0077 /* MyPageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72D52923FFD400BB0077 /* MyPageListViewController.swift */; };
 		90FE3116291EAEFA00C0949E /* NWPathMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE3115291EAEFA00C0949E /* NWPathMonitor.swift */; };
 		90FE3118291EB8AF00C0949E /* NoNetWorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE3117291EB8AF00C0949E /* NoNetWorkView.swift */; };
 		90FE311D291F996500C0949E /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 90FE311B291F996500C0949E /* NotoSansKR-Medium.otf */; };
@@ -131,6 +133,7 @@
 		9095C4DF291D43250055D1B7 /* UserDafaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDafaults.swift; sourceTree = "<group>"; };
 		9095C4E3291D554C0055D1B7 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		9095C4E5291D81770055D1B7 /* PickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewModel.swift; sourceTree = "<group>"; };
+		90A55C77292418FB0005F56D /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		90FD72612921849900BB0077 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		90FD7263292187AF00BB0077 /* CautionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CautionModel.swift; sourceTree = "<group>"; };
 		90FD726629218B4A00BB0077 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -158,6 +161,7 @@
 		90FD72CC29236BDA00BB0077 /* BackCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackCollectionViewCell.swift; sourceTree = "<group>"; };
 		90FD72CE2923749400BB0077 /* BaseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionView.swift; sourceTree = "<group>"; };
 		90FD72D02923915100BB0077 /* TableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewViewModel.swift; sourceTree = "<group>"; };
+		90FD72D52923FFD400BB0077 /* MyPageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageListViewController.swift; sourceTree = "<group>"; };
 		90FE3115291EAEFA00C0949E /* NWPathMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NWPathMonitor.swift; sourceTree = "<group>"; };
 		90FE3117291EB8AF00C0949E /* NoNetWorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoNetWorkView.swift; sourceTree = "<group>"; };
 		90FE311B291F996500C0949E /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
@@ -255,6 +259,7 @@
 		902B0FD42918FE6B00D03C0E /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				90FD72D42923FE7C00BB0077 /* MyPageFirst */,
 				90FD72952922703C00BB0077 /* MyPage */,
 				907636E329203F9100D289AB /* Home */,
 				902B100E291AE93500D03C0E /* Onboarding */,
@@ -437,6 +442,15 @@
 			path = CollectionView;
 			sourceTree = "<group>";
 		};
+		90FD72D42923FE7C00BB0077 /* MyPageFirst */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72D52923FFD400BB0077 /* MyPageListViewController.swift */,
+				90A55C77292418FB0005F56D /* Header.swift */,
+			);
+			path = MyPageFirst;
+			sourceTree = "<group>";
+		};
 		90FE3114291EA8D400C0949E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -571,6 +585,7 @@
 				902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */,
 				90FD72BD2922B78C00BB0077 /* ThumbButton.swift in Sources */,
 				90FD72A22922721700BB0077 /* SignOutView.swift in Sources */,
+				90FD72D62923FFD400BB0077 /* MyPageListViewController.swift in Sources */,
 				90FD72A829227AF300BB0077 /* Common.swift in Sources */,
 				90FD729A2922714100BB0077 /* MyPageGenderView.swift in Sources */,
 				90FD72BB2922B44600BB0077 /* AgeSlider.swift in Sources */,
@@ -587,6 +602,7 @@
 				902B0FF7291A461600D03C0E /* GenderView.swift in Sources */,
 				902B1016291B7ABD00D03C0E /* SignInViewModel.swift in Sources */,
 				902B0FAA2918BC1C00D03C0E /* AppDelegate.swift in Sources */,
+				90A55C78292418FB0005F56D /* Header.swift in Sources */,
 				902B0FAC2918BC1C00D03C0E /* SceneDelegate.swift in Sources */,
 				902B0FE7291965DE00D03C0E /* VerifrcationView.swift in Sources */,
 				90FD72CF2923749400BB0077 /* BaseCollectionView.swift in Sources */,
