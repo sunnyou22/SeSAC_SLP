@@ -56,7 +56,6 @@ class Header: BaseView {
     }
 }
 
-
 class ExpandableTableView: UITableView {
     
     let header = Header()

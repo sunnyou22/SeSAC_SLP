@@ -45,12 +45,12 @@ class MatchingAgeView: BaseView {
     override func setConstraints() {
         title.snp.makeConstraints { make in
             make.leading.equalTo(self.snp.leading)
-            make.centerX.equalTo(self.snp.centerX)
+            make.centerY.equalTo(self.snp.centerY)
         }
         
         ageLable.snp.makeConstraints { make in
             make.trailing.equalTo(self.snp.trailing)
-            make.centerX.equalTo(self.snp.centerX)
+            make.centerY.equalTo(self.snp.centerY)
         }
         
         trackBar.snp.makeConstraints { make in

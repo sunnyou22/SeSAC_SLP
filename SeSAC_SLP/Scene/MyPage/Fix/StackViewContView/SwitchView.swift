@@ -15,7 +15,7 @@ class SwitchView: BaseView {
         return view
     }()
     
-    let switchButton: UISwitch = {
+ let switchButton: UISwitch = {
         let view = UISwitch()
         view.onTintColor = .setBrandColor(color: .green)
         view.backgroundColor = .setGray(color: .gray4)
@@ -36,13 +36,13 @@ class SwitchView: BaseView {
     
     override func setConstraints() {
         title.snp.makeConstraints { make in
-            make.centerX.equalTo(self.snp.centerX)
+            make.centerY.equalTo(self.snp.centerY)
             make.leading.equalTo(self.snp.leading)
         }
         
         switchButton.snp.makeConstraints { make in
             make.trailing.equalTo(self.snp.trailing)
-            make.centerX.equalTo(self.snp.centerX)
+            make.centerY.equalTo(self.snp.centerY)
         }
     }
 }

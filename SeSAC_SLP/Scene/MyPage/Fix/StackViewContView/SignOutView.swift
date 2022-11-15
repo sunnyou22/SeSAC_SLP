@@ -29,7 +29,7 @@ class SignOutView: BaseView {
     
     override func setConstraints() {
         title.snp.makeConstraints { make in
-            make.centerX.equalTo(self.snp.centerX)
+            make.centerY.equalTo(self.snp.centerY)
             make.leading.equalTo(self.snp.leading)
         }
     }

@@ -44,7 +44,7 @@ class SetFrequentStudyView: BaseView {
     override func setConstraints() {
         title.snp.makeConstraints { make in
             make.leading.equalTo(self.snp.leading)
-            make.centerX.equalTo(self.snp.centerX)
+            make.centerY.equalTo(self.snp.centerY)
         }
         
         section.snp.makeConstraints { make in
@@ -53,7 +53,7 @@ class SetFrequentStudyView: BaseView {
         }
         
         textField.snp.makeConstraints { make in
-            make.centerX.equalTo(self.title.snp.centerX)
+            make.centerY.equalTo(self.title.snp.centerY)
             make.leading.equalTo(section.snp.leading).offset(12)
         }
     }
