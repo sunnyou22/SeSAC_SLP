@@ -60,7 +60,8 @@ class MyPageGenderView: BaseView {
     }
     
     override func configure() {
-        [title, manButton, womanButton].forEach { self.addSubview($0) }
+        [manButton, womanButton].forEach { stackView.addArrangedSubview($0) }
+        [title, stackView].forEach { self.addSubview($0) }
     }
     
     override func setConstraints() {

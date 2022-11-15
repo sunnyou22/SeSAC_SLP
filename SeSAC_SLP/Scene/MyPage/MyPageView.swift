@@ -6,15 +6,15 @@
 //
 
 import UIKit
-
-class MyPageView: BaseView {
-    
-    let scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.backgroundColor = .blue
-        return view
-    }()
-    
-    let con
-}
-
+//
+//class MyPageView: BaseView {
+//    
+//    let scrollView: UIScrollView = {
+//        let view = UIScrollView()
+//        view.backgroundColor = .blue
+//        return view
+//    }()
+//    
+//    let con
+//}
+//

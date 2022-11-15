@@ -49,7 +49,7 @@ final class FixedView: UIStackView {
     func configure() {
         self.backgroundColor = .brown
         self.axis = .vertical
-        self.distribution = .fillEqually
+        self.distribution = .fill
         self.spacing = 16
     }
 }

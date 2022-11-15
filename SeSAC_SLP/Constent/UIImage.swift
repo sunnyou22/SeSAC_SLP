@@ -14,7 +14,7 @@ extension UIImage {
         case .background(let background):
             return self.init(named: background.literal)!
         case .sesacFace(let sesac):
-            return self.init(named: sesac.literal)!
+            return self.init(named: sesac.face)!
         }
     }
 }

@@ -7,9 +7,20 @@
 
 import UIKit
 
+struct CellData {
+    var opened = Bool() // 테이블뷰를 접었다 폈다
+    var title = String() // title 카테고리에 해당하는 문자열
+    var setionData = [String]() //카테코리 내 아이뎀들에 해당하는 문자열 리스트
+}
 
-
-class ExpandableTableView: UITableView {
+class Header: BaseView {
+    let sesacImage: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage.setBackground(imagename: .sesacFace(.sesac_face_1))
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+    
     
     let imageView: UIImageView = {
         let view = UIImageView()
@@ -20,30 +31,46 @@ class ExpandableTableView: UITableView {
         return view
     }()
     
-    let sesacImage: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage.setBackground(imagename: .sesacFace(.sesac_face_1))
-        view.contentMode = .scaleAspectFit
-        return view
-    }()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
-    let header: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
-    }()
+    override func configure() {
+        imageView.addSubview(sesacImage)
+        self.addSubview(imageView)
+    }
+
+    override func setConstraints() {
+        imageView.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(self.snp.horizontalEdges).inset(16)
+            make.height.equalTo(imageView.snp.width).multipliedBy(0.57)
+        }
+        sesacImage.snp.makeConstraints { make in
+            make.centerX.equalTo(imageView.snp.centerX)
+            make.bottom.equalTo(imageView.snp.bottom).offset(-16)
+        }
+    }
+}
+
+
+class ExpandableTableView: UITableView {
+    
+    let header = Header()
     
     override init(frame: CGRect, style: UITableView.Style) {
-        super.init(frame: frame, style: style)
+        super.init(frame: frame, style: .insetGrouped)
         
         // 셀등록
         registerTableViewCell()
-        
-        // 테이블뷰 속성
         configure()
-    setConstraints()
-        imageView.addSubview(sesacImage)
+    }
+    
+    func configure() {
+        self.backgroundColor = .brown
     }
     
     required init?(coder: NSCoder) {
@@ -52,25 +79,8 @@ class ExpandableTableView: UITableView {
     
     //셀등록
  func registerTableViewCell() {
-     self.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.reuseIdentifier)
-     self.register(WishStudyTavleViewCell.self, forCellReuseIdentifier: WishStudyTavleViewCell.reuseIdentifier)
-     self.register(ReviewTableViewCell.self, forCellReuseIdentifier: ReviewTableViewCell.reuseIdentifier)
+     self.register(ExpandableTableViewCell.self, forCellReuseIdentifier: ExpandableTableViewCell.reuseIdentifier)
+     self.register(ExpandableTextTableViewCell.self, forCellReuseIdentifier: ExpandableTextTableViewCell.reuseIdentifier)
     }
-    
-    func configure() {
-        self.backgroundColor = .brown
-        self.tableHeaderView = self.header
-    }
-    
-    func setConstraints() {
-        imageView.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(self.snp.horizontalEdges).inset(16)
-            make.height.equalTo(imageView.snp.width).multipliedBy(0.57)
-        }
-        sesacImage.snp.makeConstraints { make in
-            make.centerX.equalTo(imageView.snp.centerX)
-            make.bottom.equalTo(imageView.snp.bottom).offset(16)
-        }
-        
-    }
+ 
 }
