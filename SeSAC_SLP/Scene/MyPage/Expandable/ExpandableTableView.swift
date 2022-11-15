@@ -40,6 +40,7 @@ class Header: BaseView {
     }
     
     override func configure() {
+        
         imageView.addSubview(sesacImage)
         self.addSubview(imageView)
     }
@@ -51,7 +52,7 @@ class Header: BaseView {
         }
         sesacImage.snp.makeConstraints { make in
             make.centerX.equalTo(imageView.snp.centerX)
-            make.bottom.equalTo(imageView.snp.bottom).offset(-16)
+            make.bottom.equalTo(imageView.snp.bottom).offset(-8)
         }
     }
 }
@@ -59,6 +60,13 @@ class Header: BaseView {
 class ExpandableTableView: UITableView {
     
     let header = Header()
+    
+    var collectionView: UICollectionView = {
+        let view = BaseCollectionView(frame: .zero, collectionViewLayout: .init())
+        view.register(BackCollectionViewCell.self, forCellWithReuseIdentifier: BackCollectionViewCell.reuseIdentifier)
+        view.backgroundColor = .cyan
+        return view
+    }()
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: .insetGrouped)

@@ -22,7 +22,9 @@ class ExpandableTextTableViewCell: BaseTableViewCell {
     let textView: UITextView = {
         let view = UITextView()
         view.backgroundColor = .blue
-        view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .vertical)
+//        view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .vertical)
+        view.isScrollEnabled = false
+        view.contentSize.height
         return view
     }()
      
@@ -37,12 +39,11 @@ class ExpandableTextTableViewCell: BaseTableViewCell {
     override func configuration() {
         contentView.addSubview(lable)
         contentView.addSubview(textView)
-        self.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
     
     override func setConstraints() {
         lable.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top)
+            make.top.equalTo(contentView.snp.top)
             make.leading.equalTo(contentView.snp.leading)
             make.height.equalTo(28)
         }
@@ -50,7 +51,8 @@ class ExpandableTextTableViewCell: BaseTableViewCell {
         textView.snp.makeConstraints { make in
             make.top.equalTo(lable.snp.bottom)
             make.horizontalEdges.equalTo(self.snp.horizontalEdges)
-            make.bottom.equalTo(self.contentView.snp.bottom)
+            make.bottom.equalTo(self.snp.bottom)
+
         }
     }
     
