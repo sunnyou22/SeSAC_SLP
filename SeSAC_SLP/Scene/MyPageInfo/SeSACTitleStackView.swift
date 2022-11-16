@@ -8,24 +8,8 @@
 import UIKit
 import SnapKit
 
-class TitleStackView: UIStackView {
+class TitleStackView: UIView {
     
-    let leftVerticalStackView: UIStackView = {
-        let view = UIStackView()
-       return view.setStackViewLayout(axis: .vertical, color: .magenta)
-    }()
-
-    let rightVerticalStackView: UIStackView = {
-        let view = UIStackView()
-        return view.setStackViewLayout(axis: .vertical, color: .green)
-    }()
-   
-    let horizontalStackView: UIStackView = {
-        let view = UIStackView()
-        return view.setStackViewLayout(axis: .horizontal, color: .cyan)
-    }()
-    
-
     lazy var first: UIButton = {
         let view = UIButton()
         return setStackViewComponent(view, tag: 1)
@@ -45,7 +29,7 @@ class TitleStackView: UIStackView {
         let view = UIButton()
         return setStackViewComponent(view, tag: 4)
     }()
-    
+
     lazy var five: UIButton = {
         let view = UIButton()
         return setStackViewComponent(view, tag: 5)
@@ -54,6 +38,21 @@ class TitleStackView: UIStackView {
     lazy var six: UIButton = {
         let view = UIButton()
         return setStackViewComponent(view, tag: 6)
+    }()
+    
+    lazy var leftVerticalStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [first, third, five])
+       return view.setStackViewLayout(axis: .vertical, color: .magenta)
+    }()
+
+    lazy var rightVerticalStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [second, four, six])
+        return view.setStackViewLayout(axis: .vertical, color: .green)
+    }()
+   
+    lazy var horizontalStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [leftVerticalStackView, rightVerticalStackView])
+        return view.setStackViewLayout(axis: .horizontal, color: .cyan)
     }()
     
     func setStackViewComponent(_ to: UIButton, tag: Int) -> UIButton {
@@ -69,6 +68,7 @@ class TitleStackView: UIStackView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configuration()
+        set()
     }
     
     required init(coder: NSCoder) {
@@ -77,15 +77,21 @@ class TitleStackView: UIStackView {
     
   func configuration() {
         
-        [first, third, five].forEach { button in
-            leftVerticalStackView.addArrangedSubview(button)
-        }
-        
-        [second, four, six].forEach { rightVerticalStackView.addArrangedSubview($0) }
-        
         [leftVerticalStackView, rightVerticalStackView].forEach { horizontalStackView.addArrangedSubview($0) }
         
       self.addSubview(horizontalStackView)
     }
     
+    func set() {
+//        leftVerticalStackView.snp.makeConstraints { make in
+//            make.height.equalTo(32 * 3 + 16)
+//        }
+//        rightVerticalStackView.snp.makeConstraints { make in
+//            make.height.equalTo(32 * 3 + 16)
+//        }
+        horizontalStackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            
+        }
+    }
 }

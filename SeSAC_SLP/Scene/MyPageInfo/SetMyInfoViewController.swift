@@ -23,8 +23,12 @@ class SetMyInfoViewController: BaseViewController {
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            
+            mainView.cardView.nicknameView.toggleButton.addTarget(self, action: #selector(test), for: .touchUpInside)
         }
         
-    
+    @objc func test() {
+        mainView.cardView.expandableView.isHidden =  !mainView.cardView.expandableView.isHidden
+    }
    
 }

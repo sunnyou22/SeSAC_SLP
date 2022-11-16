@@ -56,12 +56,9 @@ class ExpandableStackView: UIStackView {
         return view
     }()
     
-    let titleStackview: UIStackView = {
+    let titleStackview: UIView = {
         let view = TitleStackView()
-        view.backgroundColor = .orange
-        view.spacing = 8
-        view.axis = .vertical
-        view.distribution = .fillEqually
+       
         return view
     }()
     

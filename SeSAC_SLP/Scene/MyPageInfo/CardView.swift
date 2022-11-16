@@ -10,11 +10,11 @@ import UIKit
 import SnapKit
 
 class CardView: BaseView {
-    let header = Header()
-    let nicknameView = CardViewNickName()
-    let expandableView = CardViewTitleAndReview()
+    lazy var header = Header()
+    lazy var nicknameView = CardViewNickName()
+    lazy var expandableView = CardViewTitleAndReview()
     
-    let borderView: UIView = {
+    lazy var borderView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 8
         view.layer.borderColor = UIColor.setGray(color: .gray2).cgColor
@@ -45,7 +45,7 @@ class CardView: BaseView {
         nicknameView.backgroundColor = .red
         expandableView.backgroundColor = .brown
         
-        [header, stackView].forEach { self.addSubview($0) }
+        [header, borderView].forEach { self.addSubview($0) }
         borderView.addSubview(stackView)
     }
     

@@ -16,7 +16,7 @@ class CardViewTitleAndReview: BaseView {
         return view
     }()
     
-    let titleStackView: UIStackView = {
+    let titleStackView: UIView = {
         let view = TitleStackView()
         return view
     }()
@@ -59,8 +59,8 @@ class CardViewTitleAndReview: BaseView {
         titleStackView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(16)
             make.leading.equalTo(titleLabel.snp.leading)
-//            make.height.equalTo(32)
-            make.width.equalTo(self.snp.width).multipliedBy(0.49)
+            make.height.equalTo(200)
+            make.width.equalTo(self.snp.width)
         }
 
         sesacReviewLabel.snp.makeConstraints { make in

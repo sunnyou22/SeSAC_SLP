@@ -9,10 +9,10 @@ import UIKit
 
 class MyPageInfoScrollView: UIScrollView {
     
-    let cardView = CardView()
-    let fixView = FixedView()
+    lazy var cardView = CardView()
+    lazy var fixView = FixedView()
     
-    let contentView = UIView()
+    lazy var contentView = UIView()
     
     lazy var stackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [cardView, fixView])
@@ -24,6 +24,9 @@ class MyPageInfoScrollView: UIScrollView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.isScrollEnabled = true
+        configure()
+        setConstraints()
     }
     
     required init?(coder: NSCoder) {
