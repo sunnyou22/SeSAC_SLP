@@ -31,14 +31,15 @@ class SetMyInfoViewController: BaseViewController {
     
     var expandableTableView = ExpandableTableView()
     
+    let headerView = Header()
+    
+    var isExpanded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //섹션등록
         view.addSubview(expandableTableView)
-        expandableTableView.tableHeaderView = expandableTableView.header
-        expandableTableView.tableHeaderView?.frame.size.height = 204
-        //        expandableTableView.rowHeight =
         
         expandableTableView.snp.makeConstraints { (make) in
             make.top.leading.bottom.trailing.equalToSuperview()
@@ -47,8 +48,12 @@ class SetMyInfoViewController: BaseViewController {
         tableViewData = [
             CellData(opened: false, title: "이름입니다.", setionData: ["새싹 타이틀", "새싹리뷰"])
         ]
+        
         expandableTableView.delegate = self
         expandableTableView.dataSource = self
+        expandableTableView.tableHeaderView = headerView
+//        expandableTableView.rowHeight = UITableView.automaticDimension
+        expandableTableView.estimatedRowHeight = 60
       
         
         backcollectionView.collectionViewLayout = collectionViewLayout()
@@ -59,15 +64,21 @@ class SetMyInfoViewController: BaseViewController {
         }
         backcollectionView.delegate = self
         backcollectionView.dataSource = self
-        
-        
-        expandableTableView.rowHeight = UITableView.automaticDimension
-        expandableTableView.estimatedRowHeight = 130
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        expandableTableView.tableHeaderView = hederView
+       
+         expandableTableView.tableHeaderView?.frame.size.height = 200
+        
+    
+    }
+
     override func configure() {
-      
+        headerView.layoutIfNeeded()
     }
     
     override func setContents() {
@@ -117,15 +128,22 @@ extension SetMyInfoViewController: UICollectionViewDelegate, UICollectionViewDat
     }
 }
 
-    
     extension SetMyInfoViewController: UITableViewDelegate, UITableViewDataSource {
+
+        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            return headerView
+        }
         
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return tableView.rowHeight
+        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            
+            return 100
+        }
+        
+       func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return UITableView.automaticDimension
         }
         
         func numberOfSections(in tableView: UITableView) -> Int {
-            
             return tableViewData.count
         }
         
@@ -157,6 +175,7 @@ extension SetMyInfoViewController: UICollectionViewDelegate, UICollectionViewDat
             } else if indexPath.row == 2 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandableTextTableViewCell.reuseIdentifier, for: indexPath) as? ExpandableTextTableViewCell else { return UITableViewCell() }
                 cell.lable.text = tableViewData[indexPath.section].setionData[indexPath.row - 1]
+                cell.textView.numberOfLines = isExpanded ? 0 : 1
                 return cell
             }
             return UITableViewCell()
@@ -166,6 +185,10 @@ extension SetMyInfoViewController: UICollectionViewDelegate, UICollectionViewDat
             if indexPath.row == 0 {
                 tableViewData[indexPath.section].opened = !tableViewData[indexPath.section].opened
                 tableView.reloadSections([indexPath.section], with: .none)
+            }
+            if indexPath.row == 2 {
+                isExpanded = !isExpanded
+                expandableTableView.reloadRows(at: [indexPath], with: .none)
             }
             //        tableView.reloadSections([indexPath.section], with: .none) => 여기서 Indexpath.row fade로 셀 숨기기
             

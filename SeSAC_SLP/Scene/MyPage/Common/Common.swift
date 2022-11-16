@@ -70,7 +70,7 @@ enum SeSac_Background: String {
     }
 }
 
-enum Sesac_Face: String {
+enum Sesac_Face: String, CaseIterable {
     case sesac_face_1
     case sesac_face_2
     case sesac_face_3

@@ -9,38 +9,48 @@ import UIKit
 import SnapKit
 
 final class MyPageHeaderView: UICollectionReusableView {
-  lazy var username: UILabel = {
-    let view = UILabel()
-    view.textColor = .white
-    return view
-  }()
-  
-//    let roundView: UIView = {
-//        let view = UIView()
-//        view.clipsToBounds = true
-//        view.layer.cornerRadius = view.frame.size.width / 2
-//        view.layer.borderWidth = 1
-//        view.layer.borderColor = UIColor.setGray(color: .gray2).cgColor
-//        return view
-//    }()
-//
-    let imageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage.setBackground(imagename: .sesacFace(.sesac_face_1))
-        view.contentMode = .scaleAspectFit
-        view.clipsToBounds = true
-        view.layer.cornerRadius = view.frame.size.width / 2
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.setGray(color: .gray2).cgColor
+    
+    let username: UILabel = {
+        let view = UILabel()
+        view.text = "방선우"
+        view.textColor = .setBaseColor(color: .black)
+        return view
+    }()
+ 
+    let arrowButton: UIButton = {
+        let view = UIButton()
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(systemName: "chevron.right")
+        config.baseForegroundColor = .setGray(color: .gray7)
+        view.configuration = config
+
+    
         return view
     }()
     
+        lazy var imageView: UIImageView = {
+            let view = UIImageView()
+            view.image = UIImage.setBackground(imagename: .sesacFace(.sesac_face_1))
+            DispatchQueue.main.async {
+                view.contentMode = .scaleAspectFit
+                view.clipsToBounds = true
+                view.layer.cornerRadius = view.frame.size.width / 2
+                view.layer.borderWidth = 1
+                view.layer.borderColor = UIColor.setGray(color: .gray2).cgColor
+            }
+            return view
+        }()
+    
     func configure() {
-        [username, imageView].forEach { self.addSubview($0) }
+        [username, arrowButton, imageView].forEach { self.addSubview($0) }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .setBaseColor(color: .white)
+        configure()
+        setConsentrait()
+        
     }
       func setConsentrait() {
           
@@ -51,7 +61,13 @@ final class MyPageHeaderView: UICollectionReusableView {
           }
           
           username.snp.makeConstraints { make in
-              make.leading.equalTo(self.safeAreaLayoutGuide).offset(16)
+              make.leading.equalTo(imageView.snp.trailing).offset(16)
+              make.centerY.equalTo(self.snp.centerY)
+          }
+          
+          arrowButton.snp.makeConstraints { make in
+              make.width.height.equalTo(40)
+              make.trailing.equalTo(self.snp.trailing).offset(-4)
               make.centerY.equalTo(self.snp.centerY)
           }
   }
@@ -60,12 +76,5 @@ final class MyPageHeaderView: UICollectionReusableView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override func prepareForReuse() {
-    super.prepareForReuse()
-    self.prepare(text: nil)
-  }
   
-  func prepare(text: String?) {
-    self.username.text = text
-  }
 }

@@ -13,6 +13,8 @@ struct CellData {
     var setionData = [String]() //카테코리 내 아이뎀들에 해당하는 문자열 리스트
 }
 
+
+//MARK: 헤더
 class Header: BaseView {
     let sesacImage: UIImageView = {
         let view = UIImageView()
@@ -49,6 +51,7 @@ class Header: BaseView {
         imageView.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(self.snp.horizontalEdges).inset(16)
             make.height.equalTo(imageView.snp.width).multipliedBy(0.57)
+            self.layoutIfNeeded()
         }
         sesacImage.snp.makeConstraints { make in
             make.centerX.equalTo(imageView.snp.centerX)
@@ -57,9 +60,8 @@ class Header: BaseView {
     }
 }
 
+//MARK: 아래 테이블 뷰
 class ExpandableTableView: UITableView {
-    
-    let header = Header()
     
     var collectionView: UICollectionView = {
         let view = BaseCollectionView(frame: .zero, collectionViewLayout: .init())
@@ -88,6 +90,7 @@ class ExpandableTableView: UITableView {
  func registerTableViewCell() {
      self.register(ExpandableTableViewCell.self, forCellReuseIdentifier: ExpandableTableViewCell.reuseIdentifier)
      self.register(ExpandableTextTableViewCell.self, forCellReuseIdentifier: ExpandableTextTableViewCell.reuseIdentifier)
+    
     }
  
 }

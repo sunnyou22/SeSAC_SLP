@@ -19,12 +19,12 @@ class ExpandableTextTableViewCell: BaseTableViewCell {
         return view
     }()
     
-    let textView: UITextView = {
-        let view = UITextView()
+    let textView: UILabel = {
+        let view = UILabel()
         view.backgroundColor = .blue
+        view.text = "test메세지입니다."
 //        view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .vertical)
-        view.isScrollEnabled = false
-        view.contentSize.height
+        view.numberOfLines = 0
         return view
     }()
      
