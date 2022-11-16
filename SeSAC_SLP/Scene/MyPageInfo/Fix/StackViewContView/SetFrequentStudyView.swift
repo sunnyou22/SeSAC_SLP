@@ -39,7 +39,6 @@ class SetFrequentStudyView: BaseView {
     
     override func configure() {
         [title, section, textField].forEach { self.addSubview($0) }
-        
     }
     
     override func setConstraints() {

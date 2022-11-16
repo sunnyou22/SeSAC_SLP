@@ -92,3 +92,13 @@ enum Sesac_Face: String, CaseIterable {
         }
     }
 }
+
+extension UIStackView {
+    func setStackViewLayout(axis: NSLayoutConstraint.Axis, color: UIColor) -> Self {
+        self.backgroundColor = color
+        self.spacing = 8
+        self.axis = axis
+        self.distribution = .fillEqually
+        return self
+    }
+}
