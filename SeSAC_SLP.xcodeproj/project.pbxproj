@@ -50,14 +50,36 @@
 		907636E529203FAA00D289AB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E429203FAA00D289AB /* HomeViewController.swift */; };
 		907636E72921747E00D289AB /* DelayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E62921747E00D289AB /* DelayModel.swift */; };
 		907636E92921783000D289AB /* SetInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E82921783000D289AB /* SetInitialViewController.swift */; };
+		907C68E12925170500AADECC /* CardViewNickName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E02925170500AADECC /* CardViewNickName.swift */; };
+		907C68E3292517B200AADECC /* CardViewTitleAndReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E2292517B200AADECC /* CardViewTitleAndReview.swift */; };
+		907C68E5292519B500AADECC /* MypageInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E4292519B500AADECC /* MypageInfoHeader.swift */; };
+		907C68E729251B0400AADECC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E629251B0400AADECC /* CardView.swift */; };
+		907C68E929251DC400AADECC /* MyPageInfoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E829251DC400AADECC /* MyPageInfoScrollView.swift */; };
 		9095C4DE291D13730055D1B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */; };
 		9095C4E0291D43250055D1B7 /* UserDafaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4DF291D43250055D1B7 /* UserDafaults.swift */; };
 		9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4E3291D554C0055D1B7 /* DateFormatter.swift */; };
 		9095C4E6291D81770055D1B7 /* PickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4E5291D81770055D1B7 /* PickerViewModel.swift */; };
+		90A55C78292418FB0005F56D /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A55C77292418FB0005F56D /* Header.swift */; };
+		90A55C7A292427030005F56D /* MyPageListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A55C79292427030005F56D /* MyPageListTableViewCell.swift */; };
+		90A55C7D2924BBF60005F56D /* SeSACTitleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A55C7C2924BBF60005F56D /* SeSACTitleStackView.swift */; };
 		90DA96C7291CE03500B5CA76 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 90DA96C6291CE03500B5CA76 /* Toast */; };
 		90FD72622921849900BB0077 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72612921849900BB0077 /* Error.swift */; };
 		90FD7264292187AF00BB0077 /* CautionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD7263292187AF00BB0077 /* CautionModel.swift */; };
 		90FD726729218B4A00BB0077 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD726629218B4A00BB0077 /* FirebaseManager.swift */; };
+		90FD729A2922714100BB0077 /* MyPageGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72992922714100BB0077 /* MyPageGenderView.swift */; };
+		90FD729C2922718500BB0077 /* SetFrequentStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD729B2922718500BB0077 /* SetFrequentStudyView.swift */; };
+		90FD729E2922719500BB0077 /* SwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD729D2922719500BB0077 /* SwitchView.swift */; };
+		90FD72A0292271D100BB0077 /* MatchingAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD729F292271D100BB0077 /* MatchingAgeView.swift */; };
+		90FD72A22922721700BB0077 /* SignOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72A12922721700BB0077 /* SignOutView.swift */; };
+		90FD72A42922722400BB0077 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72A32922722400BB0077 /* BaseTableViewCell.swift */; };
+		90FD72A829227AF300BB0077 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72A729227AF300BB0077 /* Common.swift */; };
+		90FD72AD29227F9500BB0077 /* FixedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72AC29227F9500BB0077 /* FixedView.swift */; };
+		90FD72BB2922B44600BB0077 /* AgeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72BA2922B44600BB0077 /* AgeSlider.swift */; };
+		90FD72BD2922B78C00BB0077 /* ThumbButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72BC2922B78C00BB0077 /* ThumbButton.swift */; };
+		90FD72BF2922B7C100BB0077 /* UIButtom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72BE2922B7C100BB0077 /* UIButtom.swift */; };
+		90FD72C22922D95500BB0077 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72C12922D95500BB0077 /* UIImage.swift */; };
+		90FD72C62923488200BB0077 /* SetMyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72C52923488200BB0077 /* SetMyInfoViewController.swift */; };
+		90FD72D62923FFD400BB0077 /* MyPageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72D52923FFD400BB0077 /* MyPageListViewController.swift */; };
 		90FE3116291EAEFA00C0949E /* NWPathMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE3115291EAEFA00C0949E /* NWPathMonitor.swift */; };
 		90FE3118291EB8AF00C0949E /* NoNetWorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE3117291EB8AF00C0949E /* NoNetWorkView.swift */; };
 		90FE311D291F996500C0949E /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 90FE311B291F996500C0949E /* NotoSansKR-Medium.otf */; };
@@ -103,13 +125,35 @@
 		907636E429203FAA00D289AB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		907636E62921747E00D289AB /* DelayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayModel.swift; sourceTree = "<group>"; };
 		907636E82921783000D289AB /* SetInitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetInitialViewController.swift; sourceTree = "<group>"; };
+		907C68E02925170500AADECC /* CardViewNickName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewNickName.swift; sourceTree = "<group>"; };
+		907C68E2292517B200AADECC /* CardViewTitleAndReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewTitleAndReview.swift; sourceTree = "<group>"; };
+		907C68E4292519B500AADECC /* MypageInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageInfoHeader.swift; sourceTree = "<group>"; };
+		907C68E629251B0400AADECC /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		907C68E829251DC400AADECC /* MyPageInfoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageInfoScrollView.swift; sourceTree = "<group>"; };
 		9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9095C4DF291D43250055D1B7 /* UserDafaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDafaults.swift; sourceTree = "<group>"; };
 		9095C4E3291D554C0055D1B7 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		9095C4E5291D81770055D1B7 /* PickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewModel.swift; sourceTree = "<group>"; };
+		90A55C77292418FB0005F56D /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		90A55C79292427030005F56D /* MyPageListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageListTableViewCell.swift; sourceTree = "<group>"; };
+		90A55C7C2924BBF60005F56D /* SeSACTitleStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeSACTitleStackView.swift; sourceTree = "<group>"; };
 		90FD72612921849900BB0077 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		90FD7263292187AF00BB0077 /* CautionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CautionModel.swift; sourceTree = "<group>"; };
 		90FD726629218B4A00BB0077 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		90FD72992922714100BB0077 /* MyPageGenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageGenderView.swift; sourceTree = "<group>"; };
+		90FD729B2922718500BB0077 /* SetFrequentStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFrequentStudyView.swift; sourceTree = "<group>"; };
+		90FD729D2922719500BB0077 /* SwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchView.swift; sourceTree = "<group>"; };
+		90FD729F292271D100BB0077 /* MatchingAgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingAgeView.swift; sourceTree = "<group>"; };
+		90FD72A12922721700BB0077 /* SignOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutView.swift; sourceTree = "<group>"; };
+		90FD72A32922722400BB0077 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		90FD72A729227AF300BB0077 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		90FD72AC29227F9500BB0077 /* FixedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedView.swift; sourceTree = "<group>"; };
+		90FD72BA2922B44600BB0077 /* AgeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSlider.swift; sourceTree = "<group>"; };
+		90FD72BC2922B78C00BB0077 /* ThumbButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbButton.swift; sourceTree = "<group>"; };
+		90FD72BE2922B7C100BB0077 /* UIButtom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtom.swift; sourceTree = "<group>"; };
+		90FD72C12922D95500BB0077 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		90FD72C52923488200BB0077 /* SetMyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMyInfoViewController.swift; sourceTree = "<group>"; };
+		90FD72D52923FFD400BB0077 /* MyPageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageListViewController.swift; sourceTree = "<group>"; };
 		90FE3115291EAEFA00C0949E /* NWPathMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NWPathMonitor.swift; sourceTree = "<group>"; };
 		90FE3117291EB8AF00C0949E /* NoNetWorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoNetWorkView.swift; sourceTree = "<group>"; };
 		90FE311B291F996500C0949E /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
@@ -185,6 +229,7 @@
 				907636E62921747E00D289AB /* DelayModel.swift */,
 				907636E82921783000D289AB /* SetInitialViewController.swift */,
 				90FD7263292187AF00BB0077 /* CautionModel.swift */,
+				90FD72C12922D95500BB0077 /* UIImage.swift */,
 			);
 			path = Constent;
 			sourceTree = "<group>";
@@ -206,8 +251,10 @@
 		902B0FD42918FE6B00D03C0E /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				907636E329203F9100D289AB /* Home */,
 				902B100E291AE93500D03C0E /* Onboarding */,
+				90FD72D42923FE7C00BB0077 /* MyPageFirst */,
+				90FD72952922703C00BB0077 /* MyPageInfo */,
+				907636E329203F9100D289AB /* Home */,
 				902B1002291AB69C00D03C0E /* SignIn */,
 				902B0FD52918FE7400D03C0E /* Base */,
 			);
@@ -219,6 +266,7 @@
 			children = (
 				902B0FD62918FEBE00D03C0E /* BaseView.swift */,
 				902B0FD8291915FE00D03C0E /* BaseViewController.swift */,
+				90FD72A32922722400BB0077 /* BaseTableViewCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -272,9 +320,17 @@
 		907636E329203F9100D289AB /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				907636E429203FAA00D289AB /* HomeViewController.swift */,
+				907C68EA29253B5D00AADECC /* Map */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		907C68EA29253B5D00AADECC /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				907636E429203FAA00D289AB /* HomeViewController.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		90FD726529218AEE00BB0077 /* Firebase */ = {
@@ -291,6 +347,72 @@
 				902B0FE82919665500D03C0E /* Enum.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		90FD72952922703C00BB0077 /* MyPageInfo */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72C52923488200BB0077 /* SetMyInfoViewController.swift */,
+				907C68E4292519B500AADECC /* MypageInfoHeader.swift */,
+				907C68E629251B0400AADECC /* CardView.swift */,
+				907C68E02925170500AADECC /* CardViewNickName.swift */,
+				907C68E2292517B200AADECC /* CardViewTitleAndReview.swift */,
+				90A55C7C2924BBF60005F56D /* SeSACTitleStackView.swift */,
+				907C68E829251DC400AADECC /* MyPageInfoScrollView.swift */,
+				90FD72A929227E7400BB0077 /* Fix */,
+				90FD72C02922C37C00BB0077 /* Slider */,
+				90FD72B729228AF300BB0077 /* Common */,
+			);
+			path = MyPageInfo;
+			sourceTree = "<group>";
+		};
+		90FD72982922713000BB0077 /* StackViewContView */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72992922714100BB0077 /* MyPageGenderView.swift */,
+				90FD729B2922718500BB0077 /* SetFrequentStudyView.swift */,
+				90FD729D2922719500BB0077 /* SwitchView.swift */,
+				90FD729F292271D100BB0077 /* MatchingAgeView.swift */,
+				90FD72A12922721700BB0077 /* SignOutView.swift */,
+			);
+			path = StackViewContView;
+			sourceTree = "<group>";
+		};
+		90FD72A929227E7400BB0077 /* Fix */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72AC29227F9500BB0077 /* FixedView.swift */,
+				90FD72982922713000BB0077 /* StackViewContView */,
+			);
+			path = Fix;
+			sourceTree = "<group>";
+		};
+		90FD72B729228AF300BB0077 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72A729227AF300BB0077 /* Common.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		90FD72C02922C37C00BB0077 /* Slider */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72BA2922B44600BB0077 /* AgeSlider.swift */,
+				90FD72BE2922B7C100BB0077 /* UIButtom.swift */,
+				90FD72BC2922B78C00BB0077 /* ThumbButton.swift */,
+			);
+			path = Slider;
+			sourceTree = "<group>";
+		};
+		90FD72D42923FE7C00BB0077 /* MyPageFirst */ = {
+			isa = PBXGroup;
+			children = (
+				90FD72D52923FFD400BB0077 /* MyPageListViewController.swift */,
+				90A55C77292418FB0005F56D /* Header.swift */,
+				90A55C79292427030005F56D /* MyPageListTableViewCell.swift */,
+			);
+			path = MyPageFirst;
 			sourceTree = "<group>";
 		};
 		90FE3114291EA8D400C0949E /* ViewModel */ = {
@@ -406,20 +528,37 @@
 			files = (
 				90FD726729218B4A00BB0077 /* FirebaseManager.swift in Sources */,
 				907636E2292030C800D289AB /* IconSet.swift in Sources */,
+				90FD72BF2922B7C100BB0077 /* UIButtom.swift in Sources */,
 				902B1020291C1AF200D03C0E /* Network.swift in Sources */,
+				907C68E12925170500AADECC /* CardViewNickName.swift in Sources */,
 				902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */,
 				907636E529203FAA00D289AB /* HomeViewController.swift in Sources */,
 				902B100D291AB87700D03C0E /* GenderViewController.swift in Sources */,
 				902B1009291AB78B00D03C0E /* BirthDayViewController.swift in Sources */,
 				902B0FAE2918BC1C00D03C0E /* ViewController.swift in Sources */,
+				90FD729C2922718500BB0077 /* SetFrequentStudyView.swift in Sources */,
+				907C68E3292517B200AADECC /* CardViewTitleAndReview.swift in Sources */,
 				907636E72921747E00D289AB /* DelayModel.swift in Sources */,
+				90FD72AD29227F9500BB0077 /* FixedView.swift in Sources */,
+				907C68E929251DC400AADECC /* MyPageInfoScrollView.swift in Sources */,
 				902B1010291AE9E300D03C0E /* OnboardingViewController.swift in Sources */,
 				902B0FEB29196E9B00D03C0E /* Color.swift in Sources */,
 				902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */,
 				902B0FF5291A41DC00D03C0E /* EmailView.swift in Sources */,
 				902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */,
+				90FD72BD2922B78C00BB0077 /* ThumbButton.swift in Sources */,
+				90FD72A22922721700BB0077 /* SignOutView.swift in Sources */,
+				90FD72D62923FFD400BB0077 /* MyPageListViewController.swift in Sources */,
+				907C68E5292519B500AADECC /* MypageInfoHeader.swift in Sources */,
+				90FD72A829227AF300BB0077 /* Common.swift in Sources */,
+				90FD729A2922714100BB0077 /* MyPageGenderView.swift in Sources */,
+				90A55C7A292427030005F56D /* MyPageListTableViewCell.swift in Sources */,
+				90FD72BB2922B44600BB0077 /* AgeSlider.swift in Sources */,
+				907C68E729251B0400AADECC /* CardView.swift in Sources */,
+				90FD729E2922719500BB0077 /* SwitchView.swift in Sources */,
 				907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */,
 				902B0FE5291965BF00D03C0E /* VerificationViewController.swift in Sources */,
+				90FD72A42922722400BB0077 /* BaseTableViewCell.swift in Sources */,
 				902B0FE029193AFC00D03C0E /* SignUpView.swift in Sources */,
 				90FE3116291EAEFA00C0949E /* NWPathMonitor.swift in Sources */,
 				902B0FF9291A507D00D03C0E /* Transition.swift in Sources */,
@@ -427,6 +566,8 @@
 				902B0FF7291A461600D03C0E /* GenderView.swift in Sources */,
 				902B1016291B7ABD00D03C0E /* SignInViewModel.swift in Sources */,
 				902B0FAA2918BC1C00D03C0E /* AppDelegate.swift in Sources */,
+				90A55C7D2924BBF60005F56D /* SeSACTitleStackView.swift in Sources */,
+				90A55C78292418FB0005F56D /* Header.swift in Sources */,
 				902B0FAC2918BC1C00D03C0E /* SceneDelegate.swift in Sources */,
 				902B0FE7291965DE00D03C0E /* VerifrcationView.swift in Sources */,
 				902B100B291AB85D00D03C0E /* EmailViewController.swift in Sources */,
@@ -436,13 +577,16 @@
 				902B0FE92919665500D03C0E /* Enum.swift in Sources */,
 				902B0FD72918FEBE00D03C0E /* BaseView.swift in Sources */,
 				90FE3118291EB8AF00C0949E /* NoNetWorkView.swift in Sources */,
+				90FD72A0292271D100BB0077 /* MatchingAgeView.swift in Sources */,
 				9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */,
 				90FD72622921849900BB0077 /* Error.swift in Sources */,
 				90FD7264292187AF00BB0077 /* CautionModel.swift in Sources */,
 				9095C4E6291D81770055D1B7 /* PickerViewModel.swift in Sources */,
 				902B101C291C1A0000D03C0E /* APIService.swift in Sources */,
+				90FD72C22922D95500BB0077 /* UIImage.swift in Sources */,
 				902B0FEF291A15E500D03C0E /* PickerView.swift in Sources */,
 				902B101E291C1A8E00D03C0E /* Endpoint.swift in Sources */,
+				90FD72C62923488200BB0077 /* SetMyInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
