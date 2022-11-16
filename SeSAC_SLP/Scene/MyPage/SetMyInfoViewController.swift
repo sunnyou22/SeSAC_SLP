@@ -11,213 +11,47 @@ import RxCocoa
 import RxSwift
 
 class SetMyInfoViewController: BaseViewController {
- 
     
-    let viewmodel = TableViewViewModel()
+//    let viewmodel = TableViewViewModel()
     let disposedBag = DisposeBag()
     
-    //컬렉션뷰 선언
-    var backcollectionView: UICollectionView = {
-        let view = BaseCollectionView(frame: .zero, collectionViewLayout: .init())
-        view.register(BackCollectionViewCell.self, forCellWithReuseIdentifier: BackCollectionViewCell.reuseIdentifier)
-        view.backgroundColor = .cyan
-        return view
-    }()
-
-    
-    let stackView = FixedView()
-    
-    var tableViewData = [CellData()] // 리스트 선언
-    
-    var expandableTableView = ExpandableTableView()
+    let fixStackView = FixedView()
     
     let headerView = Header()
     
+    var expandableTableView = ExpandableStackView().setStackViewLayout(axis: .vertical, color: .brown)
+    
+    let bodyStackView: UIStackView = {
+        let view = UIStackView()
+       return view.setStackViewLayout(axis: .vertical, color: .brown)
+    }()
+    
     var isExpanded = false
+    
+    let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.backgroundColor = .setBaseColor(color: .white)
+        view.isPagingEnabled = false
+        view.isScrollEnabled = true
+        view.showsVerticalScrollIndicator = false
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //섹션등록
-        view.addSubview(expandableTableView)
-        
-        expandableTableView.snp.makeConstraints { (make) in
-            make.top.leading.bottom.trailing.equalToSuperview()
-        }
-        
-        tableViewData = [
-            CellData(opened: false, title: "이름입니다.", setionData: ["새싹 타이틀", "새싹리뷰"])
-        ]
-        
-        expandableTableView.delegate = self
-        expandableTableView.dataSource = self
-        expandableTableView.tableHeaderView = headerView
-//        expandableTableView.rowHeight = UITableView.automaticDimension
-        expandableTableView.estimatedRowHeight = 60
-      
-        
-        backcollectionView.collectionViewLayout = collectionViewLayout()
-        view.addSubview(backcollectionView)
-        backcollectionView.snp.makeConstraints { make in
-            make.centerX.equalTo(view.snp.centerX)
-            make.edges.equalTo(view.safeAreaLayoutGuide).inset(16)
-        }
-        backcollectionView.delegate = self
-        backcollectionView.dataSource = self
-
+ 
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        expandableTableView.tableHeaderView = hederView
-       
-         expandableTableView.tableHeaderView?.frame.size.height = 200
-        
-    
-    }
-
     override func configure() {
-        headerView.layoutIfNeeded()
+        [headerView, expandableTableView, fixStackView].forEach { bodyStackView.addArrangedSubview($0) }
+        
+        scrollView.addSubview(bodyStackView)
+        view.addSubview(scrollView)
     }
     
     override func setContents() {
-     
-    }
-    
-    func collectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        let spacing: CGFloat = 16
-        let width = UIScreen.main.bounds.width - (spacing * 2)
-        layout.itemSize = CGSize(width: width, height: width * 1.2)
-        layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        //        layout.minimumInteritemSpacing = spacing * 2 // 행에 많이 있을 때
-        layout.minimumLineSpacing = spacing * 2
-        return layout
-    }
-}
-
-
-extension SetMyInfoViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackCollectionViewCell.reuseIdentifier, for: indexPath) as? BackCollectionViewCell else { return UICollectionViewCell() }
-        
-        if indexPath.item == 0 {
-            cell.contentView.addSubview(expandableTableView)
-            expandableTableView.snp.makeConstraints { make in
-                make.edges.equalTo(cell.contentView.snp.edges)
-            }
-            cell.label.text = "text"
-            return cell
-        } else if indexPath.item == 1 {
-            cell.contentView.addSubview(stackView)
-            stackView.snp.makeConstraints { make in
-                make.edges.equalTo(cell.contentView.snp.edges)
-            }
-            
-            cell.label.text = "text"
-            return cell
-        } else {
-            return cell
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
-
-    extension SetMyInfoViewController: UITableViewDelegate, UITableViewDataSource {
-
-        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            return headerView
-        }
-        
-        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            
-            return 100
-        }
-        
-       func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return UITableView.automaticDimension
-        }
-        
-        func numberOfSections(in tableView: UITableView) -> Int {
-            return tableViewData.count
-        }
-        
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            if tableViewData[section].opened == true {
-                print(tableViewData[section].setionData.count)
-                return tableViewData[section].setionData.count + 1
-            } else {
-                return 1
-            }
-        }
-        
-        
-        func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-
-    return UITableView.automaticDimension
-
-    }
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            if indexPath.row == 0 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandableTableViewCell.reuseIdentifier, for: indexPath) as? ExpandableTableViewCell else { return UITableViewCell() }
-                cell.lable.text = tableViewData[indexPath.section].title
-                cell.horizontalStackView.isHidden = true
-                return cell
-            } else if indexPath.row == 1 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandableTableViewCell.reuseIdentifier, for: indexPath) as? ExpandableTableViewCell else { return UITableViewCell() }
-                cell.lable.text = tableViewData[indexPath.section].setionData[indexPath.row - 1]
-                return cell
-            } else if indexPath.row == 2 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandableTextTableViewCell.reuseIdentifier, for: indexPath) as? ExpandableTextTableViewCell else { return UITableViewCell() }
-                cell.lable.text = tableViewData[indexPath.section].setionData[indexPath.row - 1]
-                cell.textView.numberOfLines = isExpanded ? 0 : 1
-                return cell
-            }
-            return UITableViewCell()
-        }
-        
-        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            if indexPath.row == 0 {
-                tableViewData[indexPath.section].opened = !tableViewData[indexPath.section].opened
-                tableView.reloadSections([indexPath.section], with: .none)
-            }
-            if indexPath.row == 2 {
-                isExpanded = !isExpanded
-                expandableTableView.reloadRows(at: [indexPath], with: .none)
-            }
-            //        tableView.reloadSections([indexPath.section], with: .none) => 여기서 Indexpath.row fade로 셀 숨기기
-            
-            print("📍\([indexPath.section]), 📍\([indexPath.row])")
-        }
-    }
-
-//extension SetMyInfoViewController: UITextViewDelegate {
-//    
-//    func textViewDidChange(_ textView: UITextView) {
-//    
-//    
-//      override func willTransition(
-//        to newCollection: UITraitCollection,
-//        with coordinator: UIViewControllerTransitionCoordinator
-//        ) {
-//        super.willTransition(to: newCollection, with: coordinator)
-//
-//        // 현재 방향
-//            let bottom = expandableTableView.snp.bottom
-//        
-//        // 방향에 따른 label 높이 값 조정
-//            expandableTableView.snp.updateConstraints { make in
-//                make.bottom.equalTo(bottom ? textView.snp.bottom)
-//        }
-//        
-//        // 방향에 따른 font 크기 값 조정
-//        lblTimer.font = UIFont.systemFont(ofSize: isPortrait ? 20 : 32, weight: .light)
-//      }
-//    }
-//}
-//}

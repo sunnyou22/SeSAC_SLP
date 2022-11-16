@@ -5,6 +5,9 @@
 //  Created by 방선우 on 2022/11/16.
 //
 
+import UIKit
+import SnapKit
+
 
 enum MyPageListIcon: String, CaseIterable {
     case notice
@@ -28,10 +31,6 @@ enum MyPageListIcon: String, CaseIterable {
         }
     }
 }
-
-
-import UIKit
-import SnapKit
 
 class MyPageListViewController: UITableViewController {
     

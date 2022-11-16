@@ -7,6 +7,7 @@
 
 //MARK: ThumbBUttonUI
 import UIKit
+import SnapKit
 
 //rx로 이벤트 받기
 class ThumbButton: RoundableButton {
