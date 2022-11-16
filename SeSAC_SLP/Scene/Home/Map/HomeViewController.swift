@@ -5,7 +5,9 @@
 //  Created by 방선우 on 2022/11/13.
 //
 
-import Foundation
+import UIKit
+import MapKit
+import CoreLocation
 
 class HomeViewController: BaseViewController {
     override func viewDidLoad() {
