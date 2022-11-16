@@ -120,7 +120,7 @@ final class TestView: BaseView {
     let contentView: UIView = {
         let view = UIView()
         view.backgroundColor = .darkGray
-        return view
+        return view 
     }()
     
     let pageControl: UIPageControl = {
