@@ -31,6 +31,12 @@ class CustomMapView: BaseView {
         return view
     }()
     
+    let marker: UIImageView = {
+        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
+        view.image = UIImage(named: "map_marker")
+        return view
+    }()
+    
     lazy var totalButton: UIButton = {
         let view = UIButton()
         view.setTitle("전체", for: .normal)
@@ -99,7 +105,7 @@ class CustomMapView: BaseView {
     
     override func configure() {
         shadowView.addSubview(stackview)
-        [shadowView, currentLocationButton, matchingButton].forEach { mapView.addSubview($0) }
+        [shadowView, currentLocationButton, matchingButton, marker].forEach { mapView.addSubview($0) }
         self.addSubview(mapView)
     }
     
@@ -129,6 +135,10 @@ class CustomMapView: BaseView {
             make.trailing.equalTo(self.snp.trailing).offset(-16)
             make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-16)
             make.width.equalTo(64)
+        }
+        
+        marker.snp.makeConstraints { make in
+            make.center.equalTo(self.snp.center)
         }
     }
 }

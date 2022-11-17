@@ -19,6 +19,7 @@ class SearchViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .setBaseColor(color: .white)
         let width = view.frame.size.width //화면 너비
         let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: width - 28, height: 0))
