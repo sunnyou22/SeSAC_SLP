@@ -25,7 +25,7 @@ struct SignUp: Codable {
     }
 }
 
-// MARK: - Welcome
+// MARK: - Login
 struct LogIn: Codable {
     let id: String
     let v: Int
@@ -57,3 +57,20 @@ struct LogIn: Codable {
         case reviewedBefore, reportedNum, reportedUser, dodgepenalty, dodgeNum, ageMin, ageMax, searchable, createdAt
     }
 }
+
+//MARK: Match
+
+struct Search: Codable, Hashable {
+    let fromQueueDB, fromQueueDBRequested: [FromQueueDB]
+    let fromRecommend: [String] // 디퍼블 반영
+}
+    // MARK: - FromQueueDB
+    struct FromQueueDB: Codable, Hashable {
+        let uid, nick: String
+        let lat, long: Double
+        let reputation: [Int]
+        let studylist, reviews: [String] // 디퍼플 반여
+        let gender, type, sesac, background: Int
+    
+}
+

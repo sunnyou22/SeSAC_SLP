@@ -9,12 +9,27 @@ import UIKit
 import MapKit // 지도
 import CoreLocation
 
+enum UserMatchingStatus {
+    case defaults
+    case matched
+    case matching
+}
+
 class HomeViewController: BaseViewController {
     
     var mainView = CustomMapView()
     
     let locationManager = CLLocationManager()
     let sesacCoordinate = CLLocationCoordinate2D(latitude: 37.51818789942772, longitude: 126.88541765534976) //새싹 영등포 캠퍼스의 위치입니다. 여기서 시작하면 재밌을 것 같죠? 하하
+    
+    //버튼의 상태 나타내줄 때: 기본값은 디폴틍틍
+    init(userStatus: UserMatchingStatus = .defaults) {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = mainView
@@ -48,7 +63,6 @@ class HomeViewController: BaseViewController {
         
         guard let currentLocation = locationManager.location else {
             locationManager.requestWhenInUseAuthorization()
-            print("54365413213251212312121231321321321")
             return
         }
         
