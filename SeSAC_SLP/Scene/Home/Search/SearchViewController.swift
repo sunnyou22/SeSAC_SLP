@@ -13,6 +13,7 @@
 
 import UIKit
 import SnapKit
+import Toast
 
 class SearchHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
@@ -95,10 +96,13 @@ extension SearchViewController: UISearchBarDelegate {
             return
         }
         
-        let studyList = text.split(separator: " ").map { Array(String($0).trimmingCharacters(in: .whitespaces)) }
-        studyList.forEach { strEl in
-            wishList.insert(String(strEl))
+        if wishList.count != 8 {
+            let studyList = text.split(separator: " ").map { Array(String($0).trimmingCharacters(in: .whitespaces)) }
+            studyList.forEach { strEl in
+                wishList.insert(String(strEl))
+            }
         }
+        view.makeToast("8개를 초과하여 등록하실 수 없습니다!", duration: 1, position: .center)
     }
 }
 
