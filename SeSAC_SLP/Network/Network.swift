@@ -29,7 +29,7 @@ final class Network {
             case .failure(_):
                 guard let statusCode = response.response?.statusCode else { return }
                 guard let error = SignUpError(rawValue: statusCode) else { return }
-                
+                // SignUpError에서 statusCode에 해당하는 case를 뱉음
                 print("🔴 SignUpError", response.response?.statusCode, error)
                 completion(.failure(error))
             }
