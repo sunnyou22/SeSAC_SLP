@@ -89,22 +89,17 @@ class SearchViewController: BaseViewController {
 }
 
 extension SearchViewController: UISearchBarDelegate {
-  
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else {
             return
         }
         
-        let studyList = searchBar.text?.split(separator: " ").map { Array(String($0).trimmingCharacters(in: .whitespaces)) }
-        guard let studyList = studyList else { return }
-        
-        let a = studyList.flatMap {$0}
-        
+        let studyList = text.split(separator: " ").map { Array(String($0).trimmingCharacters(in: .whitespaces)) }
         studyList.forEach { strEl in
             wishList.insert(String(strEl))
         }
     }
-    
 }
 
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {
