@@ -142,6 +142,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
         if indexPath.section == 0 {
             cell.label.text = dumy[indexPath.item]
+            cell.xbutton.isHidden = true
 //            cell.border
             return cell
         } else {

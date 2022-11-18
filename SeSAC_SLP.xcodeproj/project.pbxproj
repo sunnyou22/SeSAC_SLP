@@ -28,8 +28,6 @@
 		902B0FF5291A41DC00D03C0E /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FF4291A41DC00D03C0E /* EmailView.swift */; };
 		902B0FF7291A461600D03C0E /* GenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FF6291A461600D03C0E /* GenderView.swift */; };
 		902B0FF9291A507D00D03C0E /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B0FF8291A507D00D03C0E /* Transition.swift */; };
-		902B0FFC291A57A700D03C0E /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 902B0FFB291A57A700D03C0E /* RxCocoa */; };
-		902B0FFE291A57A700D03C0E /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 902B0FFD291A57A700D03C0E /* RxSwift */; };
 		902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B1006291AB76600D03C0E /* NicknameViewController.swift */; };
 		902B1009291AB78B00D03C0E /* BirthDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B1008291AB78B00D03C0E /* BirthDayViewController.swift */; };
 		902B100B291AB85D00D03C0E /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902B100A291AB85D00D03C0E /* EmailViewController.swift */; };
@@ -46,6 +44,10 @@
 		902B102E291C542700D03C0E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102D291C542700D03C0E /* FirebaseCrashlytics */; };
 		902B1030291C542700D03C0E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102F291C542700D03C0E /* FirebaseMessaging */; };
 		9066125729267A3100320F21 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066125629267A3100320F21 /* SearchCollectionViewCell.swift */; };
+		9066125A29275E4A00320F21 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9066125929275E4A00320F21 /* RxCocoa */; };
+		9066125C29275E4A00320F21 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9066125B29275E4A00320F21 /* RxSwift */; };
+		9066125F29275ED100320F21 /* RxCoreLocation in Frameworks */ = {isa = PBXBuildFile; productRef = 9066125E29275ED100320F21 /* RxCoreLocation */; };
+		9066126229275F4700320F21 /* RxMKMapView in Frameworks */ = {isa = PBXBuildFile; productRef = 9066126129275F4700320F21 /* RxMKMapView */; };
 		907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */; };
 		907636E2292030C800D289AB /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E1292030C800D289AB /* IconSet.swift */; };
 		907636E529203FAA00D289AB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E429203FAA00D289AB /* HomeViewController.swift */; };
@@ -173,15 +175,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9066125C29275E4A00320F21 /* RxSwift in Frameworks */,
 				902B1030291C542700D03C0E /* FirebaseMessaging in Frameworks */,
-				902B0FFE291A57A700D03C0E /* RxSwift in Frameworks */,
+				9066125F29275ED100320F21 /* RxCoreLocation in Frameworks */,
 				902B102C291C542700D03C0E /* FirebaseAuth in Frameworks */,
 				90DA96C7291CE03500B5CA76 /* Toast in Frameworks */,
 				902B102A291C542700D03C0E /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				902B102E291C542700D03C0E /* FirebaseCrashlytics in Frameworks */,
 				902B101A291C18D000D03C0E /* Alamofire in Frameworks */,
+				9066125A29275E4A00320F21 /* RxCocoa in Frameworks */,
+				9066126229275F4700320F21 /* RxMKMapView in Frameworks */,
 				902B0FE3291952F700D03C0E /* SnapKit in Frameworks */,
-				902B0FFC291A57A700D03C0E /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,14 +475,16 @@
 			name = SeSAC_SLP;
 			packageProductDependencies = (
 				902B0FE2291952F700D03C0E /* SnapKit */,
-				902B0FFB291A57A700D03C0E /* RxCocoa */,
-				902B0FFD291A57A700D03C0E /* RxSwift */,
 				902B1019291C18D000D03C0E /* Alamofire */,
 				902B1029291C542700D03C0E /* FirebaseAnalyticsWithoutAdIdSupport */,
 				902B102B291C542700D03C0E /* FirebaseAuth */,
 				902B102D291C542700D03C0E /* FirebaseCrashlytics */,
 				902B102F291C542700D03C0E /* FirebaseMessaging */,
 				90DA96C6291CE03500B5CA76 /* Toast */,
+				9066125929275E4A00320F21 /* RxCocoa */,
+				9066125B29275E4A00320F21 /* RxSwift */,
+				9066125E29275ED100320F21 /* RxCoreLocation */,
+				9066126129275F4700320F21 /* RxMKMapView */,
 			);
 			productName = SeSAC_SLP;
 			productReference = 902B0FA62918BC1C00D03C0E /* SeSAC_SLP.app */;
@@ -510,10 +516,12 @@
 			mainGroup = 902B0F9D2918BC1C00D03C0E;
 			packageReferences = (
 				902B0FE1291952F700D03C0E /* XCRemoteSwiftPackageReference "SnapKit" */,
-				902B0FFA291A57A700D03C0E /* XCRemoteSwiftPackageReference "RxSwift" */,
 				902B1018291C18D000D03C0E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				902B1028291C542700D03C0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				90DA96C5291CE03500B5CA76 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				9066125829275E4A00320F21 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				9066125D29275ED100320F21 /* XCRemoteSwiftPackageReference "RxCoreLocation" */,
+				9066126029275F4700320F21 /* XCRemoteSwiftPackageReference "RxMKMapView" */,
 			);
 			productRefGroup = 902B0FA72918BC1C00D03C0E /* Products */;
 			projectDirPath = "";
@@ -852,14 +860,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		902B0FFA291A57A700D03C0E /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.5.0;
-			};
-		};
 		902B1018291C18D000D03C0E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -874,6 +874,30 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 9.0.0;
+			};
+		};
+		9066125829275E4A00320F21 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.0;
+			};
+		};
+		9066125D29275ED100320F21 /* XCRemoteSwiftPackageReference "RxCoreLocation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxCoreLocation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.1;
+			};
+		};
+		9066126029275F4700320F21 /* XCRemoteSwiftPackageReference "RxMKMapView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxMKMapView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.1;
 			};
 		};
 		90DA96C5291CE03500B5CA76 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
@@ -891,16 +915,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 902B0FE1291952F700D03C0E /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		902B0FFB291A57A700D03C0E /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 902B0FFA291A57A700D03C0E /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		902B0FFD291A57A700D03C0E /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 902B0FFA291A57A700D03C0E /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
 		};
 		902B1019291C18D000D03C0E /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -926,6 +940,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 902B1028291C542700D03C0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		9066125929275E4A00320F21 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9066125829275E4A00320F21 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		9066125B29275E4A00320F21 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9066125829275E4A00320F21 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		9066125E29275ED100320F21 /* RxCoreLocation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9066125D29275ED100320F21 /* XCRemoteSwiftPackageReference "RxCoreLocation" */;
+			productName = RxCoreLocation;
+		};
+		9066126129275F4700320F21 /* RxMKMapView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9066126029275F4700320F21 /* XCRemoteSwiftPackageReference "RxMKMapView" */;
+			productName = RxMKMapView;
 		};
 		90DA96C6291CE03500B5CA76 /* Toast */ = {
 			isa = XCSwiftPackageProductDependency;
