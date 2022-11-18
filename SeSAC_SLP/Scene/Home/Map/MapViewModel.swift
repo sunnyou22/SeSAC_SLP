@@ -10,9 +10,7 @@ import RxCocoa
 import RxSwift
 
 class MapViewModel {
-    
-    
-    
+ 
     func fetchMapData(lat: Double, long: Double, idtoken: String) {
         let api = SeSACAPI.search(lat: lat, long: long)
         Network.shared.requestSeSAC(type: Search.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { response in

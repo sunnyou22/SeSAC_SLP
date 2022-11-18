@@ -64,6 +64,7 @@ class HomeMapViewController: BaseViewController {
 //        viewModel.fetchMapData(lat: (manager.location?.coordinate.latitude)!, long: (manager.location?.coordinate.longitude)!, idtoken: idtoken)
         viewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
         print(UserDefaults.searchData, "✅✅Userdefaults.searchData 디코뒹✅✅")
+        addAnnotation()
     }
     
     private func addCustomPin() {
@@ -296,6 +297,26 @@ extension HomeMapViewController: MKMapViewDelegate {
                        animations: {
                         views.forEach { $0.alpha = 1.0 }
                        })
+    }
+    
+    
+    func addAnnotation() {
+        let UserData = UserDefaults.searchData
+        
+        UserData?.forEach({ search in
+            search.fromQueueDB.forEach { data in
+                let center = CLLocationCoordinate2D(latitude: data.lat, longitude: data.long)
+                let annotation = MKPointAnnotation()
+                let region = MKCoordinateRegion(center: center, latitudinalMeters: 1000, longitudinalMeters: 1000)
+                mainView.mapView.setRegion(region, animated: true)
+                annotation.coordinate = center
+                annotation.title = "\(data.gender)"
+                mainView.mapView.addAnnotation(annotation)
+            }
+            
+        })
+        
+       
     }
 }
 
