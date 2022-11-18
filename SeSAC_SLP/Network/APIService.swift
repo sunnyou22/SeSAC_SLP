@@ -74,3 +74,9 @@ struct Search: Codable, Hashable {
     
 }
 
+//MARK: - MAP
+
+struct Map: Codable {
+    let lat, long: Double
+}
+

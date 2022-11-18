@@ -16,6 +16,11 @@ class SearchView: BaseView {
         view.backgroundColor = .cyan
         return view
     }()
+//
+//    let searchButton: UIButton = {
+//        let view = UIButton()
+//        view.setTitle("새싹 찾기", for: .normal)
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

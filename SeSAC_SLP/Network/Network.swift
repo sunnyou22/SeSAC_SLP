@@ -29,6 +29,12 @@ final class Network {
             case .failure(_):
                 guard let statusCode = response.response?.statusCode else { return }
                 guard let error = SignUpError(rawValue: statusCode) else { return }
+                // 기본적으로 계속 요청해야하는 코드이기 때문에 모델안에서 처리
+                if error.rawValue == 401 {
+                    FirebaseManager.shared.getIDTokenForcingRefresh()
+                    
+                }
+                
                 // SignUpError에서 statusCode에 해당하는 case를 뱉음
                 print("🔴 SignUpError", response.response?.statusCode, error)
                 completion(.failure(error))

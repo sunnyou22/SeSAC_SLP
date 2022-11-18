@@ -97,7 +97,7 @@ class GenderViewController: BaseViewController {
                             }
                             // 회원가입 성공시 idtoken을 제외한 유저디폴츠 삭제 및 홈화면으로 window 갈아끼우기
                             self?.deleteUserDefaults()
-                            self?.setInitialViewController(to: HomeViewController())
+                            self?.setInitialViewController(to: HomeMapViewController())
                         }
                 } else {
                     vc.mainView.makeToast("성별을 선택해주세요", duration: 1, position: .center)

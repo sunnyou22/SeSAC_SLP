@@ -122,7 +122,7 @@ class VerificationViewController: BaseViewController {
                 case .SignInUser:
                     
                     vc.showDefaultToast(message: .SignUpError(.SignInUser)) {
-                        self.setInitialViewController(to: HomeViewController())
+                        self.setInitialViewController(to: HomeMapViewController())
                     }
                 case .FirebaseTokenError:
                     vc.showDefaultToast(message: .SignUpError(.FirebaseTokenError)) {

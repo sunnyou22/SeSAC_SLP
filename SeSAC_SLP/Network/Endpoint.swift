@@ -12,13 +12,14 @@ import Alamofire
 //MARK: baseURL
 struct URLConstant {
     static var BaseURL: String {
-        return "http://api.sesac.co.kr:1207"
+        return "http://api.sesac.co.kr:1210"
     }
 }
 
 enum SeSACAPI {
     case signUp(phoneNumber: String, FCMtoken: String, nick: String, birth: Date, email: String, gender: Int)
     case logIn
+    case search(lat: Double, long: Double)
 }
 
 extension SeSACAPI {
@@ -30,6 +31,8 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/user")!
         case .logIn:
             return URL(string: URLConstant.BaseURL + "/v1/user")!
+        case .search:
+            return URL(string: URLConstant.BaseURL + "/v1/queue/search")!
         }
     }
     
@@ -41,7 +44,7 @@ extension SeSACAPI {
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
             ]
-        case .logIn:
+        case .logIn, .search:
             return [
                 "idtoken": idtoken
             ]
@@ -61,6 +64,11 @@ extension SeSACAPI {
             ]
         case .logIn:
             return nil
+        case .search(let lat, let long):
+            return [
+                "lat": lat,
+                "long": long
+            ]
         }
     }
 }
