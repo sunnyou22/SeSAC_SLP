@@ -55,6 +55,7 @@ enum Section: Int, CaseIterable {
 
 class SearchViewController: BaseViewController {
     
+    var cell =  SearchCollecitionViewCell()
     var mainView = SearchView()
     var wishList: Set<String> = [] {
         didSet {
@@ -96,18 +97,20 @@ extension SearchViewController: UISearchBarDelegate {
             return
         }
         
-        if wishList.count != 8 {
-            let studyList = text.split(separator: " ").map { Array(String($0).trimmingCharacters(in: .whitespaces)) }
-            studyList.forEach { strEl in
-                wishList.insert(String(strEl))
-            }
+        guard wishList.count != 8 else {
+            view.makeToast("8개를 초과하여 등록하실 수 없습니다!", duration: 1, position: .center)
+            return
         }
-        view.makeToast("8개를 초과하여 등록하실 수 없습니다!", duration: 1, position: .center)
+        let studyList = text.split(separator: " ").map { Array(String($0).trimmingCharacters(in: .whitespaces)) }
+        studyList.forEach { strEl in
+            wishList.insert(String(strEl))
+            searchBar.text = ""
+        }
     }
 }
 
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {
- 
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Section.allCases.count
     }
@@ -146,9 +149,19 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
             cell.label.text = sortedWishList[indexPath.item]
             return cell
         }
-        return UICollectionViewCell()
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            wishList.insert(dumy[indexPath.item])
+        }
+    }
     
+    //셀 재사용..?
+    func setCell(collectionView: UICollectionView, indexPath: IndexPath) -> SearchCollecitionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return SearchCollecitionViewCell() }
+        
+        return cell
+    }
 }
  
