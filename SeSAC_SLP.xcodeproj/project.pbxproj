@@ -50,6 +50,9 @@
 		9066126229275F4700320F21 /* RxMKMapView in Frameworks */ = {isa = PBXBuildFile; productRef = 9066126129275F4700320F21 /* RxMKMapView */; };
 		906612642927608D00320F21 /* HomeMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906612632927608D00320F21 /* HomeMapViewController.swift */; };
 		906612662927C5E600320F21 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906612652927C5E600320F21 /* MapViewModel.swift */; };
+		9066126F2927FCCC00320F21 /* CardViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066126E2927FCCC00320F21 /* CardViewTableViewCell.swift */; };
+		906612712927FFBA00320F21 /* CardViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906612702927FFBA00320F21 /* CardViewTableViewController.swift */; };
+		90661273292800D100320F21 /* CardViewCellVer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90661272292800D100320F21 /* CardViewCellVer.swift */; };
 		907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */; };
 		907636E2292030C800D289AB /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E1292030C800D289AB /* IconSet.swift */; };
 		907636E72921747E00D289AB /* DelayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E62921747E00D289AB /* DelayModel.swift */; };
@@ -130,6 +133,9 @@
 		9066125629267A3100320F21 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		906612632927608D00320F21 /* HomeMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMapViewController.swift; sourceTree = "<group>"; };
 		906612652927C5E600320F21 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		9066126E2927FCCC00320F21 /* CardViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewTableViewCell.swift; sourceTree = "<group>"; };
+		906612702927FFBA00320F21 /* CardViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewTableViewController.swift; sourceTree = "<group>"; };
+		90661272292800D100320F21 /* CardViewCellVer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewCellVer.swift; sourceTree = "<group>"; };
 		907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		907636E1292030C800D289AB /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
 		907636E62921747E00D289AB /* DelayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayModel.swift; sourceTree = "<group>"; };
@@ -267,7 +273,7 @@
 			children = (
 				902B100E291AE93500D03C0E /* Onboarding */,
 				90FD72D42923FE7C00BB0077 /* MyPageFirst */,
-				90FD72952922703C00BB0077 /* MyPageInfo */,
+				9066126C2927FA4D00320F21 /* MypageSecond */,
 				907636E329203F9100D289AB /* Home */,
 				902B1002291AB69C00D03C0E /* SignIn */,
 				902B0FD52918FE7400D03C0E /* Base */,
@@ -331,6 +337,28 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		9066126C2927FA4D00320F21 /* MypageSecond */ = {
+			isa = PBXGroup;
+			children = (
+				9066126D2927FAD900320F21 /* CardView.ver_TableView */,
+				90FD72A929227E7400BB0077 /* Fix */,
+				90FD72C02922C37C00BB0077 /* Slider */,
+				90FD72B729228AF300BB0077 /* Common */,
+				90FD72952922703C00BB0077 /* MyPageInfo */,
+			);
+			path = MypageSecond;
+			sourceTree = "<group>";
+		};
+		9066126D2927FAD900320F21 /* CardView.ver_TableView */ = {
+			isa = PBXGroup;
+			children = (
+				9066126E2927FCCC00320F21 /* CardViewTableViewCell.swift */,
+				906612702927FFBA00320F21 /* CardViewTableViewController.swift */,
+				90661272292800D100320F21 /* CardViewCellVer.swift */,
+			);
+			path = CardView.ver_TableView;
+			sourceTree = "<group>";
+		};
 		907636E329203F9100D289AB /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,9 +414,6 @@
 				907C68E2292517B200AADECC /* CardViewTitleAndReview.swift */,
 				90A55C7C2924BBF60005F56D /* SeSACTitleStackView.swift */,
 				907C68E829251DC400AADECC /* MyPageInfoScrollView.swift */,
-				90FD72A929227E7400BB0077 /* Fix */,
-				90FD72C02922C37C00BB0077 /* Slider */,
-				90FD72B729228AF300BB0077 /* Common */,
 			);
 			path = MyPageInfo;
 			sourceTree = "<group>";
@@ -561,6 +586,7 @@
 				90FD726729218B4A00BB0077 /* FirebaseManager.swift in Sources */,
 				907636E2292030C800D289AB /* IconSet.swift in Sources */,
 				90FD72BF2922B7C100BB0077 /* UIButtom.swift in Sources */,
+				90661273292800D100320F21 /* CardViewCellVer.swift in Sources */,
 				902B1020291C1AF200D03C0E /* Network.swift in Sources */,
 				907C68E12925170500AADECC /* CardViewNickName.swift in Sources */,
 				902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */,
@@ -593,6 +619,7 @@
 				907C68E729251B0400AADECC /* CardView.swift in Sources */,
 				90FD729E2922719500BB0077 /* SwitchView.swift in Sources */,
 				907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */,
+				9066126F2927FCCC00320F21 /* CardViewTableViewCell.swift in Sources */,
 				902B0FE5291965BF00D03C0E /* VerificationViewController.swift in Sources */,
 				90FD72A42922722400BB0077 /* BaseTableViewCell.swift in Sources */,
 				902B0FE029193AFC00D03C0E /* SignUpView.swift in Sources */,
@@ -600,6 +627,7 @@
 				902B0FF9291A507D00D03C0E /* Transition.swift in Sources */,
 				9095C4E0291D43250055D1B7 /* UserDafaults.swift in Sources */,
 				902B0FF7291A461600D03C0E /* GenderView.swift in Sources */,
+				906612712927FFBA00320F21 /* CardViewTableViewController.swift in Sources */,
 				902B1016291B7ABD00D03C0E /* SignInViewModel.swift in Sources */,
 				902B0FAA2918BC1C00D03C0E /* AppDelegate.swift in Sources */,
 				90A55C7D2924BBF60005F56D /* SeSACTitleStackView.swift in Sources */,

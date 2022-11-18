@@ -18,7 +18,7 @@ class Header: BaseView {
     }()
     
     
-    let imageView: UIImageView = {
+ let imageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage.setBackground(imagename: .background(.sesac_background_1))
         view.contentMode = .scaleAspectFill
