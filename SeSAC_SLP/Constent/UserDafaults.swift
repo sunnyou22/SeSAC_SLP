@@ -32,6 +32,33 @@ struct UserDeaultHelper<Value> {
     }
 }
 
+
+@propertyWrapper
+struct UserDeaultCodable<T: Codable> {
+    let key: String
+    let defaultValue: T?
+    let container: UserDefaults = .standard
+    
+    var wrappedValue: T? {
+        get {
+            if let savedData = UserDefaults.standard.object(forKey: key) as? Data {
+                let decoder = JSONDecoder()
+                if let lodedObject = try? decoder.decode(T.self, from: savedData) {
+                    return lodedObject
+                }
+            }
+            return defaultValue
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encodod = try? encoder.encode(newValue) {
+                container.set(encodod, forKey: key)
+            }
+        }
+    }
+}
+
+
 extension UserDefaults {
 
     @UserDeaultHelper(key: "phoneNumber", defaultValue: nil)
@@ -60,4 +87,7 @@ extension UserDefaults {
     
     @UserDeaultHelper(key: "authVerificationID", defaultValue: "")
     static var authVerificationID: String
+    
+    @UserDeaultCodable(key: "searchData", defaultValue: nil)
+    static var searchData: [Search]?
 }

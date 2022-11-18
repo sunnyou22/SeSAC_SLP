@@ -41,10 +41,6 @@ class HomeMapViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//
-        
-      
-        
         
         //코어로케이션 매니저 설정
         manager.requestWhenInUseAuthorization()
@@ -52,12 +48,22 @@ class HomeMapViewController: BaseViewController {
         mainView.mapView.delegate = self
         mainView.mapView.showsUserLocation = true
         mainView.mapView.setUserTrackingMode(.none, animated: true)
-       
-      bindData()
+        
+        bindData()
         
         bindMapViewData()
         
         addCustomPin()
+        
+        guard let idtoken = UserDefaults.idtoken else {
+            print("itocken만료")
+            return
+        }
+        
+        // 현재위치를 기준으로 최초로 불러오기
+//        viewModel.fetchMapData(lat: (manager.location?.coordinate.latitude)!, long: (manager.location?.coordinate.longitude)!, idtoken: idtoken)
+        viewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
+        print(UserDefaults.searchData, "✅✅Userdefaults.searchData 디코뒹✅✅")
     }
     
     private func addCustomPin() {
@@ -117,8 +123,8 @@ class HomeMapViewController: BaseViewController {
             .withUnretained(self)
             .subscribe(onNext: { vc, value in
                 if let coordinate = value.locations.last?.coordinate {
-                  
-                    let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+                  // 일단 캠퍼스 위치로 검색하기
+                    let region = MKCoordinateRegion(center: vc.sesacCoordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
                     vc.mainView.mapView.setRegion(region, animated: true)
                 }
             })
@@ -241,12 +247,12 @@ class HomeMapViewController: BaseViewController {
         mainView.mapView.rx.region
             .subscribe(onNext: { region in
                 //5초 버퍼걸기 -> 스레드이용?
-                print("Map region is now \(region)")
-                guard let idtoken = UserDefaults.idtoken else {
-                    print("itocken만료")
-                    return
-                }
-                viewModel.fetchMapData(lat: region.center.latitude, long: region.center.longitude, idtoken: idtoken)
+//                print("Map region is now \(region)")
+//                guard let idtoken = UserDefaults.idtoken else {
+//                    print("itocken만료")
+//                    return
+//                }
+//                viewModel.fetchMapData(lat: region.center.latitude, long: region.center.longitude, idtoken: idtoken)
             })
             .disposed(by: disposedBag)
     }
