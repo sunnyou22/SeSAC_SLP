@@ -20,8 +20,8 @@ class MapViewModel {
 //                print(success)
                 // 응답값을 받아와야함
              
-                UserDefaults.searchData = [success]
-                print(UserDefaults.searchData, " 🔴 🔴 🔴")
+                 UserDefaults.searchData = [success]
+                print(UserDefaults.searchData, " 🔴 🔴 🔴 인코딩이 잘 됐나요~")
                 
                 print("맵 좌표값에 대한 응답값 받기 성공 ✅")
             case .failure(let error):

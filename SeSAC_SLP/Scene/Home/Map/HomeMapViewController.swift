@@ -44,16 +44,13 @@ class HomeMapViewController: BaseViewController {
         
         //코어로케이션 매니저 설정
         manager.requestWhenInUseAuthorization()
-        manager.startUpdatingLocation()
         mainView.mapView.delegate = self
-        mainView.mapView.showsUserLocation = true
-        mainView.mapView.setUserTrackingMode(.none, animated: true)
+        mainView.mapView.showsUserLocation = false // 내 위치 지도에 표시
+        mainView.mapView.setUserTrackingMode(.none, animated: true) // 내 위치를 기준으로 움직이기 위함
         
         bindData()
         
         bindMapViewData()
-        
-        addCustomPin()
         
         guard let idtoken = UserDefaults.idtoken else {
             print("itocken만료")
@@ -64,18 +61,31 @@ class HomeMapViewController: BaseViewController {
 //        viewModel.fetchMapData(lat: (manager.location?.coordinate.latitude)!, long: (manager.location?.coordinate.longitude)!, idtoken: idtoken)
         viewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
         print(UserDefaults.searchData, "✅✅Userdefaults.searchData 디코뒹✅✅")
+
+        // 어노테이션 추가
         addAnnotation()
+        
+        mainView.matchingButton.addTarget(self, action: #selector(test), for: .touchUpInside)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // pop되면 뷰디드로드가 안 불려지니까.
+        manager.startUpdatingLocation()
     }
     
-    private func addCustomPin() {
-        let pin = MKPointAnnotation()
-        //포인트 어노테이션은 뭔가요?
-        pin.coordinate = sesacCoordinate
-        pin.title = "새싹 영등포캠퍼스"
-        pin.subtitle = "전체 3층짜리 건물"
-        mainView.mapView.addAnnotation(pin)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        manager.stopUpdatingLocation()
     }
     
+    // 이후 터치 이벤트받아서 알엑스로 전환
+    @objc func test() {
+        transition(SearchViewController(), .push)
+    }
+    
+    // 이후 알엑스로 빼주기
     func checkUserDevieceLocationServiceAuthorization() {
         let authorizationStatus: CLAuthorizationStatus
      
@@ -109,7 +119,7 @@ class HomeMapViewController: BaseViewController {
             }
      
         case .authorizedWhenInUse:
-            manager.startUpdatingLocation()
+            manager.startUpdatingLocation() // 이게 있어야 didUpdateLocation메서드가 호출
         default: print("DEFAULT")
         }
     }
@@ -125,7 +135,7 @@ class HomeMapViewController: BaseViewController {
             .subscribe(onNext: { vc, value in
                 if let coordinate = value.locations.last?.coordinate {
                   // 일단 캠퍼스 위치로 검색하기
-                    let region = MKCoordinateRegion(center: vc.sesacCoordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+                    let region = MKCoordinateRegion(center: vc.sesacCoordinate, latitudinalMeters: 700, longitudinalMeters: 700)
                     vc.mainView.mapView.setRegion(region, animated: true)
                 }
             })
@@ -299,7 +309,7 @@ extension HomeMapViewController: MKMapViewDelegate {
                        })
     }
     
-    
+    //어노테이션 추가 메서드
     func addAnnotation() {
         let UserData = UserDefaults.searchData
         

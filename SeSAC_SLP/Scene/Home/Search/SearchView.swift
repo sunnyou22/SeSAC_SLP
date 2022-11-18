@@ -16,20 +16,35 @@ class SearchView: BaseView {
         view.backgroundColor = .cyan
         return view
     }()
-//
-//    let searchButton: UIButton = {
-//        let view = UIButton()
-//        view.setTitle("새싹 찾기", for: .normal)
-//    }
+
+    let searchButton: UIButton = {
+        let view = UIButton()
+        view.setTitle("새싹 찾기", for: .normal)
+        view.backgroundColor = .setBrandColor(color: .green)
+        view.clipsToBounds = true
+        view.layer.cornerRadius = CustomCornerRadius.button.rawValue
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.backgroundColor = .brown
-        
-        self.addSubview(collectionView)
+    }
+    
+    override func configure() {
+        [collectionView, searchButton].forEach { self.addSubview($0)  }
+    }
+    
+    override func setConstraints() {
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide)
+        }
+        
+        searchButton.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(self).inset(16)
+            make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-16)
+            make.height.equalTo(48)
         }
     }
     

@@ -145,11 +145,13 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
             cell.xbutton.isHidden = true
 //            cell.border
             return cell
-        } else {
+        } else if indexPath.section == 1 {
              let sortedWishList = wishList.sorted()
             cell.label.text = sortedWishList[indexPath.item]
+            cell.xbutton.isHidden = false
             return cell
         }
+        return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
