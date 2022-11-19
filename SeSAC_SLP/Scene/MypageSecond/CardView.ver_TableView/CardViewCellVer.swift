@@ -8,13 +8,15 @@
 import UIKit
 import SnapKit
 
-class CardViewCellVer: BaseView {
+class CardViewCellVer: UIScrollView {
     
     lazy var tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .plain)
         view.register(CardViewTableViewCell.self, forCellReuseIdentifier: CardViewTableViewCell.reuseIdentifier)
         view.backgroundColor = .brown
         view.isScrollEnabled = true
+        invalidateIntrinsicContentSize()
+        
         return view
     }()
     
@@ -22,20 +24,20 @@ class CardViewCellVer: BaseView {
     
     lazy var contentView = UIView()
     
-    lazy var stackView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [tableView, fixView])
-        view.axis = .vertical
-        view.alignment = .fill
-        view.distribution = .equalSpacing
-        view.spacing = 24
-        return view
-    }()
+//    lazy var stackView: UIStackView = {
+//        let view = UIStackView(arrangedSubviews: [tableView, fixView])
+//        view.axis = .vertical
+//        view.alignment = .fill
+//        view.distribution = .fill
+//        view.spacing = 24
+//        return view
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        self.isScrollEnabled = true
-//        configure()
-//        setConstraints()
+        self.isScrollEnabled = true
+        configure()
+        setConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -43,21 +45,27 @@ class CardViewCellVer: BaseView {
       
     }
     
-    override func configure() {
-        contentView.addSubview(stackView)
+    func configure() {
+        [tableView, fixView].forEach { contentView.addSubview($0) }
+//        contentView.addSubview(stackView)
         self.addSubview(contentView)
-        
+      
     }
     
-    override func setConstraints() {
-
+    func setConstraints() {
+        
         tableView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview()
+            make.top.equalTo(self.safeAreaLayoutGuide)
+            make.height.equalTo(tableView.contentSize.height) // 셀이 그려지기 전에 호출돼서 그런가
+            make.bottom.equalTo(fixView.snp.top)
+                make.horizontalEdges.equalToSuperview()
+            
         }
         
         fixView.snp.makeConstraints { make in
-            make.top.equalTo(tableView.snp.bottom)
+            
             make.horizontalEdges.equalToSuperview()
+//            make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
@@ -66,8 +74,8 @@ class CardViewCellVer: BaseView {
             make.centerX.top.bottom.equalToSuperview()
         }
         
-        stackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+//        stackView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
     }
 }

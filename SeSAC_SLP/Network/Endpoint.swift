@@ -18,7 +18,7 @@ struct URLConstant {
 
 enum SeSACAPI {
     case signUp(phoneNumber: String, FCMtoken: String, nick: String, birth: Date, email: String, gender: Int)
-    case logIn
+    case getUserInfo
     case search(lat: Double, long: Double)
 }
 
@@ -29,7 +29,7 @@ extension SeSACAPI {
         switch self {
         case .signUp:
             return URL(string: URLConstant.BaseURL + "/v1/user")!
-        case .logIn:
+        case .getUserInfo:
             return URL(string: URLConstant.BaseURL + "/v1/user")!
         case .search:
             return URL(string: URLConstant.BaseURL + "/v1/queue/search")!
@@ -44,7 +44,7 @@ extension SeSACAPI {
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
             ]
-        case .logIn, .search:
+        case .getUserInfo, .search:
             return [
                 "idtoken": idtoken
             ]
@@ -62,7 +62,7 @@ extension SeSACAPI {
                 "email": email,
                 "gender": gender
             ]
-        case .logIn:
+        case .getUserInfo:
             return nil
         case .search(let lat, let long):
             return [

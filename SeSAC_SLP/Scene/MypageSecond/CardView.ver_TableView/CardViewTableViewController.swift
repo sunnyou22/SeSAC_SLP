@@ -24,35 +24,33 @@ class CardViewTableViewController: BaseViewController {
         
         mainview.tableView.delegate = self
         mainview.tableView.dataSource = self
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 }
 
 extension CardViewTableViewController: UITableViewDelegate, UITableViewDataSource {
- 
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 200
-//    }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardViewTableViewCell.reuseIdentifier, for: indexPath) as? CardViewTableViewCell else { return UITableViewCell()}
-//
-//        return cell
-//
 
         cell = setCell(tableView: tableView, indexPath: indexPath)
-
-        cell.cardView.nicknameView.toggleButton.addTarget(self, action: #selector(clickToggleButton), for: .touchUpInside)
-
+        // 여기에 넣어주면 리로드가 2번씩 됡ㅇ;미
+        cell.nicknameView.toggleButton.addTarget(self, action: #selector(clickToggleButton), for: .touchUpInside)
+        tableView.snp.makeConstraints { make in
+            make.height.equalTo(tableView.contentSize.height)
+        }
         return cell
     }
     
     @objc func clickToggleButton() {
-        cell.cardView.expandableView.isHidden = !cell.cardView.expandableView.isHidden
+        cell.expandableView.isHidden = !cell.expandableView.isHidden
         mainview.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
     }
     

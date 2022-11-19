@@ -74,7 +74,14 @@ class VerificationViewController: BaseViewController {
                 guard let idtoken = UserDefaults.idtoken else {
                     print("다음 버튼을 눌렀는데 토큰이 없어 🔴")
                     return }
-                vc.viewModel.logInNetwork(idtoken: idtoken)
+                ServerManager.shared.logInNetwork(idtoken: idtoken) {
+                    
+                    guard UserDefaults.phoneNumber != nil else {
+                        vc.viewModel.autoUserStaus.accept(.Success)
+                        return
+                    }
+                    vc.viewModel.autoUserStaus.accept(.SignInUser)
+                }
             }.disposed(by: disposedBag)
         
         viewModel.authPhoneNumResult
