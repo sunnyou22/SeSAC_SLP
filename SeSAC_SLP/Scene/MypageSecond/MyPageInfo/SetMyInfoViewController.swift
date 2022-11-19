@@ -43,8 +43,17 @@ class SetMyInfoViewController: BaseViewController {
         userInfo = viewModel.saveUserInfoToUserDefaults()[0]
         //화면 띄우자마자 저장된 유저정보 보여주기
         initialSetting()
-        // 변경사항이 없을 때도 저장을 해줘야할까.
+        // 변경사항이 없을 때 도 저장을 해줘야할까.
+        
+        //bind
+        bindData()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setnavigation()
+    }
+    
     
   private func initialSetting() {
       guard let userInfo = userInfo else {
@@ -55,11 +64,20 @@ class SetMyInfoViewController: BaseViewController {
       reviewView.text = "점심으로 먹은 슈비버거가 잊혀지지 않아요 "
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setnavigation()
+    func bindData() {
+        guard let idtoken = UserDefaults.idtoken else {
+            print("토큰없음")
+            return
+        }
+        //저장버튼 클뤽
+        navigationItem.rightBarButtonItem?.rx
+            .tap
+            .withUnretained(self)
+            .subscribe(onNext: { vc, _ in
+                vc.viewModel.postUserInfo(searchable: 1, ageMin: 20, ageMax: 25, gender: 0, study: "알고리즘", idtoken: idtoken)
+            }).disposed(by: disposeBag)
     }
-    
+ 
    private func setnavigation() {
         navigationItem.titleView?.tintColor = .setBaseColor(color: .black)
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.setBaseColor(color: .black)]
@@ -68,7 +86,11 @@ class SetMyInfoViewController: BaseViewController {
     }
     
     @objc private func postToServer() {
-        
+        guard let idtoken = UserDefaults.idtoken else {
+            print("토큰없음")
+            return
+        }
+        viewModel.postUserInfo(searchable: 1, ageMin: 20, ageMax: 25, gender: 0, study: "알고리즘", idtoken: idtoken)
     }
     
     @objc private func test() {
