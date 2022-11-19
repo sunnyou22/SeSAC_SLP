@@ -12,7 +12,7 @@ class CardViewNickName: BaseView {
     lazy var nameLabel: UILabel = {
         let view = UILabel()
         view.font = UIFont.Body1_M16
-        view.text = "닉네임"
+       
         return view
     }()
     

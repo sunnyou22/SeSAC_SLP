@@ -12,9 +12,9 @@ class MyPageInfoScrollView: UIScrollView {
     lazy var cardView = CardView()
     lazy var fixView = FixedView()
     
-    lazy var contentView = UIView()
+    private lazy var contentView = UIView()
     
-    lazy var stackView: UIStackView = {
+   private lazy var stackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [cardView, fixView])
         view.axis = .vertical
         view.alignment = .fill

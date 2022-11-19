@@ -16,7 +16,7 @@ class CardViewTitleAndReview: BaseView {
         return view
     }()
     
-    let titleStackView: UIView = {
+    let titleStackView: TitleStackView = {
         let view = TitleStackView()
         return view
     }()

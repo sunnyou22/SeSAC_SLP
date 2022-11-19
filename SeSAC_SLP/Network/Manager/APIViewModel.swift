@@ -24,19 +24,21 @@ final class CommonServerManager {
     func USerInfoNetwork(idtoken: String) {
         let api = SeSACAPI.getUserInfo
         
-        Network.shared.requestSeSAC(type: LogIn.self, url: api.url, parameter: nil, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] response in
+        Network.shared.requestSeSAC(type: GetUerIfo.self, url: api.url, parameter: nil, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] response in
             
             LoadingIndicator.showLoading()
             
             switch response {
             case .success(let success):
                 print("로그인 성공 혹은 유저 정보가져오기 성공 ✅", success)
-                //                self?.login.onNext(success)
+                //                self?.GetUerIfo.onNext(success)
                 LoadingIndicator.hideLoading()
                 
+                UserDefaults.getUerIfo = [success]
+                
+                // 여기에 이걸 넣어주는게 맞을까
                 guard UserDefaults.phoneNumber != nil else {
                     self?.autoUserStaus.accept(.Success)
-                    
                     return
                 }
                 
@@ -63,7 +65,7 @@ final class CommonServerManager {
                     LoadingIndicator.hideLoading()
                    print("🔴 기타 에러, \(failure)")
                 }
-                //                self?.login.onError(failure)
+                //                self?.GetUerIfo.onError(failure)
             }
         }
     }

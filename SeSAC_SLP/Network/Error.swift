@@ -14,6 +14,20 @@ import UIKit
  안그러면 에러케이스 다 외워야할듯
  */
 
+// 이 케이스 하나만 error에서 사용하게 하기
+enum ServerError: Error {
+    case Common(CommonError)
+    case SignUp
+    case GetUserInfo
+    case Search
+    case PostUserInfo
+    
+}
+
+enum CommonError: Int, Error {
+    case Success = 200
+}
+
 enum SignUpError: Int, Error {
     case Success = 200
     case SignInUser = 201

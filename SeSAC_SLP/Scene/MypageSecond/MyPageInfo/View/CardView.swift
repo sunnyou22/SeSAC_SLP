@@ -9,12 +9,12 @@ import Foundation
 import UIKit
 import SnapKit
 
-class CardView: BaseView {
+final class CardView: BaseView {
     lazy var header = Header()
     lazy var nicknameView = CardViewNickName()
     lazy var expandableView = CardViewTitleAndReview()
     
-    lazy var borderView: UIView = {
+   lazy var borderView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 8
         view.layer.borderColor = UIColor.setGray(color: .gray2).cgColor
@@ -23,7 +23,7 @@ class CardView: BaseView {
         return view
     }()
     
-    lazy var stackView: UIStackView = {
+   private lazy var stackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [nicknameView, expandableView])
         view.axis = .vertical
         view.alignment = .fill

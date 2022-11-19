@@ -25,8 +25,8 @@ struct SignUp: Codable {
     }
 }
 
-// MARK: - Login
-struct LogIn: Codable {
+// MARK: - GetUerIfo
+struct GetUerIfo: Codable {
     let id: String
     let v: Int
     let uid, phoneNumber, email, fcMtoken: String

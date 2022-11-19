@@ -88,6 +88,10 @@ extension UserDefaults {
     @UserDeaultHelper(key: "authVerificationID", defaultValue: "")
     static var authVerificationID: String
     
+    // Codable
     @UserDeaultCodable(key: "searchData", defaultValue: nil)
     static var searchData: [Search]?
+    
+    @UserDeaultCodable(key: "getUerIfo", defaultValue: nil)
+    static var getUerIfo: [GetUerIfo]?
 }

@@ -40,22 +40,22 @@ class TitleStackView: UIView {
         return setStackViewComponent(view, tag: 6)
     }()
     
-    lazy var leftVerticalStackView: UIStackView = {
+   private lazy var leftVerticalStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [first, third, five])
        return view.setStackViewLayout(axis: .vertical, color: .magenta)
     }()
 
-    lazy var rightVerticalStackView: UIStackView = {
+   private lazy var rightVerticalStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [second, four, six])
         return view.setStackViewLayout(axis: .vertical, color: .green)
     }()
    
-    lazy var horizontalStackView: UIStackView = {
+   private lazy var horizontalStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [leftVerticalStackView, rightVerticalStackView])
         return view.setStackViewLayout(axis: .horizontal, color: .cyan)
     }()
     
-    func setStackViewComponent(_ to: UIButton, tag: Int) -> UIButton {
+   private func setStackViewComponent(_ to: UIButton, tag: Int) -> UIButton {
         to.backgroundColor = .setBaseColor(color: .white)
         to.clipsToBounds = true
         to.layer.cornerRadius = CustomCornerRadius.button.rawValue
@@ -82,7 +82,7 @@ class TitleStackView: UIView {
       self.addSubview(horizontalStackView)
     }
     
-    func set() {
+  private func set() {
 //        leftVerticalStackView.snp.makeConstraints { make in
 //            make.height.equalTo(32 * 3 + 16)
 //        }
