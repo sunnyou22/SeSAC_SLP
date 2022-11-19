@@ -34,6 +34,7 @@ class SignInViewController: BaseViewController {
         // 토근 및 전번확인
         print(UserDefaults.idtoken, "🚀")
         print("저나번호", UserDefaults.phoneNumber, UserDefaults.phoneNumber)
+
     }
     
    private func bindData() {

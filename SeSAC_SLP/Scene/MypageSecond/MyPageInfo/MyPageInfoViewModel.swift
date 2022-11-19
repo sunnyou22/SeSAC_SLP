@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MyPageInfoViewModel {
-    
-    func fetchUserInfo(
-}
+//class MyPageInfoViewModel {
+//    
+//    func fetchUserInfo(
+//}

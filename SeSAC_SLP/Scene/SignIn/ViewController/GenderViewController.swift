@@ -65,21 +65,37 @@ class GenderViewController: BaseViewController {
                 vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
             }.disposed(by: disposedBag)
         
+        // ㅇㅔ러코드별로 정리해서 분리하기
+        viewModel.autoUserStaus
+            .withUnretained(self)
+            .bind { vc, response in
+                switch response {
+                case .Success:
+                    let viewController = HomeMapViewController()
+                    vc.transition(viewController, .push)
+                case .SignInUser:
+                    print("이미 가입한유절")
+                default :
+                    print("아직임싕")
+                }
+            }.disposed(by: disposedBag)
+        
+        
         mainView.nextButton.rx
             .tap
             .withUnretained(self)
             .bind { vc, test in
                 if vc.viewModel.buttonValid.value {
-                    guard let date = UserDefaults.date else {
-                        vc.mainView.makeToast("생년월일을 입력하고 돌와주세요!", duration: 1, position: .center)
+                    guard let date = UserDefaults.date, let name = UserDefaults.nickname, let FCMToden = UserDefaults.FCMToken, let phoneNum = UserDefaults.phoneNumber, let email = UserDefaults.email, let gender = UserDefaults.gender  else {
+                        vc.mainView.makeToast("앞의 회원가입 정보를 전부 입력하고 와주세요!", duration: 1, position: .center)
                         return
                     }
                     vc.viewModel.signUpNetwork (
-                        nick: UserDefaults.nickname!, FCMtoken: UserDefaults.FCMToken!,
-                        phoneNumber: UserDefaults.phoneNumber!,
+                        nick: name, FCMtoken: FCMToden,
+                        phoneNumber: phoneNum,
                         birth: date,
-                        email: UserDefaults.email!,
-                        gender: UserDefaults.gender!,
+                        email: email,
+                        gender: gender,
                         idtoken: UserDefaults.idtoken!) { [weak self] error in
                             switch error {
                             case SignUpError.FirebaseTokenError:
@@ -96,7 +112,7 @@ class GenderViewController: BaseViewController {
                                 print("기타")
                             }
                             // 회원가입 성공시 idtoken을 제외한 유저디폴츠 삭제 및 홈화면으로 window 갈아끼우기
-                            self?.deleteUserDefaults()
+                            self?.deleteUserDefaults() // 만약에 다음 버튼을 연타한 경우에 에러가 뜰거임
                             self?.setInitialViewController(to: HomeMapViewController())
                         }
                 } else {

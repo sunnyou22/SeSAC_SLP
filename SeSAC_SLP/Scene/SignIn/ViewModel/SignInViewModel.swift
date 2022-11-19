@@ -74,15 +74,7 @@ final class SignInViewModel {
             }
         }
     }
-    
-    func getNetwork() {
-        guard let DBidtoken = UserDefaults.idtoken else {
-            print("🔴 Idtoken 없음", #function)
-            return
-        }
-       logInNetwork(idtoken: DBidtoken)
-    }
-    
+   
     //MARK: 공유 메서드 -
     func networkWithFireBase(num: String) {
       let rawnum = changeTextfieldPattern(num: num)
@@ -105,14 +97,14 @@ final class SignInViewModel {
         
         let api = SeSACAPI.signUp(phoneNumber: phoneNumber, FCMtoken: FCMtoken, nick: nick, birth: birth, email: email, gender: gender)
         
-        Network.shared.requestSeSAC(type: SignUp.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { response in
+        Network.shared.requestSeSAC(type: SignUp.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] response in
             LoadingIndicator.showLoading()
             switch response {
             case .success(let success):
                 print(success)
                 print("회원가입성공 ✅")
                 LoadingIndicator.hideLoading()
-//                self?.signup.onNext(success) // 구조체안에 데이터를 넣음
+                self?.autoUserStaus.accept(.Success)
             case .failure(let failure):
                 print("회원가입 에러 🔴")
                 LoadingIndicator.hideLoading()
@@ -121,7 +113,6 @@ final class SignInViewModel {
             }
         }
     }
-    
 }
 
 

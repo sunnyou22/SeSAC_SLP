@@ -24,6 +24,9 @@ class MyPageInfoScrollView: UIScrollView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.backgroundColor = .setBaseColor(color: .white)
+        
         self.isScrollEnabled = true
         configure()
         setConstraints()

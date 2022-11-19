@@ -16,7 +16,8 @@ import Toast
 class VerificationViewController: BaseViewController {
     
     var mainView = VerificationView()
-    let viewModel = SignInViewModel()
+    let signInViewModel = SignInViewModel()
+    let apiViewModel = CommonServerManager()
     let disposedBag = DisposeBag()
     
     override func loadView() {
@@ -39,18 +40,18 @@ class VerificationViewController: BaseViewController {
             .withUnretained(self)
             .bind(onNext: { vc, text in
                 print(text, "=======")
-                vc.viewModel.checkValidCode(text: text)
+                vc.signInViewModel.checkValidCode(text: text)
             }).disposed(by: disposedBag)
         
         
-        viewModel.textfield
+        signInViewModel.textfield
             .withUnretained(self)
             .bind { vc, text in
                 vc.mainView.inputTextField.text = text
                
             }.disposed(by: disposedBag)
         
-        viewModel.buttonValid
+        signInViewModel.buttonValid
             .withUnretained(self)
             .bind { vc, bool in
                 vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
@@ -64,7 +65,7 @@ class VerificationViewController: BaseViewController {
                     print(#file, "유저디폴츠에 유효하지 않는 phoneNumber가 저장됨 🔴")
                     print("UserDefaults.phoneNumber ☎️", UserDefaults.phoneNumber)
                     return }
-                vc.viewModel.networkWithFireBase(num: num)
+                vc.signInViewModel.networkWithFireBase(num: num)
             }.disposed(by: disposedBag)
         
         mainView.nextButton.rx
@@ -74,17 +75,10 @@ class VerificationViewController: BaseViewController {
                 guard let idtoken = UserDefaults.idtoken else {
                     print("다음 버튼을 눌렀는데 토큰이 없어 🔴")
                     return }
-                ServerManager.shared.logInNetwork(idtoken: idtoken) {
-                    
-                    guard UserDefaults.phoneNumber != nil else {
-                        vc.viewModel.autoUserStaus.accept(.Success)
-                        return
-                    }
-                    vc.viewModel.autoUserStaus.accept(.SignInUser)
-                }
+                vc.apiViewModel.USerInfoNetwork(idtoken: idtoken)
             }.disposed(by: disposedBag)
         
-        viewModel.authPhoneNumResult
+        signInViewModel.authPhoneNumResult
             .withUnretained(self)
             .bind { vc, reponse in
                 switch reponse {
@@ -99,12 +93,17 @@ class VerificationViewController: BaseViewController {
                 }
             }.disposed(by: disposedBag)
         
-        viewModel.authValidCode
+        //파베 에러
+        signInViewModel.authValidCode
             .withUnretained(self)
             .bind { vc, reponse in
                 switch reponse {
                 case .success:
-                    vc.viewModel.getNetwork()
+                    guard let DBidtoken = UserDefaults.idtoken else {
+                        print("🔴 Idtoken 없음", #function)
+                        return
+                    }
+                    vc.apiViewModel.USerInfoNetwork(idtoken: DBidtoken)
                 case .otherError:
                     vc.showDefaultToast(message: .AuthCredentialText(.otherError))
                 case .invalidVerificationID:
@@ -117,7 +116,8 @@ class VerificationViewController: BaseViewController {
                 }
             }.disposed(by: disposedBag)
         
-        viewModel.autoUserStaus
+        //api 에러
+        apiViewModel.autoUserStaus
             .withUnretained(self)
             .bind { vc, response in
                 switch response {
@@ -127,7 +127,6 @@ class VerificationViewController: BaseViewController {
                         vc.transition(viewcontroller, .push)
                     }
                 case .SignInUser:
-                    
                     vc.showDefaultToast(message: .SignUpError(.SignInUser)) {
                         self.setInitialViewController(to: HomeMapViewController())
                     }
@@ -136,7 +135,7 @@ class VerificationViewController: BaseViewController {
                         guard let idtoken = UserDefaults.idtoken else {
                             print("다음 버튼을 눌렀는데 토큰이 없어 🔴")
                             return }
-                        vc.viewModel.logInNetwork(idtoken: idtoken)
+                        vc.apiViewModel.USerInfoNetwork(idtoken: idtoken)
                     }
                     
                 case .NotsignUpUser:

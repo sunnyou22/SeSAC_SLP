@@ -54,7 +54,8 @@
 		906612712927FFBA00320F21 /* CardViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906612702927FFBA00320F21 /* CardViewTableViewController.swift */; };
 		90661273292800D100320F21 /* CardViewCellVer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90661272292800D100320F21 /* CardViewCellVer.swift */; };
 		906612772928989E00320F21 /* MyPageInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906612762928989E00320F21 /* MyPageInfoViewModel.swift */; };
-		9066127929289A4F00320F21 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066127829289A4F00320F21 /* ServerManager.swift */; };
+		9066127B2928A27700320F21 /* APIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066127A2928A27700320F21 /* APIViewModel.swift */; };
+		9066127D2928BBF800320F21 /* SetMyInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066127C2928BBF800320F21 /* SetMyInfoViewModel.swift */; };
 		907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */; };
 		907636E2292030C800D289AB /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E1292030C800D289AB /* IconSet.swift */; };
 		907636E72921747E00D289AB /* DelayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636E62921747E00D289AB /* DelayModel.swift */; };
@@ -139,7 +140,8 @@
 		906612702927FFBA00320F21 /* CardViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewTableViewController.swift; sourceTree = "<group>"; };
 		90661272292800D100320F21 /* CardViewCellVer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewCellVer.swift; sourceTree = "<group>"; };
 		906612762928989E00320F21 /* MyPageInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageInfoViewModel.swift; sourceTree = "<group>"; };
-		9066127829289A4F00320F21 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
+		9066127A2928A27700320F21 /* APIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIViewModel.swift; sourceTree = "<group>"; };
+		9066127C2928BBF800320F21 /* SetMyInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMyInfoViewModel.swift; sourceTree = "<group>"; };
 		907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		907636E1292030C800D289AB /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
 		907636E62921747E00D289AB /* DelayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayModel.swift; sourceTree = "<group>"; };
@@ -409,7 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				90FD726629218B4A00BB0077 /* FirebaseManager.swift */,
-				9066127829289A4F00320F21 /* ServerManager.swift */,
+				9066127A2928A27700320F21 /* APIViewModel.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -425,6 +427,7 @@
 		90FD72952922703C00BB0077 /* MyPageInfo */ = {
 			isa = PBXGroup;
 			children = (
+				9066127C2928BBF800320F21 /* SetMyInfoViewModel.swift */,
 				90FD72C52923488200BB0077 /* SetMyInfoViewController.swift */,
 				906612762928989E00320F21 /* MyPageInfoViewModel.swift */,
 				906612742928985B00320F21 /* View */,
@@ -647,7 +650,9 @@
 				902B0FAA2918BC1C00D03C0E /* AppDelegate.swift in Sources */,
 				90A55C7D2924BBF60005F56D /* SeSACTitleStackView.swift in Sources */,
 				90A55C78292418FB0005F56D /* Header.swift in Sources */,
+				9066127B2928A27700320F21 /* APIViewModel.swift in Sources */,
 				902B0FAC2918BC1C00D03C0E /* SceneDelegate.swift in Sources */,
+				9066127D2928BBF800320F21 /* SetMyInfoViewModel.swift in Sources */,
 				902B0FE7291965DE00D03C0E /* VerifrcationView.swift in Sources */,
 				902B100B291AB85D00D03C0E /* EmailViewController.swift in Sources */,
 				902B0FED29196EA900D03C0E /* UILabel.swift in Sources */,
@@ -658,7 +663,6 @@
 				90FE3118291EB8AF00C0949E /* NoNetWorkView.swift in Sources */,
 				90FD72A0292271D100BB0077 /* MatchingAgeView.swift in Sources */,
 				9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */,
-				9066127929289A4F00320F21 /* ServerManager.swift in Sources */,
 				90FD72622921849900BB0077 /* Error.swift in Sources */,
 				90FD7264292187AF00BB0077 /* CautionModel.swift in Sources */,
 				9095C4E6291D81770055D1B7 /* PickerViewModel.swift in Sources */,

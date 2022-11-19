@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class MyPageHeaderView: UICollectionReusableView {
+final class MyPageHeaderView: UIView {
     
     let username: UILabel = {
         let view = UILabel()
@@ -23,8 +23,6 @@ final class MyPageHeaderView: UICollectionReusableView {
         config.image = UIImage(systemName: "chevron.right")
         config.baseForegroundColor = .setGray(color: .gray7)
         view.configuration = config
-
-    
         return view
     }()
     
@@ -42,6 +40,9 @@ final class MyPageHeaderView: UICollectionReusableView {
         }()
     
     func configure() {
+        
+//        arrowButton.addTarget(self, action: #selector(<#T##@objc method#>), for: .touchUpInside)
+        
         [username, arrowButton, imageView].forEach { self.addSubview($0) }
     }
     
@@ -52,6 +53,10 @@ final class MyPageHeaderView: UICollectionReusableView {
         setConsentrait()
         
     }
+    
+//    @objc func transition() {
+//        transition
+//    }
       func setConsentrait() {
           
           imageView.snp.makeConstraints { make in

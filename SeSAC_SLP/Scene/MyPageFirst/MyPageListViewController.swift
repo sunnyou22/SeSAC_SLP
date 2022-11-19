@@ -38,7 +38,10 @@ class MyPageListViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(MyPageListTableViewCell.self, forCellReuseIdentifier: MyPageListTableViewCell.reuseIdentifier)
-      
+    }
+    
+    @objc func goSetMyInfoPage() {
+        transition(SetMyInfoViewController(), .push)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -46,7 +49,9 @@ class MyPageListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return MyPageHeaderView()
+        let headerView = MyPageHeaderView()
+        headerView.arrowButton.addTarget(self, action: #selector(goSetMyInfoPage), for: .touchUpInside)
+        return headerView
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

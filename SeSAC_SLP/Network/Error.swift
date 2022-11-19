@@ -8,6 +8,12 @@
 import Foundation
 import UIKit
 
+/*
+ 에러를 공통사항하고 개별사항하고 분리하기
+ 그리고 그 둘을 하나의 케이스로 묶어서 연관값으로 호출
+ 안그러면 에러케이스 다 외워야할듯
+ */
+
 enum SignUpError: Int, Error {
     case Success = 200
     case SignInUser = 201

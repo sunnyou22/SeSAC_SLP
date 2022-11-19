@@ -31,6 +31,9 @@ class MyPageListTableViewCell: BaseTableViewCell {
     }
     
     override func configuration() {
+        
+        self.backgroundColor = .setBaseColor(color: .white)
+        
         [title, iconImageView].forEach { self.addSubview($0) }
     }
     
