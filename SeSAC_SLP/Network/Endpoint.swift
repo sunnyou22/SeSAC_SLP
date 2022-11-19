@@ -20,6 +20,7 @@ enum SeSACAPI {
     case signUp(phoneNumber: String, FCMtoken: String, nick: String, birth: Date, email: String, gender: Int)
     case getUserInfo
     case search(lat: Double, long: Double)
+    case setMypage(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
 }
 
 extension SeSACAPI {
@@ -33,6 +34,8 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/user")!
         case .search:
             return URL(string: URLConstant.BaseURL + "/v1/queue/search")!
+        case .setMypage:
+            return URL(string: URLConstant.BaseURL + "/v1/user/mypage")!
         }
     }
     
@@ -44,13 +47,14 @@ extension SeSACAPI {
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
             ]
-        case .getUserInfo, .search:
+        case .getUserInfo, .search, .setMypage:
             return [
                 "idtoken": idtoken
             ]
         }
     }
-
+    
+    //데이터 넣어주는 바구닝
     var parameter: [String: Any]? {
         switch self {
         case .signUp(let phoneNumber, let FCMtoken, let nick, let birth, let email, let gender):
@@ -68,6 +72,14 @@ extension SeSACAPI {
             return [
                 "lat": lat,
                 "long": long
+            ]
+        case .setMypage(let searchable, let ageMin, let ageMax, let gender, let study):
+           return [
+                "searchable" : searchable,
+                "ageMin" : ageMin,
+                "ageMax" : ageMax,
+                "gender" : gender,
+                "study" : study
             ]
         }
     }

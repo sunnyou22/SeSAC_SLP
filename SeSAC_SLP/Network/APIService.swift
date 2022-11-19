@@ -80,3 +80,8 @@ struct Map: Codable {
     let lat, long: Double
 }
 
+//MARK: SetUserInfo
+struct SetUserInfo: Codable {
+    let searchable, ageMin, ageMax, gender: Int
+    let study: String
+}
