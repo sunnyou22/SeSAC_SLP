@@ -52,6 +52,7 @@ class SetMyInfoViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setnavigation()
+        print(UserDefaults.idtoken)
     }
     
     
@@ -62,6 +63,7 @@ class SetMyInfoViewController: BaseViewController {
       }
       username.text = userInfo.nick
       reviewView.text = "점심으로 먹은 슈비버거가 잊혀지지 않아요 "
+      
     }
     
     func bindData() {
@@ -74,7 +76,7 @@ class SetMyInfoViewController: BaseViewController {
             .tap
             .withUnretained(self)
             .subscribe(onNext: { vc, _ in
-                vc.viewModel.postUserInfo(searchable: 1, ageMin: 20, ageMax: 25, gender: 0, study: "알고리즘", idtoken: idtoken)
+                vc.viewModel.putUserInfo(searchable: 1, ageMin: 20, ageMax: 25, gender: 0, study: "알고리즘", idtoken: idtoken)
             }).disposed(by: disposeBag)
     }
  
@@ -90,7 +92,7 @@ class SetMyInfoViewController: BaseViewController {
             print("토큰없음")
             return
         }
-        viewModel.postUserInfo(searchable: 1, ageMin: 20, ageMax: 25, gender: 0, study: "알고리즘", idtoken: idtoken)
+        viewModel.putUserInfo(searchable: 1, ageMin: 20, ageMax: 25, gender: 1, study: "알고리즘", idtoken: idtoken)
     }
     
     @objc private func test() {

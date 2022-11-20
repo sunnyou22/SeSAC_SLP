@@ -15,48 +15,156 @@ import UIKit
  */
 
 // 이 케이스 하나만 error에서 사용하게 하기
-enum ServerError: Error {
-    case Common(CommonError)
-    case SignUp
-    case GetUserInfo
-    case Search
-    case PostUserInfo
-    
-}
 
-enum CommonError: Int, Error {
-    case Success = 200
-}
+//error 확장해보귁
+//extension Error {
+//
+//    func ServerError(여기에 에러타입을 받아서~? 아래서 구현하면~?) {
+//        let common = CommonError.self
+//        static let signup = UserError.self
+//        case GetUserInfo(CommonError)
+//        case PostUserInfo(UserError, CommonError)
+//        case Search(CommonError)
+//        static let queueError = QueueError.self
+//        case MyQueueState(MyQueueState, CommonError)
+//    }
+//}
 
-enum SignUpError: Int, Error {
-    case Success = 200
-    case SignInUser = 201
-    case InvaliedNickName = 202
-    case FirebaseTokenError = 401
-    case NotsignUpUser = 406
-    case ServerError = 500
-    case ClientError = 501
+//static let common = CommonError.self
+//static let queueError = QueueError.self
+//
+//case Common(CommonError)
+//case signup(CommonError, UserError)
+//case GetUserInfo(CommonError)
+//case PostUserInfo(UserError, CommonError)
+//case Search(CommonError)
+//case QueueError(CommonError, QueueError)
+//case MyQueueState(MyQueueState, CommonError)
+
+struct ServerError {
     
-    var message: String {
-        switch self {
-        case .Success:
-            return "인증이력이 있으시군요! 회원가입화면으로 이동하겠습니다."
-        case .SignInUser:
-            return "이미 가입한 회원입니다."
-        case .InvaliedNickName:
-            return "유효하지 않는 닉네임입니다."
-        case .FirebaseTokenError:
-            return "인증번호가 만료됐습니다. 다시 버튼을 눌러주세요."
-        case .NotsignUpUser:
-            return "처음 방문하셨군요! 회원가입화면으로 넘어가시겠습니까?"
-        case .ServerError:
-            return "ServerError"
-        case .ClientError:
-            return "알 수 없는 에러입니다. 고객센터로 문의주세요"
+    enum CommonError: Int, Error {
+        case Success = 200
+        case FirebaseTokenError = 401
+        case NotsignUpUser = 406
+        case ServerError = 500
+        case ClientError = 501
+        
+        var signupMessage: String {
+            switch self {
+            case .Success:
+                return "회원가입성공"
+            case .FirebaseTokenError:
+                return "재인증 필요"
+            case .ServerError:
+                return "알 수 없는 에러입니다. 고객센터로 문의주세요!"
+            case .ClientError:
+                return "알 수 없는 에러입니다. 고객센터로 문의주세요!"
+            case .NotsignUpUser:
+                return "미가입회원입니다."
+            }
         }
+        
+        var queuemessage: String {
+            switch self {
+            case .Success:
+                return "매칭성공"
+            case .FirebaseTokenError:
+                return "누군가와 스터디를 함께하기로 약속하셨어요!"
+            case .ServerError:
+                return "알 수 없는 에러입니다. 고객센터로 문의주세요!"
+            case .ClientError:
+                return "알 수 없는 에러입니다. 고객센터로 문의주세요!"
+            case .NotsignUpUser:
+                return "미가입회원입니다."
+            }
+        }
+    }
+    
+    enum UserError: Int, Error {
+        case SignInUser = 201
+        case InvaliedNickName = 202
+        
+        var message: String {
+            switch self {
+            case .SignInUser:
+                return "이미 가입한 유저입니다."
+            case .InvaliedNickName:
+                return "사용할 수 없는 닉네임입니다."
+            }
+        }
+    }
+    
+    enum QueueError: Int, Error {
+        case threeTimesReport = 201
+        case firstPenalty = 203
+        case secondPenalty = 204
+        case thirdPenalty = 205
+        
+        var message: String {
+            switch self {
+            case .threeTimesReport:
+                return "신고가 누적되어 이용하실 수 없습니다"
+            case .firstPenalty:
+                return "스터디 취소 패널티로, 1분동안 이용하실 수 없습니다"
+            case .secondPenalty:
+                return "스터디 취소 패널티로, 2분동안 이용하실 수 없습니다"
+            case .thirdPenalty:
+                return "스터디 취소 패널티로, 3분동안 이용하실 수 없습니다"
+            }
+        }
+    }
+    
+    enum MyQueueState: Int, Error {
+        case defaultStatus = 201
     }
 }
 
+//MARK: 메세지
+enum Message {
+    // 공통에러 멘트
+    case defaultQueueMessage(ServerError.CommonError)
+    case defaultSignupMessage(ServerError.CommonError)
+  
+    // 세부 에러 멘트
+    case QueueText(ServerError.QueueError)
+    case Signup(ServerError.UserError)
+    
+    case AuthVerifyPhoneNumber(AuthVerifyPhoneNumber)
+    case AuthCredentialText(AuthCredentialText)
+    
+  
+
+}
+
+//enum ServerError: Error {
+////    static let common = CommonError.self
+//    static let common = CommonError.self
+//    static let signup = UserError.self
+//    case GetUserInfo(CommonError)
+//    case PostUserInfo(UserError, CommonError)
+//    case Search(CommonError)
+//    static let queueError = QueueError.self
+//    case MyQueueState(MyQueueState, CommonError)
+//}
+//
+//enum CommonError: Int, Error {
+//    case Success = 200
+//    case FirebaseTokenError = 401
+//    case ServerError = 500
+//    case ClientError = 501
+//}
+
+
+//MARK: - 파이어베이스 오류
+
+// 오류 묶기 - 실제 사용
+enum CustomAuth {
+    case AuthVerifyPhoneNumber(AuthVerifyPhoneNumber)
+    case AuthCredentialText(AuthCredentialText)
+}
+
+// 핸드폰 번호 오류
 enum AuthVerifyPhoneNumber {
     case success
     case otherError
@@ -77,6 +185,7 @@ enum AuthVerifyPhoneNumber {
     }
 }
 
+// 번호인증 오류
 enum AuthCredentialText {
     case success
     case missingVerificationID
@@ -98,11 +207,4 @@ enum AuthCredentialText {
             return "에러가 발생했습니다. 다시 시도해주세요."
         }
     }
-}
-
-enum CustomAuth {
-    
-    case AuthVerifyPhoneNumber(AuthVerifyPhoneNumber)
-    case AuthCredentialText(AuthCredentialText)
-    case SignUpError(SignUpError)
 }

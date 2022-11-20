@@ -15,10 +15,11 @@ import FirebaseAuth
 //manager로 넣어줄건지 고민해보기
 
 final class CommonServerManager {
-   
+    
     let authValidCode = PublishRelay<AuthCredentialText>()
-    let autoUserStaus = PublishRelay<SignUpError>()
-    let transitionEvent = PublishRelay<SignUpError>()
+    let commonerror = PublishRelay<ServerError.CommonError>()
+    let usererror = PublishRelay<ServerError.UserError>()
+    //    let transitionEvent = PublishRelay<SignUpError>()
     
     //MAKR: - 모델로 빼기
     func USerInfoNetwork(idtoken: String) {
@@ -38,35 +39,42 @@ final class CommonServerManager {
                 
                 // 여기에 이걸 넣어주는게 맞을까
                 guard UserDefaults.phoneNumber != nil else {
-                    self?.autoUserStaus.accept(.Success)
+                    self?.commonerror.accept(.Success)
                     return
                 }
                 
-                self?.autoUserStaus.accept(.SignInUser)
-            case .failure(let failure):
-                
-                switch failure {
-                case SignUpError.FirebaseTokenError:
-                    LoadingIndicator.hideLoading()
-                    
-                    FirebaseManager.shared.getIDTokenForcingRefresh()
-                    
-                    print(#function, "idtoken만료 🔴", failure)
-                    guard let DBitoken = FirebaseManager.shared.getIDTokenForcingRefresh() else { return }
-                    UserDefaults.idtoken = DBitoken
-                    self?.autoUserStaus.accept(.FirebaseTokenError)
-                    
-                case SignUpError.NotsignUpUser:
-                    LoadingIndicator.hideLoading()
-                    guard let DBitoken = FirebaseManager.shared.getIDTokenForcingRefresh() else { return }
-                    UserDefaults.idtoken = DBitoken
-                    self?.autoUserStaus.accept(.NotsignUpUser)
-                default:
-                    LoadingIndicator.hideLoading()
-                   print("🔴 기타 에러, \(failure)")
-                }
+                self?.usererror.accept(.SignInUser)
+            case .failure( _):
+                print("살페")
                 //                self?.GetUerIfo.onError(failure)
+            }
+        } errorHandler: { [weak self] statusCode in
+            
+            guard let commonError = ServerError.CommonError(rawValue: statusCode) else { return }
+            
+            switch commonError {
+                
+            case .Success:
+                LoadingIndicator.hideLoading()
+                self?.commonerror.accept(.Success)
+            case .FirebaseTokenError:
+                guard let DBitoken = FirebaseManager.shared.getIDTokenForcingRefresh() else { return }
+                UserDefaults.idtoken = DBitoken
+                LoadingIndicator.hideLoading()
+                self?.commonerror.accept(.FirebaseTokenError)
+            case .NotsignUpUser:
+                LoadingIndicator.hideLoading()
+                self?.commonerror.accept(.NotsignUpUser)
+            case .ServerError:
+                LoadingIndicator.hideLoading()
+                self?.commonerror.accept(.ServerError)
+            case .ClientError:
+                LoadingIndicator.hideLoading()
+                self?.commonerror.accept(.ClientError)
             }
         }
     }
+    
+    
 }
+

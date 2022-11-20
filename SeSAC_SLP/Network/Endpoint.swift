@@ -42,12 +42,12 @@ extension SeSACAPI {
     //MARK: Header
     func getheader(idtoken: String) -> HTTPHeaders {
         switch self {
-        case .signUp:
+        case .signUp, .setMypage:
             return [
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
             ]
-        case .getUserInfo, .search, .setMypage:
+        case .getUserInfo, .search:
             return [
                 "idtoken": idtoken
             ]

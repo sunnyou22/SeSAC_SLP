@@ -30,11 +30,14 @@ import Toast
 //    }
 //}
 
+
+
 extension UIViewController {
-    func showDefaultToast(message: CustomAuth, completion: (() -> Void)? = nil) {
+    
+    func showDefaultToast(message: Message, completion: (() -> Void)? = nil) {
         var style = ToastStyle()
-         style.backgroundColor = .systemGray3
-         style.messageColor = .white
+        style.backgroundColor = .systemGray3
+        style.messageColor = .white
         
         switch message {
         case .AuthVerifyPhoneNumber(let phoneNum):
@@ -51,8 +54,32 @@ extension UIViewController {
                 }
                 tapCompletion
             }
-        case .SignUpError(let error):
+        case .QueueText(let error):
             view.makeToast(error.message, duration: 1, position: .center) { didTap in
+                guard let tapCompletion = completion?() else {
+                    return
+                }
+                tapCompletion
+            }
+      
+        case .Signup(let error):
+            view.makeToast(error.message, duration: 1, position: .center) { didTap in
+                guard let tapCompletion = completion?() else {
+                    return
+                }
+                tapCompletion
+            }
+            
+        case .defaultQueueMessage(let error):
+            view.makeToast(error.queuemessage, duration: 1, position: .center) { didTap in
+                guard let tapCompletion = completion?() else {
+                    return
+                }
+                tapCompletion
+            }
+            
+        case .defaultSignupMessage(let error):
+            view.makeToast(error.signupMessage, duration: 1, position: .center) { didTap in
                 guard let tapCompletion = completion?() else {
                     return
                 }
@@ -72,5 +99,6 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
 }
+
 
                             

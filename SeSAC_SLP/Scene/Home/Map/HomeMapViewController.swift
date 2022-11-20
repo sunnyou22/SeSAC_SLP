@@ -124,6 +124,41 @@ class HomeMapViewController: BaseViewController {
         }
     }
     
+     func bindDataTest() {
+        viewModel.detailError
+            .withUnretained(self)
+            .bind { vc, error in
+                switch error {
+                case .threeTimesReport:
+                    vc.showDefaultToast(message: .QueueText(.threeTimesReport))
+                case .firstPenalty:
+                    vc.showDefaultToast(message: .QueueText(.firstPenalty))
+                case .secondPenalty:
+                    vc.showDefaultToast(message: .QueueText(.secondPenalty))
+                case .thirdPenalty:
+                    vc.showDefaultToast(message: .QueueText(.thirdPenalty))
+                }
+                
+            }.disposed(by: disposedBag)
+         
+         viewModel.commonError
+             .withUnretained(self)
+             .bind { vc, error in
+                 switch error {
+                 case .Success:
+                     vc.showDefaultToast(message: .defaultQueueMessage(.Success))
+                 case .FirebaseTokenError:
+                     vc.showDefaultToast(message: .defaultQueueMessage(.FirebaseTokenError))
+                 case .ServerError:
+                     vc.showDefaultToast(message: .defaultQueueMessage(.ServerError))
+                 case .ClientError:
+                     vc.showDefaultToast(message: .defaultQueueMessage(.ClientError))
+                 case .NotsignUpUser:
+                     vc.showDefaultToast(message: .defaultQueueMessage(.NotsignUpUser))
+                 }
+             }.disposed(by: disposedBag)
+    }
+    
     func bindData() {
         /// Start Subscribing
         /// Works on simulator and device

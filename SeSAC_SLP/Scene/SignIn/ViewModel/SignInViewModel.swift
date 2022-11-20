@@ -19,8 +19,11 @@ final class SignInViewModel {
     var nextbutton: ControlEvent<Void>?
     let authPhoneNumResult = PublishRelay<AuthVerifyPhoneNumber>()
     let authValidCode = PublishRelay<AuthCredentialText>()
-    let autoUserStaus = PublishRelay<SignUpError>()
-    let transitionEvent = PublishRelay<SignUpError>()
+    
+    
+    let commonerror = PublishRelay<ServerError.CommonError>()
+    let detailerror = PublishRelay<ServerError.UserError>()
+    //    let transitionEvent = PublishRelay<SignUpError>()
     
     //MARK: 로그인화면 -
     
@@ -33,7 +36,7 @@ final class SignInViewModel {
         if (text.count == 13 && text.starts(with: "010")) || (text.count == 11 && text.starts(with: "011")) {
             buttonValid.accept(true)
         } else {
-           buttonValid.accept(false)
+            buttonValid.accept(false)
         }
     }
     
@@ -43,7 +46,7 @@ final class SignInViewModel {
         let result = rawnum.dropFirst(1)
         UserDefaults.phoneNumber = String(result)
         print(result, String(result), "😵‍💫😵‍💫😵‍💫😵‍💫")
-       return String(result)
+        return String(result)
     }
     
     //MARK: 번호 인증 화면 -
@@ -53,7 +56,7 @@ final class SignInViewModel {
         if text.count == 6 {
             buttonValid.accept(true)
         } else {
-           buttonValid.accept(false)
+            buttonValid.accept(false)
         }
     }
     
@@ -68,16 +71,16 @@ final class SignInViewModel {
             case .invalidVerificationID:
                 self.authValidCode.accept(.invalidVerificationID)
             case .otherError:
-             self.authValidCode.accept(.otherError)
+                self.authValidCode.accept(.otherError)
             case .success:
                 self.authValidCode.accept(.success)
             }
         }
     }
-   
+    
     //MARK: 공유 메서드 -
     func networkWithFireBase(num: String) {
-      let rawnum = changeTextfieldPattern(num: num)
+        let rawnum = changeTextfieldPattern(num: num)
         FirebaseManager.shared.verifyPhoneNumber(rawnum) { [weak self] response in
             switch response {
             case .success:
@@ -92,8 +95,8 @@ final class SignInViewModel {
         }
     }
     
-    //MARK: 닉네임 - 파일매니저로 뺄건지 고민
-    func signUpNetwork(nick: String, FCMtoken: String, phoneNumber: String, birth: Date, email: String, gender: Int, idtoken: String, completion: @escaping ((Error) -> Void)) {
+    
+    func signUpNetwork(nick: String, FCMtoken: String, phoneNumber: String, birth: Date, email: String, gender: Int, idtoken: String) {
         
         let api = SeSACAPI.signUp(phoneNumber: phoneNumber, FCMtoken: FCMtoken, nick: nick, birth: birth, email: email, gender: gender)
         
@@ -104,12 +107,42 @@ final class SignInViewModel {
                 print(success)
                 print("회원가입성공 ✅")
                 LoadingIndicator.hideLoading()
-                self?.autoUserStaus.accept(.Success)
+                self?.commonerror.accept(.Success)
             case .failure(let failure):
                 print("회원가입 에러 🔴")
                 LoadingIndicator.hideLoading()
-//                self?.signup.onError(failure) // 에러에 맞게 밷틈 SeSAC_SLP.SignUpError.InvaliedNickName
-                completion(failure)
+                //                self?.signup.onError(failure) // 에러에 맞게 밷틈 SeSAC_SLP.SignUpError.InvaliedNickName
+            }
+        } errorHandler: { [weak self] statusCode in
+            guard let commonError = ServerError.CommonError(rawValue: statusCode) else { return }
+            guard let userError = ServerError.UserError(rawValue: statusCode) else { return }
+            
+            switch commonError {
+                
+            case .Success:
+                LoadingIndicator.hideLoading()
+                self?.commonerror.accept(.Success)
+            case .FirebaseTokenError:
+                guard let DBitoken = FirebaseManager.shared.getIDTokenForcingRefresh() else { return }
+                UserDefaults.idtoken = DBitoken
+                LoadingIndicator.hideLoading()
+                self?.commonerror.accept(.FirebaseTokenError)
+            case .NotsignUpUser:
+                LoadingIndicator.hideLoading()
+                self?.commonerror.accept(.NotsignUpUser)
+            case .ServerError:
+                LoadingIndicator.hideLoading()
+                self?.commonerror.accept(.ServerError)
+            case .ClientError:
+                LoadingIndicator.hideLoading()
+                self?.commonerror.accept(.ClientError)
+            }
+            
+            switch userError {
+            case .SignInUser:
+                self?.detailerror.accept(.SignInUser)
+            case .InvaliedNickName:
+                self?.detailerror.accept(.InvaliedNickName)
             }
         }
     }

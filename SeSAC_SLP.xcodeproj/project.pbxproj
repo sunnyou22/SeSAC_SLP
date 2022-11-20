@@ -53,7 +53,6 @@
 		9066126F2927FCCC00320F21 /* CardViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066126E2927FCCC00320F21 /* CardViewTableViewCell.swift */; };
 		906612712927FFBA00320F21 /* CardViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906612702927FFBA00320F21 /* CardViewTableViewController.swift */; };
 		90661273292800D100320F21 /* CardViewCellVer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90661272292800D100320F21 /* CardViewCellVer.swift */; };
-		906612772928989E00320F21 /* MyPageInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906612762928989E00320F21 /* MyPageInfoViewModel.swift */; };
 		9066127B2928A27700320F21 /* APIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066127A2928A27700320F21 /* APIViewModel.swift */; };
 		9066127D2928BBF800320F21 /* SetMyInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066127C2928BBF800320F21 /* SetMyInfoViewModel.swift */; };
 		907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */; };
@@ -139,7 +138,6 @@
 		9066126E2927FCCC00320F21 /* CardViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewTableViewCell.swift; sourceTree = "<group>"; };
 		906612702927FFBA00320F21 /* CardViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewTableViewController.swift; sourceTree = "<group>"; };
 		90661272292800D100320F21 /* CardViewCellVer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewCellVer.swift; sourceTree = "<group>"; };
-		906612762928989E00320F21 /* MyPageInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageInfoViewModel.swift; sourceTree = "<group>"; };
 		9066127A2928A27700320F21 /* APIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIViewModel.swift; sourceTree = "<group>"; };
 		9066127C2928BBF800320F21 /* SetMyInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMyInfoViewModel.swift; sourceTree = "<group>"; };
 		907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
@@ -429,7 +427,6 @@
 			children = (
 				9066127C2928BBF800320F21 /* SetMyInfoViewModel.swift */,
 				90FD72C52923488200BB0077 /* SetMyInfoViewController.swift */,
-				906612762928989E00320F21 /* MyPageInfoViewModel.swift */,
 				906612742928985B00320F21 /* View */,
 			);
 			path = MyPageInfo;
@@ -620,7 +617,6 @@
 				906612662927C5E600320F21 /* MapViewModel.swift in Sources */,
 				90A8F309292548BC003083C8 /* CustomMapView.swift in Sources */,
 				907C68E929251DC400AADECC /* MyPageInfoScrollView.swift in Sources */,
-				906612772928989E00320F21 /* MyPageInfoViewModel.swift in Sources */,
 				902B1010291AE9E300D03C0E /* OnboardingViewController.swift in Sources */,
 				902B0FEB29196E9B00D03C0E /* Color.swift in Sources */,
 				902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */,

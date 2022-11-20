@@ -83,5 +83,6 @@ struct Map: Codable {
 //MARK: SetUserInfo
 struct SetUserInfo: Codable {
     let searchable, ageMin, ageMax, gender: Int
-    let study: String
+    let study: String?
+    
 }

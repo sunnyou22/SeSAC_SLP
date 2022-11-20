@@ -117,21 +117,17 @@ class VerificationViewController: BaseViewController {
             }.disposed(by: disposedBag)
         
         //api 에러
-        apiViewModel.autoUserStaus
+        apiViewModel.commonerror
             .withUnretained(self)
             .bind { vc, response in
                 switch response {
                 case .Success:
                     let viewcontroller = NicknameViewController()
-                    vc.showDefaultToast(message: .SignUpError(.Success)) {
+                    vc.showDefaultToast(message: .defaultSignupMessage(.Success)) {
                         vc.transition(viewcontroller, .push)
                     }
-                case .SignInUser:
-                    vc.showDefaultToast(message: .SignUpError(.SignInUser)) {
-                        self.setInitialViewController(to: HomeMapViewController())
-                    }
                 case .FirebaseTokenError:
-                    vc.showDefaultToast(message: .SignUpError(.FirebaseTokenError)) {
+                    vc.showDefaultToast(message: .defaultSignupMessage(.FirebaseTokenError)) {
                         guard let idtoken = UserDefaults.idtoken else {
                             print("다음 버튼을 눌렀는데 토큰이 없어 🔴")
                             return }
@@ -139,7 +135,7 @@ class VerificationViewController: BaseViewController {
                     }
                     
                 case .NotsignUpUser:
-                    vc.showDefaultToast(message: .SignUpError(.NotsignUpUser)) { [weak self] in
+                    vc.showDefaultToast(message: .defaultSignupMessage(.NotsignUpUser)) { [weak self] in
                         vc.showSelectedAlert(title: "첫방문을 환영합니다:)", message: "회원가입화면으로 넘어가시겠습니까?") { _ in
                             guard let DBitoken = FirebaseManager.shared.getIDTokenForcingRefresh() else { return }
                             UserDefaults.idtoken = DBitoken
@@ -147,10 +143,24 @@ class VerificationViewController: BaseViewController {
                             self?.transition(viewcontroller, .push)
                         }
                     }
-                default:
-                    vc.showDefaultToast(message: .SignUpError(.ClientError)) {
-                        
+                case .ServerError:
+                    print("서버에러🔴", #function)
+                case .ClientError:
+                    vc.showDefaultToast(message: .defaultSignupMessage(.ClientError))
+                }
+            }.disposed(by: disposedBag)
+        
+        apiViewModel.usererror
+            .withUnretained(self)
+            .bind { vc, error in
+                switch error {
+                    
+                case .SignInUser:
+                    vc.showDefaultToast(message: .Signup(.SignInUser)) {
+                        vc.setInitialViewController(to: HomeMapViewController())
                     }
+                case .InvaliedNickName:
+                    print("여기서는 필요하지 않은 에러")
                 }
             }.disposed(by: disposedBag)
     }
