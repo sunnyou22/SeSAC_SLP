@@ -31,10 +31,10 @@ class HomeMapViewController: BaseViewController {
     let sesacCoordinate = CLLocationCoordinate2D(latitude: 37.51818789942772, longitude: 126.88541765534976) //새싹 영등포 캠퍼스의 위치입니다. 여기서 시작하면 재밌을 것 같죠? 하하
     
     //버튼의 상태 나타내줄 때: 기본값은 디폴틍틍
-    init(userStatus: UserMatchingStatus = .defaults) {
-        self.userMatchingStatus = userStatus
-        super.init(nibName: nil, bundle: nil)
-    }
+//    init(userStatus: UserMatchingStatus = .defaults) {
+//        self.userMatchingStatus = userStatus
+//        super.init(nibName: nil, bundle: nil)
+//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -91,7 +91,6 @@ class HomeMapViewController: BaseViewController {
         transition(SearchViewController(), .push)
     }
     
-    // 이후 알엑스로 빼주기
     func checkUserDevieceLocationServiceAuthorization() {
         let authorizationStatus: CLAuthorizationStatus
         
@@ -188,14 +187,16 @@ class HomeMapViewController: BaseViewController {
             .withUnretained(self)
             .subscribe(onNext: { vc, value in
                 if let coordinate = value.locations.last?.coordinate {
-                    // 일단 캠퍼스 위치로 검색하기
+                    // 일단 캠퍼스 위치로 검색하기 나중에 지워주기
                     let region = MKCoordinateRegion(center: vc.sesacCoordinate, latitudinalMeters: 700, longitudinalMeters: 700)
                     vc.mainView.mapView.setRegion(region, animated: true)
+                    
+                    vc.addAnnotation()
                 }
             })
             .disposed(by: disposedBag)
         
-        /// Subscribe to didChangeAuthorization
+        // Subscribe to didChangeAuthorization
         manager.rx
             .didChangeAuthorization
             .debug("didChangeAuthorization")
@@ -371,7 +372,7 @@ extension HomeMapViewController: MKMapViewDelegate {
             search.fromQueueDB.forEach { data in
                 let center = CLLocationCoordinate2D(latitude: data.lat, longitude: data.long)
                 let annotation = MKPointAnnotation()
-                let region = MKCoordinateRegion(center: center, latitudinalMeters: 1000, longitudinalMeters: 1000)
+                let region = MKCoordinateRegion(center: center, latitudinalMeters: 700, longitudinalMeters: 700)
                 mainView.mapView.setRegion(region, animated: true)
                 annotation.coordinate = center
                 annotation.title = "\(data.gender)"

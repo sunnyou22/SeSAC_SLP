@@ -86,3 +86,10 @@ struct SetUserInfo: Codable {
     let study: String?
     
 }
+
+// MARK: - Matching
+struct MatchStatus: Codable {
+    let dodged, matched, reviewed: Int?
+    let matchedNick, matchedUid: String?
+}
+

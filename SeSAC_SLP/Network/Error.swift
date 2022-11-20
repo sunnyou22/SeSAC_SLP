@@ -14,33 +14,6 @@ import UIKit
  안그러면 에러케이스 다 외워야할듯
  */
 
-// 이 케이스 하나만 error에서 사용하게 하기
-
-//error 확장해보귁
-//extension Error {
-//
-//    func ServerError(여기에 에러타입을 받아서~? 아래서 구현하면~?) {
-//        let common = CommonError.self
-//        static let signup = UserError.self
-//        case GetUserInfo(CommonError)
-//        case PostUserInfo(UserError, CommonError)
-//        case Search(CommonError)
-//        static let queueError = QueueError.self
-//        case MyQueueState(MyQueueState, CommonError)
-//    }
-//}
-
-//static let common = CommonError.self
-//static let queueError = QueueError.self
-//
-//case Common(CommonError)
-//case signup(CommonError, UserError)
-//case GetUserInfo(CommonError)
-//case PostUserInfo(UserError, CommonError)
-//case Search(CommonError)
-//case QueueError(CommonError, QueueError)
-//case MyQueueState(MyQueueState, CommonError)
-
 struct ServerError {
     
     enum CommonError: Int, Error {
@@ -132,29 +105,7 @@ enum Message {
     
     case AuthVerifyPhoneNumber(AuthVerifyPhoneNumber)
     case AuthCredentialText(AuthCredentialText)
-    
-  
-
 }
-
-//enum ServerError: Error {
-////    static let common = CommonError.self
-//    static let common = CommonError.self
-//    static let signup = UserError.self
-//    case GetUserInfo(CommonError)
-//    case PostUserInfo(UserError, CommonError)
-//    case Search(CommonError)
-//    static let queueError = QueueError.self
-//    case MyQueueState(MyQueueState, CommonError)
-//}
-//
-//enum CommonError: Int, Error {
-//    case Success = 200
-//    case FirebaseTokenError = 401
-//    case ServerError = 500
-//    case ClientError = 501
-//}
-
 
 //MARK: - 파이어베이스 오류
 

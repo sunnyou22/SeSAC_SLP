@@ -21,6 +21,7 @@ enum SeSACAPI {
     case getUserInfo
     case search(lat: Double, long: Double)
     case setMypage(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
+    case matchingStatus
 }
 
 extension SeSACAPI {
@@ -36,6 +37,8 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/queue/search")!
         case .setMypage:
             return URL(string: URLConstant.BaseURL + "/v1/user/mypage")!
+        case .matchingStatus:
+            return URL(string: URLConstant.BaseURL + "/v1/queue/myQueueState")!
         }
     }
     
@@ -47,7 +50,7 @@ extension SeSACAPI {
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
             ]
-        case .getUserInfo, .search:
+        case .getUserInfo, .search, .matchingStatus:
             return [
                 "idtoken": idtoken
             ]
@@ -81,6 +84,8 @@ extension SeSACAPI {
                 "gender" : gender,
                 "study" : study
             ]
+        case .matchingStatus:
+            return nil
         }
     }
 }

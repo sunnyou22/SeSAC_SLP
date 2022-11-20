@@ -11,9 +11,12 @@ import RxSwift
 
 class MapViewModel {
     
+    static let ploatingButtonSet: PublishRelay<UserMatchingStatus> = PublishRelay()
+    
     let detailError = PublishRelay<ServerError.QueueError>()
     let commonError = PublishRelay<ServerError.CommonError>()
     
+    // 공통요소로 빼기 -> 위치가 이동할 때마다 호출해줘야함
     func fetchMapData(lat: Double, long: Double, idtoken: String) {
         let api = SeSACAPI.search(lat: lat, long: long)
         Network.shared.requestSeSAC(type: Search.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { response in
@@ -62,6 +65,23 @@ class MapViewModel {
             }
             return
         }
+    }
+    
+    func getMatchStatus(idtoken: String) {
+        let api = SeSACAPI.matchingStatus
+        
+        Network.shared.requestSeSAC(type: MatchStatus.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { response in
+            switch response {
+            case .success(let data):
+                print("getMatchStatus🚀\n", data)
+            case .failure(let error):
+                print("getMatchStatus error 🔴\n", error)
+                
+            }
+        } errorHandler: { <#Int#> in
+            <#code#>
+        }
+
     }
 }
 
