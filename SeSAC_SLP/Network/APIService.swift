@@ -58,13 +58,13 @@ struct GetUerIfo: Codable {
     }
 }
 
-//MARK: Match
-
-struct Search: Codable, Hashable {
+//MARK:  - SearchSurroundings
+//  {baseURL}/v1/queue/search 주변탐색기능
+struct SearchSurroundings: Codable, Hashable {
     let fromQueueDB, fromQueueDBRequested: [FromQueueDB]
     let fromRecommend: [String] // 디퍼블 반영
 }
-    // MARK: - FromQueueDB
+    // MARK:  FromQueueDB
     struct FromQueueDB: Codable, Hashable {
         let uid, nick: String
         let lat, long: Double
@@ -74,13 +74,7 @@ struct Search: Codable, Hashable {
     
 }
 
-//MARK: - MAP
-
-struct Map: Codable {
-    let lat, long: Double
-}
-
-//MARK: SetUserInfo
+//MARK: - SetUserInfo
 struct SetUserInfo: Codable {
     let searchable, ageMin, ageMax, gender: Int
     let study: String?
@@ -93,3 +87,8 @@ struct MatchStatus: Codable {
     let matchedNick, matchedUid: String?
 }
 
+// MARK: - Search
+struct Search: Codable {
+    let long, lat: Double?
+    let studylist: [String]?
+}

@@ -81,15 +81,20 @@ final class SignInViewModel {
     //MARK: 공유 메서드 -
     func networkWithFireBase(num: String) {
         let rawnum = changeTextfieldPattern(num: num)
+        LoadingIndicator.showLoading()
         FirebaseManager.shared.verifyPhoneNumber(rawnum) { [weak self] response in
             switch response {
             case .success:
+                LoadingIndicator.hideLoading()
                 self?.authPhoneNumResult.accept(.success)
             case .otherError:
+                LoadingIndicator.hideLoading()
                 self?.authPhoneNumResult.accept(.otherError)
             case .invalidPhoneNumber:
+                LoadingIndicator.hideLoading()
                 self?.authPhoneNumResult.accept(.invalidPhoneNumber)
             case .tooManyRequests:
+                LoadingIndicator.hideLoading()
                 self?.authPhoneNumResult.accept(.tooManyRequests)
             }
         }
@@ -108,12 +113,16 @@ final class SignInViewModel {
                 print("회원가입성공 ✅")
                 LoadingIndicator.hideLoading()
                 self?.commonerror.accept(.Success)
+                self?.authPhoneNumResult.accept(.success)
+                
             case .failure(let failure):
                 print("회원가입 에러 🔴")
+                
                 LoadingIndicator.hideLoading()
                 //                self?.signup.onError(failure) // 에러에 맞게 밷틈 SeSAC_SLP.SignUpError.InvaliedNickName
             }
         } errorHandler: { [weak self] statusCode in
+            //최종회원가입에서 안 들어옴
             guard let commonError = ServerError.CommonError(rawValue: statusCode) else { return }
             guard let userError = ServerError.UserError(rawValue: statusCode) else { return }
             

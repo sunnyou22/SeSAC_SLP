@@ -19,9 +19,10 @@ struct URLConstant {
 enum SeSACAPI {
     case signUp(phoneNumber: String, FCMtoken: String, nick: String, birth: Date, email: String, gender: Int)
     case getUserInfo
-    case search(lat: Double, long: Double)
+    case searchSurroundings(lat: Double, long: Double)
     case setMypage(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
     case matchingStatus
+    case search(lat: Double, long: Double, studylist: [String])
 }
 
 extension SeSACAPI {
@@ -33,24 +34,26 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/user")!
         case .getUserInfo:
             return URL(string: URLConstant.BaseURL + "/v1/user")!
-        case .search:
-            return URL(string: URLConstant.BaseURL + "/v1/queue/search")!
+        case .searchSurroundings:
+            return URL(string: URLConstant.BaseURL + "/v1/queue/search")! // 주변탐색
         case .setMypage:
             return URL(string: URLConstant.BaseURL + "/v1/user/mypage")!
         case .matchingStatus:
             return URL(string: URLConstant.BaseURL + "/v1/queue/myQueueState")!
+        case .search:
+            return URL(string: URLConstant.BaseURL + "/v1/queue")! // 새싹 찾기 검색
         }
     }
     
     //MARK: Header
     func getheader(idtoken: String) -> HTTPHeaders {
         switch self {
-        case .signUp, .setMypage:
+        case .signUp, .setMypage, .search:
             return [
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
             ]
-        case .getUserInfo, .search, .matchingStatus:
+        case .getUserInfo, .searchSurroundings, .matchingStatus:
             return [
                 "idtoken": idtoken
             ]
@@ -71,13 +74,13 @@ extension SeSACAPI {
             ]
         case .getUserInfo:
             return nil
-        case .search(let lat, let long):
+        case .searchSurroundings(let lat, let long):
             return [
                 "lat": lat,
                 "long": long
             ]
         case .setMypage(let searchable, let ageMin, let ageMax, let gender, let study):
-           return [
+            return [
                 "searchable" : searchable,
                 "ageMin" : ageMin,
                 "ageMax" : ageMax,
@@ -86,6 +89,12 @@ extension SeSACAPI {
             ]
         case .matchingStatus:
             return nil
+        case .search(let lat, let long, let studylist):
+            return [
+                "long": long,
+                "lat": lat,
+                "studylist": studylist
+            ]
         }
     }
 }

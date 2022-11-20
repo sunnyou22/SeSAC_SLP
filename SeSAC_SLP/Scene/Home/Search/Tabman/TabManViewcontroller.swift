@@ -20,7 +20,7 @@ class TabmanViewController: BaseViewController {
         super.viewDidAppear(animated)
         
         // 플로팅 버튼 상태 바꿔주기 이후 서버통신이 성공했을 때 이벤트를 주도록 변경하기
-        MapViewModel.ploatingButtonSet.accept(.matching)
+        MapViewModel.ploatingButtonSet.accept(.waiting)
         
         //플로팅 버튼 테스트용
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in

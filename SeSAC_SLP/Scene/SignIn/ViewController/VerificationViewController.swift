@@ -72,7 +72,8 @@ class VerificationViewController: BaseViewController {
             .tap
             .withUnretained(self)
             .bind { vc, _ in
-                guard let idtoken = UserDefaults.idtoken else {
+         
+                guard let idtoken = FirebaseManager.shared.getIDTokenForcingRefresh() else {
                     print("다음 버튼을 눌렀는데 토큰이 없어 🔴")
                     return }
                 vc.apiViewModel.USerInfoNetwork(idtoken: idtoken)
@@ -83,7 +84,7 @@ class VerificationViewController: BaseViewController {
             .bind { vc, reponse in
                 switch reponse {
                 case .success:
-                    print("전화번호인증 성공 🟢")
+                    print("전화번호인증 성공 🟢🟢")
                 case .invalidPhoneNumber:
                     vc.showDefaultToast(message: .AuthVerifyPhoneNumber(.invalidPhoneNumber))
                 case .tooManyRequests:

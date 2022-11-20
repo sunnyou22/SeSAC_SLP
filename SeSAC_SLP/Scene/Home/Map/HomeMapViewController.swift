@@ -16,15 +16,16 @@ import RxCocoa
 import RxMKMapView
 import RxCoreLocation
 
-enum UserMatchingStatus {
+enum UserMatchingStatus: Int {
+    case waiting = 0
+    case matched = 1
     case defaults
-    case matched
-    case matching
 }
 
 class HomeMapViewController: BaseViewController {
     var userMatchingStatus: UserMatchingStatus?
     var mainView = CustomMapView()
+    let commonAPIviewModel = CommonServerManager()
     let viewModel = MapViewModel()
     let disposedBag = DisposeBag()
     let manager = CLLocationManager()
@@ -56,13 +57,16 @@ class HomeMapViewController: BaseViewController {
         
         // 현재위치를 기준으로 최초로 불러오기
         //        viewModel.fetchMapData(lat: (manager.location?.coordinate.latitude)!, long: (manager.location?.coordinate.longitude)!, idtoken: idtoken)
-        viewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
+        commonAPIviewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
         print(UserDefaults.searchData, "✅✅Userdefaults.searchData 디코뒹✅✅")
         
         // 어노테이션 추가
         addAnnotation()
         
         mainView.matchingButton.addTarget(self, action: #selector(test), for: .touchUpInside)
+        
+        // 매칭상태가져오기 테스트
+        viewModel.getMatchStatus(idtoken: idtoken)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,13 +82,14 @@ class HomeMapViewController: BaseViewController {
     override func viewDidDisappear(_ animated: Bool) {
         //MARK: - viewDidDisappear
         super.viewDidDisappear(animated)
-        
         manager.stopUpdatingLocation()
     }
     
     // 이후 터치 이벤트받아서 알엑스로 전환
     @objc func test() {
-        transition(SearchViewController(), .push)
+        let vc =  SearchViewController()
+        vc.currentLocation = manager.location?.coordinate
+        transition(vc, .push)
     }
     
     func checkUserDevieceLocationServiceAuthorization() {
@@ -128,23 +133,8 @@ class HomeMapViewController: BaseViewController {
     func bindDataError() {
         
         //에러 메세지
-        viewModel.detailError
-            .withUnretained(self)
-            .bind { vc, error in
-                switch error {
-                case .threeTimesReport:
-                    vc.showDefaultToast(message: .QueueText(.threeTimesReport))
-                case .firstPenalty:
-                    vc.showDefaultToast(message: .QueueText(.firstPenalty))
-                case .secondPenalty:
-                    vc.showDefaultToast(message: .QueueText(.secondPenalty))
-                case .thirdPenalty:
-                    vc.showDefaultToast(message: .QueueText(.thirdPenalty))
-                }
-                
-            }.disposed(by: disposedBag)
         
-        viewModel.commonError
+        commonAPIviewModel.commonError
             .withUnretained(self)
             .bind { vc, error in
                 switch error {
@@ -182,7 +172,7 @@ class HomeMapViewController: BaseViewController {
                     vc.mainView.matchingButton.setImage(UIImage(named: "search"), for: .normal)
                 case .matched:
                     vc.mainView.matchingButton.setImage(UIImage(named: "matched"), for: .normal)
-                case .matching:
+                case .waiting:
                     vc.mainView.matchingButton.setImage(UIImage(named: "waiting"), for: .normal)
                 }
             }.disposed(by: disposedBag)

@@ -27,7 +27,7 @@ class SignInViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                                                                                    
+                  
         bindData()
         // 최초진입분기
         UserDefaults.first = true

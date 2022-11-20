@@ -17,7 +17,7 @@ final class FirebaseManager {
     
     //idtoken ☑️
     func verifyPhoneNumber(_ num: String, resultMessage: @escaping ((AuthVerifyPhoneNumber) -> Void)) {
-        LoadingIndicator.showLoading()
+//        LoadingIndicator.showLoading()
         Auth.auth().languageCode = "kr"
         PhoneAuthProvider.provider()
             .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { (verificationID, error) in
@@ -25,22 +25,22 @@ final class FirebaseManager {
                 if let error = error {
                     switch error {
                     case AuthErrorCode.invalidPhoneNumber:
-                        LoadingIndicator.hideLoading()
+//                        LoadingIndicator.hideLoading()
                         resultMessage(.invalidPhoneNumber) // invalidPhoneNumber의 응답값이 들어오면 여기서 실행해줄고야~
-
+                        
                     case AuthErrorCode.tooManyRequests:
-                        LoadingIndicator.hideLoading()
+//                        LoadingIndicator.hideLoading()
                         resultMessage(.tooManyRequests)
                         
                     default:
-                        LoadingIndicator.hideLoading()
+//                        LoadingIndicator.hideLoading()
                         resultMessage(.otherError)
                     }
                     print(error.localizedDescription, error, "🥲😡")
                     return
                 } else {
-                    UserDefaults.authVerificationID = verificationID!
                     LoadingIndicator.hideLoading()
+                    UserDefaults.authVerificationID = verificationID!
                     print("success🥰🥰")
                     resultMessage(.success)
                 }
@@ -77,6 +77,7 @@ final class FirebaseManager {
                 return
             } else {
                 autoResult(.success)
+                print(result)
                 print("Phone Number user is signed in \(String(describing: result?.user.uid))  ☎️✅")
             }
             
@@ -91,8 +92,10 @@ final class FirebaseManager {
                 print(error, "🔴 idtoken을 받아올 수 없습니다.")
                 return
             } else {
+            print("itoken🐭🐭", idToken)
                 guard let idtoken = idToken else { return }
                 UserDefaults.idtoken = idtoken
+                print(UserDefaults.idtoken, "🐭🐭🐭🔴🔴🔴🔴🐭🐭")
             }
         }
         return UserDefaults.idtoken

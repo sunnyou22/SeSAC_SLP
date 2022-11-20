@@ -93,7 +93,7 @@ extension UserDefaults {
     
     // Codable
     @UserDeaultCodable(key: "searchData", defaultValue: nil)
-    static var searchData: [Search]?
+    static var searchData: [SearchSurroundings]?
     
     @UserDeaultCodable(key: "getUerIfo", defaultValue: nil)
     static var getUerIfo: [GetUerIfo]?

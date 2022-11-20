@@ -17,6 +17,7 @@ import SnapKit
 import Toast
 import RxSwift
 import RxCocoa
+import CoreLocation
 
 //MARK: - 헤더
 class SearchHeaderView: UICollectionReusableView {
@@ -60,6 +61,7 @@ enum Section: Int, CaseIterable {
 //MARK: - 서치 뷰컨
 class SearchViewController: BaseViewController {
     
+    var currentLocation: CLLocationCoordinate2D?
     var cell =  SearchCollecitionViewCell()
     var mainView = SearchView()
     var wishList: Set<String> = [] {
@@ -71,6 +73,10 @@ class SearchViewController: BaseViewController {
     
     let dumy = ["a", "bbbbb", "cccccccccc", "dddd"]
     
+    let commonAPIviewModel = CommonServerManager()
+    let viewModel = SearchViewModel()
+    
+    
     let disposedBag = DisposeBag()
     
     override func loadView() {
@@ -78,18 +84,18 @@ class SearchViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
+        //MARK: - viewDidLoad
         super.viewDidLoad()
         
         mainView.collectionView.dataSource = self
         mainView.collectionView.delegate = self
         mainView.collectionView.collectionViewLayout = mainView.configureCollectionViewLayout()
         mainView.collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchHeaderView")
-        
-        //유아이 바인드
-        bindDataUI()
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
+        //MARK: - viewWillAppear
         super.viewWillAppear(animated)
         mainView.backgroundColor = .setBaseColor(color: .white)
         let width = view.frame.size.width //화면 너비
@@ -98,6 +104,22 @@ class SearchViewController: BaseViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchBar)
         
         searchBar.delegate = self
+        
+        //유아이 바인드
+        bindDataUI()
+        
+        guard let idtoken = UserDefaults.idtoken else {
+            print("itocken만료")
+            return
+        }
+        
+        guard let currentLocation = currentLocation else {
+            print("사용자의 위치를 받아올 수 없음 🔴", #function)
+            return
+        }
+        
+        commonAPIviewModel.fetchMapData(lat: currentLocation.latitude, long: currentLocation.longitude, idtoken: idtoken)
+        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(wishList))
     }
     
     //MARK: - bindUI
@@ -108,10 +130,21 @@ class SearchViewController: BaseViewController {
             .tap
             .withUnretained(self)
             .bind { vc, _ in
-                vc.transition(TabmanViewController(), .push)
+                //                vc.transition(TabmanViewController(), .push)
+                
+                guard let currentLocation = vc.currentLocation else {
+                    print("사용자의 위치를 받아올 수 없음 🔴", #function)
+                    return
+                }
+                
+                guard let idtoken = UserDefaults.idtoken else {
+                    print("itocken만료")
+                    return
+                }
+                print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(vc.wishList))
+                vc.viewModel.searchSeSACMate(lat: currentLocation.latitude, long: currentLocation.longitude, studylist: Array(vc.wishList), idtoken: idtoken)
             }.disposed(by: disposedBag)
     }
-    
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -130,6 +163,16 @@ extension SearchViewController: UISearchBarDelegate {
             wishList.insert(String(strEl))
             searchBar.text = ""
         }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        guard let currentLocation = currentLocation else {
+            print("사용자의 위치를 받아올 수 없음 🔴", #function)
+            return
+        }
+        
+        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(wishList))
     }
 }
 
