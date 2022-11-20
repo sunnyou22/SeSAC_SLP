@@ -18,7 +18,7 @@ import Toast
 import RxSwift
 import RxCocoa
 import CoreLocation
-import rx
+import RxKeyboard
 
 
 //MARK: - 헤더
@@ -125,12 +125,29 @@ class SearchViewController: BaseViewController {
         commonAPIviewModel.fetchMapData(lat: currentLocation.latitude, long: currentLocation.longitude, idtoken: idtoken)
         print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(wishList))
         
-        showSearchToolBar()
+//        showSearchToolBar()
     }
     
     //MARK: - bindUI
     
     func bindDataUI() {
+        
+        RxKeyboard.instance.willShowVisibleHeight
+            .drive(onNext: { [weak self] height in
+                
+                guard let self = self else { return }
+                
+                let height = height > 0 ? -height + (self.mainView.safeAreaInsets.bottom) : 0
+                self.mainView.searchButton.snp.updateConstraints { make in
+                    make.bottom.equalTo(self.mainView.safeAreaLayoutGuide).offset(height)
+                    make.horizontalEdges.equalTo(self.mainView).inset(0)
+               }
+                
+                self.mainView.layoutIfNeeded()
+            }).disposed(by: disposedBag)
+            
+        mainView.rx
+            .o
         
         mainView.searchButton.rx
             .tap
@@ -161,10 +178,7 @@ class SearchViewController: BaseViewController {
     }
     
     func showSearchToolBar() {
-    
-       
         searchBar.inputAccessoryView = mainView.testsearchButton
-      
     }
 }
 
