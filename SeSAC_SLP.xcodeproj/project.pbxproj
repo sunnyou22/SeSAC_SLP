@@ -66,6 +66,7 @@
 		907C68E929251DC400AADECC /* MyPageInfoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E829251DC400AADECC /* MyPageInfoScrollView.swift */; };
 		9082F8E1292A6CC50085D4BB /* TabManViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082F8E0292A6CC50085D4BB /* TabManViewcontroller.swift */; };
 		9082F8E3292A72200085D4BB /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082F8E2292A72200085D4BB /* SearchViewModel.swift */; };
+		9082F8E6292ACCAD0085D4BB /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = 9082F8E5292ACCAD0085D4BB /* RxKeyboard */; };
 		9095C4DE291D13730055D1B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */; };
 		9095C4E0291D43250055D1B7 /* UserDafaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4DF291D43250055D1B7 /* UserDafaults.swift */; };
 		9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4E3291D554C0055D1B7 /* DateFormatter.swift */; };
@@ -192,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9066125C29275E4A00320F21 /* RxSwift in Frameworks */,
+				9082F8E6292ACCAD0085D4BB /* RxKeyboard in Frameworks */,
 				902B1030291C542700D03C0E /* FirebaseMessaging in Frameworks */,
 				9066125F29275ED100320F21 /* RxCoreLocation in Frameworks */,
 				902B102C291C542700D03C0E /* FirebaseAuth in Frameworks */,
@@ -541,6 +543,7 @@
 				9066125B29275E4A00320F21 /* RxSwift */,
 				9066125E29275ED100320F21 /* RxCoreLocation */,
 				9066126129275F4700320F21 /* RxMKMapView */,
+				9082F8E5292ACCAD0085D4BB /* RxKeyboard */,
 			);
 			productName = SeSAC_SLP;
 			productReference = 902B0FA62918BC1C00D03C0E /* SeSAC_SLP.app */;
@@ -578,6 +581,7 @@
 				9066125829275E4A00320F21 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				9066125D29275ED100320F21 /* XCRemoteSwiftPackageReference "RxCoreLocation" */,
 				9066126029275F4700320F21 /* XCRemoteSwiftPackageReference "RxMKMapView" */,
+				9082F8E4292ACCAD0085D4BB /* XCRemoteSwiftPackageReference "RxKeyboard" */,
 			);
 			productRefGroup = 902B0FA72918BC1C00D03C0E /* Products */;
 			projectDirPath = "";
@@ -964,6 +968,14 @@
 				minimumVersion = 6.0.1;
 			};
 		};
+		9082F8E4292ACCAD0085D4BB /* XCRemoteSwiftPackageReference "RxKeyboard" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxKeyboard.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		90DA96C5291CE03500B5CA76 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
@@ -1024,6 +1036,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9066126029275F4700320F21 /* XCRemoteSwiftPackageReference "RxMKMapView" */;
 			productName = RxMKMapView;
+		};
+		9082F8E5292ACCAD0085D4BB /* RxKeyboard */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9082F8E4292ACCAD0085D4BB /* XCRemoteSwiftPackageReference "RxKeyboard" */;
+			productName = RxKeyboard;
 		};
 		90DA96C6291CE03500B5CA76 /* Toast */ = {
 			isa = XCSwiftPackageProductDependency;

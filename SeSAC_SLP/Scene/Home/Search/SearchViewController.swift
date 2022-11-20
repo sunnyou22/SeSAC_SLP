@@ -18,6 +18,8 @@ import Toast
 import RxSwift
 import RxCocoa
 import CoreLocation
+import rx
+
 
 //MARK: - 헤더
 class SearchHeaderView: UICollectionReusableView {
@@ -61,6 +63,9 @@ enum Section: Int, CaseIterable {
 //MARK: - 서치 뷰컨
 class SearchViewController: BaseViewController {
     
+    lazy var width = view.frame.size.width //화면 너비
+    lazy var searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: width - 28, height: 0))
+    
     var currentLocation: CLLocationCoordinate2D?
     var cell =  SearchCollecitionViewCell()
     var mainView = SearchView()
@@ -98,8 +103,7 @@ class SearchViewController: BaseViewController {
         //MARK: - viewWillAppear
         super.viewWillAppear(animated)
         mainView.backgroundColor = .setBaseColor(color: .white)
-        let width = view.frame.size.width //화면 너비
-        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: width - 28, height: 0))
+      
         searchBar.placeholder = "띄어쓰기로 복수 입력이 가능해요"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchBar)
         
@@ -120,6 +124,8 @@ class SearchViewController: BaseViewController {
         
         commonAPIviewModel.fetchMapData(lat: currentLocation.latitude, long: currentLocation.longitude, idtoken: idtoken)
         print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(wishList))
+        
+        showSearchToolBar()
     }
     
     //MARK: - bindUI
@@ -144,6 +150,21 @@ class SearchViewController: BaseViewController {
                 print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(vc.wishList))
                 vc.viewModel.searchSeSACMate(lat: currentLocation.latitude, long: currentLocation.longitude, studylist: Array(vc.wishList), idtoken: idtoken)
             }.disposed(by: disposedBag)
+//        
+//        searchBar.rx
+//            .textDidBeginEditing
+//            .asDriver()
+//            .drive { _ in
+//                showSearchToolBar()
+//            }
+//    
+    }
+    
+    func showSearchToolBar() {
+    
+       
+        searchBar.inputAccessoryView = mainView.testsearchButton
+      
     }
 }
 
@@ -166,12 +187,11 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        showSearchToolBar()
         guard let currentLocation = currentLocation else {
             print("사용자의 위치를 받아올 수 없음 🔴", #function)
             return
         }
-        
         print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(wishList))
     }
 }

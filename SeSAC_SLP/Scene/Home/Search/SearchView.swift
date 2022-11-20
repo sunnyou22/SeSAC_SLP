@@ -10,6 +10,19 @@ import SnapKit
 
 class SearchView: BaseView {
     
+    lazy var accessoryView: UIView = {
+        return UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: 80))
+    }()
+    
+    let testsearchButton: UIButton = {
+        let view = UIButton()
+        view.setTitle("새싹 찾기", for: .normal)
+        view.backgroundColor = .setBrandColor(color: .green)
+        view.clipsToBounds = true
+        view.layer.cornerRadius = CustomCornerRadius.button.rawValue
+        return view
+    }()
+    
     lazy var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
         view.register(SearchCollecitionViewCell.self, forCellWithReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier)
@@ -33,10 +46,16 @@ class SearchView: BaseView {
     }
     
     override func configure() {
+        accessoryView.addSubview(testsearchButton)
         [collectionView, searchButton].forEach { self.addSubview($0)  }
     }
     
     override func setConstraints() {
+        
+        testsearchButton.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide)
         }
