@@ -65,6 +65,7 @@
 		907C68E729251B0400AADECC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E629251B0400AADECC /* CardView.swift */; };
 		907C68E929251DC400AADECC /* MyPageInfoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E829251DC400AADECC /* MyPageInfoScrollView.swift */; };
 		9082F8E1292A6CC50085D4BB /* TabManViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082F8E0292A6CC50085D4BB /* TabManViewcontroller.swift */; };
+		9082F8E3292A72200085D4BB /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082F8E2292A72200085D4BB /* SearchViewModel.swift */; };
 		9095C4DE291D13730055D1B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */; };
 		9095C4E0291D43250055D1B7 /* UserDafaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4DF291D43250055D1B7 /* UserDafaults.swift */; };
 		9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9095C4E3291D554C0055D1B7 /* DateFormatter.swift */; };
@@ -151,6 +152,7 @@
 		907C68E629251B0400AADECC /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		907C68E829251DC400AADECC /* MyPageInfoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageInfoScrollView.swift; sourceTree = "<group>"; };
 		9082F8E0292A6CC50085D4BB /* TabManViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManViewcontroller.swift; sourceTree = "<group>"; };
+		9082F8E2292A72200085D4BB /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9095C4DF291D43250055D1B7 /* UserDafaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDafaults.swift; sourceTree = "<group>"; };
 		9095C4E3291D554C0055D1B7 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				90A8F30A2925664B003083C8 /* SearchView.swift */,
 				90A8F30D29256667003083C8 /* SearchViewController.swift */,
 				9066125629267A3100320F21 /* SearchCollectionViewCell.swift */,
+				9082F8E2292A72200085D4BB /* SearchViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				90661273292800D100320F21 /* CardViewCellVer.swift in Sources */,
 				902B1020291C1AF200D03C0E /* Network.swift in Sources */,
 				907C68E12925170500AADECC /* CardViewNickName.swift in Sources */,
+				9082F8E3292A72200085D4BB /* SearchViewModel.swift in Sources */,
 				902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */,
 				902B100D291AB87700D03C0E /* GenderViewController.swift in Sources */,
 				902B1009291AB78B00D03C0E /* BirthDayViewController.swift in Sources */,

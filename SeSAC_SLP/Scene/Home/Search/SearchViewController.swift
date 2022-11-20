@@ -12,9 +12,13 @@
  */
 
 import UIKit
+
 import SnapKit
 import Toast
+import RxSwift
+import RxCocoa
 
+//MARK: - 헤더
 class SearchHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,6 +57,7 @@ enum Section: Int, CaseIterable {
     }
 }
 
+//MARK: - 서치 뷰컨
 class SearchViewController: BaseViewController {
     
     var cell =  SearchCollecitionViewCell()
@@ -63,7 +68,10 @@ class SearchViewController: BaseViewController {
             print(wishList)
         }
     }
+    
     let dumy = ["a", "bbbbb", "cccccccccc", "dddd"]
+    
+    let disposedBag = DisposeBag()
     
     override func loadView() {
         view = mainView
@@ -76,6 +84,9 @@ class SearchViewController: BaseViewController {
         mainView.collectionView.delegate = self
         mainView.collectionView.collectionViewLayout = mainView.configureCollectionViewLayout()
         mainView.collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchHeaderView")
+        
+        //유아이 바인드
+        bindDataUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,6 +99,19 @@ class SearchViewController: BaseViewController {
         
         searchBar.delegate = self
     }
+    
+    //MARK: - bindUI
+    
+    func bindDataUI() {
+        
+        mainView.searchButton.rx
+            .tap
+            .withUnretained(self)
+            .bind { vc, _ in
+                vc.transition(TabmanViewController(), .push)
+            }.disposed(by: disposedBag)
+    }
+    
 }
 
 extension SearchViewController: UISearchBarDelegate {

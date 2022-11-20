@@ -67,22 +67,22 @@ class MapViewModel {
         }
     }
     
-    func getMatchStatus(idtoken: String) {
-        let api = SeSACAPI.matchingStatus
-        
-        Network.shared.requestSeSAC(type: MatchStatus.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { response in
-            switch response {
-            case .success(let data):
-                print("getMatchStatus🚀\n", data)
-            case .failure(let error):
-                print("getMatchStatus error 🔴\n", error)
-                
-            }
-        } errorHandler: { <#Int#> in
-            <#code#>
-        }
-
-    }
+//    func getMatchStatus(idtoken: String) {
+//        let api = SeSACAPI.matchingStatus
+//        
+//        Network.shared.requestSeSAC(type: MatchStatus.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { response in
+//            switch response {
+//            case .success(let data):
+//                print("getMatchStatus🚀\n", data)
+//            case .failure(let error):
+//                print("getMatchStatus error 🔴\n", error)
+//                
+//            }
+//        } errorHandler: { <#Int#> in
+//            <#code#>
+//        }
+//
+//    }
 }
 
 

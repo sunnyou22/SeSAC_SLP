@@ -23,28 +23,19 @@ enum UserMatchingStatus {
 }
 
 class HomeMapViewController: BaseViewController {
-    var userMatchingStatus: UserMatchingStatus
+    var userMatchingStatus: UserMatchingStatus?
     var mainView = CustomMapView()
     let viewModel = MapViewModel()
     let disposedBag = DisposeBag()
     let manager = CLLocationManager()
     let sesacCoordinate = CLLocationCoordinate2D(latitude: 37.51818789942772, longitude: 126.88541765534976) //새싹 영등포 캠퍼스의 위치입니다. 여기서 시작하면 재밌을 것 같죠? 하하
     
-    //버튼의 상태 나타내줄 때: 기본값은 디폴틍틍
-//    init(userStatus: UserMatchingStatus = .defaults) {
-//        self.userMatchingStatus = userStatus
-//        super.init(nibName: nil, bundle: nil)
-//    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func loadView() {
         view = mainView
     }
     
     override func viewDidLoad() {
+        //MARK: - viewDidLoad
         super.viewDidLoad()
         
         //코어로케이션 매니저 설정
@@ -55,7 +46,7 @@ class HomeMapViewController: BaseViewController {
         
         bindMapData()
         bindDataError()
-        bindUIData()
+        
         bindMapViewData()
         
         guard let idtoken = UserDefaults.idtoken else {
@@ -75,12 +66,17 @@ class HomeMapViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        //MARK: - viewWillAppear
         super.viewWillAppear(animated)
+        
         checkUserDevieceLocationServiceAuthorization()
+        
         manager.startUpdatingLocation()
+        bindUIData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        //MARK: - viewDidDisappear
         super.viewDidDisappear(animated)
         
         manager.stopUpdatingLocation()
@@ -167,6 +163,8 @@ class HomeMapViewController: BaseViewController {
     }
     
     func bindUIData() {
+        
+        // 현재 위치버튼 클릭했을 때 이벤트
         mainView.currentLocationButton
             .rx
             .tap
@@ -174,6 +172,19 @@ class HomeMapViewController: BaseViewController {
             .bind { vc, _ in
                 vc.mainView.mapView.showsUserLocation = true
                 vc.mainView.mapView.setUserTrackingMode(.follow, animated: true)
+            }.disposed(by: disposedBag)
+        
+        MapViewModel.ploatingButtonSet
+            .withUnretained(self)
+            .bind { vc, status in
+                switch status {
+                case .defaults:
+                    vc.mainView.matchingButton.setImage(UIImage(named: "search"), for: .normal)
+                case .matched:
+                    vc.mainView.matchingButton.setImage(UIImage(named: "matched"), for: .normal)
+                case .matching:
+                    vc.mainView.matchingButton.setImage(UIImage(named: "waiting"), for: .normal)
+                }
             }.disposed(by: disposedBag)
     }
     
