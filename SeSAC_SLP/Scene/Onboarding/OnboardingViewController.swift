@@ -47,7 +47,8 @@ class OnboardingViewController: UIViewController {
         sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
 
         let vc = SignInViewController()
-        sceneDelegate?.window?.rootViewController = vc
+        let nav = UINavigationController(rootViewController: vc)
+        sceneDelegate?.window?.rootViewController = nav
         sceneDelegate?.window?.makeKeyAndVisible()
     }
 //

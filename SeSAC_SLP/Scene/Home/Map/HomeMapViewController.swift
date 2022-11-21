@@ -54,7 +54,7 @@ class HomeMapViewController: BaseViewController {
         bindMapViewData()
         
         //파이어베이스 토큰 갱신
-        FirebaseManager.shared.getIDTokenForcingRefresh()
+    
         guard let idtoken = UserDefaults.idtoken else {
             print("itocken만료")
             return
@@ -327,7 +327,7 @@ class HomeMapViewController: BaseViewController {
                 self?.mainView.mapView.isUserInteractionEnabled = false
                 
                 guard let location = self?.manager.location?.coordinate else { return }
-//                FirebaseManager.shared.getIDTokenForcingRefresh()
+
                 guard let idtoken = UserDefaults.idtoken else {
                     print("itocken만료")
                     return

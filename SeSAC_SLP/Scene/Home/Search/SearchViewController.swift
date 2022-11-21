@@ -108,7 +108,6 @@ class SearchViewController: BaseViewController {
         //유아이 바인드
         bindDataUI()
         // 토큰갈아끼우기
-        FirebaseManager.shared.getIDTokenForcingRefresh()
         guard let idtoken = UserDefaults.idtoken else {
             print("itocken만료")
             return

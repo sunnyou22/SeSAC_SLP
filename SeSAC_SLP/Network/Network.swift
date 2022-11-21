@@ -38,7 +38,9 @@ final class Network {
                 // SignUpError에서 statusCode에 해당하는 case를 뱉음
                 print("🔴 SignUpError", response.response?.statusCode, error)
                 completion(.failure(error))
+                print(statusCode, "==============")
                 errorHandler(statusCode)
+                
             }
         }
     }

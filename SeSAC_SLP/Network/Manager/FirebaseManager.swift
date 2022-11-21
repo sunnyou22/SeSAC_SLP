@@ -17,29 +17,23 @@ final class FirebaseManager {
     
     //idtoken ☑️
     func verifyPhoneNumber(_ num: String, resultMessage: @escaping ((AuthVerifyPhoneNumber) -> Void)) {
-//        LoadingIndicator.showLoading()
         Auth.auth().languageCode = "kr"
         PhoneAuthProvider.provider()
             .verifyPhoneNumber("+82\(num)", uiDelegate: nil) { (verificationID, error) in
                 UserDefaults.phoneNumber = "+82\(num)"
                 if let error = error {
                     switch error {
+                        // 에러 종류별로 뱉
                     case AuthErrorCode.invalidPhoneNumber:
-//                        LoadingIndicator.hideLoading()
-                        resultMessage(.invalidPhoneNumber) // invalidPhoneNumber의 응답값이 들어오면 여기서 실행해줄고야~
-                        
+                        resultMessage(.invalidPhoneNumber)
                     case AuthErrorCode.tooManyRequests:
-//                        LoadingIndicator.hideLoading()
                         resultMessage(.tooManyRequests)
-                        
                     default:
-//                        LoadingIndicator.hideLoading()
                         resultMessage(.otherError)
                     }
                     print(error.localizedDescription, error, "🥲😡")
                     return
                 } else {
-//                    LoadingIndicator.hideLoading()
                     UserDefaults.authVerificationID = verificationID!
                     print("success🥰🥰")
                     resultMessage(.success)
@@ -47,10 +41,10 @@ final class FirebaseManager {
             }
     }
     
-    //idtoken ✅
+    //idtoken ✅ Or ☑️
     func credential(text: String, autoResult: @escaping ((AuthCredentialText) -> Void)) {
         // error코드화면전화테스트
-        let verificationID = UserDefaults.authVerificationID
+        let verificationID = UserDefaults.authVerificationID // 파베에서 번호인증을 먼저해야함
         let verificationCode = text
         print(verificationID,"✖️", verificationCode, "🔓", #function, UserDefaults.authVerificationID)
         
@@ -59,7 +53,7 @@ final class FirebaseManager {
             verificationCode: verificationCode
         )
         print("===========", #function)
-        Auth.auth().signIn(with: credential) { result, error in
+        Auth.auth().signIn(with: credential) { [weak self] result, error in
             
             if let error = error {
                 
@@ -76,15 +70,18 @@ final class FirebaseManager {
                 print("Unable to login with Phone : error[\(error)] 🔴")
                 return
             } else {
-        
+                
+                self?.getIDTokenForcingRefresh() // 인증아이디와 코드 일치 -> 토큰 겟겟
+                
                 autoResult(.success)
                 print(result)
                 print("Phone Number user is signed in \(String(describing: result?.user.uid))  ☎️✅")
             }
             
         }
+//        UserDefaults.
     }
-
+    //✅
     func getIDTokenForcingRefresh() {
         let currentUser = Auth.auth().currentUser
         currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
@@ -94,8 +91,7 @@ final class FirebaseManager {
                 return
             } else {
             print("itoken🐭🐭", idToken)
-                guard let idtoken = idToken else { return }
-                UserDefaults.idtoken = idtoken
+                UserDefaults.idtoken = idToken // 유저디폴츠에 새로운 토큰 담기
                 print(UserDefaults.idtoken, "🐭🐭🐭🔴🔴🔴🔴🐭🐭")
             }
             print("나옴") //Currentuser가 없어

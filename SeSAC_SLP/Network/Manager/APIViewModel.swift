@@ -17,9 +17,9 @@ import FirebaseAuth
 final class CommonServerManager {
     
     let authValidCode = PublishRelay<AuthCredentialText>()
-    let commonerror = PublishRelay<ServerError.CommonError>()
     let usererror = PublishRelay<ServerError.UserError>()
-    //    let transitionEvent = PublishRelay<SignUpError>()
+   
+    let commonError = PublishRelay<ServerError.CommonError>()
     
     //MAKR: - 모델로 빼기
     func USerInfoNetwork(idtoken: String) {
@@ -30,50 +30,50 @@ final class CommonServerManager {
             switch response {
             case .success(let success):
                 print("로그인 성공 혹은 유저 정보가져오기 성공 ✅", success)
-                //                self?.GetUerIfo.onNext(success)
-            
                 UserDefaults.getUerIfo = [success]
                 
-                // 여기에 이걸 넣어주는게 맞을까
-                guard UserDefaults.phoneNumber != nil else {
-                    self?.commonerror.accept(.Success)
-                    return
-                }
-                
-                self?.usererror.accept(.SignInUser)
-            case .failure( _):
-                print("살페")
-                //                self?.GetUerIfo.onError(failure)
+//                self?.usererror.accept(.SignInUser)
+//                self?.usererror.accept(.NotsignUpUser)
+            case .failure:
+                print("실ㅍㅐ")
+    
             }
+            // 수정하자..에러. // 그래 이거는 실패일때만 ㄸ떳지
         } errorHandler: { [weak self] statusCode in
             
+            guard let userError = ServerError.UserError(rawValue: statusCode) else { return }
             guard let commonError = ServerError.CommonError(rawValue: statusCode) else { return }
             
             switch commonError {
                 
             case .Success:
-                LoadingIndicator.hideLoading()
-                self?.commonerror.accept(.Success)
+                self?.commonError.accept(.Success)
             case .FirebaseTokenError:
-                LoadingIndicator.hideLoading()
-                FirebaseManager.shared.getIDTokenForcingRefresh()
-                self?.commonerror.accept(.FirebaseTokenError)
+
+//                FirebaseManager.shared.getIDTokenForcingRefresh()
+                self?.commonError.accept(.FirebaseTokenError)
             case .NotsignUpUser:
-                LoadingIndicator.hideLoading()
-                self?.commonerror.accept(.NotsignUpUser)
+
+                self?.commonError.accept(.NotsignUpUser)
             case .ServerError:
-                LoadingIndicator.hideLoading()
-                self?.commonerror.accept(.ServerError)
+
+                self?.commonError.accept(.ServerError)
             case .ClientError:
-                LoadingIndicator.hideLoading()
-                self?.commonerror.accept(.ClientError)
+
+                self?.commonError.accept(.ClientError)
+            }
+            
+            switch userError {
+            case .SignInUser:
+                self?.usererror.accept(.SignInUser)
+            case .InvaliedNickName:
+                self?.usererror.accept(.InvaliedNickName)
+            case .NotsignUpUser:
+                self?.usererror.accept(.NotsignUpUser)
             }
         }
     }
-    
-    let detailError = PublishRelay<ServerError.QueueError>()
-    let commonError = PublishRelay<ServerError.CommonError>()
-    
+ 
     // 공통요소로 빼기 -> 위치가 이동할 때마다 호출해줘야함
     func fetchMapData(lat: Double, long: Double, idtoken: String) {
         let api = SeSACAPI.searchSurroundings(lat: lat, long: long)

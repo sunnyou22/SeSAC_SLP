@@ -81,9 +81,6 @@ extension UserDefaults {
     
     @UserDeaultHelper(key: "idtoken", defaultValue: nil)
     static var idtoken: String?
-
-    @UserDeaultHelper(key: "first", defaultValue: false)
-    static var first: Bool
     
     @UserDeaultHelper(key: "authVerificationID", defaultValue: "")
     static var authVerificationID: String

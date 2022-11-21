@@ -23,6 +23,7 @@ struct ServerError {
         case ServerError = 500
         case ClientError = 501
         
+        //공통에러에 대한 개별적인 처리
         var signupMessage: String {
             switch self {
             case .Success:
@@ -57,6 +58,7 @@ struct ServerError {
     enum UserError: Int, Error {
         case SignInUser = 201
         case InvaliedNickName = 202
+        case NotsignUpUser = 406
         
         var message: String {
             switch self {
@@ -64,6 +66,8 @@ struct ServerError {
                 return "이미 가입한 유저입니다."
             case .InvaliedNickName:
                 return "사용할 수 없는 닉네임입니다."
+            case .NotsignUpUser:
+                return "미가입회원입니다."
             }
         }
     }

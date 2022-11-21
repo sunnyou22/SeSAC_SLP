@@ -34,7 +34,6 @@ class GenderViewController: BaseViewController {
         }
         
         bindData()
-        
     }
     
     func bindData() {
@@ -92,7 +91,7 @@ class GenderViewController: BaseViewController {
                 switch error {
                 case .Success:
                     // 회원가입 성공시 idtoken을 제외한 유저디폴츠 삭제 및 홈화면으로 window 갈아끼우기
-                    vc.deleteUserDefaults() // 만약에 다음 버튼을 연타한 경우에 에러가 뜰거임
+//                    vc.deleteUserDefaults() // 만약에 다음 버튼을 연타한 경우에 에러가 뜰거임
                   vc.setInitialViewController(to: HomeMapViewController())
                 case .FirebaseTokenError:
                     vc.getIdtoken()
@@ -119,6 +118,8 @@ class GenderViewController: BaseViewController {
                         guard let viewControllers : [UIViewController] = vc.navigationController?.viewControllers as? [UIViewController] else { return  }
                         vc.navigationController?.popToViewController(viewControllers[viewControllers.count - 4 ], animated: true)
                     }
+                case .NotsignUpUser:
+                    print("미가입 유저🔴", #function)
                 }
             }.disposed(by: disposedBag)
     }
@@ -133,17 +134,15 @@ class GenderViewController: BaseViewController {
                 guard let idtoken = idToken else { return }
                 
                 UserDefaults.idtoken = idtoken
-                
             }
         }
-        
     }
-    
-    func deleteUserDefaults() {
-        for key in 1...(UserDaultsKey.allCases.count - 1) {
-            UserDefaults.standard.removeObject(forKey: UserDaultsKey.allCases[key].rawValue)
-        }
-            
-    }
+//    
+//    func deleteUserDefaults() {
+//        for key in 1...(UserDaultsKey.allCases.count - 1) {
+//            UserDefaults.standard.removeObject(forKey: UserDaultsKey.allCases[key].rawValue)
+//        }
+//            
+//    }
     
 }

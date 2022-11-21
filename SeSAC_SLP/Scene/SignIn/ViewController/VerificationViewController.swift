@@ -31,8 +31,6 @@ class VerificationViewController: BaseViewController {
         print("======", UserDefaults.standard.dictionaryRepresentation(), "========")
         
         bindData()
-        print( UserDefaults.idtoken, "🔓")
-        print("저나번호☎️", UserDefaults.phoneNumber, UserDefaults.phoneNumber)
     }
     
     func bindData() {
@@ -46,12 +44,10 @@ class VerificationViewController: BaseViewController {
                 vc.signInViewModel.checkValidCode(text: text)
             }).disposed(by: disposedBag)
         
-        
         signInViewModel.textfield
             .withUnretained(self)
             .bind { vc, text in
                 vc.mainView.inputTextField.text = text
-               
             }.disposed(by: disposedBag)
         
         signInViewModel.buttonValid
@@ -68,7 +64,7 @@ class VerificationViewController: BaseViewController {
                     print(#file, "유저디폴츠에 유효하지 않는 phoneNumber가 저장됨 🔴")
                     print("UserDefaults.phoneNumber ☎️", UserDefaults.phoneNumber)
                     return }
-                vc.signInViewModel.networkWithFireBase(num: "+8288888888")
+                vc.signInViewModel.networkWithFireBase(num: num)
             }.disposed(by: disposedBag)
         
         mainView.nextButton.rx
@@ -76,11 +72,8 @@ class VerificationViewController: BaseViewController {
             .withUnretained(self)
             .bind { vc, _ in
                 print("버튼눌림")
+                // 회색버튼이어도 활성화돼있는 상태
                 vc.signInViewModel.matchCredential()
-                FirebaseManager.shared.getIDTokenForcingRefresh()
-                
-                guard let idtoken = UserDefaults.idtoken else { return }
-                vc.apiViewModel.USerInfoNetwork(idtoken: idtoken)
             }.disposed(by: disposedBag)
         
         signInViewModel.authPhoneNumResult
@@ -104,11 +97,13 @@ class VerificationViewController: BaseViewController {
             .bind { vc, reponse in
                 switch reponse {
                 case .success:
-                    FirebaseManager.shared.getIDTokenForcingRefresh()
-                    guard let idtoken = UserDefaults.idtoken else {
-                        print("idtoken오류 🔴", #file, #function)
-                        return }
-                    vc.apiViewModel.USerInfoNetwork(idtoken: idtoken)
+//                    guard let idtoken = UserDefaults.idtoken else { return }
+//                    vc.apiViewModel.USerInfoNetwork(idtoken: idtoken)
+                    let viewcontroller = NicknameViewController()
+                    vc.showSelectedAlert(title: "첫방문을 환영합니다:)", message: "회원가입화면으로 넘어가시겠습니까?") { [weak self] _ in
+                        let viewcontroller = NicknameViewController()
+                        self?.transition(viewcontroller, .push)
+                    }
                 case .otherError:
                     vc.showDefaultToast(message: .AuthCredentialText(.otherError))
                 case .invalidVerificationID:
@@ -117,56 +112,52 @@ class VerificationViewController: BaseViewController {
                     vc.showDefaultToast(message: .AuthCredentialText(.invalidUserToken))
                 case.missingVerificationID:
                     vc.showDefaultToast(message: .AuthCredentialText(.missingVerificationID))
-                    
                 }
             }.disposed(by: disposedBag)
-        
-        //api 에러
-        apiViewModel.commonerror
-            .withUnretained(self)
-            .bind { vc, response in
-                switch response {
-                case .Success:
-                    let viewcontroller = NicknameViewController()
-                    vc.showDefaultToast(message: .defaultSignupMessage(.Success)) {
-                        vc.transition(viewcontroller, .push)
-                    }
-                case .FirebaseTokenError:
-                    vc.showDefaultToast(message: .defaultSignupMessage(.FirebaseTokenError)) {
-                        FirebaseManager.shared.getIDTokenForcingRefresh()
-                        guard let idtoken = UserDefaults.idtoken else {
-                            print("idtoken오류 🔴", #file, #function)
-                            return }
-                        vc.apiViewModel.USerInfoNetwork(idtoken: idtoken)
-                    }
-                    
-                case .NotsignUpUser:
-                    vc.showDefaultToast(message: .defaultSignupMessage(.NotsignUpUser)) { [weak self] in
-                        vc.showSelectedAlert(title: "첫방문을 환영합니다:)", message: "회원가입화면으로 넘어가시겠습니까?") { _ in
-                            FirebaseManager.shared.getIDTokenForcingRefresh()
-                            let viewcontroller = NicknameViewController()
-                            self?.transition(viewcontroller, .push)
-                        }
-                    }
-                case .ServerError:
-                    print("서버에러🔴", #function)
-                case .ClientError:
-                    vc.showDefaultToast(message: .defaultSignupMessage(.ClientError))
-                }
-            }.disposed(by: disposedBag)
-        
-        apiViewModel.usererror
-            .withUnretained(self)
-            .bind { vc, error in
-                switch error {
-                    
-                case .SignInUser:
-                    vc.showDefaultToast(message: .Signup(.SignInUser)) {
-                        vc.setInitialViewController(to: HomeMapViewController())
-                    }
-                case .InvaliedNickName:
-                    print("여기서는 필요하지 않은 에러")
-                }
-            }.disposed(by: disposedBag)
+//
+//        //api 에러
+//        apiViewModel.commonError
+//            .withUnretained(self)
+//            .bind { vc, response in
+//                switch response {
+//                case .Success:
+//
+//                case .FirebaseTokenError:
+//                    vc.showDefaultToast(message: .defaultSignupMessage(.FirebaseTokenError)) {
+//
+//                        guard let idtoken = UserDefaults.idtoken else {
+//                            print("idtoken오류 🔴", #file, #function)
+//                            return }
+//                        vc.apiViewModel.USerInfoNetwork(idtoken: idtoken)
+//                    }
+//
+//                case .NotsignUpUser:
+//                    vc.showDefaultToast(message: .defaultSignupMessage(.NotsignUpUser)) { [weak self] in
+//                        vc.showSelectedAlert(title: "첫방문을 환영합니다:)", message: "회원가입화면으로 넘어가시겠습니까?") { _ in
+//                            let viewcontroller = NicknameViewController()
+//                            self?.transition(viewcontroller, .push)
+//                        }
+//                    }
+//                case .ServerError:
+//                    print("서버에러🔴", #function)
+//                case .ClientError:
+//                    vc.showDefaultToast(message: .defaultSignupMessage(.ClientError))
+//                }
+//            }.disposed(by: disposedBag)
+//
+//        apiViewModel.usererror
+//            .withUnretained(self)
+//            .bind { vc, error in
+//                switch error {
+//                case .SignInUser:
+//                    vc.showDefaultToast(message: .Signup(.SignInUser)) {
+//                        vc.setInitialViewController(to: HomeMapViewController())
+//                    }
+//                case .InvaliedNickName:
+//                    print("여기서는 필요하지 않은 에러")
+//                case .NotsignUpUser:
+//                    print("여기서는 필요하지 않은 에러")
+//                }
+//            }.disposed(by: disposedBag)
     }
 }

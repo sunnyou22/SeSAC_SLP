@@ -31,6 +31,7 @@ final class SignInViewModel {
         textfield.accept(num.applyPatternOnNumbers(pattern: "###-####-####", replacmentCharacter: "#"))
     }
     
+    // 핸드폰번호 유효성검사
     func checkVaildPhoneNumber(text: String) {
         if (text.count == 13 && text.starts(with: "010")) || (text.count == 11 && text.starts(with: "011")) {
             buttonValid.accept(true)
@@ -39,16 +40,17 @@ final class SignInViewModel {
         }
     }
     
+  
     @discardableResult
     func changeTextfieldPattern(num: String) -> String {
         let rawnum = num.applyPatternOnNumbers(pattern: "###########", replacmentCharacter: "#")
         let result = rawnum.dropFirst(1)
-        UserDefaults.phoneNumber = String(result)
+        UserDefaults.phoneNumber = String(result) //+8210 형식으로 저장
         print(result, String(result), "😵‍💫😵‍💫😵‍💫😵‍💫")
         return String(result)
     }
     
-    //MARK: 번호 인증 화면 -
+    //MARK: - 번호 인증 화면
     // 6자리인 코드 확인
     func checkValidCode(text: String) {
         textfield.accept(text)
@@ -60,7 +62,7 @@ final class SignInViewModel {
     }
     
     func matchCredential() {
-        // error코드화면전화테스트
+        // error코드화면전화테스트, 인증을 성공해야만 새로운 토큰값을 얻을 수 있음
         FirebaseManager.shared.credential(text: textfield.value) { response in
             switch response {
             case .missingVerificationID:
@@ -80,22 +82,24 @@ final class SignInViewModel {
     //MARK: 공유 메서드 -
     func networkWithFireBase(num: String) {
         let rawnum = changeTextfieldPattern(num: num)
-       
+        LoadingIndicator.showLoading()
         FirebaseManager.shared.verifyPhoneNumber(rawnum) { [weak self] response in
             switch response {
+               
             case .success:
-//                LoadingIndicator.hideLoading()
+              
                 self?.authPhoneNumResult.accept(.success)
             case .otherError:
-//                LoadingIndicator.hideLoading()
+                LoadingIndicator.hideLoading()
                 self?.authPhoneNumResult.accept(.otherError)
             case .invalidPhoneNumber:
-//                LoadingIndicator.hideLoading()
+                LoadingIndicator.hideLoading()
                 self?.authPhoneNumResult.accept(.invalidPhoneNumber)
             case .tooManyRequests:
-//                LoadingIndicator.hideLoading()
+                LoadingIndicator.hideLoading()
                 self?.authPhoneNumResult.accept(.tooManyRequests)
             }
+           
         }
     }
     
@@ -150,6 +154,8 @@ final class SignInViewModel {
                 self?.detailerror.accept(.SignInUser)
             case .InvaliedNickName:
                 self?.detailerror.accept(.InvaliedNickName)
+            case .NotsignUpUser:
+                self?.detailerror.accept(.NotsignUpUser)
             }
         }
     }
