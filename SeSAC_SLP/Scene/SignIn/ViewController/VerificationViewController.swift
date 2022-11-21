@@ -27,6 +27,9 @@ class VerificationViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("======", UserDefaults.standard.dictionaryRepresentation(), "========")
+        
         bindData()
         print( UserDefaults.idtoken, "🔓")
         print("저나번호☎️", UserDefaults.phoneNumber, UserDefaults.phoneNumber)
@@ -65,14 +68,17 @@ class VerificationViewController: BaseViewController {
                     print(#file, "유저디폴츠에 유효하지 않는 phoneNumber가 저장됨 🔴")
                     print("UserDefaults.phoneNumber ☎️", UserDefaults.phoneNumber)
                     return }
-                vc.signInViewModel.networkWithFireBase(num: num)
+                vc.signInViewModel.networkWithFireBase(num: "+8288888888")
             }.disposed(by: disposedBag)
         
         mainView.nextButton.rx
             .tap
             .withUnretained(self)
             .bind { vc, _ in
+                print("버튼눌림")
+                vc.signInViewModel.matchCredential()
                 FirebaseManager.shared.getIDTokenForcingRefresh()
+                
                 guard let idtoken = UserDefaults.idtoken else { return }
                 vc.apiViewModel.USerInfoNetwork(idtoken: idtoken)
             }.disposed(by: disposedBag)

@@ -39,7 +39,7 @@ final class FirebaseManager {
                     print(error.localizedDescription, error, "🥲😡")
                     return
                 } else {
-                    LoadingIndicator.hideLoading()
+//                    LoadingIndicator.hideLoading()
                     UserDefaults.authVerificationID = verificationID!
                     print("success🥰🥰")
                     resultMessage(.success)
@@ -52,13 +52,13 @@ final class FirebaseManager {
         // error코드화면전화테스트
         let verificationID = UserDefaults.authVerificationID
         let verificationCode = text
-        print(verificationID,"✖️", verificationCode, "🔓", #function)
+        print(verificationID,"✖️", verificationCode, "🔓", #function, UserDefaults.authVerificationID)
         
         let credential = PhoneAuthProvider.provider().credential(
             withVerificationID: verificationID,
             verificationCode: verificationCode
         )
-        
+        print("===========", #function)
         Auth.auth().signIn(with: credential) { result, error in
             
             if let error = error {
@@ -76,6 +76,7 @@ final class FirebaseManager {
                 print("Unable to login with Phone : error[\(error)] 🔴")
                 return
             } else {
+        
                 autoResult(.success)
                 print(result)
                 print("Phone Number user is signed in \(String(describing: result?.user.uid))  ☎️✅")
@@ -87,6 +88,7 @@ final class FirebaseManager {
     func getIDTokenForcingRefresh() {
         let currentUser = Auth.auth().currentUser
         currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+            print("들어가기전")
             if let error = error {
                 print(error, "🔴 idtoken을 받아올 수 없습니다.")
                 return
@@ -96,6 +98,7 @@ final class FirebaseManager {
                 UserDefaults.idtoken = idtoken
                 print(UserDefaults.idtoken, "🐭🐭🐭🔴🔴🔴🔴🐭🐭")
             }
+            print("나옴") //Currentuser가 없어
         }
     }
 }

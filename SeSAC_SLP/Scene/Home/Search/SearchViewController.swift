@@ -81,7 +81,6 @@ class SearchViewController: BaseViewController {
     let commonAPIviewModel = CommonServerManager()
     let viewModel = SearchViewModel()
     
-    
     let disposedBag = DisposeBag()
     
     override func loadView() {
@@ -98,25 +97,24 @@ class SearchViewController: BaseViewController {
         mainView.collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchHeaderView")
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         //MARK: - viewWillAppear
         super.viewWillAppear(animated)
         mainView.backgroundColor = .setBaseColor(color: .white)
-      
         searchBar.placeholder = "띄어쓰기로 복수 입력이 가능해요"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchBar)
-        
         searchBar.delegate = self
         
         //유아이 바인드
         bindDataUI()
-        
+        // 토큰갈아끼우기
+        FirebaseManager.shared.getIDTokenForcingRefresh()
         guard let idtoken = UserDefaults.idtoken else {
             print("itocken만료")
             return
         }
         
+        //앞에서 사용자의 현위치 값전달
         guard let currentLocation = currentLocation else {
             print("사용자의 위치를 받아올 수 없음 🔴", #function)
             return
@@ -124,8 +122,6 @@ class SearchViewController: BaseViewController {
         
         commonAPIviewModel.fetchMapData(lat: currentLocation.latitude, long: currentLocation.longitude, idtoken: idtoken)
         print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(wishList))
-        
-//        showSearchToolBar()
     }
     
     //MARK: - bindUI
@@ -146,8 +142,10 @@ class SearchViewController: BaseViewController {
                 self.mainView.layoutIfNeeded()
             }).disposed(by: disposedBag)
             
-        mainView.rx
-            
+        searchBar.rx.textDidEndEditing
+            .bind { [weak self] _ in
+                self?.mainView.endEditing(true)
+            }.disposed(by: disposedBag)
         
         mainView.searchButton.rx
             .tap

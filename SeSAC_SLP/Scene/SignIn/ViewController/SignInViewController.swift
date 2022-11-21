@@ -34,11 +34,19 @@ class SignInViewController: BaseViewController {
         // 토근 및 전번확인
         print(UserDefaults.idtoken, "🚀")
         print("저나번호", UserDefaults.phoneNumber, UserDefaults.phoneNumber)
-
+//        mainView.nextButton.addTarget(self, action: #selector(test), for: .touchUpInside)
+    }
+    
+    @objc func test() {
+        viewModel.networkWithFireBase(num: viewModel.textfield.value)
+        let viewcontroller = VerificationViewController()
+        print("전화번호인증 성공 🟢")
+        LoadingIndicator.hideLoading()
+        self.transition(viewcontroller, .push)
     }
     
    private func bindData() {
-        
+       
         //1. 텍스트필드 편집이벤트 받음(최초이벤트트리거가 필요해)
         mainView.inputTextField.rx
             .text
@@ -71,6 +79,10 @@ class SignInViewController: BaseViewController {
             .bind { vc, _ in
                 if vc.viewModel.buttonValid.value {
                     vc.viewModel.networkWithFireBase(num: vc.viewModel.textfield.value)
+//                    let viewcontroller = VerificationViewController()
+//                    print("전화번호인증 성공 🟢")
+//                    LoadingIndicator.hideLoading()
+//                    vc.transition(viewcontroller, .push)
                 } else {
                     vc.showDefaultToast(message: .AuthVerifyPhoneNumber(.invalidPhoneNumber))
                 }
@@ -80,7 +92,7 @@ class SignInViewController: BaseViewController {
         viewModel.authPhoneNumResult
             .withUnretained(self)
             .bind { vc, reponse in
-                LoadingIndicator.showLoading()
+//                LoadingIndicator.showLoading()
                 switch reponse {
                 case .success:
                     let viewcontroller = VerificationViewController()

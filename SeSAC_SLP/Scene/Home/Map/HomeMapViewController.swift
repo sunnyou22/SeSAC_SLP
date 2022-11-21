@@ -29,8 +29,7 @@ class HomeMapViewController: BaseViewController {
     let viewModel = MapViewModel()
    var disposedBag = DisposeBag()
     let manager = CLLocationManager()
-    let sesacCoordinate = CLLocationCoordinate2D(latitude: 37.51818789942772, longitude: 126.88541765534976) //새싹 영등포 캠퍼스의 위치입니다. 여기서 시작하면 재밌을 것 같죠? 하하
-    
+    let sesacCoordinate = CLLocationCoordinate2D(latitude: 37.51818789942772, longitude: 126.88541765534976)
     override func loadView() {
         view = mainView
     }
@@ -328,7 +327,7 @@ class HomeMapViewController: BaseViewController {
                 self?.mainView.mapView.isUserInteractionEnabled = false
                 
                 guard let location = self?.manager.location?.coordinate else { return }
-                FirebaseManager.shared.getIDTokenForcingRefresh()
+//                FirebaseManager.shared.getIDTokenForcingRefresh()
                 guard let idtoken = UserDefaults.idtoken else {
                     print("itocken만료")
                     return
