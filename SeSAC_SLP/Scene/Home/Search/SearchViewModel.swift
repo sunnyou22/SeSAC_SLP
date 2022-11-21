@@ -9,6 +9,8 @@ import Foundation
 
 import RxCocoa
 import RxSwift
+import MapKit
+import CoreLocation
 
 final class SearchViewModel {
     

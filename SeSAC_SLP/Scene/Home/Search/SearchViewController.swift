@@ -147,7 +147,7 @@ class SearchViewController: BaseViewController {
             }).disposed(by: disposedBag)
             
         mainView.rx
-            .o
+            
         
         mainView.searchButton.rx
             .tap

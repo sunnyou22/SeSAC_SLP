@@ -27,7 +27,7 @@ class HomeMapViewController: BaseViewController {
     var mainView = CustomMapView()
     let commonAPIviewModel = CommonServerManager()
     let viewModel = MapViewModel()
-    let disposedBag = DisposeBag()
+   var disposedBag = DisposeBag()
     let manager = CLLocationManager()
     let sesacCoordinate = CLLocationCoordinate2D(latitude: 37.51818789942772, longitude: 126.88541765534976) //새싹 영등포 캠퍼스의 위치입니다. 여기서 시작하면 재밌을 것 같죠? 하하
     
@@ -45,9 +45,13 @@ class HomeMapViewController: BaseViewController {
         mainView.mapView.showsUserLocation = false // 내 위치 지도에 표시
         mainView.mapView.setUserTrackingMode(.none, animated: true) // 내 위치를 기준으로 움직이기 위함
         
+        // 바인드로 맵에 대한 데이터 갱신
         bindMapData()
+        
+        // 에러
         bindDataError()
         
+        // 뷰그려주기
         bindMapViewData()
         
         guard let idtoken = UserDefaults.idtoken else {
@@ -73,16 +77,24 @@ class HomeMapViewController: BaseViewController {
         //MARK: - viewWillAppear
         super.viewWillAppear(animated)
         
+        // 권한체크 - 화면이 뜰때마다
         checkUserDevieceLocationServiceAuthorization()
-        
+        // 별도 위치 설정하지 않으면 현재 위치 추적하도록
         manager.startUpdatingLocation()
+        // ui는 willappear에서 그려주기
         bindUIData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         //MARK: - viewDidDisappear
         super.viewDidDisappear(animated)
-        manager.stopUpdatingLocation()
+       
+        manager.stopUpdatingLocation()  // 화면이동시 계속 추적ㄴㄴ
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        disposedBag = DisposeBag()
     }
     
     // 이후 터치 이벤트받아서 알엑스로 전환
@@ -182,6 +194,14 @@ class HomeMapViewController: BaseViewController {
         /// Start Subscribing
         /// Works on simulator and device
         /// Subscribe to didUpdateLocations
+    
+        Observable<Int>.interval(.seconds(5), scheduler: MainScheduler.instance)  // 글로벌로처리해줘야하나 고민하기
+            .withUnretained(self)
+            .bind { vc, _ in
+                guard let idtoken = UserDefaults.idtoken else { return }
+                vc.viewModel.getMatchStatus(idtoken: idtoken)
+            } // 화면에서 나갈 때 디스포스 백
+        
         manager.rx
             .didUpdateLocations
             .debug("didUpdateLocations")
@@ -192,7 +212,7 @@ class HomeMapViewController: BaseViewController {
                     let region = MKCoordinateRegion(center: vc.sesacCoordinate, latitudinalMeters: 700, longitudinalMeters: 700)
                     vc.mainView.mapView.setRegion(region, animated: true)
                     
-                    vc.addAnnotation()
+                    mainView.mapView.addAnnotation(annotation)
                 }
             })
             .disposed(by: disposedBag)
@@ -201,7 +221,7 @@ class HomeMapViewController: BaseViewController {
         manager.rx
             .didChangeAuthorization
             .debug("didChangeAuthorization")
-            .subscribe(onNext: { _ in
+            .subscribe(onNext: { [weak self] value in
                 
             })
             .disposed(by: disposedBag)
@@ -239,7 +259,9 @@ class HomeMapViewController: BaseViewController {
         manager.rx
             .location
             .debug("location")
-            .subscribe(onNext: { _ in })
+            .subscribe(onNext: { [weak self] value in
+                
+            })
             .disposed(by: disposedBag)
         
         /// Subscribe to activityType
@@ -365,25 +387,7 @@ extension HomeMapViewController: MKMapViewDelegate {
         })
     }
     
-    //어노테이션 추가 메서드
-    func addAnnotation() {
-        let UserData = UserDefaults.searchData
-        
-        UserData?.forEach({ search in
-            search.fromQueueDB.forEach { data in
-                let center = CLLocationCoordinate2D(latitude: data.lat, longitude: data.long)
-                let annotation = MKPointAnnotation()
-                let region = MKCoordinateRegion(center: center, latitudinalMeters: 700, longitudinalMeters: 700)
-                mainView.mapView.setRegion(region, animated: true)
-                annotation.coordinate = center
-                annotation.title = "\(data.gender)"
-                mainView.mapView.addAnnotation(annotation)
-            }
-            
-        })
-        
-        
-    }
+ 
 }
 
 // MARK: - Map Annotation and Helpers

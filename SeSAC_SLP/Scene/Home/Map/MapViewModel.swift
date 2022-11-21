@@ -8,6 +8,7 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import MapKit
 import CoreLocation
 
 class MapViewModel {
@@ -16,6 +17,25 @@ class MapViewModel {
   
     let detailError = PublishRelay<ServerError.QueueError>()
     let commonError = PublishRelay<ServerError.CommonError>()
+    
+    let counting = PublishRelay<Int>()
+    
+    //어노테이션 추가 메서드
+    func addAnnotation(completion: @escaping (() -> Void)) {
+        let UserData = UserDefaults.searchData
+        
+        UserData?.forEach({ search in
+            search.fromQueueDB.forEach { data in
+                let center = CLLocationCoordinate2D(latitude: data.lat, longitude: data.long)
+                let annotation = MKPointAnnotation()
+                let region = MKCoordinateRegion(center: center, latitudinalMeters: 700, longitudinalMeters: 700)
+                
+                annotation.coordinate = center
+                annotation.title = "\(data.gender)"
+                completion()
+            }
+        })
+    }
     
     //5초 마다 상태 확인 필요
     func getMatchStatus(idtoken: String) {
