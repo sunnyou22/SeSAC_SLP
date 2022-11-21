@@ -80,16 +80,21 @@ class SignInViewController: BaseViewController {
         viewModel.authPhoneNumResult
             .withUnretained(self)
             .bind { vc, reponse in
+                LoadingIndicator.showLoading()
                 switch reponse {
                 case .success:
                     let viewcontroller = VerificationViewController()
                     print("전화번호인증 성공 🟢")
+                    LoadingIndicator.hideLoading()
                     vc.transition(viewcontroller, .push)
                 case .invalidPhoneNumber:
+                    LoadingIndicator.hideLoading()
                     vc.showDefaultToast(message: .AuthVerifyPhoneNumber(.invalidPhoneNumber))
                 case .tooManyRequests:
+                    LoadingIndicator.hideLoading()
                     vc.showDefaultToast(message: .AuthVerifyPhoneNumber(.tooManyRequests))
                 case .otherError:
+                    LoadingIndicator.hideLoading()
                     vc.showDefaultToast(message: .AuthVerifyPhoneNumber(.otherError))
                 }
             }.disposed(by: disposedBag)

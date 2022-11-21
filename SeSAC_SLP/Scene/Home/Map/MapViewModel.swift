@@ -18,12 +18,13 @@ class MapViewModel {
     let detailError = PublishRelay<ServerError.QueueError>()
     let commonError = PublishRelay<ServerError.CommonError>()
     
-    let counting = PublishRelay<Int>()
+    var transitionToSearcnVC: ControlEvent<UserMatchingStatus>?
     
     //어노테이션 추가 메서드
-    func addAnnotation(completion: @escaping (() -> Void)) {
-        let UserData = UserDefaults.searchData
+    func addAnnotations() -> [MKPointAnnotation] {
         
+        let UserData = UserDefaults.searchData
+        var annotations = [MKPointAnnotation]()
         UserData?.forEach({ search in
             search.fromQueueDB.forEach { data in
                 let center = CLLocationCoordinate2D(latitude: data.lat, longitude: data.long)
@@ -32,9 +33,10 @@ class MapViewModel {
                 
                 annotation.coordinate = center
                 annotation.title = "\(data.gender)"
-                completion()
+                annotations.append(annotation)
             }
         })
+        return annotations
     }
     
     //5초 마다 상태 확인 필요
@@ -45,10 +47,11 @@ class MapViewModel {
             switch response {
             case .success(let data):
                 print("getMatchStatus🚀\n", data.matched ?? 100, data)
-      
+                    // 서버에서 매칭상태 받아오기
+                MapViewModel.ploatingButtonSet.accept(.init(rawValue: data.matched ?? 2)!)
             case .failure(let error):
                 print("getMatchStatus error 🔴\n", error)
-
+                MapViewModel.ploatingButtonSet.accept(.defaults)
             }
         } errorHandler: { [weak self] statusCode in
             guard let commonError = ServerError.CommonError(rawValue: statusCode) else { return }

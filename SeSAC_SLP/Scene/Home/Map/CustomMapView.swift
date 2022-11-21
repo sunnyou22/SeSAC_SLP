@@ -28,6 +28,7 @@ class CustomMapView: BaseView {
     
     lazy var mapView: MKMapView = {
         let view = MKMapView()
+        view.setCameraZoomRange(MKMapView.CameraZoomRange(minCenterCoordinateDistance: 100, maxCenterCoordinateDistance: 6000), animated: true)
         return view
     }()
     

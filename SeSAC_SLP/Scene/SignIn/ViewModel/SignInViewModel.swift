@@ -20,7 +20,6 @@ final class SignInViewModel {
     let authPhoneNumResult = PublishRelay<AuthVerifyPhoneNumber>()
     let authValidCode = PublishRelay<AuthCredentialText>()
     
-    
     let commonerror = PublishRelay<ServerError.CommonError>()
     let detailerror = PublishRelay<ServerError.UserError>()
     //    let transitionEvent = PublishRelay<SignUpError>()
@@ -81,20 +80,20 @@ final class SignInViewModel {
     //MARK: 공유 메서드 -
     func networkWithFireBase(num: String) {
         let rawnum = changeTextfieldPattern(num: num)
-        LoadingIndicator.showLoading()
+       
         FirebaseManager.shared.verifyPhoneNumber(rawnum) { [weak self] response in
             switch response {
             case .success:
-                LoadingIndicator.hideLoading()
+//                LoadingIndicator.hideLoading()
                 self?.authPhoneNumResult.accept(.success)
             case .otherError:
-                LoadingIndicator.hideLoading()
+//                LoadingIndicator.hideLoading()
                 self?.authPhoneNumResult.accept(.otherError)
             case .invalidPhoneNumber:
-                LoadingIndicator.hideLoading()
+//                LoadingIndicator.hideLoading()
                 self?.authPhoneNumResult.accept(.invalidPhoneNumber)
             case .tooManyRequests:
-                LoadingIndicator.hideLoading()
+//                LoadingIndicator.hideLoading()
                 self?.authPhoneNumResult.accept(.tooManyRequests)
             }
         }
@@ -132,8 +131,7 @@ final class SignInViewModel {
                 LoadingIndicator.hideLoading()
                 self?.commonerror.accept(.Success)
             case .FirebaseTokenError:
-                guard let DBitoken = FirebaseManager.shared.getIDTokenForcingRefresh() else { return }
-                UserDefaults.idtoken = DBitoken
+                FirebaseManager.shared.getIDTokenForcingRefresh()
                 LoadingIndicator.hideLoading()
                 self?.commonerror.accept(.FirebaseTokenError)
             case .NotsignUpUser:

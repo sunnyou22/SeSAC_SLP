@@ -41,7 +41,8 @@ class MyPageListViewController: UITableViewController {
     }
     
     @objc func goSetMyInfoPage() {
-        transition(SetMyInfoViewController(), .push)
+        let vc = SetMyInfoViewController()
+        transition(vc, .push)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

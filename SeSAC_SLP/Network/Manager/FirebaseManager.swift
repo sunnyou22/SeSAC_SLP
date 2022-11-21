@@ -83,9 +83,8 @@ final class FirebaseManager {
             
         }
     }
-    
-    @discardableResult
-    func getIDTokenForcingRefresh() -> String? {
+
+    func getIDTokenForcingRefresh() {
         let currentUser = Auth.auth().currentUser
         currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
             if let error = error {
@@ -98,7 +97,6 @@ final class FirebaseManager {
                 print(UserDefaults.idtoken, "🐭🐭🐭🔴🔴🔴🔴🐭🐭")
             }
         }
-        return UserDefaults.idtoken
     }
 }
 

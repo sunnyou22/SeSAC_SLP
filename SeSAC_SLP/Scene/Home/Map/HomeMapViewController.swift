@@ -54,21 +54,22 @@ class HomeMapViewController: BaseViewController {
         // 뷰그려주기
         bindMapViewData()
         
+        //파이어베이스 토큰 갱신
+        FirebaseManager.shared.getIDTokenForcingRefresh()
         guard let idtoken = UserDefaults.idtoken else {
             print("itocken만료")
             return
         }
         
         // 현재위치를 기준으로 최초로 불러오기
+        
         //        viewModel.fetchMapData(lat: (manager.location?.coordinate.latitude)!, long: (manager.location?.coordinate.longitude)!, idtoken: idtoken)
         commonAPIviewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
-        print(UserDefaults.searchData, "✅✅Userdefaults.searchData 디코뒹✅✅")
+//        print(UserDefaults.searchData, "✅✅Userdefaults.searchData 디코뒹✅✅") // 가변적인 데이터라 당장 필요없음
         
         // 어노테이션 추가
-        addAnnotation()
-        
-        mainView.matchingButton.addTarget(self, action: #selector(test), for: .touchUpInside)
-        
+//        addAnnotation()
+  
         // 매칭상태가져오기 테스트
         viewModel.getMatchStatus(idtoken: idtoken)
     }
@@ -98,12 +99,7 @@ class HomeMapViewController: BaseViewController {
     }
     
     // 이후 터치 이벤트받아서 알엑스로 전환
-    @objc func test() {
-        let vc =  SearchViewController()
-        vc.currentLocation = manager.location?.coordinate
-        transition(vc, .push)
-    }
-    
+ 
     func checkUserDevieceLocationServiceAuthorization() {
         let authorizationStatus: CLAuthorizationStatus
         
@@ -117,6 +113,8 @@ class HomeMapViewController: BaseViewController {
         if CLLocationManager.locationServicesEnabled() {
             checkUserDevieceLocationServiceAuthorization(authorizationStatus)
         } else {
+            let region = MKCoordinateRegion(center: sesacCoordinate, latitudinalMeters: 700, longitudinalMeters: 700)
+            mainView.mapView.setRegion(region, animated: true)
             print("위치 서비스가 껴저 있어 위치 권한 요청을 할 수 없습니다")
         }
     }
@@ -142,6 +140,7 @@ class HomeMapViewController: BaseViewController {
         }
     }
     
+    //MARK: Error
     func bindDataError() {
         
         //에러 메세지
@@ -164,6 +163,7 @@ class HomeMapViewController: BaseViewController {
             }.disposed(by: disposedBag)
     }
     
+    //MARK: MapUI
     func bindUIData() {
         
         // 현재 위치버튼 클릭했을 때 이벤트
@@ -173,12 +173,15 @@ class HomeMapViewController: BaseViewController {
             .withUnretained(self)
             .bind { vc, _ in
                 vc.mainView.mapView.showsUserLocation = true
+                
                 vc.mainView.mapView.setUserTrackingMode(.follow, animated: true)
             }.disposed(by: disposedBag)
         
+        //플로팅버튼 이미지 셋팅
         MapViewModel.ploatingButtonSet
             .withUnretained(self)
-            .bind { vc, status in
+            .asDriver(onErrorJustReturn: (self, .defaults))
+            .drive(onNext: { vc, status in
                 switch status {
                 case .defaults:
                     vc.mainView.matchingButton.setImage(UIImage(named: "search"), for: .normal)
@@ -187,32 +190,68 @@ class HomeMapViewController: BaseViewController {
                 case .waiting:
                     vc.mainView.matchingButton.setImage(UIImage(named: "waiting"), for: .normal)
                 }
-            }.disposed(by: disposedBag)
+            }).disposed(by: disposedBag)
+        
+        //화면이동 분기처리
+//        mainView.matchingButton.rx
+//            .tap
+//            .bind { _ in
+//
+//            }
+       
+//
+//            //플로팅버튼 화면전환(나중에 호ㅏ면 분기 따로 넣어주기)
+//        MapViewModel.ploatingButtonSet
+//            .withUnretained(self)
+//            .asDriver(onErrorJustReturn: (self, .defaults))
+//            .drive(onNext: { vc, status in
+//                switch status {
+//                case .defaults:
+//                    let viewcontrolller =  SearchViewController()
+//                    viewcontrolller.currentLocation = vc.manager.location?.coordinate
+//                    vc.transition(viewcontrolller, .push)
+//                case .matched:
+//                    let viewcontrolller =  SearchViewController()
+//                    viewcontrolller.currentLocation = vc.manager.location?.coordinate
+//                    vc.transition(viewcontrolller, .push)
+//                case .waiting:
+//                    let viewcontrolller =  SearchViewController()
+//                    viewcontrolller.currentLocation = vc.manager.location?.coordinate
+//                    vc.transition(viewcontrolller, .push)
+//                }
+//            }).disposed(by: disposedBag)
+//
     }
     
+    //MARK: Mapdata
     func bindMapData() {
         /// Start Subscribing
         /// Works on simulator and device
         /// Subscribe to didUpdateLocations
-    
-        Observable<Int>.interval(.seconds(5), scheduler: MainScheduler.instance)  // 글로벌로처리해줘야하나 고민하기
-            .withUnretained(self)
-            .bind { vc, _ in
-                guard let idtoken = UserDefaults.idtoken else { return }
-                vc.viewModel.getMatchStatus(idtoken: idtoken)
-            } // 화면에서 나갈 때 디스포스 백
-        
+        //MARK: 5초마다 통신부분
+        //        Observable<Int>.interval(.seconds(5), scheduler: MainScheduler.instance)  // 글로벌로처리해줘야하나 고민하기
+        //            .withUnretained(self)
+        //            .bind { vc, value in
+        //                guard let idtoken = UserDefaults.idtoken else { return }
+        //                print(value, "==========================================================")
+        //                vc.viewModel.getMatchStatus(idtoken: idtoken)
+        //            }.disposed(by: disposedBag) // 화면에서 나갈 때 디스포스 백
+        ////
         manager.rx
             .didUpdateLocations
             .debug("didUpdateLocations")
             .withUnretained(self)
             .subscribe(onNext: { vc, value in
-                if let coordinate = value.locations.last?.coordinate {
-                    // 일단 캠퍼스 위치로 검색하기 나중에 지워주기
-                    let region = MKCoordinateRegion(center: vc.sesacCoordinate, latitudinalMeters: 700, longitudinalMeters: 700)
-                    vc.mainView.mapView.setRegion(region, animated: true)
+                vc.mainView.mapView.isUserInteractionEnabled = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                     
-                    mainView.mapView.addAnnotation(annotation)
+                    if let coordinate = value.locations.last?.coordinate {
+                        
+                        // 현재 위치의 반경을 700으로 정해주기
+                        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 700, longitudinalMeters: 700)
+                        vc.mainView.mapView.setRegion(region, animated: true)
+                        vc.mainView.mapView.addAnnotations(vc.viewModel.addAnnotations())
+                    }
                 }
             })
             .disposed(by: disposedBag)
@@ -222,7 +261,7 @@ class HomeMapViewController: BaseViewController {
             .didChangeAuthorization
             .debug("didChangeAuthorization")
             .subscribe(onNext: { [weak self] value in
-                
+                self?.checkUserDevieceLocationServiceAuthorization()
             })
             .disposed(by: disposedBag)
         
@@ -263,55 +302,9 @@ class HomeMapViewController: BaseViewController {
                 
             })
             .disposed(by: disposedBag)
-        
-        /// Subscribe to activityType
-        manager.rx
-            .activityType
-            .debug("activityType")
-            .subscribe(onNext: {_ in})
-            .disposed(by: disposedBag)
-        
-        /// Subscribe to isEnabled
-        manager.rx
-            .isEnabled
-            .debug("isEnabled")
-            .subscribe(onNext: { _ in })
-            .disposed(by: disposedBag)
-        
-        /// Subscribe to didError
-        manager.rx
-            .didError
-            .debug("didError")
-            .subscribe(onNext: { _ in })
-            .disposed(by: disposedBag)
-        
-        ///Note works on Device
-        
-        /// Subscribe to didDetermineState
-        manager.rx
-            .didDetermineState
-            .debug("didDetermineState")
-            .subscribe(onNext: { _ in })
-            .disposed(by: disposedBag)
-        
-        /// Subscribe to didReceiveRegion
-        manager.rx
-            .didReceiveRegion
-            .debug("didReceiveRegion")
-            .withUnretained(self)
-            .subscribe(onNext: { vc, value in
-                
-            })
-            .disposed(by: disposedBag)
-        
-        /// Subscribe to didResume
-        manager.rx
-            .didResume
-            .debug("didResume")
-            .subscribe(onNext: { _ in })
-            .disposed(by: disposedBag)
     }
     
+        //MARK: rxmapview
     func bindMapViewData() {
         mainView.mapView.rx.willStartLoadingMap
             .asDriver()
@@ -327,9 +320,25 @@ class HomeMapViewController: BaseViewController {
             })
             .disposed(by: disposedBag)
         
+        //
         mainView.mapView.rx.regionDidChangeAnimated
-            .subscribe(onNext: { _ in
+            .subscribe(onNext: { [weak self] _ in
                 print("Map region changed")
+                
+                self?.mainView.mapView.isUserInteractionEnabled = false
+                
+                guard let location = self?.manager.location?.coordinate else { return }
+                FirebaseManager.shared.getIDTokenForcingRefresh()
+                guard let idtoken = UserDefaults.idtoken else {
+                    print("itocken만료")
+                    return
+                }
+                //움직일 때 마다 주변 정보를 받아옴
+                self?.commonAPIviewModel.fetchMapData(lat: location.latitude, long: location.longitude, idtoken: idtoken)
+            
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    self?.mainView.mapView.isUserInteractionEnabled = true
+                }
             })
             .disposed(by: disposedBag)
         
@@ -386,8 +395,6 @@ extension HomeMapViewController: MKMapViewDelegate {
             views.forEach { $0.alpha = 1.0 }
         })
     }
-    
- 
 }
 
 // MARK: - Map Annotation and Helpers

@@ -55,9 +55,8 @@ final class CommonServerManager {
                 LoadingIndicator.hideLoading()
                 self?.commonerror.accept(.Success)
             case .FirebaseTokenError:
-                guard let DBitoken = FirebaseManager.shared.getIDTokenForcingRefresh() else { return }
-                UserDefaults.idtoken = DBitoken
                 LoadingIndicator.hideLoading()
+                FirebaseManager.shared.getIDTokenForcingRefresh()
                 self?.commonerror.accept(.FirebaseTokenError)
             case .NotsignUpUser:
                 LoadingIndicator.hideLoading()

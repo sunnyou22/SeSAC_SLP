@@ -72,10 +72,8 @@ class VerificationViewController: BaseViewController {
             .tap
             .withUnretained(self)
             .bind { vc, _ in
-         
-                guard let idtoken = FirebaseManager.shared.getIDTokenForcingRefresh() else {
-                    print("다음 버튼을 눌렀는데 토큰이 없어 🔴")
-                    return }
+                FirebaseManager.shared.getIDTokenForcingRefresh()
+                guard let idtoken = UserDefaults.idtoken else { return }
                 vc.apiViewModel.USerInfoNetwork(idtoken: idtoken)
             }.disposed(by: disposedBag)
         
@@ -100,11 +98,11 @@ class VerificationViewController: BaseViewController {
             .bind { vc, reponse in
                 switch reponse {
                 case .success:
-                    guard let DBidtoken = UserDefaults.idtoken else {
-                        print("🔴 Idtoken 없음", #function)
-                        return
-                    }
-                    vc.apiViewModel.USerInfoNetwork(idtoken: DBidtoken)
+                    FirebaseManager.shared.getIDTokenForcingRefresh()
+                    guard let idtoken = UserDefaults.idtoken else {
+                        print("idtoken오류 🔴", #file, #function)
+                        return }
+                    vc.apiViewModel.USerInfoNetwork(idtoken: idtoken)
                 case .otherError:
                     vc.showDefaultToast(message: .AuthCredentialText(.otherError))
                 case .invalidVerificationID:
@@ -129,8 +127,9 @@ class VerificationViewController: BaseViewController {
                     }
                 case .FirebaseTokenError:
                     vc.showDefaultToast(message: .defaultSignupMessage(.FirebaseTokenError)) {
+                        FirebaseManager.shared.getIDTokenForcingRefresh()
                         guard let idtoken = UserDefaults.idtoken else {
-                            print("다음 버튼을 눌렀는데 토큰이 없어 🔴")
+                            print("idtoken오류 🔴", #file, #function)
                             return }
                         vc.apiViewModel.USerInfoNetwork(idtoken: idtoken)
                     }
@@ -138,8 +137,7 @@ class VerificationViewController: BaseViewController {
                 case .NotsignUpUser:
                     vc.showDefaultToast(message: .defaultSignupMessage(.NotsignUpUser)) { [weak self] in
                         vc.showSelectedAlert(title: "첫방문을 환영합니다:)", message: "회원가입화면으로 넘어가시겠습니까?") { _ in
-                            guard let DBitoken = FirebaseManager.shared.getIDTokenForcingRefresh() else { return }
-                            UserDefaults.idtoken = DBitoken
+                            FirebaseManager.shared.getIDTokenForcingRefresh()
                             let viewcontroller = NicknameViewController()
                             self?.transition(viewcontroller, .push)
                         }
