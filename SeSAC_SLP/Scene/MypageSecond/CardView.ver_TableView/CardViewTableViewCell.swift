@@ -27,7 +27,7 @@ class CardViewTableViewCell: BaseTableViewCell {
     
     lazy var borderView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         view.layer.borderColor = UIColor.setGray(color: .gray2).cgColor
         view.layer.borderWidth = 1
         view.clipsToBounds = true
@@ -53,7 +53,7 @@ class CardViewTableViewCell: BaseTableViewCell {
     override func setConstraints() {
         header.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.height.equalTo(194)
+            make.height.equalTo(160) // 셀 높이면
         }
         
         borderView.snp.makeConstraints { make in

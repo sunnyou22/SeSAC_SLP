@@ -17,8 +17,8 @@ final class SearchViewModel {
     var tapSearchBar: ControlEvent<Void>?
     var clickSearchButton: ControlEvent<Void>?
     
-    let detailError = PublishRelay<ServerError.QueueError>()
-    let commonError = PublishRelay<ServerError.CommonError>()
+    let detailError = PublishRelay<ServerStatus.QueueError>()
+    let commonError = PublishRelay<ServerStatus.Common>()
     
     //새싹찾기 버튼 클릭
     func searchSeSACMate(lat: Double, long: Double, studylist: [String]?, idtoken: String) {
@@ -38,9 +38,9 @@ final class SearchViewModel {
             case .failure(let error):
                 print("getMatchStatus error 🔴\n", error)
             }
-        } errorHandler: { [weak self] statusCode in
+        } statusHandler: { [weak self] statusCode in
             
-            guard let commonError = ServerError.CommonError(rawValue: statusCode) else { return }
+            guard let commonError = ServerStatus.Common(rawValue: statusCode) else { return }
             
             switch commonError {
             case .Success:
@@ -55,7 +55,7 @@ final class SearchViewModel {
                 self?.commonError.accept(.NotsignUpUser)
             }
             
-            guard let detailError = ServerError.QueueError(rawValue: statusCode) else { return }
+            guard let detailError = ServerStatus.QueueError(rawValue: statusCode) else { return }
             switch detailError {
             case .threeTimesReport:
                 self?.detailError.accept(.threeTimesReport)

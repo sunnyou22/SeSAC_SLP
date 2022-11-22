@@ -43,7 +43,7 @@ class LaunchScreenViewController: UIViewController {
         
         let transition = CATransition()
         transition.type = .fade
-        transition.duration = 3
+//        transition.duration = 10
         sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
         //분기처리
         
@@ -61,7 +61,8 @@ class LaunchScreenViewController: UIViewController {
 
         //토큰이 있는데, 나머지 회원가입절차를 거치치 않았을 때 기존에 저장해뒀던 유저디폴츠의 값이 nil이 판단해서 절차 완료시키기
         //토큰이 없을 때 온보딩화면
-        
+   
+        //데이터 통신이 끝난 이후 불러지는 코드인데
         self.commonSerVerModel.usererror
             .asDriver(onErrorJustReturn: .InvaliedNickName)
             .drive(onNext: { value in
@@ -75,20 +76,39 @@ class LaunchScreenViewController: UIViewController {
                     return
                 case .InvaliedNickName:
                     print("InvaliedNickName // 온보딩에서 필요없는 코드")
+                }
+            }).disposed(by: self.disposedBag)
+        
+        self.commonSerVerModel.commonError
+            .asDriver(onErrorJustReturn: .ClientError)
+            .drive(onNext: { status in
+                print(status, " =============")
+                switch status {
+                case .Success:
+                    let homeVC = HomeMapViewController()
+                    let nav = UINavigationController(rootViewController: homeVC)
+                    sceneDelegate?.window?.rootViewController = nav
+                    sceneDelegate?.window?.makeKeyAndVisible()
+                    print("기존 유저 정보를 받아 홈화면으로 진입 🟢")
+                case .FirebaseTokenError:
+                    print("401")
+//                    self.commonSerVerModel.USerInfoNetwork(idtoken: idtoken)
                 case .NotsignUpUser:
                     let nickNameViewController = NicknameViewController()
                     let nav = UINavigationController(rootViewController: nickNameViewController)
                     sceneDelegate?.window?.rootViewController = nav
                     sceneDelegate?.window?.makeKeyAndVisible()
                     return
+                case .ServerError:
+                    print("ServerError 🔴")
+                case .ClientError:
+                    print("ClientError 🔴")
                 }
                 
             }).disposed(by: self.disposedBag)
-        
-        self.commonSerVerModel.USerInfoNetwork(idtoken: idtoken)
         //        }
+        self.commonSerVerModel.USerInfoNetwork(idtoken: idtoken)
     }
-    
     
     func configure() {
         view.addSubview(mainImageView)
@@ -110,5 +130,4 @@ class LaunchScreenViewController: UIViewController {
             make.centerX.equalTo(mainImageView.snp.centerX)
         }
     }
-    
 }

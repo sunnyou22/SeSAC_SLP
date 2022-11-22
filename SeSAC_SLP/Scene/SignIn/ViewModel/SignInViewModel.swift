@@ -20,8 +20,8 @@ final class SignInViewModel {
     let authPhoneNumResult = PublishRelay<AuthVerifyPhoneNumber>()
     let authValidCode = PublishRelay<AuthCredentialText>()
     
-    let commonerror = PublishRelay<ServerError.CommonError>()
-    let detailerror = PublishRelay<ServerError.UserError>()
+    let commonerror = PublishRelay<ServerStatus.Common>()
+    let detailerror = PublishRelay<ServerStatus.UserError>()
     //    let transitionEvent = PublishRelay<SignUpError>()
     
     //MARK: 로그인화면 -
@@ -124,10 +124,10 @@ final class SignInViewModel {
                 LoadingIndicator.hideLoading()
                 //                self?.signup.onError(failure) // 에러에 맞게 밷틈 SeSAC_SLP.SignUpError.InvaliedNickName
             }
-        } errorHandler: { [weak self] statusCode in
+        } statusHandler: { [weak self] statusCode in
             //최종회원가입에서 안 들어옴
-            guard let commonError = ServerError.CommonError(rawValue: statusCode) else { return }
-            guard let userError = ServerError.UserError(rawValue: statusCode) else { return }
+            guard let commonError = ServerStatus.Common(rawValue: statusCode) else { return }
+            guard let userError = ServerStatus.UserError(rawValue: statusCode) else { return }
             
             switch commonError {
                 
@@ -154,8 +154,6 @@ final class SignInViewModel {
                 self?.detailerror.accept(.SignInUser)
             case .InvaliedNickName:
                 self?.detailerror.accept(.InvaliedNickName)
-            case .NotsignUpUser:
-                self?.detailerror.accept(.NotsignUpUser)
             }
         }
     }

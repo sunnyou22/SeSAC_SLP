@@ -16,7 +16,7 @@ class SetMyInfoViewModel {
     // 수정사항이 생기면 firstreponse 받았을 때 저장버튼 활성화되도록 하기 -> 불필요한 서버요청 막기
     var buttonValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var nextbutton: ControlEvent<Void>?
-    let commonerror = PublishRelay<ServerError.CommonError>()
+    let commonerror = PublishRelay<ServerStatus.Common>()
     
     func saveUserInfoToUserDefaults() -> [GetUerIfo] {
         print(UserDefaults.getUerIfo, "✅ 유저 정보 받아오기")
@@ -39,10 +39,10 @@ class SetMyInfoViewModel {
             case .failure(let failure):
                 print(failure, "포스트 실패 🔴", #function)
             }
-        } errorHandler: { [weak self] statusCode in
-            guard let commonError = ServerError.CommonError(rawValue: statusCode) else { return }
+        } statusHandler: { [weak self] statusCode in
+            guard let commonError = ServerStatus.Common(rawValue: statusCode) else { return }
             switch commonError {
-            case .Success: // 여기로 들어오면 디코뒹이 잘못된거임,,,ㅎ ㅏ..
+            case .Success: 
                 self?.commonerror.accept(.Success)
             case .FirebaseTokenError:
                 self?.commonerror.accept(.FirebaseTokenError)

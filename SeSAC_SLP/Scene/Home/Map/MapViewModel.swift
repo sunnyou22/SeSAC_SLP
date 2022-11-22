@@ -15,8 +15,8 @@ class MapViewModel {
     
     static let ploatingButtonSet: PublishRelay<UserMatchingStatus> = PublishRelay()
   
-    let detailError = PublishRelay<ServerError.QueueError>()
-    let commonError = PublishRelay<ServerError.CommonError>()
+    let detailError = PublishRelay<ServerStatus.QueueError>()
+    let commonError = PublishRelay<ServerStatus.Common>()
     
     var transitionToSearcnVC: ControlEvent<UserMatchingStatus>?
     
@@ -53,8 +53,8 @@ class MapViewModel {
                 print("getMatchStatus error 🔴\n", error)
                 MapViewModel.ploatingButtonSet.accept(.defaults)
             }
-        } errorHandler: { [weak self] statusCode in
-            guard let commonError = ServerError.CommonError(rawValue: statusCode) else { return }
+        } statusHandler: { [weak self] statusCode in
+            guard let commonError = ServerStatus.Common(rawValue: statusCode) else { return }
             
             switch commonError {
             case .Success:

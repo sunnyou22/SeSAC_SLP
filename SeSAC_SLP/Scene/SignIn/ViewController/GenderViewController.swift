@@ -27,7 +27,7 @@ class GenderViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         if UserDefaults.gender == nil {
             mainView.manButton.backgroundColor = .clear
             mainView.womanButton.backgroundColor = .clear
@@ -90,11 +90,10 @@ class GenderViewController: BaseViewController {
             .bind { vc, error in
                 switch error {
                 case .Success:
-                    // 회원가입 성공시 idtoken을 제외한 유저디폴츠 삭제 및 홈화면으로 window 갈아끼우기
-//                    vc.deleteUserDefaults() // 만약에 다음 버튼을 연타한 경우에 에러가 뜰거임
-                  vc.setInitialViewController(to: HomeMapViewController())
+                    vc.setInitialViewController(to: HomeMapViewController())
                 case .FirebaseTokenError:
-                    vc.getIdtoken()
+                    FirebaseManager.shared.getIDTokenForcingRefresh()
+                    // 사용자에게 이렇게 요청하는게 맞는걸까
                     vc.mainView.makeToast("다시 시도해주세요", duration: 1, position: .center)
                 case .NotsignUpUser:
                     print("미가입유저🔴", #function)
@@ -118,25 +117,10 @@ class GenderViewController: BaseViewController {
                         guard let viewControllers : [UIViewController] = vc.navigationController?.viewControllers as? [UIViewController] else { return  }
                         vc.navigationController?.popToViewController(viewControllers[viewControllers.count - 4 ], animated: true)
                     }
-                case .NotsignUpUser:
-                    print("미가입 유저🔴", #function)
                 }
             }.disposed(by: disposedBag)
     }
-    
-    func getIdtoken() {
-        let currentUser = Auth.auth().currentUser
-        currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
-            if let error = error {
-                print(error, "idtoken을 받아올 수 없습니다.")
-                return
-            } else {
-                guard let idtoken = idToken else { return }
-                
-                UserDefaults.idtoken = idtoken
-            }
-        }
-    }
+
 //    
 //    func deleteUserDefaults() {
 //        for key in 1...(UserDaultsKey.allCases.count - 1) {

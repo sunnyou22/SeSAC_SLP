@@ -14,9 +14,9 @@ import UIKit
  안그러면 에러케이스 다 외워야할듯
  */
 
-struct ServerError {
+struct ServerStatus {
     
-    enum CommonError: Int, Error {
+    enum Common: Int, Error {
         case Success = 200
         case FirebaseTokenError = 401
         case NotsignUpUser = 406
@@ -55,10 +55,10 @@ struct ServerError {
         }
     }
     
+    // 개별 에러 분리
     enum UserError: Int, Error {
         case SignInUser = 201
         case InvaliedNickName = 202
-        case NotsignUpUser = 406
         
         var message: String {
             switch self {
@@ -66,8 +66,6 @@ struct ServerError {
                 return "이미 가입한 유저입니다."
             case .InvaliedNickName:
                 return "사용할 수 없는 닉네임입니다."
-            case .NotsignUpUser:
-                return "미가입회원입니다."
             }
         }
     }
@@ -100,12 +98,12 @@ struct ServerError {
 //MARK: 메세지
 enum Message {
     // 공통에러 멘트
-    case defaultQueueMessage(ServerError.CommonError)
-    case defaultSignupMessage(ServerError.CommonError)
+    case defaultQueueMessage(ServerStatus.Common)
+    case defaultSignupMessage(ServerStatus.Common)
   
     // 세부 에러 멘트
-    case QueueText(ServerError.QueueError)
-    case Signup(ServerError.UserError)
+    case QueueText(ServerStatus.QueueError)
+    case Signup(ServerStatus.UserError)
     
     case AuthVerifyPhoneNumber(AuthVerifyPhoneNumber)
     case AuthCredentialText(AuthCredentialText)
