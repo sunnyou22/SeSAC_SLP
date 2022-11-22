@@ -66,6 +66,9 @@ class SearchViewController: BaseViewController {
     lazy var width = view.frame.size.width //화면 너비
     lazy var searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: width - 28, height: 0))
     
+    var fromQueueDB = UserDefaults.searchData?[0].fromQueueDB ?? []
+    var fromRecommend = UserDefaults.searchData?[0].fromRecommend ?? []
+    
     var currentLocation: CLLocationCoordinate2D?
     var cell =  SearchCollecitionViewCell()
     var mainView = SearchView()
@@ -76,15 +79,26 @@ class SearchViewController: BaseViewController {
         }
     }
     
+    
     let dumy = ["a", "bbbbb", "cccccccccc", "dddd"]
     
+  
+    
     let commonAPIviewModel = CommonServerManager()
+    
     let viewModel = SearchViewModel()
     
     let disposedBag = DisposeBag()
     
+    let sesacCoordinate = CLLocationCoordinate2D(latitude: 37.51818789942772, longitude: 126.88541765534976)
+    
     override func loadView() {
         view = mainView
+    }
+    
+    deinit {
+        //화면에 들어올때마다 넣어주고있기 때문에 없...앨까>? 다음화면에서 어떻게 쓰일 수 있을지 생각
+        UserDefaults.standard.removeObject(forKey: "searchData")
     }
     
     override func viewDidLoad() {
@@ -107,6 +121,7 @@ class SearchViewController: BaseViewController {
         
         //유아이 바인드
         bindDataUI()
+        
         // 토큰갈아끼우기
         guard let idtoken = UserDefaults.idtoken else {
             print("itocken만료")
@@ -119,14 +134,15 @@ class SearchViewController: BaseViewController {
             return
         }
         
-        commonAPIviewModel.fetchMapData(lat: currentLocation.latitude, long: currentLocation.longitude, idtoken: idtoken)
-        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(wishList))
+        //유저디폴츠 UserDefaults.searchData에 값을 넣어주고 있음
+        commonAPIviewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
+        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(wishList), "\n ", UserDefaults.searchData)
     }
     
     //MARK: - bindUI
     
     func bindDataUI() {
-        
+        //키보드 높이 받아오기
         RxKeyboard.instance.willShowVisibleHeight
             .drive(onNext: { [weak self] height in
                 
@@ -136,11 +152,11 @@ class SearchViewController: BaseViewController {
                 self.mainView.searchButton.snp.updateConstraints { make in
                     make.bottom.equalTo(self.mainView.safeAreaLayoutGuide).offset(height)
                     make.horizontalEdges.equalTo(self.mainView).inset(0)
-               }
+                }
                 
                 self.mainView.layoutIfNeeded()
             }).disposed(by: disposedBag)
-            
+        //되는지 실험해봐야함
         searchBar.rx.textDidEndEditing
             .bind { [weak self] _ in
                 self?.mainView.endEditing(true)
@@ -164,14 +180,14 @@ class SearchViewController: BaseViewController {
                 print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(vc.wishList))
                 vc.viewModel.searchSeSACMate(lat: currentLocation.latitude, long: currentLocation.longitude, studylist: Array(vc.wishList), idtoken: idtoken)
             }.disposed(by: disposedBag)
-//        
-//        searchBar.rx
-//            .textDidBeginEditing
-//            .asDriver()
-//            .drive { _ in
-//                showSearchToolBar()
-//            }
-//    
+        //
+        //        searchBar.rx
+        //            .textDidBeginEditing
+        //            .asDriver()
+        //            .drive { _ in
+        //                showSearchToolBar()
+        //            }
+        //
     }
     
     func showSearchToolBar() {
@@ -232,19 +248,35 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-  
+       
+//        fromRecommend.count + fromQueueDB.count
         return section == 0 ? dumy.count : wishList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
+        
         if indexPath.section == 0 {
-            cell.label.text = dumy[indexPath.item]
-            cell.xbutton.isHidden = true
-//            cell.border
+            // 강제해제 연산자 하면 안됨 주변에 없을 수도 있기 때a뭄ㄴ
+            guard let searchData = UserDefaults.searchData else {
+                print("searchData없음🔴")
+                
+                return  UICollectionViewCell() }
+            //fromRecommend.count
+            if indexPath.row <= 1 {
+                cell.label.text = dumy[indexPath.item]
+                cell.xbutton.isHidden = true
+                cell.customView.layer.borderColor = UIColor.setStatus(color: .success).cgColor // 색 바꾸기
+                // fromRecommend.count, indexPath.row <= fromQueueDB.count
+            } else if indexPath.row >  1 {
+                cell.label.text = dumy[indexPath.item]
+                cell.xbutton.isHidden = true
+                cell.customView.layer.borderColor = UIColor.setStatus(color: .error).cgColor // 색 바꾸기
+            }
+            
             return cell
         } else if indexPath.section == 1 {
-             let sortedWishList = wishList.sorted()
+            let sortedWishList = wishList.sorted()
             cell.label.text = sortedWishList[indexPath.item]
             cell.xbutton.isHidden = false
             return cell

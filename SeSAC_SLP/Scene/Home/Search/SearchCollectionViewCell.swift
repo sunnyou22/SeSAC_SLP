@@ -37,11 +37,11 @@ class SearchCollecitionViewCell: UICollectionViewCell {
         return view
     }()
     
-    //    let containVeiw: UIView = {
-    //        let view = UIView()
-    //        view.backgroundColor = .blue
-    //        return view
-    //    }()
+        let containVeiw: UIView = {
+            let view = UIView()
+            view.backgroundColor = .blue
+            return view
+        }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

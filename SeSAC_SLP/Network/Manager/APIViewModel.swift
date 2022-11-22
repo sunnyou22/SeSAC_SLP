@@ -32,7 +32,7 @@ final class CommonServerManager {
                 print("로그인 성공 혹은 유저 정보가져오기 성공 ✅", success)
                 UserDefaults.getUerIfo = [success]
                 
-//                self?.usererror.accept(.SignInUser)
+                self?.usererror.accept(.SignInUser)
 //                self?.usererror.accept(.NotsignUpUser)
             case .failure:
                 print("실ㅍㅐ")
