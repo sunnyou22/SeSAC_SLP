@@ -16,7 +16,7 @@ class SetMyInfoViewModel {
     // 수정사항이 생기면 firstreponse 받았을 때 저장버튼 활성화되도록 하기 -> 불필요한 서버요청 막기
     var buttonValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var nextbutton: ControlEvent<Void>?
-    let commonerror = PublishRelay<ServerStatus.Common>()
+    let userStatus = PublishRelay<UserStatus>()
     
     func saveUserInfoToUserDefaults() -> [GetUerIfo] {
         print(UserDefaults.getUerIfo, "✅ 유저 정보 받아오기")
@@ -32,27 +32,33 @@ class SetMyInfoViewModel {
         
         let api = SeSACAPI.setMypage(searchable: searchable, ageMin: ageMin, ageMax: ageMax, gender: gender, study: study)
         
-        Network.shared.requestSeSAC(type: SetUserInfo.self, url: api.url, parameter: api.parameter, method: .put, headers: api.getheader(idtoken: idtoken)) { response in
-            switch response {
-            case .success(let success):
-                print(success, "포스트 성공 ✅", #function)
-            case .failure(let failure):
-                print(failure, "포스트 실패 🔴", #function)
+        Network.shared.requestSeSAC(type: SetUserInfo.self, url: api.url, parameter: api.parameter, method: .put, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
+            
+            guard let data = data else {
+                print("userData 가져오기 실패 🔴")
+                guard let userStatus = UserStatus(rawValue: statusCode) else { return }
+                
+                switch userStatus {
+                case .Success:
+                    self?.userStatus.accept(.Success)
+                case .SignInUser:
+                    self?.userStatus.accept(.SignInUser)
+                case .InvaliedNickName:
+                    self?.userStatus.accept(.InvaliedNickName)
+                case .FirebaseTokenError:
+                    FirebaseManager.shared.getIDTokenForcingRefresh()
+                    self?.userStatus.accept(.FirebaseTokenError)
+                case .NotsignUpUser:
+                    self?.userStatus.accept(.NotsignUpUser)
+                case .ServerError:
+                    self?.userStatus.accept(.ServerError)
+                case .ClientError:
+                    self?.userStatus.accept(.ClientError)
+                }
+                print("포스트 실패 🔴", #function)
+                return
             }
-        } statusHandler: { [weak self] statusCode in
-            guard let commonError = ServerStatus.Common(rawValue: statusCode) else { return }
-            switch commonError {
-            case .Success: 
-                self?.commonerror.accept(.Success)
-            case .FirebaseTokenError:
-                self?.commonerror.accept(.FirebaseTokenError)
-            case .NotsignUpUser:
-                self?.commonerror.accept(.NotsignUpUser)
-            case .ServerError:
-                self?.commonerror.accept(.ServerError)
-            case .ClientError:
-                self?.commonerror.accept(.ClientError)
-            }
+            print(data, "포스트 성공 ✅", #function)
         }
     }
 }

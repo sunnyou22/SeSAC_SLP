@@ -20,8 +20,7 @@ final class SignInViewModel {
     let authPhoneNumResult = PublishRelay<AuthVerifyPhoneNumber>()
     let authValidCode = PublishRelay<AuthCredentialText>()
     
-    let commonerror = PublishRelay<ServerStatus.Common>()
-    let detailerror = PublishRelay<ServerStatus.UserError>()
+    let userStatus = PublishRelay<UserStatus>()
     //    let transitionEvent = PublishRelay<SignUpError>()
     
     //MARK: 로그인화면 -
@@ -108,53 +107,34 @@ final class SignInViewModel {
         
         let api = SeSACAPI.signUp(phoneNumber: phoneNumber, FCMtoken: FCMtoken, nick: nick, birth: birth, email: email, gender: gender)
         
-        Network.shared.requestSeSAC(type: SignUp.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] response in
-            LoadingIndicator.showLoading()
-            switch response {
-            case .success(let success):
-                print(success)
-                print("회원가입성공 ✅")
-                LoadingIndicator.hideLoading()
-                self?.commonerror.accept(.Success)
-                self?.authPhoneNumResult.accept(.success)
-                
-            case .failure(let failure):
+        Network.shared.requestSeSAC(type: SignUp.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
+            
+            guard let data = data else {
                 print("회원가입 에러 🔴")
+                guard let userStatus = UserStatus(rawValue: statusCode) else { return }
                 
-                LoadingIndicator.hideLoading()
-                //                self?.signup.onError(failure) // 에러에 맞게 밷틈 SeSAC_SLP.SignUpError.InvaliedNickName
-            }
-        } statusHandler: { [weak self] statusCode in
-            //최종회원가입에서 안 들어옴
-            guard let commonError = ServerStatus.Common(rawValue: statusCode) else { return }
-            guard let userError = ServerStatus.UserError(rawValue: statusCode) else { return }
-            
-            switch commonError {
-                
-            case .Success:
-                LoadingIndicator.hideLoading()
-                self?.commonerror.accept(.Success)
-            case .FirebaseTokenError:
-                FirebaseManager.shared.getIDTokenForcingRefresh()
-                LoadingIndicator.hideLoading()
-                self?.commonerror.accept(.FirebaseTokenError)
-            case .NotsignUpUser:
-                LoadingIndicator.hideLoading()
-                self?.commonerror.accept(.NotsignUpUser)
-            case .ServerError:
-                LoadingIndicator.hideLoading()
-                self?.commonerror.accept(.ServerError)
-            case .ClientError:
-                LoadingIndicator.hideLoading()
-                self?.commonerror.accept(.ClientError)
+                switch userStatus {
+                case .Success:
+                    self?.userStatus.accept(.Success)
+                case .SignInUser:
+                    self?.userStatus.accept(.SignInUser)
+                case .InvaliedNickName:
+                    self?.userStatus.accept(.InvaliedNickName)
+                case .FirebaseTokenError:
+                    FirebaseManager.shared.getIDTokenForcingRefresh()
+                    self?.userStatus.accept(.FirebaseTokenError)
+                case .NotsignUpUser:
+                    self?.userStatus.accept(.NotsignUpUser)
+                case .ServerError:
+                    self?.userStatus.accept(.ServerError)
+                case .ClientError:
+                    self?.userStatus.accept(.ClientError)
+                }
+                return
             }
             
-            switch userError {
-            case .SignInUser:
-                self?.detailerror.accept(.SignInUser)
-            case .InvaliedNickName:
-                self?.detailerror.accept(.InvaliedNickName)
-            }
+            print(data)
+            print("회원가입성공 ✅")
         }
     }
 }

@@ -14,9 +14,9 @@ import CoreLocation
 class MapViewModel {
     
     static let ploatingButtonSet: PublishRelay<UserMatchingStatus> = PublishRelay()
-  
-    let detailError = PublishRelay<ServerStatus.QueueError>()
-    let commonError = PublishRelay<ServerStatus.Common>()
+    
+    let matchingStatus = PublishRelay<MyQueueStatus>()
+    //    let commonError = PublishRelay<ServerStatus.Common>()
     
     var transitionToSearcnVC: ControlEvent<UserMatchingStatus>?
     
@@ -39,42 +39,39 @@ class MapViewModel {
         return annotations
     }
     
-    //5초 마다 상태 확인 필요
+    //5초 마다 상태 확인 필요 /v1/queue/myQueueState
     func getMatchStatus(idtoken: String) {
         let api = SeSACAPI.matchingStatus
-
-        Network.shared.requestSeSAC(type: MatchStatus.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) {     response in
-            switch response {
-            case .success(let data):
-                print("getMatchStatus🚀\n", data.matched ?? 100, data)
-                    // 서버에서 매칭상태 받아오기
-                MapViewModel.ploatingButtonSet.accept(.init(rawValue: data.matched ?? 2)!)
-            case .failure(let error):
-                print("getMatchStatus error 🔴\n", error)
-                MapViewModel.ploatingButtonSet.accept(.defaults)
-            }
-        } statusHandler: { [weak self] statusCode in
-            guard let commonError = ServerStatus.Common(rawValue: statusCode) else { return }
+        
+        Network.shared.requestSeSAC(type: MatchStatus.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
             
-            switch commonError {
-            case .Success:
-                self?.commonError.accept(.Success)
-            case .FirebaseTokenError:
-                self?.commonError.accept(.FirebaseTokenError)
-            case .ServerError:
-                self?.commonError.accept(.ServerError)
-            case .ClientError:
-                self?.commonError.accept(.ClientError)
-            case .NotsignUpUser:
-                self?.commonError.accept(.NotsignUpUser)
+            guard let data = data else {
+                print("MatchStatus 가져오기 실패 🔴")
+                MapViewModel.ploatingButtonSet.accept(.defaults)
+                
+                guard let myQueueStatus = MyQueueStatus(rawValue: statusCode) else { return }
+                
+                switch myQueueStatus {
+                case .Success:
+                    self?.matchingStatus.accept(.Success)
+                case .defaultStatus:
+                    self?.matchingStatus.accept(.defaultStatus)
+                case .FirebaseTokenError:
+                    FirebaseManager.shared.getIDTokenForcingRefresh()
+                    self?.matchingStatus.accept(.FirebaseTokenError)
+                case .NotsignUpUser:
+                    self?.matchingStatus.accept(.NotsignUpUser)
+                case .ServerError:
+                    self?.matchingStatus.accept(.ServerError)
+                case .ClientError:
+                    self?.matchingStatus.accept(.ClientError)
+                }
+                return
             }
+            print("getMatchStatus🚀\n", data.matched ?? 100, data)
+            // 서버에서 매칭상태 받아오기
+            MapViewModel.ploatingButtonSet.accept(.init(rawValue: data.matched ?? 2)!)
         }
-
     }
 }
 
-
-/*
-
- 
- */

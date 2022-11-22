@@ -143,14 +143,14 @@ class HomeMapViewController: BaseViewController {
     func bindDataError() {
         
         //에러 메세지
-        
-        commonAPIviewModel.commonError
+        commonAPIviewModel.queueSearchStatus
             .withUnretained(self)
             .bind { vc, error in
                 switch error {
                 case .Success:
                     vc.showDefaultToast(message: .defaultQueueMessage(.Success))
                 case .FirebaseTokenError:
+                    FirebaseManager.shared.getIDTokenForcingRefresh()
                     vc.showDefaultToast(message: .defaultQueueMessage(.FirebaseTokenError))
                 case .ServerError:
                     vc.showDefaultToast(message: .defaultQueueMessage(.ServerError))

@@ -85,7 +85,7 @@ class GenderViewController: BaseViewController {
                 }
             }.disposed(by: disposedBag)
         
-        viewModel.commonerror
+        viewModel.userStatus
             .withUnretained(self)
             .bind { vc, error in
                 switch error {
@@ -101,13 +101,6 @@ class GenderViewController: BaseViewController {
                     print("서버에러🔴", #function)
                 case .ClientError:
                     print("클라에러🔴", #function)
-                }
-            }.disposed(by: disposedBag)
-        
-        viewModel.detailerror
-            .withUnretained(self)
-            .bind { vc, error in
-                switch error {
                 case .SignInUser:
                     print("이미가입한 유저🔴", #function)
                 case .InvaliedNickName:

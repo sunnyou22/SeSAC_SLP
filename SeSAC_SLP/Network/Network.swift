@@ -14,7 +14,7 @@ final class Network {
     
     private init() { }
     
-    func requestSeSAC<T: Decodable>(type: T.Type = T.self, url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, headers: HTTPHeaders, completion: @escaping ((Result<T, Error>) -> Void), statusHandler: @escaping ((Int) -> Void)) {
+    func requestSeSAC<T: Decodable>(type: T.Type = T.self, url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, headers: HTTPHeaders, completion: @escaping ((T?, Int) -> Void)) {
         
         AF.request(url, method: method, parameters: parameter, encoding: URLEncoding.default, headers: headers)
             .responseDecodable(of: T.self)
@@ -27,24 +27,19 @@ final class Network {
                     print("상태코드가 없습니다 🔴 ")
                     return }
                 print("🚀🚀 성공")
-
-                completion(.success(data))
+                completion(data, statusCode)
                 print("🚀\n\(data)")
-                statusHandler(statusCode)
+               
                 print(statusCode, "==============")
             case .failure(let error):
                 guard let statusCode = response.response?.statusCode else { return }
 //                guard let error = error(rawValue: statusCode) else { return }
                 // 기본적으로 계속 요청해야하는 코드이기 때문에 모델안에서 처리
-                if statusCode == 401 {
-                    FirebaseManager.shared.getIDTokenForcingRefresh()
-                }
-                
-                // SignUpError에서 statusCode에 해당하는 case를 뱉음
+             // SignUpError에서 statusCode에 해당하는 case를 뱉음
                 print("🔴 SignUpError", response.response?.statusCode, error)
-                completion(.failure(error))
+                completion(nil, statusCode)
                 print(statusCode, "==============")
-                statusHandler(statusCode)
+            
             }
         }
     }
