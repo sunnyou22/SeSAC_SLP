@@ -44,6 +44,7 @@
 		902B102E291C542700D03C0E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102D291C542700D03C0E /* FirebaseCrashlytics */; };
 		902B1030291C542700D03C0E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102F291C542700D03C0E /* FirebaseMessaging */; };
 		9051720A292E207400DDBC13 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 90517209292E207400DDBC13 /* RxGesture */; };
+		9051720C292E332900DDBC13 /* BaseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9051720B292E332900DDBC13 /* BaseScrollView.swift */; };
 		9066125729267A3100320F21 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066125629267A3100320F21 /* SearchCollectionViewCell.swift */; };
 		9066125A29275E4A00320F21 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9066125929275E4A00320F21 /* RxCocoa */; };
 		9066125C29275E4A00320F21 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9066125B29275E4A00320F21 /* RxSwift */; };
@@ -137,6 +138,7 @@
 		902B101B291C1A0000D03C0E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		902B101D291C1A8E00D03C0E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		902B101F291C1AF200D03C0E /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		9051720B292E332900DDBC13 /* BaseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollView.swift; sourceTree = "<group>"; };
 		9066125629267A3100320F21 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		906612632927608D00320F21 /* HomeMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMapViewController.swift; sourceTree = "<group>"; };
 		906612652927C5E600320F21 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				902B0FD62918FEBE00D03C0E /* BaseView.swift */,
 				902B0FD8291915FE00D03C0E /* BaseViewController.swift */,
 				90FD72A32922722400BB0077 /* BaseTableViewCell.swift */,
+				9051720B292E332900DDBC13 /* BaseScrollView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 				902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */,
 				902B0FF5291A41DC00D03C0E /* EmailView.swift in Sources */,
 				902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */,
+				9051720C292E332900DDBC13 /* BaseScrollView.swift in Sources */,
 				90FD72BD2922B78C00BB0077 /* ThumbButton.swift in Sources */,
 				90FD72A22922721700BB0077 /* SignOutView.swift in Sources */,
 				90FD72D62923FFD400BB0077 /* MyPageListViewController.swift in Sources */,

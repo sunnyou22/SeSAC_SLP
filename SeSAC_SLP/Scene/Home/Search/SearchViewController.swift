@@ -71,17 +71,17 @@ class SearchViewController: BaseViewController {
     var fromRecommend = UserDefaults.searchData?[0].fromRecommend ?? []
     
     var currentLocation: CLLocationCoordinate2D?
-    var cell =  SearchCollecitionViewCell()
+//    var cell =  SearchCollecitionViewCell()
     var mainView = SearchView()
     var wishList: Set<String> = [] {
         didSet {
-            mainView.collectionView.reloadData()
+            mainView.secondCollectionView.reloadData()
             print(wishList)
         }
     }
     
     
-    let dumy = ["a", "bbbbb", "cccccccccc", "dddd"]
+    let dumy = ["a", "bbbbb", "cccccccccc", "dddd", "a", "bbbbb", "cccccccccc", "dddd", "a", "bbbbb", "cccccccccc", "dddd", "a", "bbbbb", "cccccccccc", "dddd", "a", "bbbbb", "cccccccccc", "dddd", "a", "bbbbb", "cccccccccc", "dddd", "a", "bbbbb", "cccccccccc", "dddd", "a", "bbbbb", "cccccccccc", "dddd"]
     
   
     
@@ -105,11 +105,15 @@ class SearchViewController: BaseViewController {
     override func viewDidLoad() {
         //MARK: - viewDidLoad
         super.viewDidLoad()
-        
-        mainView.collectionView.dataSource = self
-        mainView.collectionView.delegate = self
-        mainView.collectionView.collectionViewLayout = mainView.configureCollectionViewLayout()
-        mainView.collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchHeaderView")
+        mainView.topCollectionView.dataSource = self
+        mainView.topCollectionView.delegate = self
+        mainView.topCollectionView.collectionViewLayout = mainView.configureCollectionViewLayout()
+        mainView.topCollectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchHeaderView")
+    
+        mainView.secondCollectionView.dataSource = self
+        mainView.secondCollectionView.delegate = self
+        mainView.secondCollectionView.collectionViewLayout = mainView.configureCollectionViewLayout2()
+        mainView.secondCollectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchHeaderView")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -209,7 +213,7 @@ class SearchViewController: BaseViewController {
     }
     
     func showSearchToolBar() {
-        searchBar.inputAccessoryView = mainView.testsearchButton
+        searchBar.inputAccessoryView = mainView.searchButton
     }
 }
 
@@ -244,61 +248,104 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return Section.allCases.count
+        switch collectionView {
+        case mainView.topCollectionView:
+            return Section.allCases.count
+        case mainView.secondCollectionView:
+            return 1
+        default:
+            return 0
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        switch kind {
-        case UICollectionView.elementKindSectionHeader:
-            if indexPath.section == 0 {
-                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SearchHeaderView", for: indexPath) as! SearchHeaderView
-                header.label.text = Section.allCases[indexPath.section].title
-                return header
-            } else {
-                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SearchHeaderView", for: indexPath) as! SearchHeaderView
-                header.label.text = Section.allCases[indexPath.section].title
-                return header
+        if collectionView == mainView.topCollectionView {
+            switch kind {
+            case UICollectionView.elementKindSectionHeader:
+                if indexPath.section == 0 {
+                    let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SearchHeaderView", for: indexPath) as! SearchHeaderView
+                    header.label.text = Section.allCases[indexPath.section].title
+                    return header
+                } else {
+                    let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SearchHeaderView", for: indexPath) as! SearchHeaderView
+                    header.label.text = Section.allCases[indexPath.section].title
+                    return header
+                }
+            default:
+                return UICollectionReusableView()
             }
-        default:
-           return UICollectionReusableView()
+        } else if collectionView == mainView.secondCollectionView {
+            switch kind {
+            case UICollectionView.elementKindSectionHeader:
+                if indexPath.section == 0 {
+                    let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SearchHeaderView", for: indexPath) as! SearchHeaderView
+                    header.label.text = Section.allCases[indexPath.section].title
+                    return header
+                }
+            default:
+                return UICollectionReusableView()
+            }
         }
+        return UICollectionReusableView()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
        
+        switch collectionView {
+        case mainView.topCollectionView:
+            return section == 0 ? dumy.count : wishList.count
+        case mainView.secondCollectionView:
+            return wishList.count
+        default:
+            return 0
+        }
 //        fromRecommend.count + fromQueueDB.count
-        return section == 0 ? dumy.count : wishList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let searchData = UserDefaults.searchData else {
             print("searchData없음🔴")
             return  UICollectionViewCell() }
-        if indexPath.section == 0 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
-            // 강제해제 연산자 하면 안됨 주변에 없을 수도 있기 때a뭄ㄴ
+        
+        switch collectionView {
+        case mainView.topCollectionView:
+            if indexPath.section == 0 {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopSearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? TopSearchCollecitionViewCell else { return UICollectionViewCell() }
+                // 강제해제 연산자 하면 안됨 주변에 없을 수도 있기 때a뭄ㄴ
 
-            //fromRecommend.count
-            if indexPath.row <= 1 {
-                cell.label.text = dumy[indexPath.item]
-                cell.xbutton.isHidden = true
-                cell.customView.layer.borderColor = UIColor.setStatus(color: .success).cgColor // 색 바꾸기
-                // fromRecommend.count, indexPath.row <= fromQueueDB.count
-            } else if indexPath.row >  1 {
-                cell.label.text = dumy[indexPath.item]
-                cell.xbutton.isHidden = true
-                cell.customView.layer.borderColor = UIColor.setBaseColor(color: .black).cgColor // 색 바꾸기
+                //fromRecommend.count
+                if indexPath.row <= 1 {
+                    cell.label.text = dumy[indexPath.item]
+//                    cell.xbutton.isHidden = true
+                    cell.customView.layer.borderColor = UIColor.setStatus(color: .success).cgColor // 색 바꾸기
+                    // fromRecommend.count, indexPath.row <= fromQueueDB.count
+                } else if indexPath.row >  1 {
+                    cell.label.text = dumy[indexPath.item]
+//                    cell.xbutton.isHidden = true
+                    cell.customView.layer.borderColor = UIColor.setBaseColor(color: .black).cgColor // 색 바꾸기
+                }
+                return cell
+            } else if indexPath.section == 1 {
+                guard let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: TopSearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? TopSearchCollecitionViewCell else { return UICollectionViewCell() }
+              
+                    let sortedWishList = wishList.sorted()
+                    cell2.label.text = sortedWishList[indexPath.item]
+//                    cell2.xbutton.isHidden = false
+                cell2.customView.layer.borderColor = UIColor.setBrandColor(color: .green).cgColor
+                    return cell2
+                
             }
-            return cell
-        } else if indexPath.section == 1 {
-            guard let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
+        case mainView.secondCollectionView:
+            guard let cell3 = collectionView.dequeueReusableCell(withReuseIdentifier: SecondSearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SecondSearchCollecitionViewCell else { return UICollectionViewCell() }
           
                 let sortedWishList = wishList.sorted()
-                cell2.label.text = sortedWishList[indexPath.item]
-                cell2.xbutton.isHidden = false
-            cell2.customView.layer.borderColor = UIColor.setBrandColor(color: .green).cgColor
-                return cell2
-            
+                cell3.label.text = sortedWishList[indexPath.item]
+//                    cell2.xbutton.isHidden = false
+            cell3.customView.layer.borderColor = UIColor.setBrandColor(color: .green).cgColor
+                return cell3
+        default:
+            return UICollectionViewCell()
         }
         return UICollectionViewCell()
     }
@@ -309,11 +356,11 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         }
     }
     
-    //셀 재사용..?
-    func setCell(collectionView: UICollectionView, indexPath: IndexPath) -> SearchCollecitionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return SearchCollecitionViewCell() }
-        
-        return cell
-    }
+//    //셀 재사용..?
+//    func setCell(collectionView: UICollectionView, indexPath: IndexPath) -> SearchCollecitionViewCell {
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return SearchCollecitionViewCell() }
+//
+//        return cell
+//    }
 }
  
