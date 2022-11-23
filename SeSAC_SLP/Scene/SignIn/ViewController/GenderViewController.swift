@@ -90,7 +90,9 @@ class GenderViewController: BaseViewController {
             .bind { vc, error in
                 switch error {
                 case .Success:
-                    vc.setInitialViewController(to: HomeMapViewController())
+                    let viewcontroller = HomeMapViewController()
+                    vc.setInitialViewController(to: viewcontroller)
+                    vc.deleteUserDefaults()
                 case .FirebaseTokenError:
                     FirebaseManager.shared.getIDTokenForcingRefresh()
                     // 사용자에게 이렇게 요청하는게 맞는걸까
@@ -115,11 +117,11 @@ class GenderViewController: BaseViewController {
     }
 
 //    
-//    func deleteUserDefaults() {
-//        for key in 1...(UserDaultsKey.allCases.count - 1) {
-//            UserDefaults.standard.removeObject(forKey: UserDaultsKey.allCases[key].rawValue)
-//        }
-//            
-//    }
+    func deleteUserDefaults() {
+        for key in 1...(UserDaultsKey.allCases.count - 1) {
+            UserDefaults.standard.removeObject(forKey: UserDaultsKey.allCases[key].rawValue)
+        }
+            
+    }
     
 }

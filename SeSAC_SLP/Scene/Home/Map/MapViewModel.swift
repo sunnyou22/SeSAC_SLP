@@ -53,6 +53,7 @@ class MapViewModel {
                 
                 switch myQueueStatus {
                 case .Success:
+                    print("reponse를 정상적으로 받은 뒤 에러 🔴")
                     self?.matchingStatus.accept(.Success)
                 case .defaultStatus:
                     self?.matchingStatus.accept(.defaultStatus)
@@ -70,6 +71,7 @@ class MapViewModel {
             }
             print("getMatchStatus🚀\n", data.matched ?? 100, data)
             // 서버에서 매칭상태 받아오기
+            self?.matchingStatus.accept(.Success)
             MapViewModel.ploatingButtonSet.accept(.init(rawValue: data.matched ?? 2)!)
         }
     }

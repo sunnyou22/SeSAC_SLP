@@ -40,6 +40,7 @@ class SetMyInfoViewModel {
                 
                 switch userStatus {
                 case .Success:
+                    print("reponse를 정상적으로 받은 뒤 에러 🔴")
                     self?.userStatus.accept(.Success)
                 case .SignInUser:
                     self?.userStatus.accept(.SignInUser)
@@ -58,6 +59,7 @@ class SetMyInfoViewModel {
                 print("포스트 실패 🔴", #function)
                 return
             }
+            self?.userStatus.accept(.Success)
             print(data, "포스트 성공 ✅", #function)
         }
     }

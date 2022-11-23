@@ -46,7 +46,7 @@ class LaunchScreenViewController: UIViewController {
                 transition.duration = 3
         sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
         //분기처리
-        
+        UserDefaults.standard.removeObject(forKey: "idtoken")
         guard let idtoken = UserDefaults.idtoken else {
             let onboardingViewController = OnboardingViewController()
             sceneDelegate?.window?.rootViewController = onboardingViewController
@@ -55,9 +55,6 @@ class LaunchScreenViewController: UIViewController {
         }
         
         print(idtoken)
-        
-        
-        //        UserDefaults.standard.removeObject(forKey: "idtoken")
         
         self.commonSerVerModel.USerInfoNetwork(idtoken: idtoken)
     
@@ -69,24 +66,22 @@ class LaunchScreenViewController: UIViewController {
                 print(value, " =============")
                 switch value {
                 case .SignInUser:
-                    let signViewController = SearchViewController()
-                    let nav = UINavigationController(rootViewController: signViewController)
-                    sceneDelegate?.window?.rootViewController = nav
-                    sceneDelegate?.window?.makeKeyAndVisible()
-                    return
+                  print("201 안불려지는 메서드")
                 case .InvaliedNickName:
                     print("InvaliedNickName // 온보딩에서 필요없는 코드")
                 case .Success:
-                    let homeVC = HomeMapViewController()
-                    let nav = UINavigationController(rootViewController: homeVC)
+                    let SignInVC = HomeMapViewController()
+                    let nav = UINavigationController(rootViewController: SignInVC)
                     sceneDelegate?.window?.rootViewController = nav
                     sceneDelegate?.window?.makeKeyAndVisible()
                     print("기존 유저 정보를 받아 홈화면으로 진입 🟢")
                 case .FirebaseTokenError:
                     print("401")
-                    self?.commonSerVerModel.USerInfoNetwork(idtoken: idtoken) // 이부분 확인하기
+                    //앱을 재시작할 수 있나
+//                    self?.commonSerVeModel.USerInfoNetwork(idtoken: idtoken) // 이부분 확인하기
                 case .NotsignUpUser:
                     let nickNameViewController = NicknameViewController()
+                    // 나중에 탈퇴이력에 대한 분리처리 추가하기
                     let nav = UINavigationController(rootViewController: nickNameViewController)
                     sceneDelegate?.window?.rootViewController = nav
                     sceneDelegate?.window?.makeKeyAndVisible()

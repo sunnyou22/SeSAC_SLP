@@ -115,6 +115,7 @@ final class SignInViewModel {
                 
                 switch userStatus {
                 case .Success:
+                    print("reponse를 정상적으로 받은 뒤 에러 🔴")
                     self?.userStatus.accept(.Success)
                 case .SignInUser:
                     self?.userStatus.accept(.SignInUser)
@@ -134,6 +135,7 @@ final class SignInViewModel {
             }
             
             print(data)
+            self?.userStatus.accept(.Success)
             print("회원가입성공 ✅")
         }
     }

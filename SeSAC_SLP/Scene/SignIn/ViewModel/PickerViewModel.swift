@@ -11,6 +11,7 @@ import RxSwift
 
 final class PickerViewModel {
     var buttonValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var dataTrigger: BehaviorRelay<Date> = BehaviorRelay(value: UserDefaults.date ?? Date())
 //    let yearTextField: BehaviorRelay<String> = BehaviorRelay(value: "")
 //    let monthTextField: BehaviorRelay<String> = BehaviorRelay(value: "")
     let dateTextField: BehaviorRelay<Date> = BehaviorRelay(value: UserDefaults.date ?? Date())
@@ -30,6 +31,8 @@ final class PickerViewModel {
         
         return today >= birthDay
     }
+    
+    
 }
 
 

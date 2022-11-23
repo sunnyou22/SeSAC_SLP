@@ -35,11 +35,7 @@ class BirthDayViewController: BaseViewController {
         print(UserDefaults.date," 🟢", #function)
         setUserDefaultDate()
     }
-    
-    deinit {
-        print(UserDefaults.date, "✅✅✅✅✅")
-    }
-    
+  
     func setUserDefaultDate() {
         mainView.yearView.datePiceker.date = UserDefaults.date ?? Date()
         mainView.monthView.datePiceker.date = UserDefaults.date ?? Date()
@@ -52,29 +48,40 @@ class BirthDayViewController: BaseViewController {
             .date
             .withUnretained(self)
             .bind { vc, date in
-                vc.setDateFormatter(date: date)
+//                vc.setDateFormatter(date: date)
                 UserDefaults.date = date
                 vc.viewModel.buttonValid.accept(vc.viewModel.checkValidAge(date: date))
+                vc.viewModel.dataTrigger.accept(date)
             }.disposed(by: disposedBag)
         
         mainView.monthView.datePiceker.rx
             .date
             .withUnretained(self)
             .bind { vc, date in
-                vc.setDateFormatter(date: date)
+//                vc.setDateFormatter(date: date)
                 UserDefaults.date = date
+                vc.viewModel.dataTrigger.accept(date)
                 vc.viewModel.buttonValid.accept(vc.viewModel.checkValidAge(date: date))
             }.disposed(by: disposedBag)
         
         mainView.dateView.datePiceker.rx
             .date
             .withUnretained(self)
-            .bind { vc, date in
-                vc.setDateFormatter(date: date)
+            .asDriver(onErrorJustReturn: (self, Date()))
+            .drive(onNext: { vc, date in
+//                vc.setDateFormatter(date: date)
                 UserDefaults.date = date
+                vc.viewModel.dataTrigger.accept(date)
                 vc.viewModel.buttonValid.accept(vc.viewModel.checkValidAge(date: date))
-            }.disposed(by: disposedBag)
+            })
+            .disposed(by: disposedBag)
         
+        viewModel.dataTrigger
+            .withUnretained(self)
+            .bind { vc, date in
+                vc.mainView.dateView.datePiceker.date = UserDefaults.date ?? Date()
+                vc.setDateFormatter(date: date)
+            }.disposed(by: disposedBag)
     }
     
     func setDateFormatter(date: Date) {

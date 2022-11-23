@@ -52,6 +52,7 @@ final class CommonServerManager {
                 return
             }
             //성공
+            self?.userStatus.accept(.Success)
             print("로그인 성공 혹은 유저 정보가져오기 성공 ✅", data)
             UserDefaults.getUerIfo = [data]
         }
@@ -70,6 +71,7 @@ final class CommonServerManager {
                 switch queueSearchStatus {
                     
                 case .Success:
+                    print("reponse를 정상적으로 받은 뒤 에러 🔴")
                     self?.queueSearchStatus.accept(.Success)
                 case .FirebaseTokenError:
                     FirebaseManager.shared.getIDTokenForcingRefresh()
@@ -86,6 +88,7 @@ final class CommonServerManager {
             print("맵 좌표값에 대한 응답값 받기 성공 ✅")
             dump(data)
             UserDefaults.searchData = [data]
+            self?.queueSearchStatus.accept(.Success)
             print(UserDefaults.searchData, " 🔴 🔴 🔴 인코딩이 잘 됐나요~")
         }
     }
