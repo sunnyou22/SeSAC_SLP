@@ -32,35 +32,13 @@ class SetMyInfoViewModel {
         
         let api = SeSACAPI.setMypage(searchable: searchable, ageMin: ageMin, ageMax: ageMax, gender: gender, study: study)
         
-        Network.shared.requestSeSAC(type: SetUserInfo.self, url: api.url, parameter: api.parameter, method: .put, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
+        Network.shared.sendRequestSeSAC(url: api.url, parameter: api.parameter, method: .put, headers: api.getheader(idtoken: idtoken)) { [weak self] statusCode  in
             
-            guard let data = data else {
-                print("userData 가져오기 실패 🔴")
-                guard let userStatus = UserStatus(rawValue: statusCode) else { return }
-                
-                switch userStatus {
-                case .Success:
-                    print("reponse를 정상적으로 받은 뒤 에러 🔴")
-                    self?.userStatus.accept(.Success)
-                case .SignInUser:
-                    self?.userStatus.accept(.SignInUser)
-                case .InvaliedNickName:
-                    self?.userStatus.accept(.InvaliedNickName)
-                case .FirebaseTokenError:
-                    FirebaseManager.shared.getIDTokenForcingRefresh()
-                    self?.userStatus.accept(.FirebaseTokenError)
-                case .NotsignUpUser:
-                    self?.userStatus.accept(.NotsignUpUser)
-                case .ServerError:
-                    self?.userStatus.accept(.ServerError)
-                case .ClientError:
-                    self?.userStatus.accept(.ClientError)
-                }
-                print("포스트 실패 🔴", #function)
-                return
-            }
-            self?.userStatus.accept(.Success)
-            print(data, "포스트 성공 ✅", #function)
+                guard let userStatus = UserStatus(rawValue: statusCode) else {
+                    print("포스트 실패 🔴", #function)
+                    return }
+            self?.userStatus.accept(userStatus)
+            print("포스트 성공 ✅", #function)
         }
     }
 }

@@ -19,6 +19,7 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 import RxKeyboard
+import RxGesture
 
 
 //MARK: - 헤더
@@ -129,14 +130,14 @@ class SearchViewController: BaseViewController {
         }
         
         //앞에서 사용자의 현위치 값전달
-        guard let currentLocation = currentLocation else {
-            print("사용자의 위치를 받아올 수 없음 🔴", #function)
-            return
-        }
+//        guard let currentLocation = currentLocation else {
+//            print("사용자의 위치를 받아올 수 없음 🔴", #function)
+//            return
+//        }
         
         //유저디폴츠 UserDefaults.searchData에 값을 넣어주고 있음
         commonAPIviewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
-        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(wishList), "\n ", UserDefaults.searchData)
+//        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(wishList), "\n ", UserDefaults.searchData)
     }
     
     //MARK: - bindUI
@@ -145,9 +146,7 @@ class SearchViewController: BaseViewController {
         //키보드 높이 받아오기
         RxKeyboard.instance.willShowVisibleHeight
             .drive(onNext: { [weak self] height in
-                
                 guard let self = self else { return }
-                
                 let height = height > 0 ? -height + (self.mainView.safeAreaInsets.bottom) : 0
                 self.mainView.searchButton.snp.updateConstraints { make in
                     make.bottom.equalTo(self.mainView.safeAreaLayoutGuide).offset(height)
@@ -156,6 +155,24 @@ class SearchViewController: BaseViewController {
                 
                 self.mainView.layoutIfNeeded()
             }).disposed(by: disposedBag)
+        
+        //키보드 숨기기
+        RxKeyboard.instance.isHidden
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] bool in
+                if bool {
+                    guard let self = self else { return }
+                       self.mainView.searchButton.snp.updateConstraints { make in
+                           make.horizontalEdges.equalTo(self.mainView).inset(16)
+                           make.bottom.equalTo(self.mainView.safeAreaLayoutGuide).offset(-16)
+                           make.height.equalTo(48)
+                       }
+                       
+                       self.mainView.layoutIfNeeded()
+                   }
+            }).disposed(by: disposedBag)
+            
+        
         //되는지 실험해봐야함
         searchBar.rx.textDidEndEditing
             .bind { [weak self] _ in
@@ -166,28 +183,29 @@ class SearchViewController: BaseViewController {
             .tap
             .withUnretained(self)
             .bind { vc, _ in
-                //                vc.transition(TabmanViewController(), .push)
-                
-                guard let currentLocation = vc.currentLocation else {
-                    print("사용자의 위치를 받아올 수 없음 🔴", #function)
-                    return
-                }
-                
+          //다음화면 이동 코드 필요
+//                guard let currentLocation = vc.currentLocation else {
+//                    print("사용자의 위치를 받아올 수 없음 🔴", #function)
+//                    return
+//                }
+//
                 guard let idtoken = UserDefaults.idtoken else {
-                    print("itocken만료")
+                    print("itocken만료 🔴")
                     return
                 }
-                print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(vc.wishList))
-                vc.viewModel.searchSeSACMate(lat: currentLocation.latitude, long: currentLocation.longitude, studylist: Array(vc.wishList), idtoken: idtoken)
+//                print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(vc.wishList))
+                
+                print(vc.sesacCoordinate.latitude, vc.sesacCoordinate.longitude, Array(vc.wishList), "############")
+                
+                vc.viewModel.searchSeSACMate(lat: vc.sesacCoordinate.latitude, long: vc.sesacCoordinate.longitude, studylist: Array(vc.wishList), idtoken: idtoken)
             }.disposed(by: disposedBag)
-        //
-        //        searchBar.rx
-        //            .textDidBeginEditing
-        //            .asDriver()
-        //            .drive { _ in
-        //                showSearchToolBar()
-        //            }
-        //
+      
+        mainView.rx.tapGesture()
+            .when(.recognized)
+            .asDriver{ _ in .never() }
+            .drive { [weak self] _ in
+                self?.searchBar.resignFirstResponder()
+            }.disposed(by: disposedBag)
     }
     
     func showSearchToolBar() {
@@ -215,11 +233,11 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         showSearchToolBar()
-        guard let currentLocation = currentLocation else {
-            print("사용자의 위치를 받아올 수 없음 🔴", #function)
-            return
-        }
-        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(wishList))
+//        guard let currentLocation = currentLocation else {
+//            print("사용자의 위치를 받아올 수 없음 🔴", #function)
+//            return
+//        }
+//        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude,  Array(wishList))
     }
 }
 
@@ -232,7 +250,6 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            
             if indexPath.section == 0 {
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SearchHeaderView", for: indexPath) as! SearchHeaderView
                 header.label.text = Section.allCases[indexPath.section].title
@@ -254,14 +271,13 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
-        
+        guard let searchData = UserDefaults.searchData else {
+            print("searchData없음🔴")
+            return  UICollectionViewCell() }
         if indexPath.section == 0 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
             // 강제해제 연산자 하면 안됨 주변에 없을 수도 있기 때a뭄ㄴ
-            guard let searchData = UserDefaults.searchData else {
-                print("searchData없음🔴")
-                
-                return  UICollectionViewCell() }
+
             //fromRecommend.count
             if indexPath.row <= 1 {
                 cell.label.text = dumy[indexPath.item]
@@ -271,15 +287,18 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
             } else if indexPath.row >  1 {
                 cell.label.text = dumy[indexPath.item]
                 cell.xbutton.isHidden = true
-                cell.customView.layer.borderColor = UIColor.setStatus(color: .error).cgColor // 색 바꾸기
+                cell.customView.layer.borderColor = UIColor.setBaseColor(color: .black).cgColor // 색 바꾸기
             }
-            
             return cell
         } else if indexPath.section == 1 {
-            let sortedWishList = wishList.sorted()
-            cell.label.text = sortedWishList[indexPath.item]
-            cell.xbutton.isHidden = false
-            return cell
+            guard let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
+          
+                let sortedWishList = wishList.sorted()
+                cell2.label.text = sortedWishList[indexPath.item]
+                cell2.xbutton.isHidden = false
+            cell2.customView.layer.borderColor = UIColor.setBrandColor(color: .green).cgColor
+                return cell2
+            
         }
         return UICollectionViewCell()
     }

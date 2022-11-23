@@ -22,7 +22,7 @@ enum SeSACAPI {
     case searchSurroundings(lat: Double, long: Double)
     case setMypage(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
     case matchingStatus
-    case search(lat: Double, long: Double, studylist: [String])
+    case search(lat: Double, lon: Double, studylist: [String])
 }
 
 extension SeSACAPI {
@@ -89,9 +89,9 @@ extension SeSACAPI {
             ]
         case .matchingStatus:
             return nil
-        case .search(let lat, let long, let studylist):
+        case .search(let lat, let lon, let studylist):
             return [
-                "long": long,
+                "long": lon,
                 "lat": lat,
                 "studylist": studylist
             ]

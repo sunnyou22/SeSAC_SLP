@@ -43,6 +43,7 @@
 		902B102C291C542700D03C0E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102B291C542700D03C0E /* FirebaseAuth */; };
 		902B102E291C542700D03C0E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102D291C542700D03C0E /* FirebaseCrashlytics */; };
 		902B1030291C542700D03C0E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102F291C542700D03C0E /* FirebaseMessaging */; };
+		9051720A292E207400DDBC13 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 90517209292E207400DDBC13 /* RxGesture */; };
 		9066125729267A3100320F21 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066125629267A3100320F21 /* SearchCollectionViewCell.swift */; };
 		9066125A29275E4A00320F21 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9066125929275E4A00320F21 /* RxCocoa */; };
 		9066125C29275E4A00320F21 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9066125B29275E4A00320F21 /* RxSwift */; };
@@ -195,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9066125C29275E4A00320F21 /* RxSwift in Frameworks */,
+				9051720A292E207400DDBC13 /* RxGesture in Frameworks */,
 				9082F8E6292ACCAD0085D4BB /* RxKeyboard in Frameworks */,
 				902B1030291C542700D03C0E /* FirebaseMessaging in Frameworks */,
 				9066125F29275ED100320F21 /* RxCoreLocation in Frameworks */,
@@ -547,6 +549,7 @@
 				9066125E29275ED100320F21 /* RxCoreLocation */,
 				9066126129275F4700320F21 /* RxMKMapView */,
 				9082F8E5292ACCAD0085D4BB /* RxKeyboard */,
+				90517209292E207400DDBC13 /* RxGesture */,
 			);
 			productName = SeSAC_SLP;
 			productReference = 902B0FA62918BC1C00D03C0E /* SeSAC_SLP.app */;
@@ -585,6 +588,7 @@
 				9066125D29275ED100320F21 /* XCRemoteSwiftPackageReference "RxCoreLocation" */,
 				9066126029275F4700320F21 /* XCRemoteSwiftPackageReference "RxMKMapView" */,
 				9082F8E4292ACCAD0085D4BB /* XCRemoteSwiftPackageReference "RxKeyboard" */,
+				90517208292E207400DDBC13 /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			productRefGroup = 902B0FA72918BC1C00D03C0E /* Products */;
 			projectDirPath = "";
@@ -948,6 +952,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		90517208292E207400DDBC13 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		9066125829275E4A00320F21 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -1020,6 +1032,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 902B1028291C542700D03C0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		90517209292E207400DDBC13 /* RxGesture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90517208292E207400DDBC13 /* XCRemoteSwiftPackageReference "RxGesture" */;
+			productName = RxGesture;
 		};
 		9066125929275E4A00320F21 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;

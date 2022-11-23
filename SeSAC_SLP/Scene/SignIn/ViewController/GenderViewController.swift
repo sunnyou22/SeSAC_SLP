@@ -90,6 +90,7 @@ class GenderViewController: BaseViewController {
             .bind { vc, error in
                 switch error {
                 case .Success:
+                    print("회원가입성공 ✅")
                     let viewcontroller = HomeMapViewController()
                     vc.setInitialViewController(to: viewcontroller)
                     vc.deleteUserDefaults()

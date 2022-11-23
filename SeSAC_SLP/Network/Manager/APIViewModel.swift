@@ -25,71 +25,40 @@ final class CommonServerManager {
     func USerInfoNetwork(idtoken: String) {
         let api = SeSACAPI.getUserInfo
         
-        Network.shared.requestSeSAC(type: GetUerIfo.self, url: api.url, parameter: nil, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
+        Network.shared.receiveRequestSeSAC(type: GetUerIfo.self, url: api.url, parameter: nil, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
+            
+            guard let userStatus = UserStatus(rawValue: statusCode) else { return }
+            self?.userStatus.accept(userStatus)
             
             guard let data = data else {
                 print("userData 가져오기 실패 🔴")
-                
-                guard let userStatus = UserStatus(rawValue: statusCode) else { return }
-                
-                switch userStatus {
-                case .Success:
-                    self?.userStatus.accept(.Success)
-                case .SignInUser:
-                    self?.userStatus.accept(.SignInUser)
-                case .InvaliedNickName:
-                    self?.userStatus.accept(.InvaliedNickName)
-                case .FirebaseTokenError:
-                    self?.userStatus.accept(.FirebaseTokenError)
-                    FirebaseManager.shared.getIDTokenForcingRefresh()
-                case .NotsignUpUser:
-                    self?.userStatus.accept(.NotsignUpUser)
-                case .ServerError:
-                    self?.userStatus.accept(.ServerError)
-                case .ClientError:
-                    self?.userStatus.accept(.ClientError)
-                }
                 return
             }
-            //성공
-            self?.userStatus.accept(.Success)
+            
             print("로그인 성공 혹은 유저 정보가져오기 성공 ✅", data)
+            
+            //성공
             UserDefaults.getUerIfo = [data]
         }
     }
     
-    // 공통요소로 빼기 -> 위치가 이동할 때마다 호출해줘야함
+    // 공통요소로 빼기 -> /v1/queue/search, 위치가 이동할 때, 검색화면에서 최초 주변 유저정보를 받아올 때
     func fetchMapData(lat: Double, long: Double, idtoken: String) {
         let api = SeSACAPI.searchSurroundings(lat: lat, long: long)
-        Network.shared.requestSeSAC(type: SearchSurroundings.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] data , statusCode  in
+        Network.shared.receiveRequestSeSAC(type: SearchSurroundings.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] data , statusCode  in
+            
+            guard let queueSearchStatus = QueueSearchStatus(rawValue: statusCode) else { return }
+           
+            self?.queueSearchStatus.accept(queueSearchStatus)
             
             guard let data = data else {
-                print("맵 좌표값 받기 에러 🔴", #file, #function)
-                
-                guard let queueSearchStatus = QueueSearchStatus(rawValue: statusCode) else { return }
-                
-                switch queueSearchStatus {
-                    
-                case .Success:
-                    print("reponse를 정상적으로 받은 뒤 에러 🔴")
-                    self?.queueSearchStatus.accept(.Success)
-                case .FirebaseTokenError:
-                    FirebaseManager.shared.getIDTokenForcingRefresh()
-                    self?.queueSearchStatus.accept(.FirebaseTokenError)
-                case .NotsignUpUser:
-                    self?.queueSearchStatus.accept(.NotsignUpUser)
-                case .ServerError:
-                    self?.queueSearchStatus.accept(.ServerError)
-                case .ClientError:
-                    self?.queueSearchStatus.accept(.ClientError)
-                }
+                print("맵 좌표값에 대한 응답값 받기 에러 🔴", #file, #function)
                 return
             }
             print("맵 좌표값에 대한 응답값 받기 성공 ✅")
             dump(data)
             UserDefaults.searchData = [data]
-            self?.queueSearchStatus.accept(.Success)
-            print(UserDefaults.searchData, " 🔴 🔴 🔴 인코딩이 잘 됐나요~")
+            print(UserDefaults.searchData, "UserDefaults.searchData 🔴 🔴 🔴 디토뒹 잘 됐나요~")
         }
     }
 }

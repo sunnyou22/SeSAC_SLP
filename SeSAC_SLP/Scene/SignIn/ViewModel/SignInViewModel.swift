@@ -39,7 +39,7 @@ final class SignInViewModel {
         }
     }
     
-  
+    
     @discardableResult
     func changeTextfieldPattern(num: String) -> String {
         let rawnum = num.applyPatternOnNumbers(pattern: "###########", replacmentCharacter: "#")
@@ -84,9 +84,8 @@ final class SignInViewModel {
         LoadingIndicator.showLoading()
         FirebaseManager.shared.verifyPhoneNumber(rawnum) { [weak self] response in
             switch response {
-               
+                
             case .success:
-              
                 self?.authPhoneNumResult.accept(.success)
             case .otherError:
                 LoadingIndicator.hideLoading()
@@ -98,7 +97,7 @@ final class SignInViewModel {
                 LoadingIndicator.hideLoading()
                 self?.authPhoneNumResult.accept(.tooManyRequests)
             }
-           
+            
         }
     }
     
@@ -107,38 +106,15 @@ final class SignInViewModel {
         
         let api = SeSACAPI.signUp(phoneNumber: phoneNumber, FCMtoken: FCMtoken, nick: nick, birth: birth, email: email, gender: gender)
         
-        Network.shared.requestSeSAC(type: SignUp.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
+        Network.shared.sendRequestSeSAC(url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] statusCode  in
             
-            guard let data = data else {
-                print("회원가입 에러 🔴")
-                guard let userStatus = UserStatus(rawValue: statusCode) else { return }
-                
-                switch userStatus {
-                case .Success:
-                    print("reponse를 정상적으로 받은 뒤 에러 🔴")
-                    self?.userStatus.accept(.Success)
-                case .SignInUser:
-                    self?.userStatus.accept(.SignInUser)
-                case .InvaliedNickName:
-                    self?.userStatus.accept(.InvaliedNickName)
-                case .FirebaseTokenError:
-                    FirebaseManager.shared.getIDTokenForcingRefresh()
-                    self?.userStatus.accept(.FirebaseTokenError)
-                case .NotsignUpUser:
-                    self?.userStatus.accept(.NotsignUpUser)
-                case .ServerError:
-                    self?.userStatus.accept(.ServerError)
-                case .ClientError:
-                    self?.userStatus.accept(.ClientError)
-                }
-                return
-            }
+            guard let userStatus = UserStatus(rawValue: statusCode) else { return }
+            self?.userStatus.accept(userStatus)
             
-            print(data)
-            self?.userStatus.accept(.Success)
-            print("회원가입성공 ✅")
+            return
         }
     }
 }
+
 
 

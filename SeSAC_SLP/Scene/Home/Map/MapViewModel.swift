@@ -43,35 +43,16 @@ class MapViewModel {
     func getMatchStatus(idtoken: String) {
         let api = SeSACAPI.matchingStatus
         
-        Network.shared.requestSeSAC(type: MatchStatus.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
+        Network.shared.receiveRequestSeSAC(type: MatchStatus.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
             
+            guard let myQueueStatus = MyQueueStatus(rawValue: statusCode) else { return }
+            self?.matchingStatus.accept(myQueueStatus)
+       
             guard let data = data else {
                 print("MatchStatus 가져오기 실패 🔴")
-                MapViewModel.ploatingButtonSet.accept(.defaults)
-                
-                guard let myQueueStatus = MyQueueStatus(rawValue: statusCode) else { return }
-                
-                switch myQueueStatus {
-                case .Success:
-                    print("reponse를 정상적으로 받은 뒤 에러 🔴")
-                    self?.matchingStatus.accept(.Success)
-                case .defaultStatus:
-                    self?.matchingStatus.accept(.defaultStatus)
-                case .FirebaseTokenError:
-                    FirebaseManager.shared.getIDTokenForcingRefresh()
-                    self?.matchingStatus.accept(.FirebaseTokenError)
-                case .NotsignUpUser:
-                    self?.matchingStatus.accept(.NotsignUpUser)
-                case .ServerError:
-                    self?.matchingStatus.accept(.ServerError)
-                case .ClientError:
-                    self?.matchingStatus.accept(.ClientError)
-                }
                 return
             }
-            print("getMatchStatus🚀\n", data.matched ?? 100, data)
-            // 서버에서 매칭상태 받아오기
-            self?.matchingStatus.accept(.Success)
+            print("getMatchStatus🚀\n", data.matched ?? 100, data, myQueueStatus)
             MapViewModel.ploatingButtonSet.accept(.init(rawValue: data.matched ?? 2)!)
         }
     }

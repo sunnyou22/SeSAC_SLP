@@ -89,6 +89,6 @@ struct MatchStatus: Codable {
 
 // MARK: - Search
 struct Search: Codable {
-    let long, lat: Double?
-    let studylist: [String]?
+    let long, lat: Double
+    let studylist: [String]
 }
