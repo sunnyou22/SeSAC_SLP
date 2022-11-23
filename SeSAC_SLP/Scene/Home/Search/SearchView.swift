@@ -5,13 +5,36 @@
 //  Created by 방선우 on 2022/11/17.
 //
 
+
+ class DynamicCollectionView: UICollectionView {
+     override var intrinsicContentSize: CGSize {
+       return self.contentSize
+     }
+
+     override var contentSize: CGSize {
+       didSet {
+           self.invalidateIntrinsicContentSize()
+       }
+     }
+ }
+ 
+
 import UIKit
 import SnapKit
 
-class SearchView: BaseScrollView {
+class SearchView: BaseView {
     
     lazy var accessoryView: UIView = {
         return UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: 80))
+    }()
+    
+    let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.backgroundColor = .setBaseColor(color: .black)
+        view.isPagingEnabled = true
+        view.isScrollEnabled = true
+       
+       return view
     }()
     
     let searchButton: UIButton = {
@@ -23,24 +46,23 @@ class SearchView: BaseScrollView {
         return view
     }()
     
-    lazy var topCollectionView: UICollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
+    lazy var topCollectionView: DynamicCollectionView = {
+        let view = DynamicCollectionView(frame: .zero, collectionViewLayout: topCollectionViewViewLayout())
         view.register(TopSearchCollecitionViewCell.self, forCellWithReuseIdentifier: TopSearchCollecitionViewCell.reuseIdentifier)
-        view.backgroundColor = .cyan
+        view.backgroundColor = .black
         return view
     }()
     
-    lazy var secondCollectionView: UICollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout2())
+    lazy var secondCollectionView: DynamicCollectionView = {
+        let view = DynamicCollectionView(frame: .zero, collectionViewLayout: secondCollectionViewLayout())
         view.register(SecondSearchCollecitionViewCell.self, forCellWithReuseIdentifier: SecondSearchCollecitionViewCell.reuseIdentifier)
-        view.backgroundColor = .cyan
+        view.backgroundColor = .blue
         return view
     }()
     
     lazy var stackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [topCollectionView, secondCollectionView])
         view.axis = .vertical
-        view.spacing = 8
         view.distribution = .fillEqually
         view.backgroundColor = .green
         return view
@@ -63,25 +85,32 @@ class SearchView: BaseScrollView {
     override func configure() {
         accessoryView.addSubview(searchButton)
         contentView.addSubview(stackView)
-        [contentView, searchButton].forEach { self.addSubview($0)  }
+        scrollView.addSubview(contentView)
+        [scrollView, searchButton].forEach { self.addSubview($0)  }
     }
     
     override func setConstraints() {
         
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(self.safeAreaLayoutGuide)
+        }
+        
         topCollectionView.snp.makeConstraints { make in
             make.width.equalToSuperview()
-            make.height.equalTo(topCollectionView.contentSize.height)
+            make.height.greaterThanOrEqualTo(100)
         }
         
         secondCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(topCollectionView.snp.bottom).offset(topCollectionView.contentSize.height)
+            make.top.equalTo(topCollectionView.snp.bottom)
             make.width.equalToSuperview()
-            make.height.equalTo(topCollectionView.contentSize.height)
+            make.height.greaterThanOrEqualTo(100)
         }
         
         contentView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(self.safeAreaLayoutGuide)
-            make.bottom.equalTo(searchButton.snp.top)
+            make.verticalEdges.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(stackView.snp.height)
         }
         
         stackView.snp.makeConstraints { make in
@@ -99,127 +128,76 @@ class SearchView: BaseScrollView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func configureCollectionViewLayout2() -> UICollectionViewLayout {
+   
+    func topCollectionViewViewLayout() -> UICollectionViewLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         
-        return UICollectionViewCompositionalLayout.init(sectionProvider: { sectionIndex, environment in
-            let searchSection = Section(rawValue: sectionIndex)
-           
-                //아이템
-                let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(60), heightDimension: .absolute(32))
-                
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                item.edgeSpacing = .init(leading: .none, top: .fixed(8), trailing: .none, bottom: .none)
-                
-                // 그룹
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(32))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                group.interItemSpacing = .fixed(8)
-                
-                // 섹션
-                let section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = 12
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 76, trailing: 16)
-                
-                configuration.scrollDirection = .vertical
-                
-                let headersize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
-                let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headersize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-                
-                section.boundarySupplementaryItems = [header]
-                
-                
-                return section
-        }, configuration: configuration)
-    }
-    
-    
-    
-    func configureCollectionViewLayout() -> UICollectionViewLayout {
-        let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        
-        return UICollectionViewCompositionalLayout.init(sectionProvider: { sectionIndex, environment in
+        return UICollectionViewCompositionalLayout.init(sectionProvider: { [weak self] sectionIndex, environment in
             
-            let searchSection = Section(rawValue: sectionIndex)
+            let searchSection = AroundSection(rawValue: sectionIndex)
             
             switch searchSection {
             case .quo:
-                //아이템
-                let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(60), heightDimension: .absolute(32))
-                
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                item.edgeSpacing = .init(leading: .none, top: .fixed(8), trailing: .none, bottom: .none)
-                
-                // 그룹
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(32))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                group.interItemSpacing = .fixed(8)
-                
-                // 섹션
-                let section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = 12
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 76, trailing: 16)
-                
-                let headersize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
-                let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headersize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-                
-                section.boundarySupplementaryItems = [header]
-                
-                configuration.scrollDirection = .vertical
-                
-                return section
+                return self?.defaultLayout()
             case .wish:
-                //아이템
-                let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(60), heightDimension: .absolute(32))
-                
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                item.edgeSpacing = .init(leading: .none, top: .fixed(8), trailing: .none, bottom: .none)
-                
-                // 그룹
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(32))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                group.interItemSpacing = .fixed(8)
-                
-                // 섹션
-                let section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = 12
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 76, trailing: 16)
-                
-                configuration.scrollDirection = .vertical
-                
-                let headersize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
-                let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headersize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-                
-                section.boundarySupplementaryItems = [header]
-                
-                return section
+                return self?.setWithoutHeaderdefaultLayout()
             case .none:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(60), heightDimension: .absolute(32))
-                
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                item.edgeSpacing = .init(leading: .none, top: .fixed(8), trailing: .none, bottom: .none)
-                
-                // 그룹
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(32))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                group.interItemSpacing = .fixed(8)
-                
-                // 섹션
-                let section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = 12
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 76, trailing: 16)
-                
-                configuration.scrollDirection = .vertical
-                
-                let headersize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
-                let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headersize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-                
-                section.boundarySupplementaryItems = [header]
-                
-                return section
+                return self?.defaultLayout()
             }
         }, configuration: configuration)
+    }
+    
+    func secondCollectionViewLayout() -> UICollectionViewLayout {
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        
+        return UICollectionViewCompositionalLayout.init(sectionProvider: { [weak self] sectionIndex, environment in
+            return self?.defaultLayout()
+        }, configuration: configuration)
+    }
+    
+    // 공통으로 쓰이는 섹션 레이아웃
+    func defaultLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(60), heightDimension: .absolute(32))
+        //아이템
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.edgeSpacing = .init(leading: .none, top: .fixed(8), trailing: .none, bottom: .none)
+        
+        // 그룹
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(32))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.interItemSpacing = .fixed(8)
+        
+        // 섹션
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 12
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 76, trailing: 16)
+        
+        let headersize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headersize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        
+        section.boundarySupplementaryItems = [header]
+        
+        return section
+    }
+    
+    // 공통으로 쓰이는 섹션 레이아웃
+    func setWithoutHeaderdefaultLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(60), heightDimension: .absolute(32))
+        //아이템
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.edgeSpacing = .init(leading: .none, top: .fixed(8), trailing: .none, bottom: .none)
+        
+        // 그룹
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(32))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.interItemSpacing = .fixed(8)
+        
+        // 섹션
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 12
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 76, trailing: 16)
+    
+        return section
     }
 }
     

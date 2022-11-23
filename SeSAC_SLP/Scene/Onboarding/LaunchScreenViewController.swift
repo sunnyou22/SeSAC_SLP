@@ -58,7 +58,7 @@ class LaunchScreenViewController: UIViewController {
         //데이터 통신이 끝난 이후 불러지는 코드인데
         self.commonSerVerModel.userStatus
             .asDriver(onErrorJustReturn: (.InvaliedNickName))
-            .drive(onNext: { [weak self] value in
+            .drive(onNext: { value in
                 print(value, " =============")
                 switch value {
                 case .SignInUser:

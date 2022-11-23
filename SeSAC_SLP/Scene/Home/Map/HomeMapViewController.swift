@@ -247,13 +247,32 @@ class HomeMapViewController: BaseViewController {
                     if let coordinate = value.locations.last?.coordinate {
                         
                         // 현재 위치의 반경을 700으로 정해주기
-                        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 700, longitudinalMeters: 700)
+                        let region = MKCoordinateRegion(center: vc.sesacCoordinate, latitudinalMeters: 700, longitudinalMeters: 700)
                         vc.mainView.mapView.setRegion(region, animated: true)
-                        vc.mainView.mapView.addAnnotations(vc.viewModel.addAnnotations())
+                        vc.mainView.mapView.addAnnotations(addAnnotations())
+//                        vc.mainView.mapView.addAnnotations(vc.viewModel.addAnnotations()) // 찐
                     }
                 }
             })
             .disposed(by: disposedBag)
+        
+        //test용
+        func addAnnotations() -> [MKPointAnnotation] {
+            
+            let UserData = UserDefaults.searchData
+            var annotations = [MKPointAnnotation]()
+          
+            let center = CLLocationCoordinate2D(latitude: sesacCoordinate.latitude, longitude: sesacCoordinate.longitude)
+                    let annotation = MKPointAnnotation()
+                    let region = MKCoordinateRegion(center: center, latitudinalMeters: 700, longitudinalMeters: 700)
+                    
+                    annotation.coordinate = center
+//                    annotation.title = "\(data.gender)"
+                    annotations.append(annotation)
+          
+       
+            return annotations
+        }
         
         // Subscribe to didChangeAuthorization
         manager.rx
