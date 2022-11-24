@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-enum onboardImgList: String {
+enum onboardImgList: String, CaseIterable {
     case first = "onboarding_img1"
     case second = "onboarding_img2"
     case third = "onboarding_img3"
@@ -190,7 +190,7 @@ final class TestView: BaseView {
     }
     
     func pageControl(_ : UIPageControl) {
-           pageControl.numberOfPages = 3
+        pageControl.numberOfPages = onboardImgList.allCases.count
         pageControl.backgroundColor = .setBaseColor(color: .white)
         pageControl.pageIndicatorTintColor = .setGray(color: .gray5)
         pageControl.currentPageIndicatorTintColor = .setBrandColor(color: .green)

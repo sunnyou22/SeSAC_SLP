@@ -21,7 +21,6 @@ final class SearchViewModel {
     var fromQueueDB = UserDefaults.searchData?[0].fromQueueDB ?? []
     var fromRecommend = UserDefaults.searchData?[0].fromRecommend ?? []
     var studyList = BehaviorRelay<[String]>(value: [])
-    var test = BehaviorRelay<[String]>(value: [])
     var validWishList = PublishRelay<Bool>()
     var wishList = BehaviorRelay<[String]>(value: [])
     var searchList = BehaviorRelay<[String]>(value: [])

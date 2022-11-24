@@ -7,6 +7,8 @@
 
 /*
  1. 스크롤하면 키보드 내리기
+ 2. 셀삭제하기
+ 3. 셀 클릭하면 데이터 넣어줘야함
  */
 
 import UIKit
@@ -197,7 +199,6 @@ class SearchViewController: BaseViewController {
                 }
             }.bind { [weak self] addwishList in
                 self?.viewModel.searchList.accept(addwishList)
-                print(addwishList)
             }.disposed(by: disposedBag)
         
         output.searchbarsearchButtonClicked
@@ -219,10 +220,6 @@ class SearchViewController: BaseViewController {
             }.disposed(by: disposedBag)
         
     }
-    //
-    //    func showSearchToolBar() {
-    //        searchBar.inputAccessoryView = mainView.searchButton
-    //    }
 }
 
 //MARK: - Colleciton
@@ -309,9 +306,16 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         return UICollectionViewCell()
     }
     
-    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    //        if indexPath.section == 0 {
-    //            wishList.insert(dumy[indexPath.item])
-    //        }
-    //    }
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            if collectionView == mainView.topCollectionView {
+                switch indexPath.section {
+                case 0:
+                    viewModel.setWishList(addWishList: [viewModel.fromRecommend[indexPath.item]])
+                case 1:
+                    viewModel.setWishList(addWishList: [viewModel.studyList.value[indexPath.item]])
+                default:
+                    break
+                }
+            }
+        }
 }

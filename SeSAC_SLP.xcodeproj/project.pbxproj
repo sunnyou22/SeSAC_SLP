@@ -240,7 +240,7 @@
 				902B1017291BA1FD00D03C0E /* SeSAC_SLP.entitlements */,
 				902B0FD42918FE6B00D03C0E /* Scene */,
 				902B0FD22918FE4100D03C0E /* Network */,
-				902B0FD12918FDEB00D03C0E /* Constent */,
+				902B0FD12918FDEB00D03C0E /* Constant */,
 				902B0FA92918BC1C00D03C0E /* AppDelegate.swift */,
 				9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */,
 				902B0FAB2918BC1C00D03C0E /* SceneDelegate.swift */,
@@ -253,7 +253,7 @@
 			path = SeSAC_SLP;
 			sourceTree = "<group>";
 		};
-		902B0FD12918FDEB00D03C0E /* Constent */ = {
+		902B0FD12918FDEB00D03C0E /* Constant */ = {
 			isa = PBXGroup;
 			children = (
 				902B0FEA29196E9B00D03C0E /* Color.swift */,
@@ -267,7 +267,7 @@
 				90FD7263292187AF00BB0077 /* CautionModel.swift */,
 				90FD72C12922D95500BB0077 /* UIImage.swift */,
 			);
-			path = Constent;
+			path = Constant;
 			sourceTree = "<group>";
 		};
 		902B0FD22918FE4100D03C0E /* Network */ = {
