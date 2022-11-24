@@ -67,6 +67,7 @@ class SearchViewController: BaseViewController {
     lazy var width = view.frame.size.width //화면 너비
     lazy var searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: width - 28, height: 0))
     
+    
     //값전달
     var currentLocation: CLLocationCoordinate2D?
     var mainView = SearchView()
@@ -100,8 +101,13 @@ class SearchViewController: BaseViewController {
         mainView.secondCollectionView.delegate = self
         mainView.secondCollectionView.collectionViewLayout = mainView.secondCollectionViewLayout()
         mainView.secondCollectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchHeaderView")
+//
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+//        tapGestureRecognizer.numberOfTapsRequired = 1
+//        tapGestureRecognizer.isEnabled = true
+//        mainView.scrollView.addGestureRecognizer(tapGestureRecognizer)
     }
-    
+   
     override func viewWillAppear(_ animated: Bool) {
         //MARK: - viewWillAppear
         super.viewWillAppear(animated)
@@ -109,30 +115,42 @@ class SearchViewController: BaseViewController {
         searchBar.placeholder = "띄어쓰기로 복수 입력이 가능해요"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchBar)
         //        searchBar.delegate = self
-        
-        //유아이 바인드
-        bindDataUI()
-        
+    
         guard let idtoken = UserDefaults.idtoken else {
             print("itocken만료")
             return
         }
         
-        // 앞에서 사용자의 현위치 값전달
-        guard let currentLocation = currentLocation else {
-            print("사용자의 위치를 받아올 수 없음 🔴", #function)
-            return
-        }
+//        // 앞에서 사용자의 현위치 값전달
+//        guard let currentLocation = currentLocation else {
+//            print("사용자의 위치를 받아올 수 없음 🔴", #function)
+//            return
+//        }
         
         //유저디폴츠 UserDefaults.searchData에 값을 넣어주고 있음 새싹위치로 테스트
         commonAPIviewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
-        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude, Array(wishList), "\n ", UserDefaults.searchData)
+    
+//        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude, Array(wishList), "\n ", UserDefaults.searchData)
+        
+        
+        //유아이 바인드
+        bindDataUI()
+        
     }
     
     //MARK: - bindUI
     
     func bindDataUI() {
         
+        mainView.topCollectionView.rx
+            .tapGesture()
+            .when(.recognized)
+            .asDriver{ _ in .never() }
+            .drive { [weak self] _ in
+                self?.mainView.topCollectionView.becomeFirstResponder()
+            }.disposed(by: disposedBag)
+        
+        viewModel.countAroundStudylist()
         let input = SearchViewModel.Input(tapSearchButton: mainView.searchButton.rx.tap, searchbarsearchButtonClicked: searchBar.rx.searchButtonClicked)
         let output = viewModel.transform(input: input)
         
@@ -218,7 +236,6 @@ class SearchViewController: BaseViewController {
                     vc.mainView.makeToast("8개 이상은 입력하실 수 없습니다!", duration: 1, position: .center )
                 }
             }.disposed(by: disposedBag)
-        
     }
 }
 
@@ -318,4 +335,5 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
                 }
             }
         }
-}
+    }
+

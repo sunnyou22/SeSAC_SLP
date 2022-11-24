@@ -51,6 +51,7 @@ final class SearchViewModel {
                 }
             }
         }
+        print(studyList.value, "===========🔴👉")
         studyList.accept(templist)
     }
     
@@ -77,9 +78,6 @@ final class SearchViewModel {
         let api = SeSACAPI.search(lat: lat, lon: long, studylist: studylist)
         Network.shared.sendRequestSeSAC(url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { statuscode in
             
-            if statuscode == 200 {
-                self.countAroundStudylist() //이때 스터디리스트 이벤트 걸어주는게 맞을까
-            }
             print(statuscode)
         }
     }
