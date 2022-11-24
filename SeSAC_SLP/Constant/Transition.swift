@@ -34,12 +34,17 @@ extension UIViewController {
         
         let transition = CATransition()
         transition.type = .fade
-        transition.duration = 2
+        transition.duration = 1
         sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
         
-        let signViewController = to
-        let nav = UINavigationController(rootViewController: signViewController)
-        sceneDelegate?.window?.rootViewController = nav
-        sceneDelegate?.window?.makeKeyAndVisible()
+        if to is UITabBarController {
+            let vc = to
+            sceneDelegate?.window?.rootViewController = to
+            sceneDelegate?.window?.makeKeyAndVisible()
+        } else if to is UINavigationController {
+            let nav = UINavigationController(rootViewController: to)
+            sceneDelegate?.window?.rootViewController = nav
+            sceneDelegate?.window?.makeKeyAndVisible()
+        }
     }
 }

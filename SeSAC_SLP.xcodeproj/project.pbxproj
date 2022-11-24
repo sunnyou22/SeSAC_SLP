@@ -45,6 +45,12 @@
 		902B1030291C542700D03C0E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102F291C542700D03C0E /* FirebaseMessaging */; };
 		9051720A292E207400DDBC13 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 90517209292E207400DDBC13 /* RxGesture */; };
 		9051720C292E332900DDBC13 /* BaseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9051720B292E332900DDBC13 /* BaseScrollView.swift */; };
+		9051724B292F6FC400DDBC13 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9051724A292F6FC400DDBC13 /* CustomTabBarController.swift */; };
+		9051724E292F70AD00DDBC13 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9051724D292F70AD00DDBC13 /* ShopViewController.swift */; };
+		90517251292F711E00DDBC13 /* ChatiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90517250292F711E00DDBC13 /* ChatiViewController.swift */; };
+		90517253292F734B00DDBC13 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90517252292F734B00DDBC13 /* Constants.swift */; };
+		90517258292F9ADB00DDBC13 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90517257292F9ADB00DDBC13 /* BaseCollectionViewCell.swift */; };
+		9051725A292FBFD000DDBC13 /* DynamicCollectionView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90517259292FBFD000DDBC13 /* DynamicCollectionView + Extension.swift */; };
 		9066125729267A3100320F21 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066125629267A3100320F21 /* SearchCollectionViewCell.swift */; };
 		9066125A29275E4A00320F21 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9066125929275E4A00320F21 /* RxCocoa */; };
 		9066125C29275E4A00320F21 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9066125B29275E4A00320F21 /* RxSwift */; };
@@ -139,6 +145,12 @@
 		902B101D291C1A8E00D03C0E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		902B101F291C1AF200D03C0E /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		9051720B292E332900DDBC13 /* BaseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollView.swift; sourceTree = "<group>"; };
+		9051724A292F6FC400DDBC13 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		9051724D292F70AD00DDBC13 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
+		90517250292F711E00DDBC13 /* ChatiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatiViewController.swift; sourceTree = "<group>"; };
+		90517252292F734B00DDBC13 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		90517257292F9ADB00DDBC13 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		90517259292FBFD000DDBC13 /* DynamicCollectionView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicCollectionView + Extension.swift"; sourceTree = "<group>"; };
 		9066125629267A3100320F21 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		906612632927608D00320F21 /* HomeMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMapViewController.swift; sourceTree = "<group>"; };
 		906612652927C5E600320F21 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -288,10 +300,8 @@
 		902B0FD42918FE6B00D03C0E /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				90517249292F6EBB00DDBC13 /* TabBarScenes */,
 				902B100E291AE93500D03C0E /* Onboarding */,
-				90FD72D42923FE7C00BB0077 /* MyPageFirst */,
-				9066126C2927FA4D00320F21 /* MypageSecond */,
-				907636E329203F9100D289AB /* Home */,
 				902B1002291AB69C00D03C0E /* SignIn */,
 				902B0FD52918FE7400D03C0E /* Base */,
 			);
@@ -305,6 +315,7 @@
 				902B0FD8291915FE00D03C0E /* BaseViewController.swift */,
 				90FD72A32922722400BB0077 /* BaseTableViewCell.swift */,
 				9051720B292E332900DDBC13 /* BaseScrollView.swift */,
+				90517257292F9ADB00DDBC13 /* BaseCollectionViewCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -353,6 +364,36 @@
 				907636DF291FDA1400D289AB /* LaunchScreenViewController.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		90517249292F6EBB00DDBC13 /* TabBarScenes */ = {
+			isa = PBXGroup;
+			children = (
+				9051724A292F6FC400DDBC13 /* CustomTabBarController.swift */,
+				90517252292F734B00DDBC13 /* Constants.swift */,
+				90FD72D42923FE7C00BB0077 /* MyPageFirst */,
+				9051724F292F710C00DDBC13 /* Chat */,
+				9051724C292F709B00DDBC13 /* Shop */,
+				9066126C2927FA4D00320F21 /* MypageSecond */,
+				907636E329203F9100D289AB /* Home */,
+			);
+			path = TabBarScenes;
+			sourceTree = "<group>";
+		};
+		9051724C292F709B00DDBC13 /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				9051724D292F70AD00DDBC13 /* ShopViewController.swift */,
+			);
+			path = Shop;
+			sourceTree = "<group>";
+		};
+		9051724F292F710C00DDBC13 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				90517250292F711E00DDBC13 /* ChatiViewController.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		9066126C2927FA4D00320F21 /* MypageSecond */ = {
@@ -409,22 +450,23 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
-		9082F8DF292A6C790085D4BB /* Tabman */ = {
+		9082F8DF292A6C790085D4BB /* NearUser */ = {
 			isa = PBXGroup;
 			children = (
 				9082F8E0292A6CC50085D4BB /* TabManViewcontroller.swift */,
 			);
-			path = Tabman;
+			path = NearUser;
 			sourceTree = "<group>";
 		};
 		90A8F30C29256654003083C8 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				9082F8DF292A6C790085D4BB /* Tabman */,
+				9082F8DF292A6C790085D4BB /* NearUser */,
 				90A8F30A2925664B003083C8 /* SearchView.swift */,
 				90A8F30D29256667003083C8 /* SearchViewController.swift */,
 				9066125629267A3100320F21 /* SearchCollectionViewCell.swift */,
 				9082F8E2292A72200085D4BB /* SearchViewModel.swift */,
+				90517259292FBFD000DDBC13 /* DynamicCollectionView + Extension.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -626,9 +668,11 @@
 			files = (
 				906612642927608D00320F21 /* HomeMapViewController.swift in Sources */,
 				90FD726729218B4A00BB0077 /* FirebaseManager.swift in Sources */,
+				9051724B292F6FC400DDBC13 /* CustomTabBarController.swift in Sources */,
 				907636E2292030C800D289AB /* IconSet.swift in Sources */,
 				90FD72BF2922B7C100BB0077 /* UIButtom.swift in Sources */,
 				90661273292800D100320F21 /* CardViewCellVer.swift in Sources */,
+				9051725A292FBFD000DDBC13 /* DynamicCollectionView + Extension.swift in Sources */,
 				902B1020291C1AF200D03C0E /* Network.swift in Sources */,
 				907C68E12925170500AADECC /* CardViewNickName.swift in Sources */,
 				9082F8E3292A72200085D4BB /* SearchViewModel.swift in Sources */,
@@ -660,6 +704,7 @@
 				9082F8E1292A6CC50085D4BB /* TabManViewcontroller.swift in Sources */,
 				90FD729A2922714100BB0077 /* MyPageGenderView.swift in Sources */,
 				90A55C7A292427030005F56D /* MyPageListTableViewCell.swift in Sources */,
+				90517253292F734B00DDBC13 /* Constants.swift in Sources */,
 				90FD72BB2922B44600BB0077 /* AgeSlider.swift in Sources */,
 				907C68E729251B0400AADECC /* CardView.swift in Sources */,
 				90FD729E2922719500BB0077 /* SwitchView.swift in Sources */,
@@ -685,12 +730,15 @@
 				902B100B291AB85D00D03C0E /* EmailViewController.swift in Sources */,
 				902B0FED29196EA900D03C0E /* UILabel.swift in Sources */,
 				907636E92921783000D289AB /* SetInitialViewController.swift in Sources */,
+				90517251292F711E00DDBC13 /* ChatiViewController.swift in Sources */,
+				90517258292F9ADB00DDBC13 /* BaseCollectionViewCell.swift in Sources */,
 				902B0FDD29193A0F00D03C0E /* SignInViewController.swift in Sources */,
 				902B0FE92919665500D03C0E /* Enum.swift in Sources */,
 				902B0FD72918FEBE00D03C0E /* BaseView.swift in Sources */,
 				90FE3118291EB8AF00C0949E /* NoNetWorkView.swift in Sources */,
 				90FD72A0292271D100BB0077 /* MatchingAgeView.swift in Sources */,
 				9095C4E4291D554C0055D1B7 /* DateFormatter.swift in Sources */,
+				9051724E292F70AD00DDBC13 /* ShopViewController.swift in Sources */,
 				90FD72622921849900BB0077 /* Error.swift in Sources */,
 				90FD7264292187AF00BB0077 /* CautionModel.swift in Sources */,
 				9095C4E6291D81770055D1B7 /* PickerViewModel.swift in Sources */,

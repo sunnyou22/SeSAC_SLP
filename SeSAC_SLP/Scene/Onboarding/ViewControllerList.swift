@@ -6,7 +6,6 @@
 //
 
 //MARK: 이후 RX 로 바꾸기 + 공통속성 메서드로 빼기
-import Foundation
 import UIKit
 import SnapKit
 

@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class BaseScrollView: UIScrollView {
     
     override init(frame: CGRect) {

@@ -5,8 +5,6 @@
 //  Created by 방선우 on 2022/11/09.
 //
 
-import Foundation
-
 import RxCocoa
 import RxSwift
 import Toast
