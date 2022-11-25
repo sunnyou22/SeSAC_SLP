@@ -268,6 +268,7 @@
 		902B0FD12918FDEB00D03C0E /* Constant */ = {
 			isa = PBXGroup;
 			children = (
+				902B0FE82919665500D03C0E /* Enum.swift */,
 				902B0FEA29196E9B00D03C0E /* Color.swift */,
 				902B0FEC29196EA900D03C0E /* UILabel.swift */,
 				902B0FF8291A507D00D03C0E /* Transition.swift */,
@@ -483,7 +484,6 @@
 		90FD72682922444800BB0077 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				902B0FE82919665500D03C0E /* Enum.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";

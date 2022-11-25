@@ -87,6 +87,7 @@ extension UserDefaults {
     
     @UserDeaultHelper(key: "locationAuthorization", defaultValue: false)
     static var locationAuthorization: Bool
+
     
     // Codable
     @UserDeaultCodable(key: "searchData", defaultValue: nil)

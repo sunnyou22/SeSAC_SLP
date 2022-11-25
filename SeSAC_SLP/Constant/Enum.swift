@@ -5,7 +5,7 @@
 //  Created by 방선우 on 2022/11/08.
 //
 
-import Foundation
+import UIKit
 
 //MARK: - 문자열 처리
 
@@ -101,4 +101,16 @@ enum CustomCornerRadius: CGFloat {
 enum CommonSignView {
     case verification
     case signIn
+}
+
+//MARK: 성별
+enum Gender: Int {
+case woman
+case man
+}
+
+// 버튼속성으로 나중에 빼버리기
+struct ValidButtonColor {
+    static let valid: UIColor = .setBrandColor(color: .green)
+    static let invalid: UIColor = .clear
 }

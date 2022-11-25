@@ -43,7 +43,7 @@ class GenderViewController: BaseViewController {
                 vc.mainView.manButton.backgroundColor = .setBrandColor(color: .whiteGreen)
                 vc.mainView.womanButton.backgroundColor = .clear
                 vc.viewModel.buttonValid.accept(true)
-                UserDefaults.gender = 1
+                UserDefaults.gender = Gender.man.rawValue
             }.disposed(by: disposedBag)
         
         mainView.womanButton.rx
@@ -53,7 +53,7 @@ class GenderViewController: BaseViewController {
                 vc.mainView.womanButton.backgroundColor = .setBrandColor(color: .whiteGreen)
                 vc.mainView.manButton.backgroundColor = .clear
                 vc.viewModel.buttonValid.accept(true)
-                UserDefaults.gender = 0
+                UserDefaults.gender = Gender.woman.rawValue
             }.disposed(by: disposedBag)
         
         viewModel.buttonValid

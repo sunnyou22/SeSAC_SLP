@@ -11,8 +11,9 @@ import RxCocoa
 import RxSwift
 import Alamofire
 
-class SetMyInfoViewModel {
+final class SetMyInfoViewModel {
     
+    // 데이터고
     enum ButtonTitle: String, CaseIterable {
         case goodManner = "좋은 매너"
         case exactTimeAppointment = "정확한 시간 약속"
@@ -22,22 +23,20 @@ class SetMyInfoViewModel {
         case usefulTime = "유익한 시간"
     }
     
-    typealias titleStatus = (button)
+    typealias genderStatus = (Gender, Bool)
     
     // 수정사항이 생기면 firstreponse 받았을 때 저장버튼 활성화되도록 하기 -> 불필요한 서버요청 막기
     var buttonValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    var nextbutton: ControlEvent<Void>?
+    var userInfo: GetUerIfo?
     let userStatus = PublishRelay<UserStatus>()
-    let titleStatus = BehaviorRelay(value: false)
-    
-    func saveUserInfoToUserDefaults() -> [GetUerIfo] {
-        print(UserDefaults.getUerIfo, "✅ 유저 정보 받아오기")
-        guard let getUserInfo = UserDefaults.getUerIfo else {
-            print("유저 정보를 받아오는 것에 실패했습니다 🔴", #function)
-            return []
-        }
-        // 정보 넣어주기
-        return getUserInfo
+    var genderStatus: BehaviorRelay<genderStatus> = BehaviorRelay(value: (Gender.woman, true))
+    let fetchingUserInfo = PublishRelay<GetUerIfo>()
+    var modifiedUserInfo: BehaviorRelay<SetUserInfo>?
+    let toggleStatus: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+
+    //나이계산
+    func calcurateAge() {
+        
     }
     
     func putUserInfo(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String, idtoken: String) {

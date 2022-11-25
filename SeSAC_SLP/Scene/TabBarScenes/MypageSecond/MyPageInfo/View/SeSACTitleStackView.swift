@@ -34,7 +34,7 @@ class TitleStackView: UIView {
     
     lazy var four: UIButton = {
         let view = UIButton()
-        view.setTitle(ButtonTitle.kindPersonality.rawValue, for: .normal)
+        view.setTitle(SetMyInfoViewModel.ButtonTitle.kindPersonality.rawValue, for: .normal)
         view.setTitleColor(UIColor.setBaseColor(color: .black), for: .normal)
         return setStackViewComponent(view, tag: 3)
     }()

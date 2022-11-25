@@ -54,7 +54,8 @@ struct GetUerIfo: Codable {
         case fcMtoken = "FCMtoken"
         case nick, birth, gender, study, comment, reputation, sesac, sesacCollection, background, backgroundCollection, purchaseToken
         case transactionID = "transactionId"
-        case reviewedBefore, reportedNum, reportedUser, dodgepenalty, dodgeNum, ageMin, ageMax, searchable, createdAt
+        case reviewedBefore, reportedNum, reportedUser, dodgepenalty, dodgeNum, ageMin, ageMax,
+             searchable, createdAt
     }
 }
 
