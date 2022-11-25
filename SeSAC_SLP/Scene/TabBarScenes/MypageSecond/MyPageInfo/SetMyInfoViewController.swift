@@ -119,15 +119,15 @@ final class SetMyInfoViewController: BaseViewController {
 
       
         //저장버튼 클뤽
-        navigationItem.rightBarButtonItem?.rx
-            .tap
-            .withUnretained(self)
-            .subscribe(onNext: { vc, _ in
-                var tracker = vc.mainView.fixView.matchingAgeView.trackBar
-                let genderInt = vc.viewModel.genderStatus.value.0 == Gender.woman ? 0 : 1
-                
-                vc.viewModel.putUserInfo(searchable: vc.viewModel.toggleStatus.value, ageMin: Int(tracker.lower) , ageMax: Int(tracker.upper), gender: genderInt, study: vc.mainView.fixView.setFrequentStudyView.textField.text ?? "", idtoken: idtoken)
-            }).disposed(by: disposeBag)
+//        navigationItem.rightBarButtonItem?.rx
+//            .tap
+//            .withUnretained(self)
+//            .subscribe(onNext: { vc, _ in
+//                var tracker = vc.mainView.fixView.matchingAgeView.trackBar
+//                let genderInt = vc.viewModel.genderStatus.value.0 == Gender.woman ? 0 : 1
+//
+//                vc.viewModel.putUserInfo(searchable: vc.viewModel.toggleStatus.value, ageMin: Int(tracker.lower) , ageMax: Int(tracker.upper), gender: genderInt, study: vc.mainView.fixView.setFrequentStudyView.textField.text ?? "", idtoken: idtoken)
+//            }).disposed(by: disposeBag)
     }
  
    private func setnavigation() {
@@ -135,14 +135,16 @@ final class SetMyInfoViewController: BaseViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.setBaseColor(color: .black)]
         navigationItem.title = "정보관리"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(postToServer))
-    }
+   }
     
     @objc private func postToServer() {
         guard let idtoken = UserDefaults.idtoken else {
             print("토큰없음")
             return
         }
-        viewModel.putUserInfo(searchable: 1, ageMin: 20, ageMax: 25, gender: 1, study: "알고리즘", idtoken: idtoken)
+        var tracker = mainView.fixView.matchingAgeView.trackBar
+        let genderInt = viewModel.genderStatus.value.0 == Gender.woman ? 0 : 1
+        viewModel.putUserInfo(searchable: viewModel.toggleStatus.value, ageMin: Int(tracker.lower) , ageMax: Int(tracker.upper), gender: genderInt, study: mainView.fixView.setFrequentStudyView.textField.text ?? "", idtoken: idtoken)
     }
     
     @objc private func test() {

@@ -23,7 +23,6 @@ class SearchCollecitionViewCell: BaseCollectionViewCell {
    lazy var xbutton: UIButton = {
        let view = UIButton()
        view.setImage(UIImage(systemName: "xmark"), for: .normal)
-       
        view.tintColor = .setBrandColor(color: .green)
        return view
    }()

@@ -34,7 +34,7 @@ extension UIViewController {
         
         let transition = CATransition()
         transition.type = .fade
-        transition.duration = 1
+        transition.duration = 3
         sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
         
         if to is UITabBarController {

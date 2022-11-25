@@ -23,7 +23,7 @@ final class CommonServerManager {
     //
     //MAKR: - 모델로 빼기
 
-    func USerInfoNetwork(idtoken: String, completion: @escaping (GetUerIfo) -> Void) {
+    func USerInfoNetwork(idtoken: String, completion: ((GetUerIfo) -> Void)? = nil) {
         let api = SeSACAPI.getUserInfo
         
         Network.shared.receiveRequestSeSAC(type: GetUerIfo.self, url: api.url, parameter: nil, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
@@ -39,7 +39,7 @@ final class CommonServerManager {
             print("로그인 성공 혹은 유저 정보가져오기 성공 ✅", data)
             
             //성공
-           completion(data)
+            completion?(data)
         }
     }
     

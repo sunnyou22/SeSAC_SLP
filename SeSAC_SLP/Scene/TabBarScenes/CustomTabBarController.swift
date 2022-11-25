@@ -11,7 +11,7 @@ final class CustomTabBarController: UITabBarController {
     private let homeVC = HomeMapViewController()
     private let shopVC = ShopViewController()
     private let chatVC = ChatiViewController()
-    private let mypageVC = SetMyInfoViewController()
+    private let mypageVC = MyPageListViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()

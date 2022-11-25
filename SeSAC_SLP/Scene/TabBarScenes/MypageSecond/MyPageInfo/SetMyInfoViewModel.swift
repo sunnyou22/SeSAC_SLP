@@ -5,6 +5,11 @@
 //  Created by 방선우 on 2022/11/19.
 //
 
+/*
+ 유저디폴츠에 저장해놓은 userinfo없애기
+ - 개인정보보안이슈
+ */
+
 import Foundation
 
 import RxCocoa
@@ -22,7 +27,7 @@ final class SetMyInfoViewModel {
         case skillfulPersonality = "능숙한 실력"
         case usefulTime = "유익한 시간"
     }
-    
+    // 다른방법생각하기 여기서 별로 좋진않은듯
     typealias genderStatus = (Gender, Bool)
     
     // 수정사항이 생기면 firstreponse 받았을 때 저장버튼 활성화되도록 하기 -> 불필요한 서버요청 막기
@@ -31,7 +36,6 @@ final class SetMyInfoViewModel {
     let userStatus = PublishRelay<UserStatus>()
     var genderStatus: BehaviorRelay<genderStatus> = BehaviorRelay(value: (Gender.woman, true))
     let fetchingUserInfo = PublishRelay<GetUerIfo>()
-    var modifiedUserInfo: BehaviorRelay<SetUserInfo>?
     let toggleStatus: BehaviorRelay<Int> = BehaviorRelay(value: 0)
 
     //나이계산

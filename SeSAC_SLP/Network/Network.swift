@@ -26,7 +26,7 @@ final class Network {
                 guard let statusCode = response.response?.statusCode else {
                     print("상태코드가 없습니다 🔴 ")
                     return }
-                print("🚀🚀 성공")
+                print("🚀 성공", #function, #file)
                 completion(data, statusCode)
                 print("🚀\n\(data)")
                 print(statusCode, "==============")
