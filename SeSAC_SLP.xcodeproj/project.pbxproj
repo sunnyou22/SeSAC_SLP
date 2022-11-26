@@ -72,6 +72,7 @@
 		907C68E5292519B500AADECC /* MypageInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E4292519B500AADECC /* MypageInfoHeader.swift */; };
 		907C68E729251B0400AADECC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E629251B0400AADECC /* CardView.swift */; };
 		907C68E929251DC400AADECC /* MyPageInfoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E829251DC400AADECC /* MyPageInfoScrollView.swift */; };
+		907E242A2931B71600401F1A /* SearchHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E24292931B71600401F1A /* SearchHeader.swift */; };
 		9082F8E1292A6CC50085D4BB /* TabManViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082F8E0292A6CC50085D4BB /* TabManViewcontroller.swift */; };
 		9082F8E3292A72200085D4BB /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082F8E2292A72200085D4BB /* SearchViewModel.swift */; };
 		9082F8E6292ACCAD0085D4BB /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = 9082F8E5292ACCAD0085D4BB /* RxKeyboard */; };
@@ -168,6 +169,7 @@
 		907C68E4292519B500AADECC /* MypageInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageInfoHeader.swift; sourceTree = "<group>"; };
 		907C68E629251B0400AADECC /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		907C68E829251DC400AADECC /* MyPageInfoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageInfoScrollView.swift; sourceTree = "<group>"; };
+		907E24292931B71600401F1A /* SearchHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeader.swift; sourceTree = "<group>"; };
 		9082F8E0292A6CC50085D4BB /* TabManViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManViewcontroller.swift; sourceTree = "<group>"; };
 		9082F8E2292A72200085D4BB /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 		907636E329203F9100D289AB /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9082F8DF292A6C790085D4BB /* NearUser */,
 				90A8F30C29256654003083C8 /* Search */,
 				907C68EA29253B5D00AADECC /* Map */,
 			);
@@ -462,12 +465,12 @@
 		90A8F30C29256654003083C8 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				9082F8DF292A6C790085D4BB /* NearUser */,
 				90A8F30A2925664B003083C8 /* SearchView.swift */,
 				90A8F30D29256667003083C8 /* SearchViewController.swift */,
 				9066125629267A3100320F21 /* SearchCollectionViewCell.swift */,
 				9082F8E2292A72200085D4BB /* SearchViewModel.swift */,
 				90517259292FBFD000DDBC13 /* DynamicCollectionView + Extension.swift */,
+				907E24292931B71600401F1A /* SearchHeader.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -676,6 +679,7 @@
 				902B1020291C1AF200D03C0E /* Network.swift in Sources */,
 				907C68E12925170500AADECC /* CardViewNickName.swift in Sources */,
 				9082F8E3292A72200085D4BB /* SearchViewModel.swift in Sources */,
+				907E242A2931B71600401F1A /* SearchHeader.swift in Sources */,
 				902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */,
 				902B100D291AB87700D03C0E /* GenderViewController.swift in Sources */,
 				902B1009291AB78B00D03C0E /* BirthDayViewController.swift in Sources */,

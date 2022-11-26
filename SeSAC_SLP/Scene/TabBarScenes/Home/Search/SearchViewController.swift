@@ -24,45 +24,9 @@ import RxGesture
 // 화면에 어떤 뷰를 뭘 넣어줄거야
 // 구독은 뷰와의 연결성을 주면서 뷰에 어떤 형태의 값을 그려줄지 동작하는 부분
 
-//MARK: - 헤더
-class SearchHeaderView: UICollectionReusableView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.leading.equalTo(self)
-            make.verticalEdges.equalTo(self)
-        }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    let label: UILabel = {
-        let view = UILabel()
-        view.font = .title4_R14
-        return view
-    }()
-}
-
-enum Section: Int, CaseIterable {
-    case quo
-    case wish
-    
-    var title: String {
-        switch self {
-        case .quo:
-            return "지금 주변에는"
-        case .wish:
-            return "내가 하고싶은"
-        }
-    }
-}
-
 //MARK: - 서치 뷰컨
-class SearchViewController: BaseViewController {
+ 
+final class SearchViewController: BaseViewController {
     
     lazy var width = view.frame.size.width //화면 너비
     lazy var searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: width - 28, height: 0))
@@ -103,22 +67,22 @@ class SearchViewController: BaseViewController {
         searchBar.placeholder = "띄어쓰기로 복수 입력이 가능해요"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchBar)
         //        searchBar.delegate = self
-    
+        
         guard let idtoken = UserDefaults.idtoken else {
             print("itocken만료")
             return
         }
         
-//        // 앞에서 사용자의 현위치 값전달
-//        guard let currentLocation = currentLocation else {
-//            print("사용자의 위치를 받아올 수 없음 🔴", #function)
-//            return
-//        }
+        //        // 앞에서 사용자의 현위치 값전달
+        //        guard let currentLocation = currentLocation else {
+        //            print("사용자의 위치를 받아올 수 없음 🔴", #function)
+        //            return
+        //        }
         
         //유저디폴츠 UserDefaults.searchData에 값을 넣어주고 있음 새싹위치로 테스트
         commonAPIviewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
-    
-//        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude, Array(wishList), "\n ", UserDefaults.searchData)
+        
+        //        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude, Array(wishList), "\n ", UserDefaults.searchData)
         
         
         //유아이 바인드
@@ -162,7 +126,7 @@ class SearchViewController: BaseViewController {
                     self.mainView.layoutIfNeeded()
                 }
             }).disposed(by: disposedBag)
-//
+        //
         mainView.rx.tapGesture()
             .when(.recognized)
             .asDriver{ _ in .never() }
@@ -224,7 +188,7 @@ class SearchViewController: BaseViewController {
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return Section.allCases.count
+        return SearchHeaderView.Section.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -233,77 +197,75 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         case UICollectionView.elementKindSectionHeader:
             if indexPath.section == 0 {
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SearchHeaderView", for: indexPath) as! SearchHeaderView
-                header.label.text = Section.allCases[indexPath.section].title
+                header.label.text = SearchHeaderView.Section.allCases[indexPath.section].title
                 return header
                 
             } else {
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SearchHeaderView", for: indexPath) as! SearchHeaderView
-                header.label.text = Section.allCases[indexPath.section].title
+                header.label.text = SearchHeaderView.Section.allCases[indexPath.section].title
                 return header
-                
             }
         default:
             return UICollectionReusableView()
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-     
+        
         return section == 0 ? viewModel.fromRecommend.count + viewModel.studyList.value.count : viewModel.wishList.value.count
-     
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let searchData = UserDefaults.searchData else {
-                print("searchData없음🔴")
-                return  UICollectionViewCell() }
-            if indexPath.section == 0 {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
-        
-                //fromRecommend.count
-                if indexPath.row <= viewModel.fromRecommend.count {
-                              cell.label.text = viewModel.fromRecommend[indexPath.item]
-                              cell.xbutton.isHidden = true
-                              cell.customView.layer.borderColor = UIColor.setStatus(color: .success).cgColor // 색 바꾸기
-                              // fromRecommend.count, indexPath.row <= fromQueueDB.count
-                } else if indexPath.row > viewModel.studyList.value.count {
-                              cell.label.text = viewModel.studyList.value[indexPath.item]
-                              cell.xbutton.isHidden = true
-                              cell.customView.layer.borderColor = UIColor.setBaseColor(color: .black).cgColor // 색 바꾸기
-                }
-                         return cell
-                     } else if indexPath.section == 1 {
-                         guard let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
-
-                         var sortedWishList: [String] = []
-                         sortedWishList += viewModel.wishList.value.sorted()
-                         cell2.label.text = sortedWishList[indexPath.item]
-                             cell2.xbutton.isHidden = false
-                         cell2.customView.layer.borderColor = UIColor.setBrandColor(color: .green).cgColor
-                             return cell2
-
-                     }
-                     return UICollectionViewCell()
+            print("searchData없음🔴")
+            return  UICollectionViewCell() }
+        if indexPath.section == 0 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
             
-                 }
-        
-    
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-           
-                switch indexPath.section {
-                case 0:
-                    print("들어왔따4", indexPath.row)
-                    viewModel.setWishList(addWishList: [viewModel.fromRecommend[indexPath.item]])
-                case 1:
-                    print("들어왔따5", indexPath.row)
-                    viewModel.setWishList(addWishList: [viewModel.studyList.value[indexPath.item]])
-                default:
-                    print("들어왔따6", indexPath.row)
-                    break
-                }
+            //fromRecommend.count
+            if indexPath.row <= viewModel.fromRecommend.count {
+                cell.label.text = viewModel.fromRecommend[indexPath.item]
+                cell.xbutton.isHidden = true
+                cell.customView.layer.borderColor = UIColor.setStatus(color: .success).cgColor // 색 바꾸기
+                // fromRecommend.count, indexPath.row <= fromQueueDB.count
+            } else if indexPath.row > viewModel.studyList.value.count {
+                cell.label.text = viewModel.studyList.value[indexPath.item]
+                cell.xbutton.isHidden = true
+                cell.customView.layer.borderColor = UIColor.setBaseColor(color: .black).cgColor // 색 바꾸기
             }
-       
+            return cell
+        } else if indexPath.section == 1 {
+            guard let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
+            
+            var sortedWishList: [String] = []
+            sortedWishList += viewModel.wishList.value.sorted()
+            cell2.label.text = sortedWishList[indexPath.item]
+            cell2.xbutton.isHidden = false
+            cell2.customView.layer.borderColor = UIColor.setBrandColor(color: .green).cgColor
+            return cell2
+            
+        }
+        return UICollectionViewCell()
+        
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        switch indexPath.section {
+        case 0:
+            print("들어왔따4", indexPath.row)
+            viewModel.setWishList(addWishList: [viewModel.fromRecommend[indexPath.item]])
+        case 1:
+            print("들어왔따5", indexPath.row)
+            viewModel.setWishList(addWishList: [viewModel.studyList.value[indexPath.item]])
+        default:
+            print("들어왔따6", indexPath.row)
+            break
+        }
+    }
+    
+}
 

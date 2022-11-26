@@ -89,7 +89,7 @@ class SearchView: BaseView {
          
          return UICollectionViewCompositionalLayout.init(sectionProvider: { [weak self] sectionIndex, environment in
              
-             let searchSection = Section(rawValue: sectionIndex)
+             let searchSection = SearchHeaderView.Section(rawValue: sectionIndex)
              
              switch searchSection {
              case .quo:

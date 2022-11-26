@@ -18,18 +18,13 @@ extension UIViewController: ReusableViewProtocol {
     }
 }
 
-extension UICollectionViewCell: ReusableViewProtocol {
-    public static var reuseIdentifier: String {
-        return String(describing: self)
-    }
-}
-extension UITableViewCell: ReusableViewProtocol {
+extension UIView: ReusableViewProtocol {
     public static var reuseIdentifier: String {
         return String(describing: self)
     }
 }
 
-//MARK: ImgName -
+//MARK: - ImgName
 enum ImageSet {
     case background(SeSac_Background)
     case sesacFace(Sesac_Face)
