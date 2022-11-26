@@ -19,7 +19,25 @@ import RxCoreLocation
 enum UserMatchingStatus: Int {
     case waiting = 0
     case matched = 1
-    case defaults
+    case search
+    
+    var stringValue: String {
+        switch self {
+        case .waiting:
+            return "waiting"
+        case .matched:
+            return "matched"
+        case .search:
+            return "search"
+        }
+    }
+    
+    var ploationgButtonImage: UIImage {
+        switch self {
+        case .waiting, .matched, .search:
+            return UIImage(named: self.stringValue)!
+        }
+    }
 }
 
 class HomeMapViewController: BaseViewController {
@@ -128,42 +146,41 @@ class HomeMapViewController: BaseViewController {
                 vc.mainView.mapView.setUserTrackingMode(.follow, animated: true)
             }.disposed(by: disposedBag)
         
+        mainView.matchingButton
+            .rx
+            .tap
+            .withUnretained(self)
+            .bind { vc, _ in
+                switch MapViewModel.ploatingButtonSet.value {
+                case .search:
+                    let viewcontrolller =  SearchViewController()
+                    viewcontrolller.currentLocation = vc.viewModel.manager.location?.coordinate
+                    vc.transition(viewcontrolller, .push)
+                case .matched:
+                    let viewcontrolller =  SearchViewController()
+                    viewcontrolller.currentLocation = vc.viewModel.manager.location?.coordinate
+                    vc.transition(viewcontrolller, .push)
+                case .waiting:
+                    let viewcontrolller =  SearchViewController()
+                    viewcontrolller.currentLocation = vc.viewModel.manager.location?.coordinate
+                    vc.transition(viewcontrolller, .push)
+                }
+            }.disposed(by: disposedBag)
+        
         //플로팅버튼 이미지 셋팅
         MapViewModel.ploatingButtonSet
             .withUnretained(self)
-            .asDriver(onErrorJustReturn: (self, .defaults))
+            .asDriver(onErrorJustReturn: (self, .search))
             .drive(onNext: { vc, status in
                 switch status {
-                case .defaults:
-                    vc.mainView.matchingButton.setImage(UIImage(named: "search"), for: .normal)
+                case .search:
+                    vc.mainView.matchingButton.setImage(UserMatchingStatus.search.ploationgButtonImage, for: .normal)
                 case .matched:
-                    vc.mainView.matchingButton.setImage(UIImage(named: "matched"), for: .normal)
+                    vc.mainView.matchingButton.setImage(UserMatchingStatus.matched.ploationgButtonImage, for: .normal)
                 case .waiting:
-                    vc.mainView.matchingButton.setImage(UIImage(named: "waiting"), for: .normal)
+                    vc.mainView.matchingButton.setImage(UserMatchingStatus.waiting.ploationgButtonImage, for: .normal)
                 }
             }).disposed(by: disposedBag)
-        
-        //            //플로팅버튼 화면전환(나중에 호ㅏ면 분기 따로 넣어주기)
-        //        MapViewModel.ploatingButtonSet
-        //            .withUnretained(self)
-        //            .asDriver(onErrorJustReturn: (self, .defaults))
-        //            .drive(onNext: { vc, status in
-        //                switch status {
-        //                case .defaults:
-        //                    let viewcontrolller =  SearchViewController()
-        //                    viewcontrolller.currentLocation = vc.manager.location?.coordinate
-        //                    vc.transition(viewcontrolller, .push)
-        //                case .matched:
-        //                    let viewcontrolller =  SearchViewController()
-        //                    viewcontrolller.currentLocation = vc.manager.location?.coordinate
-        //                    vc.transition(viewcontrolller, .push)
-        //                case .waiting:
-        //                    let viewcontrolller =  SearchViewController()
-        //                    viewcontrolller.currentLocation = vc.manager.location?.coordinate
-        //                    vc.transition(viewcontrolller, .push)
-        //                }
-        //            }).disposed(by: disposedBag)
-        //
     }
     
     //MARK: Mapdata
@@ -221,8 +238,6 @@ class HomeMapViewController: BaseViewController {
             }).disposed(by: disposedBag)
         
         viewModel.manager.rx
-        
-        viewModel.manager.rx
             .placemark
             .subscribe(onNext: { placemark in
                 guard let name = placemark.name,
@@ -246,7 +261,7 @@ class HomeMapViewController: BaseViewController {
         viewModel.manager.rx
             .location
             .debug("location")
-            .subscribe(onNext: { [weak self] value in
+            .subscribe(onNext: { value in
             }).disposed(by: disposedBag)
     }
     

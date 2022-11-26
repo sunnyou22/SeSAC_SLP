@@ -18,7 +18,7 @@ final class MapViewModel {
         static let sesacLocation = CLLocationCoordinate2D(latitude: 37.51818789942772, longitude: 126.88541765534976)
     }
    
-    static let ploatingButtonSet: PublishRelay<UserMatchingStatus> = PublishRelay()
+    static let ploatingButtonSet: BehaviorRelay<UserMatchingStatus> = BehaviorRelay(value: .search)
     
     let manager = CLLocationManager()
     let matchingStatus = PublishRelay<MyQueueStatus>()
@@ -35,13 +35,9 @@ final class MapViewModel {
         if #available(iOS 14.0, *) {
             authorizationStatus = manager.authorizationStatus
             checkUserDevieceLocationServiceAuthorization(authorizationStatus)
-            setdefaultLocation.accept(MapViewModel.LandmarkLocation.sesacLocation)
-            print("위치 서비스가 껴저 있어 위치 권한 요청을 할 수 없습니다")
         } else {
             authorizationStatus = CLLocationManager.authorizationStatus()
             checkUserDevieceLocationServiceAuthorization(authorizationStatus)
-            setdefaultLocation.accept(MapViewModel.LandmarkLocation.sesacLocation)
-            print("위치 서비스가 껴저 있어 위치 권한 요청을 할 수 없습니다")
         }
     }
 
@@ -65,6 +61,7 @@ final class MapViewModel {
             print("DENIED, 아이폰 설정으로 유도")
             checkAuthorizationStatus.accept(.restricted)
             checkAuthorizationStatus.accept(.denied)
+            setdefaultLocation.accept(MapViewModel.LandmarkLocation.sesacLocation)
         case .authorizedWhenInUse:
             manager.startUpdatingLocation() // 이게 있어야 didUpdateLocation메서드가 호출
         default: print("DEFAULT")
@@ -92,7 +89,6 @@ final class MapViewModel {
     //5초 마다 상태 확인 필요 /v1/queue/myQueueState
     func getMatchStatus(idtoken: String) {
         let api = SeSACAPI.matchingStatus
-        
         Network.shared.receiveRequestSeSAC(type: MatchStatus.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
             
             guard let myQueueStatus = MyQueueStatus(rawValue: statusCode) else { return }
