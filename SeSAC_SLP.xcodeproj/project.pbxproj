@@ -76,7 +76,13 @@
 		907E242D2931E72A00401F1A /* RecommandCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E242C2931E72A00401F1A /* RecommandCollectionViewCell.swift */; };
 		907E242F2931E74A00401F1A /* NearStudyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E242E2931E74A00401F1A /* NearStudyCollectionViewCell.swift */; };
 		907E24312931F20500401F1A /* WhishStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E24302931F20500401F1A /* WhishStudyView.swift */; };
-		9082F8E1292A6CC50085D4BB /* TabManViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082F8E0292A6CC50085D4BB /* TabManViewcontroller.swift */; };
+		907E24342932110100401F1A /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 907E24332932110100401F1A /* Tabman */; };
+		907E24382932128500401F1A /* StartMatcingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E24372932128500401F1A /* StartMatcingViewController.swift */; };
+		907E243C29322B4500401F1A /* StartMatchingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E243B29322B4500401F1A /* StartMatchingViewModel.swift */; };
+		907E244029322F6900401F1A /* StartMatchingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E243F29322F6900401F1A /* StartMatchingView.swift */; };
+		907E2442293230F000401F1A /* StartMatchingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E2441293230F000401F1A /* StartMatchingCollectionViewCell.swift */; };
+		907E24452932347300401F1A /* KeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E24442932347300401F1A /* KeyBoard.swift */; };
+		9082F8E1292A6CC50085D4BB /* CustomTabmanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082F8E0292A6CC50085D4BB /* CustomTabmanViewController.swift */; };
 		9082F8E3292A72200085D4BB /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082F8E2292A72200085D4BB /* SearchViewModel.swift */; };
 		9082F8E6292ACCAD0085D4BB /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = 9082F8E5292ACCAD0085D4BB /* RxKeyboard */; };
 		9095C4DE291D13730055D1B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */; };
@@ -176,7 +182,12 @@
 		907E242C2931E72A00401F1A /* RecommandCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommandCollectionViewCell.swift; sourceTree = "<group>"; };
 		907E242E2931E74A00401F1A /* NearStudyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearStudyCollectionViewCell.swift; sourceTree = "<group>"; };
 		907E24302931F20500401F1A /* WhishStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhishStudyView.swift; sourceTree = "<group>"; };
-		9082F8E0292A6CC50085D4BB /* TabManViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManViewcontroller.swift; sourceTree = "<group>"; };
+		907E24372932128500401F1A /* StartMatcingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartMatcingViewController.swift; sourceTree = "<group>"; };
+		907E243B29322B4500401F1A /* StartMatchingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartMatchingViewModel.swift; sourceTree = "<group>"; };
+		907E243F29322F6900401F1A /* StartMatchingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartMatchingView.swift; sourceTree = "<group>"; };
+		907E2441293230F000401F1A /* StartMatchingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartMatchingCollectionViewCell.swift; sourceTree = "<group>"; };
+		907E24442932347300401F1A /* KeyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyBoard.swift; sourceTree = "<group>"; };
+		9082F8E0292A6CC50085D4BB /* CustomTabmanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabmanViewController.swift; sourceTree = "<group>"; };
 		9082F8E2292A72200085D4BB /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9095C4DF291D43250055D1B7 /* UserDafaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDafaults.swift; sourceTree = "<group>"; };
@@ -226,6 +237,7 @@
 				90DA96C7291CE03500B5CA76 /* Toast in Frameworks */,
 				902B102A291C542700D03C0E /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				902B102E291C542700D03C0E /* FirebaseCrashlytics in Frameworks */,
+				907E24342932110100401F1A /* Tabman in Frameworks */,
 				902B101A291C18D000D03C0E /* Alamofire in Frameworks */,
 				9066125A29275E4A00320F21 /* RxCocoa in Frameworks */,
 				9066126229275F4700320F21 /* RxMKMapView in Frameworks */,
@@ -261,6 +273,7 @@
 				902B0FD42918FE6B00D03C0E /* Scene */,
 				902B0FD22918FE4100D03C0E /* Network */,
 				902B0FD12918FDEB00D03C0E /* Constant */,
+				907E24432932346200401F1A /* Func */,
 				902B0FA92918BC1C00D03C0E /* AppDelegate.swift */,
 				9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */,
 				902B0FAB2918BC1C00D03C0E /* SceneDelegate.swift */,
@@ -357,7 +370,6 @@
 		902B1002291AB69C00D03C0E /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
-				90FD72682922444800BB0077 /* Common */,
 				90FE3114291EA8D400C0949E /* ViewModel */,
 				902B0FDE29193AE600D03C0E /* ViewController */,
 				902B1001291AB65300D03C0E /* View */,
@@ -444,7 +456,7 @@
 		907636E329203F9100D289AB /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				9082F8DF292A6C790085D4BB /* NearUser */,
+				907E2435293211D000401F1A /* StartMatching */,
 				90A8F30C29256654003083C8 /* Search */,
 				907C68EA29253B5D00AADECC /* Map */,
 			);
@@ -471,10 +483,38 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		907E2435293211D000401F1A /* StartMatching */ = {
+			isa = PBXGroup;
+			children = (
+				9082F8E0292A6CC50085D4BB /* CustomTabmanViewController.swift */,
+				9082F8DF292A6C790085D4BB /* NearUser */,
+				907E2436293211F200401F1A /* RequestUser */,
+				907E243B29322B4500401F1A /* StartMatchingViewModel.swift */,
+				907E243F29322F6900401F1A /* StartMatchingView.swift */,
+				907E2441293230F000401F1A /* StartMatchingCollectionViewCell.swift */,
+			);
+			path = StartMatching;
+			sourceTree = "<group>";
+		};
+		907E2436293211F200401F1A /* RequestUser */ = {
+			isa = PBXGroup;
+			children = (
+				907E24372932128500401F1A /* StartMatcingViewController.swift */,
+			);
+			path = RequestUser;
+			sourceTree = "<group>";
+		};
+		907E24432932346200401F1A /* Func */ = {
+			isa = PBXGroup;
+			children = (
+				907E24442932347300401F1A /* KeyBoard.swift */,
+			);
+			path = Func;
+			sourceTree = "<group>";
+		};
 		9082F8DF292A6C790085D4BB /* NearUser */ = {
 			isa = PBXGroup;
 			children = (
-				9082F8E0292A6CC50085D4BB /* TabManViewcontroller.swift */,
 			);
 			path = NearUser;
 			sourceTree = "<group>";
@@ -499,13 +539,6 @@
 				9066127A2928A27700320F21 /* APIViewModel.swift */,
 			);
 			path = Manager;
-			sourceTree = "<group>";
-		};
-		90FD72682922444800BB0077 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		90FD72952922703C00BB0077 /* MyPageInfo */ = {
@@ -615,6 +648,7 @@
 				9066126129275F4700320F21 /* RxMKMapView */,
 				9082F8E5292ACCAD0085D4BB /* RxKeyboard */,
 				90517209292E207400DDBC13 /* RxGesture */,
+				907E24332932110100401F1A /* Tabman */,
 			);
 			productName = SeSAC_SLP;
 			productReference = 902B0FA62918BC1C00D03C0E /* SeSAC_SLP.app */;
@@ -654,6 +688,7 @@
 				9066126029275F4700320F21 /* XCRemoteSwiftPackageReference "RxMKMapView" */,
 				9082F8E4292ACCAD0085D4BB /* XCRemoteSwiftPackageReference "RxKeyboard" */,
 				90517208292E207400DDBC13 /* XCRemoteSwiftPackageReference "RxGesture" */,
+				907E24322932110100401F1A /* XCRemoteSwiftPackageReference "Tabman" */,
 			);
 			productRefGroup = 902B0FA72918BC1C00D03C0E /* Products */;
 			projectDirPath = "";
@@ -714,6 +749,7 @@
 				902B1010291AE9E300D03C0E /* OnboardingViewController.swift in Sources */,
 				902B0FEB29196E9B00D03C0E /* Color.swift in Sources */,
 				902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */,
+				907E2442293230F000401F1A /* StartMatchingCollectionViewCell.swift in Sources */,
 				902B0FF5291A41DC00D03C0E /* EmailView.swift in Sources */,
 				902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */,
 				907E24312931F20500401F1A /* WhishStudyView.swift in Sources */,
@@ -723,11 +759,13 @@
 				90FD72D62923FFD400BB0077 /* MyPageListViewController.swift in Sources */,
 				907C68E5292519B500AADECC /* MypageInfoHeader.swift in Sources */,
 				90FD72A829227AF300BB0077 /* Common.swift in Sources */,
-				9082F8E1292A6CC50085D4BB /* TabManViewcontroller.swift in Sources */,
+				9082F8E1292A6CC50085D4BB /* CustomTabmanViewController.swift in Sources */,
+				907E244029322F6900401F1A /* StartMatchingView.swift in Sources */,
 				90FD729A2922714100BB0077 /* MyPageGenderView.swift in Sources */,
 				907E242F2931E74A00401F1A /* NearStudyCollectionViewCell.swift in Sources */,
 				90A55C7A292427030005F56D /* MyPageListTableViewCell.swift in Sources */,
 				90517253292F734B00DDBC13 /* Constants.swift in Sources */,
+				907E24452932347300401F1A /* KeyBoard.swift in Sources */,
 				90FD72BB2922B44600BB0077 /* AgeSlider.swift in Sources */,
 				907C68E729251B0400AADECC /* CardView.swift in Sources */,
 				90FD729E2922719500BB0077 /* SwitchView.swift in Sources */,
@@ -745,6 +783,7 @@
 				902B1016291B7ABD00D03C0E /* SignInViewModel.swift in Sources */,
 				902B0FAA2918BC1C00D03C0E /* AppDelegate.swift in Sources */,
 				907E242D2931E72A00401F1A /* RecommandCollectionViewCell.swift in Sources */,
+				907E243C29322B4500401F1A /* StartMatchingViewModel.swift in Sources */,
 				90A55C7D2924BBF60005F56D /* SeSACTitleStackView.swift in Sources */,
 				90A55C78292418FB0005F56D /* Header.swift in Sources */,
 				9066127B2928A27700320F21 /* APIViewModel.swift in Sources */,
@@ -758,6 +797,7 @@
 				90517258292F9ADB00DDBC13 /* BaseCollectionViewCell.swift in Sources */,
 				902B0FDD29193A0F00D03C0E /* SignInViewController.swift in Sources */,
 				902B0FE92919665500D03C0E /* Enum.swift in Sources */,
+				907E24382932128500401F1A /* StartMatcingViewController.swift in Sources */,
 				902B0FD72918FEBE00D03C0E /* BaseView.swift in Sources */,
 				90FE3118291EB8AF00C0949E /* NoNetWorkView.swift in Sources */,
 				90FD72A0292271D100BB0077 /* MatchingAgeView.swift in Sources */,
@@ -1060,6 +1100,14 @@
 				minimumVersion = 6.0.1;
 			};
 		};
+		907E24322932110100401F1A /* XCRemoteSwiftPackageReference "Tabman" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/uias/Tabman.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		9082F8E4292ACCAD0085D4BB /* XCRemoteSwiftPackageReference "RxKeyboard" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxKeyboard.git";
@@ -1133,6 +1181,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9066126029275F4700320F21 /* XCRemoteSwiftPackageReference "RxMKMapView" */;
 			productName = RxMKMapView;
+		};
+		907E24332932110100401F1A /* Tabman */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 907E24322932110100401F1A /* XCRemoteSwiftPackageReference "Tabman" */;
+			productName = Tabman;
 		};
 		9082F8E5292ACCAD0085D4BB /* RxKeyboard */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -13,6 +13,8 @@ class BaseCollectionViewCell: UICollectionViewCell {
         
         configure()
         setUpConstraints()
+        
+        self.backgroundColor = .darkGray
     }
         
     @available(*, unavailable)

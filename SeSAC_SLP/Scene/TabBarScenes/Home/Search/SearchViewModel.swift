@@ -76,7 +76,7 @@ final class SearchViewModel {
     func searchSeSACMate(lat: Double, long: Double, studylist: [String], idtoken: String) {
         let api = SeSACAPI.search(lat: lat, lon: long, studylist: studylist)
         Network.shared.sendRequestSeSAC(url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { statuscode in
-            
+         
             print(statuscode)
         }
     }

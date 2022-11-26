@@ -25,7 +25,7 @@ import RxGesture
 // 구독은 뷰와의 연결성을 주면서 뷰에 어떤 형태의 값을 그려줄지 동작하는 부분
 
 //MARK: - 서치 뷰컨
- 
+
 final class SearchViewController: BaseViewController {
     
     lazy var width = view.frame.size.width //화면 너비
@@ -35,13 +35,6 @@ final class SearchViewController: BaseViewController {
     //값전달
     var currentLocation: CLLocationCoordinate2D?
     var mainView = SearchView()
-    // 서버보내는 시점에 기본값 anything 넣기
-    var wishList: Set<String> = [] {
-        didSet {
-            mainView.collectionView.reloadData()
-            print(wishList)
-        }
-    }
     
     let commonAPIviewModel = CommonServerManager()
     let viewModel = SearchViewModel()
@@ -59,14 +52,9 @@ final class SearchViewController: BaseViewController {
         mainView.collectionView.delegate = self
         mainView.collectionView.collectionViewLayout = mainView.configureCollectionViewLayout()
         mainView.collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchHeaderView.reuseIdentifier)
-        
-        guard let idtoken = UserDefaults.idtoken else {
-            print("itocken만료")
-            return
-        }
-        
+      
         //유저디폴츠 UserDefaults.searchData에 값을 넣어주고 있음 새싹위치로 테스트
-        commonAPIviewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
+        commonAPIviewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idToken)
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -85,7 +73,7 @@ final class SearchViewController: BaseViewController {
         //            return
         //        }
         
-     
+        
         //        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude, Array(wishList), "\n ", UserDefaults.searchData)
         
         
@@ -140,7 +128,7 @@ final class SearchViewController: BaseViewController {
         output.tapSearchButton
             .withUnretained(self)
             .bind { vc, _ in
-                let viewcontroller = NearUserViewController()
+                let viewcontroller = CustomTabmanViewController()
                 guard let currentLocation = vc.currentLocation else {
                     print("사용자의 위치를 받아올 수 없음 🔴", #function)
                     return
@@ -150,8 +138,9 @@ final class SearchViewController: BaseViewController {
                     return
                 }
                 
-                // Test
-                vc.viewModel.searchSeSACMate(lat: vc.sesacCoordinate.latitude, long: vc.sesacCoordinate.longitude, studylist: Array(vc.wishList), idtoken: idtoken)
+                // 캠퍼스 위치로 Test
+                vc.viewModel.searchSeSACMate(lat: vc.sesacCoordinate.latitude, long: vc.sesacCoordinate.longitude, studylist: vc.viewModel.wishList.value.sorted(), idtoken: idtoken)
+                
                 vc.transition(viewcontroller, .push)
             }.disposed(by: disposedBag)
         
@@ -173,7 +162,7 @@ final class SearchViewController: BaseViewController {
                 let searchlist = Set(self?.viewModel.searchList.value ?? [])
                 self?.viewModel.InvalidWishList()
                 self?.viewModel.searchList.accept(searchlist.sorted())
-                self?.mainView.collectionView.reloadData()
+                self?.mainView.collectionView.reloadData() // 뷰모델로 리로드 다 빼기
                 self?.searchBar.text = ""
             }.disposed(by: disposedBag)
         
@@ -221,18 +210,19 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
+        
         if indexPath.section == 0 {
             let quoList = viewModel.fromRecommend + viewModel.studyList.value
-            print(quoList, " ==================================")
             //fromRecommend.count
             if indexPath.item <= viewModel.fromRecommend.count {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
+                guard let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
                 
-                cell.label.text = quoList[indexPath.item]
-                cell.xbutton.isHidden = true
-                cell.customView.layer.borderColor = UIColor.setStatus(color: .success).cgColor // 색 바꾸기
+                cell1.label.text = quoList[indexPath.item]
+                cell1.xbutton.isHidden = true
+                cell1.customView.layer.borderColor = UIColor.setStatus(color: .success).cgColor // 색 바꾸기
                 // fromRecommend.count, indexPath.row <= fromQueueDB.count
-                return cell
+                return cell1
             } else if indexPath.item > viewModel.studyList.value.count {
                 guard let cell3 = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
                 
@@ -241,7 +231,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
                 cell3.customView.layer.borderColor = UIColor.setBaseColor(color: .black).cgColor // 색 바꾸기
                 return cell3
             }
-            return UICollectionViewCell()
+            return cell
             
         } else if indexPath.section == 1 {
             guard let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
@@ -253,13 +243,12 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
             cell2.customView.layer.borderColor = UIColor.setBrandColor(color: .green).cgColor
             return cell2
         }
-        return UICollectionViewCell()
+        return cell
         
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
+        
         switch indexPath.section {
         case 0:
             print("들어왔따4", indexPath.row)
@@ -267,6 +256,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
             
         case 1:
             print("들어왔따5", indexPath.row)
+            //안됨
             collectionView.deselectItem(at: indexPath, animated: true)
             var test = viewModel.wishList.value
             test.removeAll { str in
