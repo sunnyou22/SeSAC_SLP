@@ -254,8 +254,9 @@ class HomeMapViewController: BaseViewController {
     func bindMapViewData() {
         mainView.mapView.rx.willStartLoadingMap
             .asDriver()
-            .drive(onNext: {
+            .drive(onNext: { [weak self] in
                 print("Map started loading")
+                self?.viewModel.checkUserDevieceLocationServiceAuthorization()
             })
             .disposed(by: disposedBag)
         

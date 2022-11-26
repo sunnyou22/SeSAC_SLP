@@ -34,8 +34,12 @@ final class MapViewModel {
         //디바이스의 위치설정상태를 가져옴
         if #available(iOS 14.0, *) {
             authorizationStatus = manager.authorizationStatus
+            checkUserDevieceLocationServiceAuthorization(authorizationStatus)
+            setdefaultLocation.accept(MapViewModel.LandmarkLocation.sesacLocation)
+            print("위치 서비스가 껴저 있어 위치 권한 요청을 할 수 없습니다")
         } else {
             authorizationStatus = CLLocationManager.authorizationStatus()
+            checkUserDevieceLocationServiceAuthorization(authorizationStatus)
             setdefaultLocation.accept(MapViewModel.LandmarkLocation.sesacLocation)
             print("위치 서비스가 껴저 있어 위치 권한 요청을 할 수 없습니다")
         }
