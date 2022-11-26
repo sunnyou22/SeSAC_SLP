@@ -42,7 +42,7 @@ class HomeMapViewController: BaseViewController {
         mainView.mapView.delegate = self
         mainView.mapView.showsUserLocation = false // 내 위치 지도에 표시
         mainView.mapView.setUserTrackingMode(.none, animated: true) // 내 위치를 기준으로 움직이기 위함
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,7 +60,8 @@ class HomeMapViewController: BaseViewController {
         //파이어베이스 토큰 갱신
         
         guard let idtoken = UserDefaults.idtoken else {
-            print("itocken만료")
+            let vc = OnboardingViewController()
+            setInitialViewController(to: vc)
             return
         }
         
@@ -68,7 +69,6 @@ class HomeMapViewController: BaseViewController {
         
         //        viewModel.fetchMapData(lat: (manager.location?.coordinate.latitude)!, long: (manager.location?.coordinate.longitude)!, idtoken: idtoken)
         commonAPIviewModel.fetchMapData(lat: MapViewModel.LandmarkLocation.sesacLocation.latitude, long: MapViewModel.LandmarkLocation.sesacLocation.longitude, idtoken: idtoken)
-        //        print(UserDefaults.searchData, "✅✅Userdefaults.searchData 디코뒹✅✅") // 가변적인 데이터라 당장 필요없음
         
         // 매칭상태가져오기 테스트
         viewModel.getMatchStatus(idtoken: idtoken)
@@ -184,7 +184,8 @@ class HomeMapViewController: BaseViewController {
             .didUpdateLocations
             .debug("didUpdateLocations")
             .subscribe(onNext: { [weak self] value in
-
+                guard let annotations = self?.viewModel.addAnnotations() else { return }
+                self?.mainView.mapView.addAnnotations(annotations)
             }).disposed(by: disposedBag)
         
         //에러를 불러왔을 때 꼭 value가 이게 아니어도 될것같은데
@@ -220,6 +221,8 @@ class HomeMapViewController: BaseViewController {
             }).disposed(by: disposedBag)
         
         viewModel.manager.rx
+        
+        viewModel.manager.rx
             .placemark
             .subscribe(onNext: { placemark in
                 guard let name = placemark.name,
@@ -246,115 +249,113 @@ class HomeMapViewController: BaseViewController {
             .subscribe(onNext: { [weak self] value in
             }).disposed(by: disposedBag)
     }
-        
-        //MARK: rxmapview
-        func bindMapViewData() {
-            mainView.mapView.rx.willStartLoadingMap
-                .asDriver()
-                .drive(onNext: {
-                    print("Map started loading")
-                })
-                .disposed(by: disposedBag)
-            
-            mainView.mapView.rx.didFinishLoadingMap
-                .asDriver()
-                .drive(onNext: {
-                    print("Map finished loading")
-                })
-                .disposed(by: disposedBag)
-            
-            //
-            mainView.mapView.rx.regionDidChangeAnimated
-                .subscribe(onNext: { [weak self] _ in
-                    print("Map region changed")
-                    
-                    self?.mainView.mapView.isUserInteractionEnabled = false
-                    guard let location = self?.viewModel.manager.location?.coordinate else { return }
-                    guard let idtoken = UserDefaults.idtoken else {
-                        print("itocken만료")
-                        return
-                    }
-                    //움직일 때 마다 주변 정보를 받아옴
-                    self?.commonAPIviewModel.fetchMapData(lat: location.latitude, long: location.longitude, idtoken: idtoken) 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                        self?.mainView.mapView.isUserInteractionEnabled = true
-                    }
-                    
-                    self?.mainView.mapView.addAnnotations((self?.viewModel.addAnnotations())!)
-                }).disposed(by: disposedBag)
-            
-            mainView.mapView.rx.region
-                .subscribe(onNext: { region in
-                    //5초 버퍼걸기 -> 스레드이용?
-                    //                print("Map region is now \(region)")
-                    //                guard let idtoken = UserDefaults.idtoken else {
-                    //                    print("itocken만료")
-                    //                    return
-                    //                }
-                    //                viewModel.fetchMapData(lat: region.center.latitude, long: region.center.longitude, idtoken: idtoken)
-                })
-                .disposed(by: disposedBag)
-        }
-    }
     
-    
-    // MARK: - MKMapView Delegates
-    extension HomeMapViewController: MKMapViewDelegate {
-        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            guard !annotation.isKind(of: MKUserLocation.self) else {
-                return nil
-            }
-            
-            var annotationView = mainView.mapView.dequeueReusableAnnotationView(withIdentifier: "customAnnotation")
-            
-            if annotationView == nil {
-                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customAnnotation")
-                annotationView?.canShowCallout = false // 어노테이션에 추가 정보 달거니~?
-                annotationView?.contentMode = .scaleAspectFit // 어노테이션 이미지 사이즈모드는 뭐니?
-                
-            } else {
-                annotationView?.annotation = annotation
-            }
-            
-            let sesacImage: UIImage = UIImage(named: "sesac_face_1")!
-            let size = CGSize(width: 85, height: 85) // 초기사이즈 설정
-            UIGraphicsBeginImageContext(size) // 코어그래픽에 객체의 정보를 담음 이제 이걸로 지지고 볶을 거임 // 그리기 씌작
-            //        annotationView?.image = UIImage(named: "sesac_face_1")
-            
-            sesacImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-            let resizedImage = UIGraphicsGetImageFromCurrentImageContext() // 그리기 끝난 값을 넣어줌
-            annotationView?.image = resizedImage
-            
-            return annotationView
-        }
-        
-        func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-            views.forEach { $0.alpha = 0.0 }
-            
-            UIView.animate(withDuration: 0.4,
-                           animations: {
-                views.forEach { $0.alpha = 1.0 }
+    //MARK: rxmapview
+    func bindMapViewData() {
+        mainView.mapView.rx.willStartLoadingMap
+            .asDriver()
+            .drive(onNext: {
+                print("Map started loading")
             })
-        }
-    }
-    
-    // MARK: - Map Annotation and Helpers
-    class PointOfInterest: NSObject, MKAnnotation {
-        let coordinate: CLLocationCoordinate2D
-        let title: String?
-        let subtitle: String?
+            .disposed(by: disposedBag)
         
-        init(title: String, subtitle: String, coordinate: CLLocationCoordinate2D) {
-            self.title = title
-            self.subtitle = subtitle
-            self.coordinate = coordinate
+        mainView.mapView.rx.didFinishLoadingMap
+            .asDriver()
+            .drive(onNext: {
+                print("Map finished loading")
+            })
+            .disposed(by: disposedBag)
+        
+        //
+        mainView.mapView.rx.regionDidChangeAnimated
+            .subscribe(onNext: { [weak self] _ in
+                print("Map region changed")
+                
+                self?.mainView.mapView.isUserInteractionEnabled = false
+                guard let location = self?.viewModel.manager.location?.coordinate else { return }
+                guard let idtoken = UserDefaults.idtoken else {
+                    print("itocken만료")
+                    return
+                }
+                //움직일 때 마다 주변 정보를 받아옴
+                self?.commonAPIviewModel.fetchMapData(lat: location.latitude, long: location.longitude, idtoken: idtoken)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    self?.mainView.mapView.isUserInteractionEnabled = true
+                }
+            }).disposed(by: disposedBag)
+        
+        mainView.mapView.rx.region
+            .subscribe(onNext: { region in
+                //5초 버퍼걸기 -> 스레드이용?
+                //                print("Map region is now \(region)")
+                //                guard let idtoken = UserDefaults.idtoken else {
+                //                    print("itocken만료")
+                //                    return
+                //                }
+                //                viewModel.fetchMapData(lat: region.center.latitude, long: region.center.longitude, idtoken: idtoken)
+            })
+            .disposed(by: disposedBag)
+    }
+}
+
+
+// MARK: - MKMapView Delegates
+extension HomeMapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard !annotation.isKind(of: MKUserLocation.self) else {
+            return nil
         }
+        
+        var annotationView = mainView.mapView.dequeueReusableAnnotationView(withIdentifier: "customAnnotation")
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customAnnotation")
+            annotationView?.canShowCallout = false // 어노테이션에 추가 정보 달거니~?
+            annotationView?.contentMode = .scaleAspectFit // 어노테이션 이미지 사이즈모드는 뭐니?
+            
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        let sesacImage: UIImage = UIImage(named: "sesac_face_1")!
+        let size = CGSize(width: 85, height: 85) // 초기사이즈 설정
+        UIGraphicsBeginImageContext(size) // 코어그래픽에 객체의 정보를 담음 이제 이걸로 지지고 볶을 거임 // 그리기 씌작
+        //        annotationView?.image = UIImage(named: "sesac_face_1")
+        
+        sesacImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext() // 그리기 끝난 값을 넣어줌
+        annotationView?.image = resizedImage
+        
+        return annotationView
     }
     
-    extension MKCoordinateRegion {
-        func contains(poi: PointOfInterest) -> Bool {
-            return abs(self.center.latitude - poi.coordinate.latitude) <= self.span.latitudeDelta / 2.0
-            && abs(self.center.longitude - poi.coordinate.longitude) <= self.span.longitudeDelta / 2.0
-        }
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        views.forEach { $0.alpha = 0.0 }
+        
+        UIView.animate(withDuration: 0.4,
+                       animations: {
+            views.forEach { $0.alpha = 1.0 }
+        })
     }
+}
+
+// MARK: - Map Annotation and Helpers
+class PointOfInterest: NSObject, MKAnnotation {
+    let coordinate: CLLocationCoordinate2D
+    let title: String?
+    let subtitle: String?
+    
+    init(title: String, subtitle: String, coordinate: CLLocationCoordinate2D) {
+        self.title = title
+        self.subtitle = subtitle
+        self.coordinate = coordinate
+    }
+}
+
+extension MKCoordinateRegion {
+    func contains(poi: PointOfInterest) -> Bool {
+        return abs(self.center.latitude - poi.coordinate.latitude) <= self.span.latitudeDelta / 2.0
+        && abs(self.center.longitude - poi.coordinate.longitude) <= self.span.longitudeDelta / 2.0
+    }
+}
 
