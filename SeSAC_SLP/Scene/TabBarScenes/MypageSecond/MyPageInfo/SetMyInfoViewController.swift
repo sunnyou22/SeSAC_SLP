@@ -34,7 +34,7 @@ final class SetMyInfoViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      
         mainView.cardView.nicknameView.toggleButton.addTarget(self, action: #selector(test), for: .touchUpInside)
         guard let idtoken = UserDefaults.idtoken else {
             print("다음 버튼을 눌렀는데 토큰이 없어 🔴")
@@ -55,6 +55,7 @@ final class SetMyInfoViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        remakeLayout()
         setnavigation()
     }
     
@@ -151,4 +152,12 @@ final class SetMyInfoViewController: BaseViewController {
         mainView.cardView.expandableView.isHidden =  !mainView.cardView.expandableView.isHidden
     }
     
+    func remakeLayout() {
+        mainView.cardView.expandableView.whishStudyView.isHidden = true
+        self.mainView.cardView.expandableView.sesacReviewLabel.snp.remakeConstraints { make in
+            make.top.equalTo(mainView.cardView.expandableView.titleStackView.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview()
+        }
+        self.mainView.layoutIfNeeded()
+    }
 }

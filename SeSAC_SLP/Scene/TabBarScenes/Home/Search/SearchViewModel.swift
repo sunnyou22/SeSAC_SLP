@@ -42,22 +42,21 @@ final class SearchViewModel {
     }
     
     //list라는 값을 전달하고 싶음
-    func countAroundStudylist() {
-        var templist: [String] = []
+    func countAroundStudylist(){
+        var total = [String]()
+        var tempList: Set<String> = []
         fromQueueDB.forEach { list in
-            Set(list.studylist).forEach { str in
-                if str != "anything" {
-                    templist.append(str)
-                }
-            }
+            tempList = Set(list.studylist)
+            total += tempList.filter { $0 != "anything" }
+            print(tempList, "templist=============")
         }
-        print(studyList.value, "===========🔴👉")
-        studyList.accept(templist)
+        print(total, " -------554725473514315383756174365746177")
+        studyList.accept(total.sorted())
     }
     
     // 하고싶은에 해당하는 list를 뷰에 그리고싶어
     func setWishList(addWishList: [String]) {
-        var tempList = wishList.value
+        var tempList = wishList.value.sorted()
         tempList += addWishList
         print(wishList.value, "=======")
         wishList.accept(tempList)

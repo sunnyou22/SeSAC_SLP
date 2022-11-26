@@ -64,8 +64,7 @@ class HomeMapViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //MARK: - viewWillAppear
-        super.viewWillAppear(animated)
+        //MARK: - viewWillAppear        super.viewWillAppear(animated)
         // 바인드로 맵에 대한 데이터 갱신
         bindMapData()
         

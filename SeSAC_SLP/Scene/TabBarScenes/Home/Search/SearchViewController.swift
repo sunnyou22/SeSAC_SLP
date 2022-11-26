@@ -58,7 +58,16 @@ final class SearchViewController: BaseViewController {
         mainView.collectionView.dataSource = self
         mainView.collectionView.delegate = self
         mainView.collectionView.collectionViewLayout = mainView.configureCollectionViewLayout()
-        mainView.collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchHeaderView")
+        mainView.collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchHeaderView.reuseIdentifier)
+        
+        guard let idtoken = UserDefaults.idtoken else {
+            print("itocken만료")
+            return
+        }
+        
+        //유저디폴츠 UserDefaults.searchData에 값을 넣어주고 있음 새싹위치로 테스트
+        commonAPIviewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         //MARK: - viewWillAppear
@@ -68,10 +77,7 @@ final class SearchViewController: BaseViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchBar)
         //        searchBar.delegate = self
         
-        guard let idtoken = UserDefaults.idtoken else {
-            print("itocken만료")
-            return
-        }
+        
         
         //        // 앞에서 사용자의 현위치 값전달
         //        guard let currentLocation = currentLocation else {
@@ -79,9 +85,7 @@ final class SearchViewController: BaseViewController {
         //            return
         //        }
         
-        //유저디폴츠 UserDefaults.searchData에 값을 넣어주고 있음 새싹위치로 테스트
-        commonAPIviewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idtoken)
-        
+     
         //        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude, Array(wishList), "\n ", UserDefaults.searchData)
         
         
@@ -94,7 +98,6 @@ final class SearchViewController: BaseViewController {
     
     func bindDataUI() {
         
-        viewModel.countAroundStudylist()
         let input = SearchViewModel.Input(tapSearchButton: mainView.searchButton.rx.tap, searchbarsearchButtonClicked: searchBar.rx.searchButtonClicked)
         let output = viewModel.transform(input: input)
         
@@ -196,12 +199,12 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             if indexPath.section == 0 {
-                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SearchHeaderView", for: indexPath) as! SearchHeaderView
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchHeaderView.reuseIdentifier, for: indexPath) as! SearchHeaderView
                 header.label.text = SearchHeaderView.Section.allCases[indexPath.section].title
                 return header
                 
             } else {
-                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SearchHeaderView", for: indexPath) as! SearchHeaderView
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchHeaderView.reuseIdentifier, for: indexPath) as! SearchHeaderView
                 header.label.text = SearchHeaderView.Section.allCases[indexPath.section].title
                 return header
             }
@@ -211,31 +214,35 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        viewModel.countAroundStudylist()
         return section == 0 ? viewModel.fromRecommend.count + viewModel.studyList.value.count : viewModel.wishList.value.count
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let searchData = UserDefaults.searchData else {
-            print("searchData없음🔴")
-            return  UICollectionViewCell() }
         if indexPath.section == 0 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
-            
+            let quoList = viewModel.fromRecommend + viewModel.studyList.value
+            print(quoList, " ==================================")
             //fromRecommend.count
-            if indexPath.row <= viewModel.fromRecommend.count {
-                cell.label.text = viewModel.fromRecommend[indexPath.item]
+            if indexPath.item <= viewModel.fromRecommend.count {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
+                
+                cell.label.text = quoList[indexPath.item]
                 cell.xbutton.isHidden = true
                 cell.customView.layer.borderColor = UIColor.setStatus(color: .success).cgColor // 색 바꾸기
                 // fromRecommend.count, indexPath.row <= fromQueueDB.count
-            } else if indexPath.row > viewModel.studyList.value.count {
-                cell.label.text = viewModel.studyList.value[indexPath.item]
-                cell.xbutton.isHidden = true
-                cell.customView.layer.borderColor = UIColor.setBaseColor(color: .black).cgColor // 색 바꾸기
+                return cell
+            } else if indexPath.item > viewModel.studyList.value.count {
+                guard let cell3 = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
+                
+                cell3.label.text = quoList[indexPath.item]
+                cell3.xbutton.isHidden = true
+                cell3.customView.layer.borderColor = UIColor.setBaseColor(color: .black).cgColor // 색 바꾸기
+                return cell3
             }
-            return cell
+            return UICollectionViewCell()
+            
         } else if indexPath.section == 1 {
             guard let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
             
@@ -245,7 +252,6 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
             cell2.xbutton.isHidden = false
             cell2.customView.layer.borderColor = UIColor.setBrandColor(color: .green).cgColor
             return cell2
-            
         }
         return UICollectionViewCell()
         
@@ -258,9 +264,15 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         case 0:
             print("들어왔따4", indexPath.row)
             viewModel.setWishList(addWishList: [viewModel.fromRecommend[indexPath.item]])
+            
         case 1:
             print("들어왔따5", indexPath.row)
-            viewModel.setWishList(addWishList: [viewModel.studyList.value[indexPath.item]])
+            collectionView.deselectItem(at: indexPath, animated: true)
+            var test = viewModel.wishList.value
+            test.removeAll { str in
+                str == viewModel.wishList.value[indexPath.item]
+            }
+            collectionView.reloadData()
         default:
             print("들어왔따6", indexPath.row)
             break

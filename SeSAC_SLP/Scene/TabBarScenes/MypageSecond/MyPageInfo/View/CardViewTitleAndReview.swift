@@ -27,12 +27,17 @@ class CardViewTitleAndReview: BaseView {
         view.text = "새싹 리뷰"
         return view
     }()
-
+    
     lazy var reviewLabel: UILabel = {
         let view = UILabel()
         view.font = UIFont.Body3_R14
         view.text = "첫 리뷰를 기다리는 중이에요"
         view.numberOfLines = 0
+        return view
+    }()
+    
+    lazy var whishStudyView: WhishStudyView = {
+        let view = WhishStudyView()
         return view
     }()
     
@@ -45,7 +50,7 @@ class CardViewTitleAndReview: BaseView {
     }
     
     override func configure() {
-        [titleLabel, titleStackView, sesacReviewLabel, reviewLabel].forEach {
+        [titleLabel, titleStackView, whishStudyView, sesacReviewLabel, reviewLabel].forEach {
             self.addSubview($0)
         }
     }
@@ -63,8 +68,14 @@ class CardViewTitleAndReview: BaseView {
             make.width.equalTo(self.snp.width)
         }
 
-        sesacReviewLabel.snp.makeConstraints { make in
+        whishStudyView.snp.makeConstraints { make in
             make.top.equalTo(titleStackView.snp.bottom).offset(16)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(100)
+        }
+        
+        sesacReviewLabel.snp.makeConstraints { make in
+            make.top.equalTo(whishStudyView.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview()
         }
 

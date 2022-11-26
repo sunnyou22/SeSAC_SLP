@@ -73,6 +73,9 @@
 		907C68E729251B0400AADECC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E629251B0400AADECC /* CardView.swift */; };
 		907C68E929251DC400AADECC /* MyPageInfoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C68E829251DC400AADECC /* MyPageInfoScrollView.swift */; };
 		907E242A2931B71600401F1A /* SearchHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E24292931B71600401F1A /* SearchHeader.swift */; };
+		907E242D2931E72A00401F1A /* RecommandCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E242C2931E72A00401F1A /* RecommandCollectionViewCell.swift */; };
+		907E242F2931E74A00401F1A /* NearStudyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E242E2931E74A00401F1A /* NearStudyCollectionViewCell.swift */; };
+		907E24312931F20500401F1A /* WhishStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E24302931F20500401F1A /* WhishStudyView.swift */; };
 		9082F8E1292A6CC50085D4BB /* TabManViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082F8E0292A6CC50085D4BB /* TabManViewcontroller.swift */; };
 		9082F8E3292A72200085D4BB /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082F8E2292A72200085D4BB /* SearchViewModel.swift */; };
 		9082F8E6292ACCAD0085D4BB /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = 9082F8E5292ACCAD0085D4BB /* RxKeyboard */; };
@@ -170,6 +173,9 @@
 		907C68E629251B0400AADECC /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		907C68E829251DC400AADECC /* MyPageInfoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageInfoScrollView.swift; sourceTree = "<group>"; };
 		907E24292931B71600401F1A /* SearchHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeader.swift; sourceTree = "<group>"; };
+		907E242C2931E72A00401F1A /* RecommandCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommandCollectionViewCell.swift; sourceTree = "<group>"; };
+		907E242E2931E74A00401F1A /* NearStudyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearStudyCollectionViewCell.swift; sourceTree = "<group>"; };
+		907E24302931F20500401F1A /* WhishStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhishStudyView.swift; sourceTree = "<group>"; };
 		9082F8E0292A6CC50085D4BB /* TabManViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManViewcontroller.swift; sourceTree = "<group>"; };
 		9082F8E2292A72200085D4BB /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		9095C4DD291D13730055D1B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -430,6 +436,7 @@
 				90A55C7C2924BBF60005F56D /* SeSACTitleStackView.swift */,
 				907C68E829251DC400AADECC /* MyPageInfoScrollView.swift */,
 				907C68E4292519B500AADECC /* MypageInfoHeader.swift */,
+				907E24302931F20500401F1A /* WhishStudyView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -454,6 +461,16 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		907E242B2931E6EF00401F1A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				907E242C2931E72A00401F1A /* RecommandCollectionViewCell.swift */,
+				907E242E2931E74A00401F1A /* NearStudyCollectionViewCell.swift */,
+				9066125629267A3100320F21 /* SearchCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		9082F8DF292A6C790085D4BB /* NearUser */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,9 +482,9 @@
 		90A8F30C29256654003083C8 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				907E242B2931E6EF00401F1A /* Cell */,
 				90A8F30A2925664B003083C8 /* SearchView.swift */,
 				90A8F30D29256667003083C8 /* SearchViewController.swift */,
-				9066125629267A3100320F21 /* SearchCollectionViewCell.swift */,
 				9082F8E2292A72200085D4BB /* SearchViewModel.swift */,
 				90517259292FBFD000DDBC13 /* DynamicCollectionView + Extension.swift */,
 				907E24292931B71600401F1A /* SearchHeader.swift */,
@@ -699,6 +716,7 @@
 				902B1014291AEB1100D03C0E /* ViewControllerList.swift in Sources */,
 				902B0FF5291A41DC00D03C0E /* EmailView.swift in Sources */,
 				902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */,
+				907E24312931F20500401F1A /* WhishStudyView.swift in Sources */,
 				9051720C292E332900DDBC13 /* BaseScrollView.swift in Sources */,
 				90FD72BD2922B78C00BB0077 /* ThumbButton.swift in Sources */,
 				90FD72A22922721700BB0077 /* SignOutView.swift in Sources */,
@@ -707,6 +725,7 @@
 				90FD72A829227AF300BB0077 /* Common.swift in Sources */,
 				9082F8E1292A6CC50085D4BB /* TabManViewcontroller.swift in Sources */,
 				90FD729A2922714100BB0077 /* MyPageGenderView.swift in Sources */,
+				907E242F2931E74A00401F1A /* NearStudyCollectionViewCell.swift in Sources */,
 				90A55C7A292427030005F56D /* MyPageListTableViewCell.swift in Sources */,
 				90517253292F734B00DDBC13 /* Constants.swift in Sources */,
 				90FD72BB2922B44600BB0077 /* AgeSlider.swift in Sources */,
@@ -725,6 +744,7 @@
 				906612712927FFBA00320F21 /* CardViewTableViewController.swift in Sources */,
 				902B1016291B7ABD00D03C0E /* SignInViewModel.swift in Sources */,
 				902B0FAA2918BC1C00D03C0E /* AppDelegate.swift in Sources */,
+				907E242D2931E72A00401F1A /* RecommandCollectionViewCell.swift in Sources */,
 				90A55C7D2924BBF60005F56D /* SeSACTitleStackView.swift in Sources */,
 				90A55C78292418FB0005F56D /* Header.swift in Sources */,
 				9066127B2928A27700320F21 /* APIViewModel.swift in Sources */,
