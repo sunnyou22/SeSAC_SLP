@@ -50,7 +50,16 @@ class StartMatcingViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // 데이터 가져오기
         viewModel.fetchData()
+        
+        // 플레이스 홀더
+        if viewModel.data.value.isEmpty {
+            mainView.tableView.isHidden = true
+        } else {
+            mainView.tableView.isHidden = false
+        }
     }
 }
 
@@ -67,16 +76,16 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         var wishStudy = cell.cardView.expandableView.whishStudyView
         var review =  cell.cardView.expandableView.reviewLabel
         
-        name.text = "욘뇸"
-        review.text = "메로오오오오옹"
+        name.text = viewModel.data.value[indexPath.row].nick
+        review.text = viewModel.data.value[indexPath.row].reviews.last
        
-        cell.cardView.expandableView.isHidden = hidden
+        cell.cardView.expandableView.isHidden = hidden // 암튼 일케하면 되긴함
 
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        hidden = !hidden
+        hidden = !hidden // 여기서 불값 받음
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }

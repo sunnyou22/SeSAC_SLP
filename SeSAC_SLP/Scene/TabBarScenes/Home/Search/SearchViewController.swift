@@ -28,10 +28,6 @@ import RxGesture
 
 final class SearchViewController: BaseViewController {
     
-    lazy var width = view.frame.size.width //화면 너비
-    lazy var searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: width - 28, height: 0))
-    
-    
     //값전달
     var currentLocation: CLLocationCoordinate2D?
     var mainView = SearchView()
@@ -40,53 +36,46 @@ final class SearchViewController: BaseViewController {
     let viewModel = SearchViewModel()
     let disposedBag = DisposeBag()
     let sesacCoordinate = CLLocationCoordinate2D(latitude: 37.51818789942772, longitude: 126.88541765534976)
+    
     override func loadView() {
         view = mainView
     }
     
     override func viewDidLoad() {
-        //MARK: - viewDidLoad
         super.viewDidLoad()
         
-        mainView.collectionView.dataSource = self
-        mainView.collectionView.delegate = self
-        mainView.collectionView.collectionViewLayout = mainView.configureCollectionViewLayout()
-        mainView.collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchHeaderView.reuseIdentifier)
-      
         //유저디폴츠 UserDefaults.searchData에 값을 넣어주고 있음 새싹위치로 테스트
         commonAPIviewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idToken)
         
+                bindDataUI()
     }
     override func viewWillAppear(_ animated: Bool) {
-        //MARK: - viewWillAppear
         super.viewWillAppear(animated)
-        mainView.backgroundColor = .setBaseColor(color: .white)
-        searchBar.placeholder = "띄어쓰기로 복수 입력이 가능해요"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchBar)
-        //        searchBar.delegate = self
-        
-        
         
         //        // 앞에서 사용자의 현위치 값전달
         //        guard let currentLocation = currentLocation else {
         //            print("사용자의 위치를 받아올 수 없음 🔴", #function)
         //            return
         //        }
-        
-        
         //        print("좌표값🤛", currentLocation.latitude, currentLocation.longitude, Array(wishList), "\n ", UserDefaults.searchData)
+    }
+    
+    override func configure() {
+        super.configure()
+        navigationController?.isNavigationBarHidden = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mainView.searchBar)
         
-        
-        //유아이 바인드
-        bindDataUI()
-        
+        mainView.collectionView.dataSource = self
+        mainView.collectionView.delegate = self
+        mainView.collectionView.collectionViewLayout = mainView.configureCollectionViewLayout()
+        mainView.collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchHeaderView.reuseIdentifier)
     }
     
     //MARK: - bindUI
     
     func bindDataUI() {
         
-        let input = SearchViewModel.Input(tapSearchButton: mainView.searchButton.rx.tap, searchbarsearchButtonClicked: searchBar.rx.searchButtonClicked)
+        let input = SearchViewModel.Input(tapSearchButton: mainView.searchButton.rx.tap, searchbarsearchButtonClicked: mainView.searchBar.rx.searchButtonClicked)
         let output = viewModel.transform(input: input)
         
         //키보드 높이 받아오기
@@ -122,29 +111,27 @@ final class SearchViewController: BaseViewController {
             .when(.recognized)
             .asDriver{ _ in .never() }
             .drive { [weak self] _ in
-                self?.searchBar.resignFirstResponder()
+                self?.mainView.searchBar.resignFirstResponder()
             }.disposed(by: disposedBag)
         
         output.tapSearchButton
             .withUnretained(self)
-            .bind { vc, _ in
+            .asDriver(onErrorJustReturn: (self, print("서치바검색")))
+            .drive { vc, _ in
                 let viewcontroller = CustomTabmanViewController()
                 guard let currentLocation = vc.currentLocation else {
                     print("사용자의 위치를 받아올 수 없음 🔴", #function)
                     return
                 }
-                guard let idtoken = UserDefaults.idtoken else {
-                    print("itocken만료 🔴")
-                    return
-                }
-                
+             
                 // 캠퍼스 위치로 Test
-                vc.viewModel.searchSeSACMate(lat: vc.sesacCoordinate.latitude, long: vc.sesacCoordinate.longitude, studylist: vc.viewModel.wishList.value.sorted(), idtoken: idtoken)
+                vc.viewModel.searchSeSACMate(lat: vc.sesacCoordinate.latitude, long: vc.sesacCoordinate.longitude, studylist: vc.viewModel.wishList.value.sorted(), idtoken: vc.idToken)
                 
                 vc.transition(viewcontroller, .push)
+                viewcontroller.nearVC.viewModel.wishList = vc.viewModel.wishList.value
             }.disposed(by: disposedBag)
         
-        searchBar.rx
+        mainView.searchBar.rx
             .text
             .orEmpty
             .changed
@@ -156,14 +143,20 @@ final class SearchViewController: BaseViewController {
                 self?.viewModel.searchList.accept(addwishList)
             }.disposed(by: disposedBag)
         
+        //        output.searchList
+        //            .withUnretained(self)
+        //            .bind { vc, list in
+        //               vc.viewModel.InvalidWishList()
+        //            }
+        //
         output.searchbarsearchButtonClicked
             .asDriver()
             .drive { [weak self] _ in
                 let searchlist = Set(self?.viewModel.searchList.value ?? [])
-                self?.viewModel.InvalidWishList()
+                
                 self?.viewModel.searchList.accept(searchlist.sorted())
                 self?.mainView.collectionView.reloadData() // 뷰모델로 리로드 다 빼기
-                self?.searchBar.text = ""
+                self?.mainView.searchBar.text = ""
             }.disposed(by: disposedBag)
         
         viewModel.validWishList

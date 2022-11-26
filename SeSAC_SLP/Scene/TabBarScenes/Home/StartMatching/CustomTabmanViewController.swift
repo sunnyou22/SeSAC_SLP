@@ -14,14 +14,13 @@ import RxCocoa
 
 final class CustomTabmanViewController: TabmanViewController {
     
- 
+    let nearVC = StartMatcingViewController(type: .near, viewModel: .init(type: .near))
+    let requestVC = StartMatcingViewController(type: .request, viewModel: .init(type: .request))
+    
     private var viewControllers = [UIViewController]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let nearVC = StartMatcingViewController(type: .near, viewModel: .init(type: .near))
-        let requestVC = StartMatcingViewController(type: .request, viewModel: .init(type: .request))
         
         viewControllers.append(nearVC)
         viewControllers.append(requestVC)
@@ -77,7 +76,6 @@ extension CustomTabmanViewController: TMBarDataSource, PageboyViewControllerData
     func defaultPage(for pageboyViewController: Pageboy.PageboyViewController) -> Pageboy.PageboyViewController.Page? {
     return nil
     }
-
     
     func barItem(for bar: Tabman.TMBar, at index: Int) -> Tabman.TMBarItemable {
         let item = TMBarItem(title: "")

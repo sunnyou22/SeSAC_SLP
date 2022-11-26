@@ -6,6 +6,7 @@
 //
 import UIKit
 
+// 여기 전반적으로 수정하기
 extension UILabel {
     func setBaseLabelStatus(fontsize: CGFloat, font: UIFont, lineHeight: CGFloat, _ text: String) {
         let style = NSMutableParagraphStyle()

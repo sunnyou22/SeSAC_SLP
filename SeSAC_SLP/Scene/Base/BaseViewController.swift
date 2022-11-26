@@ -13,8 +13,7 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = ""
-        
+ 
         guard let idtoken = UserDefaults.idtoken else {
             let onboarding = OnboardingViewController()
            setInitialViewController(to: onboarding)
@@ -22,8 +21,18 @@ class BaseViewController: UIViewController {
         }
         
         idToken = idtoken
+        configure()
+        setContents()
     }
     
-    func configure() { }
+    func configure() {
+        navigationItem.title = ""
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+//        appearance.shadowColor = .clear
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.standardAppearance = appearance
+    }
+    
     func setContents() { }
 }

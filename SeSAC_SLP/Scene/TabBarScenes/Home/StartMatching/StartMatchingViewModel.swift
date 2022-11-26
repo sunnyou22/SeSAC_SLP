@@ -12,7 +12,7 @@ import RxSwift
 final class StartMatchingViewModel {
  
     var type: StartMatcingViewController.Vctype
-   
+    var wishList: [String]?
     let data: BehaviorRelay<[FromQueueDB]> = BehaviorRelay<[FromQueueDB]>(value: [])
     
     init(type: StartMatcingViewController.Vctype) {
@@ -24,7 +24,14 @@ final class StartMatchingViewModel {
         switch type {
         case .near:
             guard let fromQueueDB = UserDefaults.searchData?[0].fromQueueDB else { return }
-            data.accept(fromQueueDB)
+            let quoData = fromQueueDB.filter { quo in
+                guard let wishList = wishList else { return false }
+                return quo.studylist.contains { str in
+                    wishList.contains(str)
+                } // 16부터 가능한 메서드임
+            }
+            data.accept(quoData)
+
         case .request:
             guard let fromQueueDBRequested = UserDefaults.searchData?[0].fromQueueDBRequested else { return }
             data.accept(fromQueueDBRequested)

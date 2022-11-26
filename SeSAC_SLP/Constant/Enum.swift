@@ -114,3 +114,31 @@ struct ValidButtonColor {
     static let valid: UIColor = .setBrandColor(color: .green)
     static let invalid: UIColor = .clear
 }
+
+enum Placeholder {
+    
+    enum Searcn {
+        case ment
+        
+        var str: String {
+            switch self {
+            case .ment:
+                return "띄어쓰기로 복수 입력이 가능해요"
+            }
+        }
+    }
+    
+    enum NearSeSASC {
+        case placeholderImg
+        case ment
+        
+        var str: String {
+            switch self {
+            case .placeholderImg:
+                return "searchPlaceholder"
+            case .ment:
+              return "아쉽게도 주변에 새싹이 없어요\n스터디를 변경하거나 조금만 더 기다려 주세요!"
+            }
+        }
+    }
+}

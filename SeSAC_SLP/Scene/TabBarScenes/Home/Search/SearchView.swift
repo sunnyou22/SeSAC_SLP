@@ -21,18 +21,15 @@ class DynamicCollectionView: UICollectionView {
     }
 }
 
-class SearchView: BaseView {
+final class SearchView: BaseView {
     
     lazy var accessoryView: UIView = {
         return UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: 80))
     }()
-    
-    let testsearchButton: UIButton = {
-        let view = UIButton()
-        view.setTitle("새싹 찾기", for: .normal)
-        view.backgroundColor = .setBrandColor(color: .green)
-        view.clipsToBounds = true
-        view.layer.cornerRadius = CustomCornerRadius.button.rawValue
+
+    let searchBar: UISearchBar = {
+        let view = UISearchBar(frame: CGRect(x: 0, y: 0, width: 1000, height: 52))
+        view.placeholder = Placeholder.Searcn.ment.str
         return view
     }()
     
@@ -59,15 +56,11 @@ class SearchView: BaseView {
     }
     
     override func configure() {
-        accessoryView.addSubview(testsearchButton)
+        accessoryView.addSubview(searchButton)
         [collectionView, searchButton].forEach { self.addSubview($0)  }
     }
     
     override func setConstraints() {
-        
-        testsearchButton.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
         
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide)
