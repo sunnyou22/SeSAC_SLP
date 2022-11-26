@@ -127,7 +127,7 @@ final class SearchViewController: BaseViewController {
                 }
             }).disposed(by: disposedBag)
         //
-        mainView.rx.tapGesture()
+        mainView.rx.gesture(.swipe(direction: .down))
             .when(.recognized)
             .asDriver{ _ in .never() }
             .drive { [weak self] _ in
@@ -253,7 +253,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+       
         switch indexPath.section {
         case 0:
             print("들어왔따4", indexPath.row)

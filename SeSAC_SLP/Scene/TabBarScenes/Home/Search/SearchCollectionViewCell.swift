@@ -66,7 +66,7 @@ class SearchCollecitionViewCell: BaseCollectionViewCell {
        }
        
        xbutton.snp.makeConstraints { make in
-           make.leading.equalTo(label.snp.trailing).offset(4)
+           make.leading.equalTo(label.snp.trailing).offset(4).priority(251)
            make.trailing.equalToSuperview().offset(-8)
            make.centerY.equalTo(contentView.snp.centerY)
            make.width.height.equalTo(12)

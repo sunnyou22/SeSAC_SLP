@@ -71,7 +71,7 @@ class LaunchScreenViewController: UIViewController {
                 case .FirebaseTokenError:
                     print("401")
                     //앱을 재시작할 수 있나
-                    self?.commonSerVerModel.USerInfoNetwork(idtoken: idtoken) // 이부분 확인하기
+//                    self?.commonSerVerModel.USerInfoNetwork(idtoken: idtoken) // 무한 재귀호출~
                     FirebaseManager.shared.getIDTokenForcingRefresh()
                 case .NotsignUpUser:
                     let nickNameViewController = NicknameViewController()
