@@ -22,14 +22,14 @@ class MyPageListTableViewCell: BaseTableViewCell {
         return view
     }()
     
-    override func configuration() {
+    override func configure() {
         
         self.backgroundColor = .setBaseColor(color: .white)
         
         [title, iconImageView].forEach { self.addSubview($0) }
     }
     
-    override func setConstraints() {
+    override func setUpConstraints() {
         iconImageView.snp.makeConstraints { make in
 //              make.width.height.equalTo(50)
             make.leading.equalTo(contentView.snp.leading).offset(16)

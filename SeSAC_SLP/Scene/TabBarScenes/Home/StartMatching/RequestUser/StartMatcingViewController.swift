@@ -6,13 +6,17 @@
 //
 
 import UIKit
+import RxSwift
 
 class StartMatcingViewController: BaseViewController {
     
     var type: Vctype
     let mainView = StartMatchingView()
     
+    var hidden = false
+    
     let viewModel: StartMatchingViewModel
+    let bag = DisposeBag() // 모델로 어떻게 뺄지 생각해보기
     let commonAPIviewModel = CommonServerManager()
     
     // 탭맨에서 초기화됨
@@ -26,6 +30,10 @@ class StartMatcingViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func loadView() {
+        view = mainView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,77 +44,43 @@ class StartMatcingViewController: BaseViewController {
             view.backgroundColor = .darkGray
         }
         
-       
-        
-        mainView.collectionView.delegate = self
-        mainView.collectionView.dataSource = self
-        mainView.collectionView.collectionViewLayout = collectionViewLayout()
-    }
- 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-       
+        mainView.tableView.delegate = self
+        mainView.tableView.dataSource = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchData()
     }
 }
 
-extension StartMatcingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        viewModel.data.value.count
-        return 5
+extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    print(viewModel.data.value.count, "viewModel.data.value.count==========")
+        return viewModel.data.value.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StartMatchingCollectionViewCell.reuseIdentifier, for: indexPath) as? StartMatchingCollectionViewCell else { return UICollectionViewCell()}
-        var name = cell.cardView.nicknameView.nameLabel.text
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: StartMatchingCollectionViewCell.reuseIdentifier, for: indexPath) as? StartMatchingCollectionViewCell else { return UITableViewCell()}
+        var name = cell.cardView.nicknameView.nameLabel
         var titletitleStackView = cell.cardView.expandableView.titleStackView
         var wishStudy = cell.cardView.expandableView.whishStudyView
-        var review =  cell.cardView.expandableView.reviewLabel.text
+        var review =  cell.cardView.expandableView.reviewLabel
         
-        return BaseCollectionViewCell()
+        name.text = "욘뇸"
+        review.text = "메로오오오오옹"
+       
+        cell.cardView.expandableView.isHidden = hidden
+
+        return cell
     }
     
-//    // 공통으로 쓰이는 섹션 레이아웃
-//    func configureCollectionViewLayout() -> UICollectionViewLayout {
-//        let configuration = UICollectionViewCompositionalLayoutConfiguration()
-//
-//        return UICollectionViewCompositionalLayout.init(sectionProvider: { sectionIndex, environment in
-//
-//            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(1.0))
-//            //아이템
-//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//            item.edgeSpacing = .init(leading: .none, top: .fixed(8), trailing: .none, bottom: .fixed(8))
-//
-//            // 그룹
-//            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(32))
-//            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-//            group.interItemSpacing = .fixed(8)
-//
-//            // 섹션
-//            let section = NSCollectionLayoutSection(group: group)
-////            section.interGroupSpacing = 12
-////            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 76, trailing: 16)
-//            configuration.scrollDirection = .vertical
-//            return section
-//        }, configuration: configuration)
-//    }
-//
-    func collectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        let spacing: CGFloat = 20
-        let width = UIScreen.main.bounds.width - (spacing * 2)
-        layout.itemSize = CGSize(width: width, height: width * 1.2)
-        layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        //        layout.minimumInteritemSpacing = spacing * 2 // 행에 많이 있을 때
-        layout.minimumLineSpacing = spacing * 2
-        return layout
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        hidden = !hidden
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
+
 
 extension StartMatcingViewController {
     //MARK: - 뷰컨 타입

@@ -9,19 +9,26 @@ import UIKit
 
 final class StartMatchingView: BaseView {
     
-    let collectionView: DynamicCollectionView = {
-        let view = DynamicCollectionView(frame: .zero, collectionViewLayout: .init())
-        view.register(BaseCollectionViewCell.self, forCellWithReuseIdentifier: BaseCollectionViewCell.reuseIdentifier)
-       
+    let tableView: UITableView = {
+        let view = UITableView(frame: .zero, style: .plain)
+        view.register(StartMatchingCollectionViewCell.self, forCellReuseIdentifier: StartMatchingCollectionViewCell.reuseIdentifier)
+        view.rowHeight = UITableView.automaticDimension
         return view
     }()
     
+    let placeholderImg: UIImageView = {
+        let view = ui
+    }
+    
     override func configure() {
-        addSubview(collectionView)
+        addSubview(tableView)
+        self.backgroundColor = .setBaseColor(color: .white)
     }
     override func setConstraints() {
-        collectionView.snp.makeConstraints { make in
+        tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        
     }
 }

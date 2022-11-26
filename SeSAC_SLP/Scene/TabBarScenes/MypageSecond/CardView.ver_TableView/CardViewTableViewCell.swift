@@ -35,13 +35,13 @@ class CardViewTableViewCell: BaseTableViewCell {
 //        return view
 //    }()
     
-    override func configuration() {
+    override func configure() {
         [nicknameView, expandableView].forEach { borderView.addSubview($0) }
         [header, borderView].forEach { contentView.addSubview($0)
         }
     }
     
-    override func setConstraints() {
+    override func setUpConstraints() {
         header.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
             make.height.equalTo(160) // 셀 높이면

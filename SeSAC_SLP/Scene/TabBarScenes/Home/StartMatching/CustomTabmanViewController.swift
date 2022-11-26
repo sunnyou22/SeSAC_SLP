@@ -6,8 +6,11 @@
 //
 
 import UIKit
+
 import Pageboy
 import Tabman
+import RxSwift
+import RxCocoa
 
 final class CustomTabmanViewController: TabmanViewController {
     
@@ -27,7 +30,7 @@ final class CustomTabmanViewController: TabmanViewController {
         
         setBarConfig()
     }
-    
+ 
     func setBarConfig() {
         let bar = TMBar.ButtonBar()
         bar.layout.transitionStyle = .snap
