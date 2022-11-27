@@ -35,7 +35,6 @@ final class SearchViewController: BaseViewController {
     let commonAPIviewModel = CommonServerManager()
     let viewModel = SearchViewModel()
     let disposedBag = DisposeBag()
-    let sesacCoordinate = CLLocationCoordinate2D(latitude: 37.51818789942772, longitude: 126.88541765534976)
     
     override func loadView() {
         view = mainView
@@ -45,9 +44,9 @@ final class SearchViewController: BaseViewController {
         super.viewDidLoad()
         
         //유저디폴츠 UserDefaults.searchData에 값을 넣어주고 있음 새싹위치로 테스트
-        commonAPIviewModel.fetchMapData(lat: sesacCoordinate.latitude, long: sesacCoordinate.longitude, idtoken: idToken)
+        commonAPIviewModel.fetchMapData(lat: MapViewModel.LandmarkLocation.sesacLocation.latitude, long: MapViewModel.LandmarkLocation.sesacLocation.longitude, idtoken: idToken)
         
-                bindDataUI()
+        bindDataUI()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -123,7 +122,7 @@ final class SearchViewController: BaseViewController {
                     print("사용자의 위치를 받아올 수 없음 🔴", #function)
                     return
                 }
-             
+                
                 // 캠퍼스 위치로 Test
                 vc.viewModel.searchSeSACMate(lat: vc.sesacCoordinate.latitude, long: vc.sesacCoordinate.longitude, studylist: vc.viewModel.wishList.value.sorted(), idtoken: vc.idToken)
                 
