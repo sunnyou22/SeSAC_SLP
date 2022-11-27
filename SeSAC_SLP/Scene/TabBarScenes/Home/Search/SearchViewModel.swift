@@ -60,16 +60,16 @@ final class SearchViewModel {
         var tempList = wishList.value.sorted()
         tempList += addWishList
         print(wishList.value, "======= addwish 이후")
-        wishList.accept(tempList)
+        wishList.accept(Set(tempList).sorted())
     }
     
-    func InvalidWishList() {
-        guard searchList.value.count < 8 else {
+    func InvalidWishList(add: [String]) {
+        guard wishList.value.count < 8 else {
             validWishList.accept(true)
             return
         }
         validWishList.accept(false)
-        setWishList(addWishList: searchList.value)
+        setWishList(addWishList: add)
     }
     
     //새싹찾기 버튼 클ㄹ릭

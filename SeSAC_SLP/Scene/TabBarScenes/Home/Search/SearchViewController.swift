@@ -132,19 +132,14 @@ final class SearchViewController: BaseViewController {
                 
                 self?.viewModel.searchList.accept(Set(addwishList).sorted())
             }.disposed(by: disposedBag)
-        
-        //        output.searchList
-        //            .withUnretained(self)
-        //            .bind { vc, list in
-        //               vc.viewModel.InvalidWishList()
-        //            }
-        //
+
         output.searchbarsearchButtonClicked
-            .asDriver()
-            .drive { [weak self] _ in
-                self?.viewModel.InvalidWishList()
-                self?.mainView.collectionView.reloadData() // 뷰모델로 리로드 다 빼기
-                self?.mainView.searchBar.text = ""
+            .withUnretained(self)
+            .asDriver(onErrorJustReturn: (self, print("서치검색버튼 누름")))
+            .drive { vc, _ in
+                vc.viewModel.InvalidWishList(add: vc.viewModel.searchList.value)
+                vc.mainView.collectionView.reloadData() // 뷰모델로 리로드 다 빼기
+                vc.mainView.searchBar.text = ""
             }.disposed(by: disposedBag)
         
         viewModel.validWishList
@@ -234,9 +229,14 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         
         switch indexPath.section {
         case 0:
-            print("들어왔따4", indexPath.row)
-            viewModel.setWishList(addWishList: [viewModel.fromRecommend[indexPath.item]])
-            
+            let quoList = viewModel.fromRecommend + viewModel.studyList.value
+            if indexPath.item >= 0, indexPath.item < viewModel.fromRecommend.count {
+                print("들어왔따4", indexPath.row)
+                viewModel.InvalidWishList(add: [quoList[indexPath.item]])
+            } else {
+              viewModel.InvalidWishList(add: [quoList[indexPath.item]])
+            }
+            collectionView.reloadData()
         case 1:
             print("들어왔따5", indexPath.row)
             //안됨
