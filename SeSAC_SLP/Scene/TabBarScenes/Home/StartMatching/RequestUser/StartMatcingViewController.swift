@@ -8,8 +8,8 @@
 import UIKit
 import RxSwift
 
-class StartMatcingViewController: BaseViewController {
-    
+class StartMatcingViewController: BaseViewController, Bindable {
+  
     var type: Vctype
     let mainView = StartMatchingView()
     
@@ -61,6 +61,15 @@ class StartMatcingViewController: BaseViewController {
             mainView.tableView.isHidden = false
         }
     }
+    
+    func bind() {
+        viewModel.sesacTitle
+            .asDriver()
+            .drive { list in
+                
+            }
+    }
+    
 }
 
 extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate {
@@ -81,6 +90,13 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
        
         cell.cardView.expandableView.isHidden = hidden // 암튼 일케하면 되긴함
 
+        // 이렇게 하면 쌍으로 나옴
+        zip(cell.cardView.expandableView.titleStackView.subviews, viewModel.data.value[0].reputation)
+        
+        /*
+         data가 0이 아닌 애들을 색전환시켜주면 됨
+         -> 유효성 판단인거
+         */
         return cell
     }
     

@@ -68,6 +68,7 @@ final class SearchViewModel {
             validWishList.accept(true)
             return
         }
+        
         validWishList.accept(false)
         setWishList(addWishList: add)
     }

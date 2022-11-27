@@ -13,6 +13,7 @@ protocol Bindable {
     func bind()
 }
 
+// 베이스 뷰 설정
 protocol BaseDelegate {
 
     var idToken: String { get set }
@@ -22,4 +23,13 @@ protocol BaseDelegate {
     func fetchData() 
 }
 
+protocol EnableDataInNOut {
+    associatedtype Input
+    associatedtype Output
+
+    func transform(input: Input) -> Output
+}
+
+// mvvm 쓸때
 typealias BaseSetUIView = Bindable & BaseDelegate
+

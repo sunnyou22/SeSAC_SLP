@@ -8,16 +8,41 @@
 import Foundation
 import RxCocoa
 import RxSwift
+// 데이터가 돌아댕기는 과정 ㅇㅋ
+// input 어떤 뷰에서 먼 액션을 받아서 보여줄건데 만약에 하나의 뷰에서 다양한 액션이 오간다면? drive 인건가
+//굳이 input에 있는 아니만 넣지 않아도 되는 것
+// output input에서 받은 이벤트를 transform으로 가공해서 뷰로 던져.
 
-final class StartMatchingViewModel {
- 
+// transform 옵저버블을 ,어떻게 변형해서 최종적으로 어떻게 던질거냐 -> 데이터를 가공하는 역할이기 때문에
+
+
+final class StartMatchingViewModel: EnableDataInNOut {
+    
     var type: StartMatcingViewController.Vctype
     var wishList: [String]?
     let data: BehaviorRelay<[FromQueueDB]> = BehaviorRelay<[FromQueueDB]>(value: [])
+    let sesacTitle: Driver<[Int]>
     
     init(type: StartMatcingViewController.Vctype) {
         self.type = type
     }
+    
+    struct Input {
+        let reputationValid: ControlProperty<Int>
+    }
+    
+    struct Output {
+        let reputationValid: ControlProperty<Int>
+    }
+    
+    func transform(input: Input) -> Output {
+      input.reputationValid.map { value in
+            value != 0 ? true : false
+        }.asDriver(onErrorJustReturn: false)
+        
+        return Output(reputationValid: input.reputationValid)
+    }
+
     
     //데이터 넣어주기
     func fetchData () {
@@ -31,7 +56,7 @@ final class StartMatchingViewModel {
                 } // 16부터 가능한 메서드임
             }
             data.accept(quoData)
-
+            
         case .request:
             guard let fromQueueDBRequested = UserDefaults.searchData?[0].fromQueueDBRequested else { return }
             data.accept(fromQueueDBRequested)
