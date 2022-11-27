@@ -53,13 +53,12 @@ final class CommonServerManager {
             self?.queueSearchStatus.accept(queueSearchStatus)
             
             guard let data = data else {
-                print("맵 좌표값에 대한 응답값 받기 에러 🔴", #file, #function)
+                print("맵 좌표값에 대한 응답값 받기 에러 🔴 -> 함수 위치", #file, #function)
                 return
             }
-            print("맵 좌표값에 대한 응답값 받기 성공 ✅")
-            dump(data)
+            
             UserDefaults.searchData = [data]
-            print(UserDefaults.searchData, "UserDefaults.searchData 🔴 🔴 🔴 디토뒹 잘 됐나요~")
+            print("주변 새싹 정보 받아오기 완료 유저디폴츠 출력✅", #function, "/n", UserDefaults.searchData)
         }
     }
 }

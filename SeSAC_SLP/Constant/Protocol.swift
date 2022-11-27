@@ -14,8 +14,12 @@ protocol Bindable {
 }
 
 protocol BaseDelegate {
+
+    var idToken: String { get set }
+    
     func configure()
     func setConstraints()
+    func fetchData() 
 }
 
 typealias BaseSetUIView = Bindable & BaseDelegate

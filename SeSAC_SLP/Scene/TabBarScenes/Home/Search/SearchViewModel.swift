@@ -36,35 +36,35 @@ final class SearchViewModel {
         let searchbarsearchButtonClicked: ControlEvent<Void>
     }
     
+    // 여기서 데이터를 넣고 처리까지 다할 수있는듯
     func transform(input: Input) -> Output {
         // 데이터의 흐름을 변환해주는 곳
         return Output(tapSearchButton: input.tapSearchButton, searchbarsearchButtonClicked: input.searchbarsearchButtonClicked)
     }
     
     //list라는 값을 전달하고 싶음
-    func countAroundStudylist(){
+    func countAroundStudylist() {
         var total = [String]()
         var tempList: Set<String> = []
         fromQueueDB.forEach { list in
             tempList = Set(list.studylist)
             total += tempList.filter { $0 != "anything" }
-            print(tempList, "templist=============")
         }
-        print(total, " -------554725473514315383756174365746177")
         studyList.accept(total.sorted())
     }
     
-    // 하고싶은에 해당하는 list를 뷰에 그리고싶어
+    // 하고싶은에 해당하는 list를 뷰에 그리고싶어 -> 이게 종착범
+    
     func setWishList(addWishList: [String]) {
+        print(wishList.value, "======= addwish 이전")
         var tempList = wishList.value.sorted()
         tempList += addWishList
-        print(wishList.value, "=======")
+        print(wishList.value, "======= addwish 이후")
         wishList.accept(tempList)
     }
     
     func InvalidWishList() {
-        print(wishList.value.count)
-        guard wishList.value.count < 8 else {
+        guard searchList.value.count < 8 else {
             validWishList.accept(true)
             return
         }
@@ -76,7 +76,7 @@ final class SearchViewModel {
     func searchSeSACMate(lat: Double, long: Double, studylist: [String], idtoken: String) {
         let api = SeSACAPI.search(lat: lat, lon: long, studylist: studylist)
         Network.shared.sendRequestSeSAC(url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { statuscode in
-         
+            
             print(statuscode)
         }
     }
