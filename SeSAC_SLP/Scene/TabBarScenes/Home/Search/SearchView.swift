@@ -97,14 +97,11 @@ final class SearchView: BaseView {
              }
          }, configuration: configuration)
      }
-    
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let hitView: UIView? = super.hitTest(point, with: event)
-        if (self == hitView) { return nil }
-        return hitView
-    }
+//    
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//        let hitView: UIView? = super.hitTest(point, with: event)
+//        if (self == hitView) { return nil }
+//        return hitView
+//    }
 }
-
-
-
 

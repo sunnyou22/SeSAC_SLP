@@ -13,6 +13,8 @@ class StartMatcingViewController: BaseViewController, Bindable {
     var type: Vctype
     let mainView = StartMatchingView()
     
+    var test: Void?
+
     var hidden = false
     
     let viewModel: StartMatchingViewModel
@@ -36,7 +38,7 @@ class StartMatcingViewController: BaseViewController, Bindable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
         switch type {
         case .near:
             view.backgroundColor = .lightGray
@@ -47,7 +49,7 @@ class StartMatcingViewController: BaseViewController, Bindable {
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
         
-     
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,20 +78,14 @@ class StartMatcingViewController: BaseViewController, Bindable {
         
         output.refreshButton
             .drive { [weak self] _ in
-//                <#code#>
-            }.disposed(by: bag)
-        
-        viewModel.testhidden
-            .bind { [weak self] bool, index in
-                self?.hidden = !bool
-                self?.mainView.tableView.reloadRows(at: [index!], with: .automatic)
+                //                <#code#>
             }.disposed(by: bag)
     }
     
     override func configure() {
         super.configure()
         
-       
+        
     }
 }
 
@@ -112,10 +108,7 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         cell.requestButton.setTitle(type.buttonTitle, for: .normal)
         cell.requestButton.backgroundColor = type.buttonColor
         
-        cell.cardView.expandableView.isHidden = hidden
      
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender: ., indexPath: <#IndexPath#>sender: , indexPath: )))
-        cell.cardView.nicknameView.addGestureRecognizer(tap)
         
         let sesacTitle = (titleStackView.rightVerticalStackView.arrangedSubviews + titleStackView.leftVerticalStackView.arrangedSubviews).sorted { $0.tag < $1.tag }
         
@@ -127,25 +120,43 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
             view.backgroundColor = viewModel.reputationValid(value) ? .setBrandColor(color: .green) : .clear
         }
         
-   
+        
         // 컬렉션뷰 채택
         cell.cardView.expandableView.whishStudyView.collectionView.delegate = self
         cell.cardView.expandableView.whishStudyView.collectionView.dataSource = self
         cell.cardView.expandableView.whishStudyView.collectionView.collectionViewLayout = cell.cardView.expandableView.whishStudyView.configureCollectionViewLayout()
+        
+    
+        // 1. create a gesture recognizer (tap gesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        
+        cell.cardView.nicknameView.addGestureRecognizer(tapGesture)
+        
+        cell.cardView.expandableView.isHidden = hidden // 암튼 일케하면 되긴함
+        
+        viewModel.test
+            .withUnretained(self)
+            .bind { vc, bool in
+                
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+                    print("didselect")
+            }.disposed(by: bag)
+     
         return cell
     }
     
-    @objc func handleTap(sender: UITapGestureRecognizer, indexPath: IndexPath) {
-        if sender.state == .ended {
-            viewModel.testhidden.accept((hidden, indexPath))
-        }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        hidden = !hidden // 여기서 불값 받음
+   
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        // 여기서 불값 받음
-//
-//        tableView.reloadRows(at: [indexPath], with: .automatic)
-//    }
+    // 3. this method is called when a tap is recognized
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        hidden = !hidden
+        viewModel.test.accept(hidden)
+        print("tap")
+    }
+
 }
 
 extension StartMatcingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
