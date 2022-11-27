@@ -29,8 +29,34 @@ final class StartMatchingView: BaseView {
         return view
     }()
 
+    let changeStudyButton: UIButton = {
+        let view = UIButton()
+        view.setTitle("스터디 변경하기", for: .normal)
+        view.clipsToBounds = true
+        view.layer.cornerRadius = CustomCornerRadius.button.rawValue
+        view.backgroundColor = .setBrandColor(color: .green)
+        return view
+    }()
+    
+    let refreshButton: UIButton = {
+        let view = UIButton()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = CustomCornerRadius.button.rawValue
+        view.layer.borderColor = UIColor.setBrandColor(color: .green).cgColor
+        view.layer.borderWidth = 1
+        return view
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [changeStudyButton, refreshButton])
+        view.spacing = 8
+        view.axis = .horizontal
+        view.distribution = .fill
+        return view
+    }()
+    
     override func configure() {
-        [placeholderImg, placeholderString, tableView].forEach { self.addSubview($0) }
+        [placeholderImg, placeholderString, stackView, tableView].forEach { self.addSubview($0) }
         self.backgroundColor = .setBaseColor(color: .white)
     }
     
@@ -49,6 +75,18 @@ final class StartMatchingView: BaseView {
         placeholderString.snp.makeConstraints { make in
             make.top.equalTo(placeholderImg.snp.bottom).offset(16)
             make.centerY.equalTo(self.snp.centerY)
+        }
+        
+        stackView.snp.makeConstraints { make in
+            make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-16)
+            make.height.equalTo(48)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.centerX.equalTo(self.snp.centerX)
+        }
+        
+        refreshButton.snp.makeConstraints { make in
+            make.width.height.equalTo(48)
+        
         }
     }
 }

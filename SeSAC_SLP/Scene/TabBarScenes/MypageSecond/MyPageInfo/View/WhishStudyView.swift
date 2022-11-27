@@ -16,8 +16,9 @@ class WhishStudyView: BaseView {
         return view
     }()
     
-    let collectionView: DynamicCollectionView = {
-        let view = DynamicCollectionView(frame: .zero, collectionViewLayout: .init())
+    //나중에 wishcollectionVeiwcell로 바꿔줘야함
+    lazy var collectionView: DynamicCollectionView = {
+        let view = DynamicCollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
         view.register(SearchCollecitionViewCell.self, forCellWithReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier)
         view.backgroundColor = .cyan
         return view
@@ -38,6 +39,16 @@ class WhishStudyView: BaseView {
             make.top.equalTo(whishList.snp.bottom)
             make.horizontalEdges.bottom.equalToSuperview()
         }
-        
     }
+    
+    // collectionView + extension 파일에 뺌
+    func configureCollectionViewLayout() -> UICollectionViewLayout {
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        
+        return UICollectionViewCompositionalLayout.init(sectionProvider: { [weak self] sectionIndex, environment in
+                configuration.scrollDirection = .vertical
+                return self?.defaultLayout()
+        }, configuration: configuration)
+    }
+   
 }

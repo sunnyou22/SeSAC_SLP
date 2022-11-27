@@ -28,19 +28,23 @@ final class StartMatchingViewModel: EnableDataInNOut {
     }
     
     struct Input {
-        let reputationValid: ControlProperty<Int>
+//        let reputationValid: ControlProperty<Int>
+        let tapChangeStudyBtn: ControlEvent<Void>
+        let refreshButton: ControlEvent<Void>
     }
     
+    // 바뀐 데이터의 형태여야함
     struct Output {
-        let reputationValid: ControlProperty<Int>
+//        let reputationValid: ControlProperty<Int>
+        let tapChangeStudyBtn: Driver<Void>
+        let refreshButton: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
-      input.reputationValid.map { value in
-            value != 0 ? true : false
-        }.asDriver(onErrorJustReturn: false)
-        
-        return Output(reputationValid: input.reputationValid)
+        let tapChangeStudyBtn = input.tapChangeStudyBtn.asDriver()
+        let refreshButton = input.refreshButton.asDriver()
+    
+        return Output(tapChangeStudyBtn: tapChangeStudyBtn, refreshButton: refreshButton)
     }
 
     func reputationValid(_ value: Int) -> Bool {

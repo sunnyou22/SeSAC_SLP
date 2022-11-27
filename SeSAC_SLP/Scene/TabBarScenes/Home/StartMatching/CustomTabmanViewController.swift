@@ -16,6 +16,7 @@ final class CustomTabmanViewController: TabmanViewController {
     
     let nearVC = StartMatcingViewController(type: .near, viewModel: .init(type: .near))
     let requestVC = StartMatcingViewController(type: .request, viewModel: .init(type: .request))
+    let bag = DisposeBag()
     
     private var viewControllers = [UIViewController]()
     
@@ -28,6 +29,20 @@ final class CustomTabmanViewController: TabmanViewController {
         self.dataSource = self
         
         setBarConfig()
+        
+        
+        
+        let rightBarButton = UIBarButtonItem(title: "찾기", style: .plain, target: self, action: nil)
+        
+       self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        guard let test = self.navigationItem.rightBarButtonItem else { return }
+        
+        test.rx
+            .tap
+            .bind { _ in
+                print("눌리나여")
+            }.disposed(by: bag)
     }
  
     func setBarConfig() {

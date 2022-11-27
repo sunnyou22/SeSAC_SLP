@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 
 class StartMatcingViewController: BaseViewController, Bindable {
-  
+    
     var type: Vctype
     let mainView = StartMatchingView()
     
@@ -46,6 +46,8 @@ class StartMatcingViewController: BaseViewController, Bindable {
         
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
+        
+     
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,16 +56,34 @@ class StartMatcingViewController: BaseViewController, Bindable {
         // 데이터 가져오기
         viewModel.fetchData()
         
-        // 플레이스 홀더
         if viewModel.data.value.isEmpty {
             mainView.tableView.isHidden = true
+            mainView.stackView.isHidden = false
         } else {
             mainView.tableView.isHidden = false
+            mainView.stackView.isHidden = true
         }
     }
     
     func bind() {
+        let input = StartMatchingViewModel.Input(tapChangeStudyBtn: mainView.changeStudyButton.rx.tap, refreshButton: mainView.refreshButton.rx.tap)
+        let output = viewModel.transform(input: input)
         
+        output.tapChangeStudyBtn
+            .drive { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }.disposed(by: bag)
+        
+        output.refreshButton
+            .drive { [weak self] _ in
+//                <#code#>
+            }.disposed(by: bag)
+    }
+    
+    override func configure() {
+        super.configure()
+        
+       
     }
 }
 
@@ -76,30 +96,32 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StartMatchingCollectionViewCell.reuseIdentifier, for: indexPath) as? StartMatchingCollectionViewCell else { return UITableViewCell()}
         var name = cell.cardView.nicknameView.nameLabel
-        var titletitleStackView = cell.cardView.expandableView.titleStackView
+        var titleStackView = cell.cardView.expandableView.titleStackView
         var wishStudy = cell.cardView.expandableView.whishStudyView
         var review =  cell.cardView.expandableView.reviewLabel
         
         name.text = viewModel.data.value[indexPath.row].nick
         review.text = viewModel.data.value[indexPath.row].reviews.last
-       
+        
+        cell.requestButton.setTitle(type.buttonTitle, for: .normal)
+        cell.requestButton.backgroundColor = type.buttonColor
+        
         cell.cardView.expandableView.isHidden = hidden // 암튼 일케하면 되긴함
-
-        let test = (cell.cardView.expandableView.titleStackView.rightVerticalStackView.arrangedSubviews + cell.cardView.expandableView.titleStackView.leftVerticalStackView.arrangedSubviews).sorted { $0.tag < $1.tag }
         
-        
+        let sesacTitle = (titleStackView.rightVerticalStackView.arrangedSubviews + titleStackView.leftVerticalStackView.arrangedSubviews).sorted { $0.tag < $1.tag }
         
         // 이렇게 하면 쌍으로 나옴
-        let zip = zip(test, viewModel.data.value[0].reputation)
-        print(zip, test)
+        let zip = zip(sesacTitle, viewModel.data.value[0].reputation)
+        print(zip, sesacTitle)
         zip.forEach { (view, value) in
             print(view.tag, value)
             view.backgroundColor = viewModel.reputationValid(value) ? .setBrandColor(color: .green) : .clear
         }
-        /*
-         data가 0이 아닌 애들을 색전환시켜주면 됨
-         -> 유효성 판단인거
-         */
+        
+        // 컬렉션뷰 채택
+        cell.cardView.expandableView.whishStudyView.collectionView.delegate = self
+        cell.cardView.expandableView.whishStudyView.collectionView.dataSource = self
+        cell.cardView.expandableView.whishStudyView.collectionView.collectionViewLayout = cell.cardView.expandableView.whishStudyView.configureCollectionViewLayout()
         return cell
     }
     
@@ -109,20 +131,16 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
     }
 }
 
-
-extension StartMatcingViewController {
-    //MARK: - 뷰컨 타입
-    enum Vctype {
-        case near
-        case request
-        
-        var title: String {
-            switch self {
-            case .near:
-                return "주변 새싹"
-            case .request:
-                return "받은 요청"
-            }
-        }
+extension StartMatcingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.data.value[0].studylist.count
+    }
+    
+    // 왜 안들어오는데
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
+        cell.xbutton.isHidden = true
+        cell.label.text = viewModel.data.value[0].studylist[indexPath.item]
+        return cell
     }
 }
