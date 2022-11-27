@@ -53,17 +53,17 @@ class TitleStackView: UIView {
         return setStackViewComponent(view, tag: 5)
     }()
     
-   private lazy var leftVerticalStackView: UIStackView = {
+  lazy var leftVerticalStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [first, third, five])
        return view.setStackViewLayout(axis: .vertical, color: .magenta)
     }()
 
-   private lazy var rightVerticalStackView: UIStackView = {
+   lazy var rightVerticalStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [second, four, six])
         return view.setStackViewLayout(axis: .vertical, color: .green)
     }()
    
-   private lazy var horizontalStackView: UIStackView = {
+    lazy var horizontalStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [leftVerticalStackView, rightVerticalStackView])
        return view.setStackViewLayout(axis: .horizontal, color: .cyan)
    }()

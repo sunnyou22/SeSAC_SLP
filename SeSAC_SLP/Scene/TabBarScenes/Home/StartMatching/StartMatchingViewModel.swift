@@ -21,7 +21,7 @@ final class StartMatchingViewModel: EnableDataInNOut {
     var type: StartMatcingViewController.Vctype
     var wishList: [String]?
     let data: BehaviorRelay<[FromQueueDB]> = BehaviorRelay<[FromQueueDB]>(value: [])
-    let sesacTitle: Driver<[Int]>
+    var sesacTitle: Driver<[Int]>?
     
     init(type: StartMatcingViewController.Vctype) {
         self.type = type
@@ -43,6 +43,9 @@ final class StartMatchingViewModel: EnableDataInNOut {
         return Output(reputationValid: input.reputationValid)
     }
 
+    func reputationValid(_ value: Int) -> Bool {
+        return value != 0 ? true : false
+    }
     
     //데이터 넣어주기
     func fetchData () {

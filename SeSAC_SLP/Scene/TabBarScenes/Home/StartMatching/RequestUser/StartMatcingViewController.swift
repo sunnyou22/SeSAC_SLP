@@ -63,18 +63,13 @@ class StartMatcingViewController: BaseViewController, Bindable {
     }
     
     func bind() {
-        viewModel.sesacTitle
-            .asDriver()
-            .drive { list in
-                
-            }
+        
     }
-    
 }
 
 extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    print(viewModel.data.value.count, "viewModel.data.value.count==========")
+        print(viewModel.data.value.count, "viewModel.data.value.count==========")
         return viewModel.data.value.count
     }
     
@@ -90,9 +85,17 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
        
         cell.cardView.expandableView.isHidden = hidden // 암튼 일케하면 되긴함
 
-        // 이렇게 하면 쌍으로 나옴
-        zip(cell.cardView.expandableView.titleStackView.subviews, viewModel.data.value[0].reputation)
+        let test = (cell.cardView.expandableView.titleStackView.rightVerticalStackView.arrangedSubviews + cell.cardView.expandableView.titleStackView.leftVerticalStackView.arrangedSubviews).sorted { $0.tag < $1.tag }
         
+        
+        
+        // 이렇게 하면 쌍으로 나옴
+        let zip = zip(test, viewModel.data.value[0].reputation)
+        print(zip, test)
+        zip.forEach { (view, value) in
+            print(view.tag, value)
+            view.backgroundColor = viewModel.reputationValid(value) ? .setBrandColor(color: .green) : .clear
+        }
         /*
          data가 0이 아닌 애들을 색전환시켜주면 됨
          -> 유효성 판단인거
