@@ -27,27 +27,7 @@ class StartMatchingCollectionViewCell: BaseTableViewCell {
         
         [cardView, requestButton].forEach { contentView.addSubview($0) }
         self.backgroundColor = .darkGray
-//        cardView.nicknameView.toggleButton.addTarget(self, action: #selector(test), for: .touchUpInside)
- 
-       requestButton.addTarget(self, action: #selector(request), for: .touchUpInside)
-        
-        
-        // 1. create a gesture recognizer (tap gesture)
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
-        
-        cardView.nicknameView.addGestureRecognizer(tapGesture)
     }
-    
-
-// 3. this method is called when a tap is recognized
-@objc func handleTap(sender: UITapGestureRecognizer) {
-    print("tap")
-}
-    @objc func request() {
-        print("버튼 눌리야?")
-    }
-    
-    
     
     override func setUpConstraints() {
         cardView.snp.makeConstraints { make in

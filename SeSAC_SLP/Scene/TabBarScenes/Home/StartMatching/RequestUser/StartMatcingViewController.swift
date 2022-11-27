@@ -129,7 +129,7 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
     
         // 1. create a gesture recognizer (tap gesture)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
-        
+
         cell.cardView.nicknameView.addGestureRecognizer(tapGesture)
         
         cell.cardView.expandableView.isHidden = hidden // 암튼 일케하면 되긴함
@@ -137,19 +137,18 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         viewModel.test
             .withUnretained(self)
             .bind { vc, bool in
-                
                 tableView.reloadRows(at: [indexPath], with: .automatic)
                     print("didselect")
             }.disposed(by: bag)
      
+        //얼럿
+        cell.requestButton.addTarget(self, action: #selector(request), for: .touchUpInside)
+        
+        
+        
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        hidden = !hidden // 여기서 불값 받음
-   
-    }
-    
+
     // 3. this method is called when a tap is recognized
     @objc func handleTap(sender: UITapGestureRecognizer) {
         hidden = !hidden
@@ -157,6 +156,12 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         print("tap")
     }
 
+    @objc func request() {
+        print("버튼 눌리야?")
+        let vc = StartMatchingCustomAlert(type: type)
+        vc.modalPresentationStyle = .formSheet
+        present(vc, animated: true)
+    }
 }
 
 extension StartMatcingViewController: UICollectionViewDelegate, UICollectionViewDataSource {

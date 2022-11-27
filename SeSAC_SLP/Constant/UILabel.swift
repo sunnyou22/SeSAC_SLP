@@ -28,7 +28,7 @@ extension UILabel {
 
 extension BaseView {
     
-    func setattributeText(view: UILabel, text: String, location: Int = 0, length: Int = 0, baseColor: UIColor, pointColor: UIColor) -> UILabel {
+    func setattributeText(view: UILabel, text: String, pointfont: UIFont, subfont: UIFont?, location: Int = 0, length: Int = 0, baseColor: UIColor, pointColor: UIColor) -> UILabel {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 8
         paragraphStyle.alignment = .center
@@ -37,10 +37,10 @@ extension BaseView {
         view.numberOfLines = 0
         
         let attributeString = text
-        let attributeText = attributeString.setFullAttributed(color: baseColor, paragraphStyle: paragraphStyle)
+        let attributeText = attributeString.setFullAttributed(color: baseColor, paragraphStyle: paragraphStyle, font: subfont ?? .title1_M16!)
         
         attributeText.addAttributes([
-            .font : UIFont(name: "NotoSansKR-Medium", size: 24)!, .foregroundColor : pointColor], range: NSRange(location: location, length: length))
+            .font : pointfont, .foregroundColor : pointColor], range: NSRange(location: location, length: length))
         
         view.attributedText = attributeText
         
@@ -89,9 +89,9 @@ extension String {
         return emailTest.evaluate(with: testStr)
          }
     
-   fileprivate func setFullAttributed(location: Int = 0, length: Int = 0, color: UIColor, paragraphStyle: NSMutableParagraphStyle) -> NSMutableAttributedString {
+    fileprivate func setFullAttributed(location: Int = 0, length: Int = 0, color: UIColor, paragraphStyle: NSMutableParagraphStyle, font: UIFont) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: self)
-        attributedString.addAttributes([.kern: -0.5, .paragraphStyle: paragraphStyle], range: (self as NSString).range(of: self))
+       attributedString.addAttributes([.kern: -0.5, .paragraphStyle: paragraphStyle, .font: font], range: (self as NSString).range(of: self))
 
         return attributedString
     }

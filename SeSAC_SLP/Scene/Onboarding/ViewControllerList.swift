@@ -21,7 +21,7 @@ class FirstView: BaseView {
     
    lazy var firstLabel: UILabel = {
         let view = UILabel()
-       return setattributeText(view: view, text: "위치 기반으로 빠르게\n주위 친구를 확인", location: 0, length: 6, baseColor: .black, pointColor: .setBrandColor(color: .green))
+      return setattributeText(view: view, text: "위치 기반으로 빠르게\n주위 친구를 확인", pointfont: .systemFont(ofSize: 24, weight: .bold), subfont: .title1_M16, location: 0, length: 6, baseColor: .setBaseColor(color: .black), pointColor: .setBrandColor(color: .green))
     }()
     
     
@@ -61,10 +61,11 @@ class SecondView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-     lazy var secondLabel: UILabel = {
-         let view = UILabel()
-         return setattributeText(view: view, text: "스터디를 원하는 친구를\n찾을 수 있어요", location: 0, length: 11, baseColor: .black, pointColor: .setBrandColor(color: .green))
-     }()
+    lazy var secondLabel: UILabel = {
+        let view = UILabel()
+        
+        return setattributeText(view: view, text: "스터디를 원하는 친구를\n찾을 수 있어요", pointfont: .systemFont(ofSize: 24, weight: .bold), subfont: .title1_M16!, location: 0, length: 11, baseColor: .setBaseColor(color: .black), pointColor: .setBrandColor(color: .green))
+    }()
     
     let secondImageView: UIImageView = {
         let view = UIImageView()
@@ -106,7 +107,7 @@ class ThirdView: BaseView {
     
     lazy var thirdLabel: UILabel = {
         let view = UILabel()
-        return setattributeText(view: view, text: "SeSAC Study", baseColor: .black, pointColor: .black)
+        return setattributeText(view: view, text: "SeSAC Study", pointfont: .systemFont(ofSize: 24, weight: .bold), subfont: nil, baseColor: .setBaseColor(color: .black), pointColor: .setBaseColor(color: .black))
     }()
     
     let thirdImageView: UIImageView = {
