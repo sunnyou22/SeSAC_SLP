@@ -78,6 +78,12 @@ class StartMatcingViewController: BaseViewController, Bindable {
             .drive { [weak self] _ in
 //                <#code#>
             }.disposed(by: bag)
+        
+        viewModel.testhidden
+            .bind { [weak self] bool, index in
+                self?.hidden = !bool
+                self?.mainView.tableView.reloadRows(at: [index!], with: .automatic)
+            }.disposed(by: bag)
     }
     
     override func configure() {
@@ -106,7 +112,10 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         cell.requestButton.setTitle(type.buttonTitle, for: .normal)
         cell.requestButton.backgroundColor = type.buttonColor
         
-        cell.cardView.expandableView.isHidden = hidden // 암튼 일케하면 되긴함
+        cell.cardView.expandableView.isHidden = hidden
+     
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender: ., indexPath: <#IndexPath#>sender: , indexPath: )))
+        cell.cardView.nicknameView.addGestureRecognizer(tap)
         
         let sesacTitle = (titleStackView.rightVerticalStackView.arrangedSubviews + titleStackView.leftVerticalStackView.arrangedSubviews).sorted { $0.tag < $1.tag }
         
@@ -126,10 +135,17 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        hidden = !hidden // 여기서 불값 받음
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+    @objc func handleTap(sender: UITapGestureRecognizer, indexPath: IndexPath) {
+        if sender.state == .ended {
+            viewModel.testhidden.accept((hidden, indexPath))
+        }
     }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        // 여기서 불값 받음
+//
+//        tableView.reloadRows(at: [indexPath], with: .automatic)
+//    }
 }
 
 extension StartMatcingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
