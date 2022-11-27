@@ -24,6 +24,7 @@ class BaseViewController: UIViewController, BaseDelegate {
         configure()
         setConstraints()
         fetchData()
+        setNavigation()
     }
     
     func configure() {

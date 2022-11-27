@@ -20,7 +20,8 @@ protocol BaseDelegate {
     
     func configure()
     func setConstraints()
-    func fetchData() 
+    func fetchData()
+    func setNavigation()
 }
 
 protocol EnableDataInNOut {
@@ -33,3 +34,9 @@ protocol EnableDataInNOut {
 // mvvm 쓸때
 typealias BaseSetUIView = Bindable & BaseDelegate
 
+extension BaseDelegate {
+   func setNavigation() {
+       
+        print("네비게이션 설정되나요~")
+    }
+}
