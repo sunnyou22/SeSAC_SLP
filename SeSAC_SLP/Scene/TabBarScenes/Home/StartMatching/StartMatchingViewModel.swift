@@ -18,10 +18,14 @@ import RxSwift
 
 final class StartMatchingViewModel: EnableDataInNOut {
     
+    typealias test = (Bool, IndexPath?)
+    
     var type: StartMatcingViewController.Vctype
     var wishList: [String]?
     let data: BehaviorRelay<[FromQueueDB]> = BehaviorRelay<[FromQueueDB]>(value: [])
     var sesacTitle: Driver<[Int]>?
+    
+    let testhidden: BehaviorRelay<test> = BehaviorRelay<test>(value: (false, nil))
     
     init(type: StartMatcingViewController.Vctype) {
         self.type = type

@@ -12,18 +12,12 @@ import Tabman
 import RxSwift
 import RxCocoa
 
-final class CustomTabmanViewController: TabmanViewController, BaseSetUIView {
-    var idToken: String = ""
-    
-    func configure() {  }
-    
-    func setConstraints() { }
-    
-    func fetchData() { }
+final class CustomTabmanViewController: TabmanViewController {
 
+    private let rightBarButton = UIBarButtonItem(title: "찾기중단", style: .plain, target: nil, action: nil)
     let nearVC = StartMatcingViewController(type: .near, viewModel: .init(type: .near))
     let requestVC = StartMatcingViewController(type: .request, viewModel: .init(type: .request))
-    let bag = DisposeBag()
+    private let bag = DisposeBag()
     
     private var viewControllers = [UIViewController]()
     
@@ -36,16 +30,28 @@ final class CustomTabmanViewController: TabmanViewController, BaseSetUIView {
         self.dataSource = self
         
         setBarConfig()
-        
-       
+        setNavigationBar()
+        bind()
+    }
+    
+    func setNavigationBar() {
+      
+        self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
     func bind() {
-        let rightBarButton = UIBarButtonItem(title: "찾기", style: .plain, target: self, action: nil)
-        self.navigationItem.rightBarButtonItem = rightBarButton
         rightBarButton.rx
             .tap
-            .bind { _ in
+            .withUnretained(self)
+            .bind { vc, _ in
+                let vc2 = SearchViewController()
+                let vc1 = HomeMapViewController()
+                
+                if var navstack = vc.navigationController?.viewControllers {
+                    navstack.append(contentsOf: [vc1, vc2])
+                    vc.navigationController?.setViewControllers(navstack, animated: true)
+                    vc.navigationController?.present(navstack[0], animated: true)
+                }
                 print("눌리나여")
             }.disposed(by: bag)
     }

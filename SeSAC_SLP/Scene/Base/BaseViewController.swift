@@ -24,7 +24,10 @@ class BaseViewController: UIViewController, BaseDelegate {
         configure()
         setConstraints()
         fetchData()
-        setNavigation()
+        
+        // 확장해서 기본기능 넣으면 이렇게 호출해줘야함
+        // 기본기능이 구현돼있기 때문에 자동으로 뜨지 않음
+//        setNavigation()
     }
     
     func configure() {

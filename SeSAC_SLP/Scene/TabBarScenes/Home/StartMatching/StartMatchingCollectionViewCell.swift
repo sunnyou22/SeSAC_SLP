@@ -28,6 +28,11 @@ class StartMatchingCollectionViewCell: BaseTableViewCell {
         [cardView, requestButton].forEach { self.addSubview($0) }
         self.backgroundColor = .darkGray
 //        cardView.nicknameView.toggleButton.addTarget(self, action: #selector(test), for: .touchUpInside)
+        requestButton.addTarget(self, action: #selector(request), for: .touchUpInside)
+    }
+    
+    @objc func request() {
+        print("버튼 눌리야?")
     }
     
     override func setUpConstraints() {

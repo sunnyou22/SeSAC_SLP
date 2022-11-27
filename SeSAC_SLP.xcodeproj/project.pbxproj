@@ -99,6 +99,8 @@
 		90B4DEFC2933C20A001884BC /* WhichStudyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DEFB2933C20A001884BC /* WhichStudyCollectionViewCell.swift */; };
 		90B4DEFE2933C6B0001884BC /* CollectionView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DEFD2933C6B0001884BC /* CollectionView + Extension.swift */; };
 		90B4DF002933DED2001884BC /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DEFF2933DED2001884BC /* Extension.swift */; };
+		90B4DF022933F2FB001884BC /* StartMatchingCustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */; };
+		90B4DF042933F982001884BC /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF032933F982001884BC /* CustomButton.swift */; };
 		90DA96C7291CE03500B5CA76 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 90DA96C6291CE03500B5CA76 /* Toast */; };
 		90DB1CCC29334A630005D2A8 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB1CCB29334A630005D2A8 /* Protocol.swift */; };
 		90FD72622921849900BB0077 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72612921849900BB0077 /* Error.swift */; };
@@ -207,6 +209,8 @@
 		90B4DEFB2933C20A001884BC /* WhichStudyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhichStudyCollectionViewCell.swift; sourceTree = "<group>"; };
 		90B4DEFD2933C6B0001884BC /* CollectionView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView + Extension.swift"; sourceTree = "<group>"; };
 		90B4DEFF2933DED2001884BC /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartMatchingCustomAlert.swift; sourceTree = "<group>"; };
+		90B4DF032933F982001884BC /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		90DB1CCB29334A630005D2A8 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		90FD72612921849900BB0077 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		90FD7263292187AF00BB0077 /* CautionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CautionModel.swift; sourceTree = "<group>"; };
@@ -310,6 +314,7 @@
 				90FD72C12922D95500BB0077 /* UIImage.swift */,
 				90DB1CCB29334A630005D2A8 /* Protocol.swift */,
 				90B4DEFD2933C6B0001884BC /* CollectionView + Extension.swift */,
+				90B4DF032933F982001884BC /* CustomButton.swift */,
 			);
 			path = Constant;
 			sourceTree = "<group>";
@@ -497,6 +502,7 @@
 		907E2435293211D000401F1A /* StartMatching */ = {
 			isa = PBXGroup;
 			children = (
+				90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */,
 				9082F8E0292A6CC50085D4BB /* CustomTabmanViewController.swift */,
 				9082F8DF292A6C790085D4BB /* NearUser */,
 				907E2436293211F200401F1A /* RequestUser */,
@@ -780,6 +786,7 @@
 				90517253292F734B00DDBC13 /* Constants.swift in Sources */,
 				907E24452932347300401F1A /* KeyBoard.swift in Sources */,
 				90FD72BB2922B44600BB0077 /* AgeSlider.swift in Sources */,
+				90B4DF022933F2FB001884BC /* StartMatchingCustomAlert.swift in Sources */,
 				907C68E729251B0400AADECC /* CardView.swift in Sources */,
 				90FD729E2922719500BB0077 /* SwitchView.swift in Sources */,
 				90B4DF002933DED2001884BC /* Extension.swift in Sources */,
@@ -800,6 +807,7 @@
 				907E243C29322B4500401F1A /* StartMatchingViewModel.swift in Sources */,
 				90A55C7D2924BBF60005F56D /* SeSACTitleStackView.swift in Sources */,
 				90A55C78292418FB0005F56D /* Header.swift in Sources */,
+				90B4DF042933F982001884BC /* CustomButton.swift in Sources */,
 				9066127B2928A27700320F21 /* APIViewModel.swift in Sources */,
 				90DB1CCC29334A630005D2A8 /* Protocol.swift in Sources */,
 				902B0FAC2918BC1C00D03C0E /* SceneDelegate.swift in Sources */,

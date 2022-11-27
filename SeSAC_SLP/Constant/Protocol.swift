@@ -35,6 +35,7 @@ protocol EnableDataInNOut {
 typealias BaseSetUIView = Bindable & BaseDelegate
 
 extension BaseDelegate {
+    //모든 베이스 뷰에 적용해야하는 기능일 때 uiview를 확장하지 않고 쓰기 좋을 듯
    func setNavigation() {
        
         print("네비게이션 설정되나요~")

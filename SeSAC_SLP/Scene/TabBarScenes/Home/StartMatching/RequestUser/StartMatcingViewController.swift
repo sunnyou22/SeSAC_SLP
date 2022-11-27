@@ -118,6 +118,7 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
             view.backgroundColor = viewModel.reputationValid(value) ? .setBrandColor(color: .green) : .clear
         }
         
+   
         // 컬렉션뷰 채택
         cell.cardView.expandableView.whishStudyView.collectionView.delegate = self
         cell.cardView.expandableView.whishStudyView.collectionView.dataSource = self
