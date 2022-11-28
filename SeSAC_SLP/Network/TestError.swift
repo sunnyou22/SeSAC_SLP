@@ -116,6 +116,37 @@ enum StudyRequestStatus: Int, Error {
     }
 }
 
+enum StudyAcceptStatus: Int, Error {
+    case success = 200
+    case matched = 201
+    case othersStopSearching = 202
+    case accepted = 203
+    case firebaseTokenError = 401
+    case notsignUpUser = 406
+    case serverError = 500
+    case clientError = 501
+    
+    var massage: String {
+        switch self {
+        case .success:
+            return "스터디요청을 수락했습니다"
+        case .matched:
+            return "상대방이 이미 다른 새싹과 스터디를 함께 하는 중입니다"
+        case .firebaseTokenError:
+            return "요청대기시간이 지났습니다! 다시 시도해주세요"
+        case .notsignUpUser:
+            return "미가입회원입니다"
+        case .serverError:
+            return "ERROR 500! 알 수 없는 오류입니다. 고객센터로 문의주세요!"
+        case .clientError:
+            return "ERROR 501! 알 수 없는 오류입니다. 고객센터로 문의주세요!"
+        case .othersStopSearching:
+            return "상대방이 스터디 찾기를 그만두었습니다"
+        case .accepted:
+            return "앗! 누군가 나의 스터디를 수락했어요!"
+        }
+    }
+}
 
 enum TestMessage {
     // 공통에러 멘트
@@ -126,6 +157,7 @@ enum TestMessage {
     case QueueText(ServerStatus.QueueError)
     case Signup(ServerStatus.UserError)
     case StudyRequestStatus(StudyRequestStatus)
+    case StudyAcceptedStatus(StudyAcceptStatus)
     
     case AuthVerifyPhoneNumber(AuthVerifyPhoneNumber)
     case AuthCredentialText(AuthCredentialText)

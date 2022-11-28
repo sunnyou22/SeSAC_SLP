@@ -506,10 +506,10 @@
 			children = (
 				90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */,
 				9082F8E0292A6CC50085D4BB /* CustomTabmanViewController.swift */,
+				90B4DF4B2934DC2C001884BC /* AlertViewModel.swift */,
 				90B4DEFF2933DED2001884BC /* Extension.swift */,
 				9082F8DF292A6C790085D4BB /* NearUser */,
 				907E2436293211F200401F1A /* RequestUser */,
-				90B4DF4B2934DC2C001884BC /* AlertViewModel.swift */,
 			);
 			path = StartMatching;
 			sourceTree = "<group>";

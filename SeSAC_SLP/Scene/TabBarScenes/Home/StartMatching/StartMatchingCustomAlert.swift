@@ -45,6 +45,9 @@ class StartMatchingCustomAlert: BaseViewController {
     }
     
     func bind() {
+        guard let data = data?[0] else {
+            print("데이터가 없슴다", #file)
+            return }
         let input = AlertViewModel.Input(tapOk: alertView.okButton.rx
             .tap, tapNo: alertView.noButton.rx
             .tap)
@@ -52,7 +55,7 @@ class StartMatchingCustomAlert: BaseViewController {
         
         output.tapOk
             .drive { [weak self] _ in
-                guard let data = self?.data?[0], let self = self else { return }
+                guard let self = self else { return }
                 self.viewModel.requestStudy(otheruid: data.uid, idToken: self.idToken, alertType: self.type)
             }.disposed(by: bag)
         
@@ -63,7 +66,9 @@ class StartMatchingCustomAlert: BaseViewController {
                 case .Success:
                     vc.showDefaultToast(message: .StudyRequestStatus(.Success))
                 case .Requested:
-                    vc.showDefaultToast(message: .StudyRequestStatus(.Requested))
+                    vc.showDefaultToast(message: .StudyRequestStatus(.Requested)) {
+                        vc.viewModel.requestStudy(otheruid: data.uid, idToken: vc.idToken, alertType: .requested)
+                    }
                 case .FirebaseTokenError:
                     vc.showDefaultToast(message: .StudyRequestStatus(.FirebaseTokenError))
                     FirebaseManager.shared.getIDTokenForcingRefresh()
@@ -77,10 +82,40 @@ class StartMatchingCustomAlert: BaseViewController {
                 }
             }.disposed(by: bag)
         
+        viewModel.studyacceptMent
+            .withUnretained(self)
+            .bind { vc, status in
+                switch status {
+                case .success:
+                    vc.showDefaultToast(message: .StudyAcceptedStatus(.accepted)) {
+                        print("채팅화면으로 이동 🟢")
+                    }
+                case .matched:
+                    vc.showDefaultToast(message: .StudyAcceptedStatus(.matched))
+                case .othersStopSearching:
+                    vc.showDefaultToast(message: .StudyAcceptedStatus(.othersStopSearching))
+                case .accepted:
+                    vc.showDefaultToast(message: .StudyAcceptedStatus(.accepted))
+                case .firebaseTokenError:
+                  print("파이어베이스 토큰 에러 🔴")
+                        FirebaseManager.shared.getIDTokenForcingRefresh()
+                        vc.viewDidLoad()
+                case .notsignUpUser:
+                    vc.showDefaultToast(message: .StudyAcceptedStatus(.notsignUpUser))
+                case .serverError:
+                    vc.showDefaultToast(message: .StudyAcceptedStatus(.serverError))
+                case .clientError:
+                    vc.showDefaultToast(message: .StudyAcceptedStatus(.clientError))
+                }
+            }.disposed(by: bag)
+        
+        
         output.tapNo
             .drive { _ in
                 self.dismiss(animated: true)
             }
+        
+        
     }
     
     

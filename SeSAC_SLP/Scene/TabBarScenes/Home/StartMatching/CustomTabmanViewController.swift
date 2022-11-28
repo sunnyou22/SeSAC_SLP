@@ -16,7 +16,7 @@ final class CustomTabmanViewController: TabmanViewController {
 
     private let rightBarButton = UIBarButtonItem(title: "찾기중단", style: .plain, target: nil, action: nil)
     let nearVC = StartMatcingViewController(type: .near, viewModel: .init(type: .near))
-    let requestVC = StartMatcingViewController(type: .request, viewModel: .init(type: .request))
+    let requestVC = StartMatcingViewController(type: .requested, viewModel: .init(type: .requested))
     private let bag = DisposeBag()
     
     private var viewControllers = [UIViewController]()
@@ -105,7 +105,7 @@ extension CustomTabmanViewController: TMBarDataSource, PageboyViewControllerData
     
     func barItem(for bar: Tabman.TMBar, at index: Int) -> Tabman.TMBarItemable {
         let item = TMBarItem(title: "")
-        let title: String = index == 0 ? StartMatcingViewController.Vctype.near.title : StartMatcingViewController.Vctype.request.title
+        let title: String = index == 0 ? StartMatcingViewController.Vctype.near.title : StartMatcingViewController.Vctype.requested.title
         item.title = title
         return item
     }

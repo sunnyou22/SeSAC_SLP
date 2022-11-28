@@ -65,7 +65,7 @@ final class StartMatchingViewModel: EnableDataInNOut {
             }
             data.accept(quoData)
             
-        case .request:
+        case .requested:
             guard let fromQueueDBRequested = UserDefaults.searchData?[0].fromQueueDBRequested else { return }
             data.accept(fromQueueDBRequested)
         }

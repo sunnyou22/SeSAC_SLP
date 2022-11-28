@@ -11,13 +11,13 @@ extension StartMatcingViewController {
     //MARK: - 뷰컨 타입
     enum Vctype {
         case near
-        case request
+        case requested
         
         var title: String {
             switch self {
             case .near:
                 return "주변 새싹"
-            case .request:
+            case .requested:
                 return "받은 요청"
             }
         }
@@ -26,7 +26,7 @@ extension StartMatcingViewController {
             switch self {
             case .near:
                 return "요청하기"
-            case .request:
+            case .requested:
                 return "수락하기"
             }
         }
@@ -35,7 +35,7 @@ extension StartMatcingViewController {
             switch self {
             case .near:
                 return .setStatus(color: .error)
-            case .request:
+            case .requested:
                 return .setStatus(color: .success)
             }
         }

@@ -63,7 +63,15 @@ extension UIViewController {
             }
         case .StudyRequestStatus(let status):
             view.makeToast(status.massage
-                           , duration: 1, position: .center) { didTap in
+                           , duration: 1, position: .bottom) { didTap in
+                guard let tapCompletion = completion?() else {
+                    return
+                }
+                tapCompletion
+            }
+        case .StudyAcceptedStatus(let status):
+            view.makeToast(status.massage
+                           , duration: 1, position: .bottom) { didTap in
                 guard let tapCompletion = completion?() else {
                     return
                 }

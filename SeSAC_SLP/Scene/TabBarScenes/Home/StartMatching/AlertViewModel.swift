@@ -30,6 +30,7 @@ final class AlertViewModel: EnableDataInNOut {
 
     // 토스트보내기
     let studyrequestMent = PublishRelay<StudyRequestStatus>()
+    let studyacceptMent = PublishRelay<StudyAcceptStatus>()
     
     func requestStudy(otheruid: String, idToken: String, alertType: StartMatcingViewController.Vctype) {
         let api: SeSACAPI
@@ -37,7 +38,7 @@ final class AlertViewModel: EnableDataInNOut {
         switch alertType {
         case .near:
             api = SeSACAPI.studyRequest(otheruid: otheruid)
-        case .request:
+        case .requested:
             api = SeSACAPI.studyRequest(otheruid: otheruid) // 고치기
         }
      
@@ -46,8 +47,8 @@ final class AlertViewModel: EnableDataInNOut {
             switch alertType {
             case .near:
                 self?.studyrequestMent.accept(StudyRequestStatus(rawValue: statusCode)!)
-            case .request:
-                self?.studyrequestMent.accept(StudyRequestStatus(rawValue: statusCode)!) // 바꾸기
+            case .requested:
+                self?.studyacceptMent.accept(StudyAcceptStatus(rawValue: statusCode)!) // 바꾸기
             }
            
         }
