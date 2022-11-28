@@ -8,15 +8,14 @@
 import UIKit
 import RxSwift
 
+//델리케이트로 값전달해보귀
 class StartMatcingViewController: BaseViewController, Bindable {
     
     var type: Vctype
     let mainView = StartMatchingView()
     
-    var test: Void?
-
     var hidden = false
-    
+  
     let viewModel: StartMatchingViewModel
     let bag = DisposeBag() // 모델로 어떻게 뺄지 생각해보기
     let commonAPIviewModel = CommonServerManager()
@@ -38,18 +37,6 @@ class StartMatcingViewController: BaseViewController, Bindable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        switch type {
-        case .near:
-            view.backgroundColor = .lightGray
-        case .request:
-            view.backgroundColor = .darkGray
-        }
-        
-        mainView.tableView.delegate = self
-        mainView.tableView.dataSource = self
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,8 +71,8 @@ class StartMatcingViewController: BaseViewController, Bindable {
     
     override func configure() {
         super.configure()
-        
-        
+        mainView.tableView.delegate = self
+        mainView.tableView.dataSource = self
     }
 }
 
@@ -160,6 +147,7 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         print("버튼 눌리야?")
         let vc = StartMatchingCustomAlert(type: type)
         vc.modalPresentationStyle = .formSheet
+        vc.data = viewModel.data.value
         present(vc, animated: true)
     }
 }

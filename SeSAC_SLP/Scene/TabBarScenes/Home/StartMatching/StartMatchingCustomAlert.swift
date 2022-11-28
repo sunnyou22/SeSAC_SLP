@@ -10,8 +10,11 @@ import UIKit
 import SnapKit
 
 class StartMatchingCustomAlert: BaseViewController {
-
+    
     var type: StartMatcingViewController.Vctype
+    
+    var data: [FromQueueDB]?
+    
     let alertView: CustomAlertView = {
         let view = CustomAlertView()
         view.clipsToBounds = true
@@ -27,6 +30,11 @@ class StartMatchingCustomAlert: BaseViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print(data)
     }
     
     override func configure() {

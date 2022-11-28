@@ -18,13 +18,15 @@ struct URLConstant {
 
 enum SeSACAPI {
     case signUp(phoneNumber: String, FCMtoken: String, nick: String, birth: Date, email: String, gender: Int)
-    case getUserInfo
+    case getUserInfo // get
     case searchSurroundings(lat: Double, long: Double)
     case setMypage(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
-    case matchingStatus
+    case matchingStatus //get
     case search(lat: Double, lon: Double, studylist: [String])
+    case studyRequest(otheruid: String)
 }
 
+// 폴더 나눌 때 버전 빼기
 extension SeSACAPI {
     
     //MARK: URL
@@ -42,13 +44,15 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/queue/myQueueState")!
         case .search:
             return URL(string: URLConstant.BaseURL + "/v1/queue")! // 새싹 찾기 검색
+        case .studyRequest:
+            return URL(string: URLConstant.BaseURL + "/v1/queue/studyrequest")!
         }
     }
     
     //MARK: Header
     func getheader(idtoken: String) -> HTTPHeaders {
         switch self {
-        case .signUp, .setMypage, .search:
+        case .signUp, .setMypage, .search, .studyRequest:
             return [
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -94,6 +98,10 @@ extension SeSACAPI {
                 "long": lon,
                 "lat": lat,
                 "studylist": studylist
+            ]
+        case .studyRequest(otheruid: let otheruid):
+            return [
+                "otheruid": otheruid
             ]
         }
     }

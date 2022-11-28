@@ -93,3 +93,8 @@ struct Search: Codable {
     let long, lat: Double
     let studylist: [String]
 }
+
+// MARK: - StudyRequest
+struct StudyRequest: Codable {
+    let otheruid: String?
+}

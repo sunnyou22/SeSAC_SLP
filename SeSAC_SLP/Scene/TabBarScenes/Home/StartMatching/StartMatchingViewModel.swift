@@ -22,7 +22,7 @@ final class StartMatchingViewModel: EnableDataInNOut {
     var wishList: [String]?
     let data: BehaviorRelay<[FromQueueDB]> = BehaviorRelay<[FromQueueDB]>(value: [])
     var sesacTitle: Driver<[Int]>?
-    let test = PublishRelay<Bool>()
+    let test = PublishRelay<Bool>() // 셀 접히기 test
     init(type: StartMatcingViewController.Vctype) {
         self.type = type
     }

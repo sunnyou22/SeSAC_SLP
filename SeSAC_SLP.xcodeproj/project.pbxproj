@@ -324,7 +324,6 @@
 			children = (
 				90FD726529218AEE00BB0077 /* Manager */,
 				902B101B291C1A0000D03C0E /* APIService.swift */,
-				902B101D291C1A8E00D03C0E /* Endpoint.swift */,
 				902B101F291C1AF200D03C0E /* Network.swift */,
 				90FE3115291EAEFA00C0949E /* NWPathMonitor.swift */,
 				90FE3117291EB8AF00C0949E /* NoNetWorkView.swift */,
@@ -550,11 +549,44 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		90B4DF442934C798001884BC /* APIComponent */ = {
+			isa = PBXGroup;
+			children = (
+				90B4DF492934C817001884BC /* Chat */,
+				90B4DF482934C807001884BC /* Queue */,
+				90B4DF472934C7E9001884BC /* User */,
+				902B101D291C1A8E00D03C0E /* Endpoint.swift */,
+			);
+			path = APIComponent;
+			sourceTree = "<group>";
+		};
+		90B4DF472934C7E9001884BC /* User */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		90B4DF482934C807001884BC /* Queue */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Queue;
+			sourceTree = "<group>";
+		};
+		90B4DF492934C817001884BC /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		90FD726529218AEE00BB0077 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				90FD726629218B4A00BB0077 /* FirebaseManager.swift */,
 				9066127A2928A27700320F21 /* APIViewModel.swift */,
+				90B4DF442934C798001884BC /* APIComponent */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
