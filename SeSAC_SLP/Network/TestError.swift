@@ -118,7 +118,7 @@ enum StudyRequestStatus: Int, Error {
 
 enum StudyAcceptStatus: Int, Error {
     case success = 200
-    case matched = 201
+    case othersmatched = 201
     case othersStopSearching = 202
     case accepted = 203
     case firebaseTokenError = 401
@@ -130,7 +130,7 @@ enum StudyAcceptStatus: Int, Error {
         switch self {
         case .success:
             return "스터디요청을 수락했습니다"
-        case .matched:
+        case .othersmatched:
             return "상대방이 이미 다른 새싹과 스터디를 함께 하는 중입니다"
         case .firebaseTokenError:
             return "요청대기시간이 지났습니다! 다시 시도해주세요"

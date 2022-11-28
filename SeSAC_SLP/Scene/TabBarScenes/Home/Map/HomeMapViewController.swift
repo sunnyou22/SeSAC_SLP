@@ -74,21 +74,13 @@ class HomeMapViewController: BaseViewController {
         // 뷰그려주기
         bindMapViewData()
         
-        //파이어베이스 토큰 갱신
-        
-        guard let idtoken = UserDefaults.idtoken else {
-            let vc = OnboardingViewController()
-            setInitialViewController(to: vc)
-            return
-        }
-        
         // 현재위치를 기준으로 최초로 불러오기
         
         //        viewModel.fetchMapData(lat: (manager.location?.coordinate.latitude)!, long: (manager.location?.coordinate.longitude)!, idtoken: idtoken)
-        commonAPIviewModel.fetchMapData(lat: MapViewModel.LandmarkLocation.sesacLocation.latitude, long: MapViewModel.LandmarkLocation.sesacLocation.longitude, idtoken: idtoken)
+        commonAPIviewModel.fetchMapData(lat: MapViewModel.LandmarkLocation.sesacLocation.latitude, long: MapViewModel.LandmarkLocation.sesacLocation.longitude, idtoken: idToken)
         
         // 매칭상태가져오기 테스트
-        viewModel.getMatchStatus(idtoken: idtoken)
+        commonAPIviewModel.getMatchStatus(idtoken: idToken)
     }
     
     override func viewDidAppear(_ animated: Bool) {

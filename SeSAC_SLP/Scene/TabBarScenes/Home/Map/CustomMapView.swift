@@ -10,12 +10,6 @@ import SnapKit
 import MapKit // 지도
 import CoreLocation
 
-enum MapIcon: String {
-    case matched
-    case search
-    case waiting
-}
-
 class CustomMapView: BaseView {
     
     override init(frame: CGRect) {
@@ -77,7 +71,7 @@ class CustomMapView: BaseView {
     
     let matchingButton: UIButton = {
        let view = UIButton()
-        view.setImage(UIImage(named: MapIcon.search.rawValue), for: .normal)
+        view.setImage(UserMatchingStatus.search.ploationgButtonImage, for: .normal)
         return view
     }()
     

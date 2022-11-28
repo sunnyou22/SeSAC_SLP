@@ -129,9 +129,7 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
             }.disposed(by: bag)
      
         //얼럿
-        cell.requestButton.addTarget(self, action: #selector(requested), for: .touchUpInside)
-        
-        
+        cell.requestButton.addTarget(self, action: #selector(request), for: .touchUpInside)
         
         return cell
     }

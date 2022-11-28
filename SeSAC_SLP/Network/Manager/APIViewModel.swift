@@ -15,11 +15,10 @@ import FirebaseAuth
 //manager로 넣어줄건지 고민해보기
 
 final class CommonServerManager {
-    
-    let authValidCode = PublishRelay<AuthCredentialText>()
+
     let userStatus = PublishRelay<UserStatus>()
     let queueSearchStatus = PublishRelay<QueueSearchStatus>()
-    
+    let matchingStatus = PublishRelay<MyQueueStatus>()
     //
     //MAKR: - 모델로 빼기
 
@@ -59,6 +58,25 @@ final class CommonServerManager {
             
             UserDefaults.searchData = [data]
             print("주변 새싹 정보 받아오기 완료 유저디폴츠 출력✅", #function, "/n", UserDefaults.searchData)
+        }
+    }
+    
+    
+    //5초 마다 상태 확인 필요 /v1/queue/myQueueState
+    func getMatchStatus(idtoken: String) {
+        let api = SeSACAPI.matchingStatus
+        Network.shared.receiveRequestSeSAC(type: MatchStatus.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
+            
+            guard let myQueueStatus = MyQueueStatus(rawValue: statusCode) else { return }
+            self?.matchingStatus.accept(myQueueStatus)
+       
+            guard let data = data else {
+                print("MatchStatus 가져오기 실패 🔴")
+                return
+            }
+            print("getMatchStatus🚀\n", data.matched ?? 100, data, myQueueStatus)
+        // 호출할 때마다 유저의 상태를 알 수 잇도록
+            MapViewModel.ploatingButtonSet.accept(.init(rawValue: data.matched ?? 2)!)
         }
     }
 }

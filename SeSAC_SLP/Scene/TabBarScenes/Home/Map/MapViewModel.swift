@@ -21,7 +21,7 @@ final class MapViewModel {
     static let ploatingButtonSet: BehaviorRelay<UserMatchingStatus> = BehaviorRelay(value: .search)
     
     let manager = CLLocationManager()
-    let matchingStatus = PublishRelay<MyQueueStatus>()
+    
     //    let commonError = PublishRelay<ServerStatus.Common>()
     var transitionToSearcnVC: ControlEvent<UserMatchingStatus>?
     let checkAuthorizationStatus = PublishRelay<CLAuthorizationStatus>()
@@ -84,23 +84,6 @@ final class MapViewModel {
             }
         })
         return annotations
-    }
-    
-    //5초 마다 상태 확인 필요 /v1/queue/myQueueState
-    func getMatchStatus(idtoken: String) {
-        let api = SeSACAPI.matchingStatus
-        Network.shared.receiveRequestSeSAC(type: MatchStatus.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
-            
-            guard let myQueueStatus = MyQueueStatus(rawValue: statusCode) else { return }
-            self?.matchingStatus.accept(myQueueStatus)
-       
-            guard let data = data else {
-                print("MatchStatus 가져오기 실패 🔴")
-                return
-            }
-            print("getMatchStatus🚀\n", data.matched ?? 100, data, myQueueStatus)
-            MapViewModel.ploatingButtonSet.accept(.init(rawValue: data.matched ?? 2)!)
-        }
     }
 }
 

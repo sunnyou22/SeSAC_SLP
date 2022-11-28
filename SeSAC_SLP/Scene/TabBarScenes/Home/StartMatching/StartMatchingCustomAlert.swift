@@ -14,6 +14,7 @@ import RxSwift
 class StartMatchingCustomAlert: BaseViewController {
   
     let viewModel = AlertViewModel()
+    let commonApiModel = CommonServerManager()
     let bag = DisposeBag()
     
     var type: StartMatcingViewController.Vctype
@@ -42,6 +43,7 @@ class StartMatchingCustomAlert: BaseViewController {
         print(data as Any, "-> 값전달 🟢")
         
         bind()
+        bindErrorHandling()
     }
     
     func bind() {
@@ -59,13 +61,25 @@ class StartMatchingCustomAlert: BaseViewController {
                 self.viewModel.requestStudy(otheruid: data.uid, idToken: self.idToken, alertType: self.type)
             }.disposed(by: bag)
         
+        output.tapNo
+            .drive { _ in
+                self.dismiss(animated: true)
+            }
+    }
+    
+    func bindErrorHandling() {
+        
+        guard let data = data?[0] else {
+            print("데이터가 없슴다", #file)
+            return }
+        
         viewModel.studyrequestMent
             .withUnretained(self)
             .bind { vc, status in
                 switch status {
                 case .Success:
                     vc.showDefaultToast(message: .StudyRequestStatus(.Success))
-                case .Requested:
+                case .Requested: // 이미 상대방이 나한테 요청함
                     vc.showDefaultToast(message: .StudyRequestStatus(.Requested)) {
                         vc.viewModel.requestStudy(otheruid: data.uid, idToken: vc.idToken, alertType: .requested)
                     }
@@ -88,18 +102,22 @@ class StartMatchingCustomAlert: BaseViewController {
                 switch status {
                 case .success:
                     vc.showDefaultToast(message: .StudyAcceptedStatus(.accepted)) {
+                        MapViewModel.ploatingButtonSet.accept(.matched)
+                        vc.dismiss(animated: true)
                         print("채팅화면으로 이동 🟢")
                     }
-                case .matched:
-                    vc.showDefaultToast(message: .StudyAcceptedStatus(.matched))
+                case .othersmatched:
+                    vc.showDefaultToast(message: .StudyAcceptedStatus(.othersmatched))
                 case .othersStopSearching:
                     vc.showDefaultToast(message: .StudyAcceptedStatus(.othersStopSearching))
                 case .accepted:
-                    vc.showDefaultToast(message: .StudyAcceptedStatus(.accepted))
+                    vc.showDefaultToast(message: .StudyAcceptedStatus(.accepted)) {
+                        vc.commonApiModel.getMatchStatus(idtoken: vc.idToken)
+                    }
                 case .firebaseTokenError:
-                  print("파이어베이스 토큰 에러 🔴")
-                        FirebaseManager.shared.getIDTokenForcingRefresh()
-                        vc.viewDidLoad()
+                    print("파이어베이스 토큰 에러 🔴")
+                    FirebaseManager.shared.getIDTokenForcingRefresh()
+                    vc.viewDidLoad()
                 case .notsignUpUser:
                     vc.showDefaultToast(message: .StudyAcceptedStatus(.notsignUpUser))
                 case .serverError:
@@ -108,16 +126,7 @@ class StartMatchingCustomAlert: BaseViewController {
                     vc.showDefaultToast(message: .StudyAcceptedStatus(.clientError))
                 }
             }.disposed(by: bag)
-        
-        
-        output.tapNo
-            .drive { _ in
-                self.dismiss(animated: true)
-            }
-        
-        
     }
-    
     
     override func configure() {
         view.addSubview(alertView)
@@ -130,8 +139,6 @@ class StartMatchingCustomAlert: BaseViewController {
             make.height.equalToSuperview().dividedBy(4.4)
         }
     }
-    
-  
 }
 
 
