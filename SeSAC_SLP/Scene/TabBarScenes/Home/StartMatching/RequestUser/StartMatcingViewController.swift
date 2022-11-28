@@ -118,7 +118,6 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
 
         cell.cardView.nicknameView.addGestureRecognizer(tapGesture)
-        
         cell.cardView.expandableView.isHidden = hidden // 암튼 일케하면 되긴함
         
         viewModel.test

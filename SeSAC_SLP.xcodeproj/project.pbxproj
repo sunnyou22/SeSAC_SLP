@@ -102,6 +102,9 @@
 		90B4DF022933F2FB001884BC /* StartMatchingCustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */; };
 		90B4DF042933F982001884BC /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF032933F982001884BC /* CustomButton.swift */; };
 		90B4DF4C2934DC2C001884BC /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF4B2934DC2C001884BC /* AlertViewModel.swift */; };
+		90B4DF4F29352C3E001884BC /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF4E29352C3E001884BC /* ChatViewController.swift */; };
+		90B4DF5129352DCB001884BC /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF5029352DCB001884BC /* ChatView.swift */; };
+		90B4DF532935303F001884BC /* ChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF522935303F001884BC /* ChatHeaderView.swift */; };
 		90DA96C7291CE03500B5CA76 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 90DA96C6291CE03500B5CA76 /* Toast */; };
 		90DB1CCC29334A630005D2A8 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB1CCB29334A630005D2A8 /* Protocol.swift */; };
 		90FD72622921849900BB0077 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72612921849900BB0077 /* Error.swift */; };
@@ -213,6 +216,9 @@
 		90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartMatchingCustomAlert.swift; sourceTree = "<group>"; };
 		90B4DF032933F982001884BC /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		90B4DF4B2934DC2C001884BC /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
+		90B4DF4E29352C3E001884BC /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		90B4DF5029352DCB001884BC /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		90B4DF522935303F001884BC /* ChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderView.swift; sourceTree = "<group>"; };
 		90DB1CCB29334A630005D2A8 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		90FD72612921849900BB0077 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		90FD7263292187AF00BB0077 /* CautionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CautionModel.swift; sourceTree = "<group>"; };
@@ -504,9 +510,8 @@
 		907E2435293211D000401F1A /* StartMatching */ = {
 			isa = PBXGroup;
 			children = (
-				90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */,
+				90B4DF4D29350234001884BC /* Alert */,
 				9082F8E0292A6CC50085D4BB /* CustomTabmanViewController.swift */,
-				90B4DF4B2934DC2C001884BC /* AlertViewModel.swift */,
 				90B4DEFF2933DED2001884BC /* Extension.swift */,
 				9082F8DF292A6C790085D4BB /* NearUser */,
 				907E2436293211F200401F1A /* RequestUser */,
@@ -581,8 +586,20 @@
 		90B4DF492934C817001884BC /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				90B4DF4E29352C3E001884BC /* ChatViewController.swift */,
+				90B4DF5029352DCB001884BC /* ChatView.swift */,
+				90B4DF522935303F001884BC /* ChatHeaderView.swift */,
 			);
 			path = Chat;
+			sourceTree = "<group>";
+		};
+		90B4DF4D29350234001884BC /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				90B4DF4B2934DC2C001884BC /* AlertViewModel.swift */,
+				90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */,
+			);
+			path = Alert;
 			sourceTree = "<group>";
 		};
 		90FD726529218AEE00BB0077 /* Manager */ = {
@@ -778,6 +795,7 @@
 				90FD726729218B4A00BB0077 /* FirebaseManager.swift in Sources */,
 				9051724B292F6FC400DDBC13 /* CustomTabBarController.swift in Sources */,
 				907636E2292030C800D289AB /* IconSet.swift in Sources */,
+				90B4DF5129352DCB001884BC /* ChatView.swift in Sources */,
 				90FD72BF2922B7C100BB0077 /* UIButtom.swift in Sources */,
 				90661273292800D100320F21 /* CardViewCellVer.swift in Sources */,
 				9051725A292FBFD000DDBC13 /* DynamicCollectionView + Extension.swift in Sources */,
@@ -808,6 +826,7 @@
 				902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */,
 				907E24312931F20500401F1A /* WhishStudyView.swift in Sources */,
 				9051720C292E332900DDBC13 /* BaseScrollView.swift in Sources */,
+				90B4DF532935303F001884BC /* ChatHeaderView.swift in Sources */,
 				90FD72BD2922B78C00BB0077 /* ThumbButton.swift in Sources */,
 				90FD72A22922721700BB0077 /* SignOutView.swift in Sources */,
 				90FD72D62923FFD400BB0077 /* MyPageListViewController.swift in Sources */,
@@ -826,6 +845,7 @@
 				907C68E729251B0400AADECC /* CardView.swift in Sources */,
 				90FD729E2922719500BB0077 /* SwitchView.swift in Sources */,
 				90B4DF002933DED2001884BC /* Extension.swift in Sources */,
+				90B4DF4F29352C3E001884BC /* ChatViewController.swift in Sources */,
 				907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */,
 				9066126F2927FCCC00320F21 /* CardViewTableViewCell.swift in Sources */,
 				90AE5C4D292D1B9C00C3C772 /* TestError.swift in Sources */,

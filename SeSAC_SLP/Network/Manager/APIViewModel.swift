@@ -19,6 +19,7 @@ final class CommonServerManager {
     let userStatus = PublishRelay<UserStatus>()
     let queueSearchStatus = PublishRelay<QueueSearchStatus>()
     let matchingStatus = PublishRelay<MyQueueStatus>()
+    let deleteStatus = PublishRelay<DeleteStatus>()
     //
     //MAKR: - 모델로 빼기
 
@@ -69,15 +70,30 @@ final class CommonServerManager {
             
             guard let myQueueStatus = MyQueueStatus(rawValue: statusCode) else { return }
             self?.matchingStatus.accept(myQueueStatus)
-       
+            
             guard let data = data else {
                 print("MatchStatus 가져오기 실패 🔴")
                 return
             }
             print("getMatchStatus🚀\n", data.matched ?? 100, data, myQueueStatus)
-        // 호출할 때마다 유저의 상태를 알 수 잇도록
+            // 호출할 때마다 유저의 상태를 알 수 잇도록
             MapViewModel.ploatingButtonSet.accept(.init(rawValue: data.matched ?? 2)!)
         }
     }
-}
     
+    
+    func delete(idtoken: String) {
+        
+        let api = SeSACAPI.delete
+        
+        Network.shared.sendRequestSeSAC(url: api.url, method: .delete, headers: api.getheader(idtoken: idtoken)) { [weak self] statusCode in
+            
+            guard let delete = DeleteStatus(rawValue: statusCode) else { return }
+            self?.deleteStatus.accept(delete)
+            
+//            MapViewModel.ploatingButtonSet.accept(.init(rawValue: data.matched ?? 2)!)
+        }
+    }
+}
+
+

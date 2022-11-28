@@ -10,7 +10,7 @@ import SnapKit
 
 final class AgeSlider: UIControl {
     private enum Constant {
-        static let barRatio = 1.0 / 20
+        static let barRatio = 1.0/10.0
     }
     
     private let leftThumbButton: ThumbButton = {

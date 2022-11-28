@@ -10,6 +10,8 @@ import SnapKit
 import RxCocoa
 import RxSwift
 
+// 프로퍼티가 너무 길다 인풋아웃풋으로 갈아치우자
+
 final class SetMyInfoViewController: BaseViewController {
     
     //좀더 의미적으로 생각해보기
@@ -34,7 +36,7 @@ final class SetMyInfoViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         mainView.cardView.nicknameView.toggleButton.addTarget(self, action: #selector(test), for: .touchUpInside)
         guard let idtoken = UserDefaults.idtoken else {
             print("다음 버튼을 눌렀는데 토큰이 없어 🔴")
@@ -66,12 +68,6 @@ final class SetMyInfoViewController: BaseViewController {
     }
     
     func bindData() {
-        guard let idtoken = UserDefaults.idtoken else {
-            //탈퇴했을때 없을 것 같음 -> 온보딩화면으로 날려주기
-            print("토큰없음")
-            return
-        }
-        
         //초기설정 - 데이터 뿌리기
         viewModel.fetchingUserInfo
             .withUnretained(self)
@@ -117,26 +113,34 @@ final class SetMyInfoViewController: BaseViewController {
             .drive { vc, bool in
                 bool ? vc.viewModel.toggleStatus.accept(BinaryCase.one.rawValue) : vc.viewModel.toggleStatus.accept(BinaryCase.zero.rawValue)
             }.disposed(by: disposeBag)
-
-      
+        
+        //슬라이더
+        mainView.fixView.matchingAgeView.trackBar.rx.controlEvent(.valueChanged)
+            .withUnretained(self)
+            .bind { vc, _ in
+                let slider = vc.mainView.fixView.matchingAgeView.trackBar
+                vc.mainView.fixView.matchingAgeView.ageLable.text = "\(Int(slider.lower))-\(Int(slider.upper))"
+            }.disposed(by: disposeBag)
+        
+        
         //저장버튼 클뤽
-//        navigationItem.rightBarButtonItem?.rx
-//            .tap
-//            .withUnretained(self)
-//            .subscribe(onNext: { vc, _ in
-//                var tracker = vc.mainView.fixView.matchingAgeView.trackBar
-//                let genderInt = vc.viewModel.genderStatus.value.0 == Gender.woman ? 0 : 1
-//
-//                vc.viewModel.putUserInfo(searchable: vc.viewModel.toggleStatus.value, ageMin: Int(tracker.lower) , ageMax: Int(tracker.upper), gender: genderInt, study: vc.mainView.fixView.setFrequentStudyView.textField.text ?? "", idtoken: idtoken)
-//            }).disposed(by: disposeBag)
+        //        navigationItem.rightBarButtonItem?.rx
+        //            .tap
+        //            .withUnretained(self)
+        //            .subscribe(onNext: { vc, _ in
+        //                var tracker = vc.mainView.fixView.matchingAgeView.trackBar
+        //                let genderInt = vc.viewModel.genderStatus.value.0 == Gender.woman ? 0 : 1
+        //
+        //                vc.viewModel.putUserInfo(searchable: vc.viewModel.toggleStatus.value, ageMin: Int(tracker.lower) , ageMax: Int(tracker.upper), gender: genderInt, study: vc.mainView.fixView.setFrequentStudyView.textField.text ?? "", idtoken: idtoken)
+        //            }).disposed(by: disposeBag)
     }
- 
-   private func setnavigation() {
+    
+    private func setnavigation() {
         navigationItem.titleView?.tintColor = .setBaseColor(color: .black)
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.setBaseColor(color: .black)]
         navigationItem.title = "정보관리"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(postToServer))
-   }
+    }
     
     @objc private func postToServer() {
         guard let idtoken = UserDefaults.idtoken else {

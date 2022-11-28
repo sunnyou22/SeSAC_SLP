@@ -13,10 +13,12 @@ import RxSwift
 import RxCocoa
 
 final class CustomTabmanViewController: TabmanViewController {
-
+    
     private let rightBarButton = UIBarButtonItem(title: "찾기중단", style: .plain, target: nil, action: nil)
     let nearVC = StartMatcingViewController(type: .near, viewModel: .init(type: .near))
     let requestVC = StartMatcingViewController(type: .requested, viewModel: .init(type: .requested))
+    
+    private let commonServer = CommonServerManager()
     private let bag = DisposeBag()
     
     private var viewControllers = [UIViewController]()
@@ -35,24 +37,45 @@ final class CustomTabmanViewController: TabmanViewController {
     }
     
     func setNavigationBar() {
-      
+        
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
     func bind() {
+        
+        guard let idtoken = UserDefaults.idtoken else {
+            let onboarding = OnboardingViewController()
+            setInitialViewController(to: onboarding)
+            print("토큰 없어서 온보딩으로 감", #file)
+            return
+        }
+        
         rightBarButton.rx
             .tap
             .withUnretained(self)
             .bind { vc, _ in
-                let vc2 = SearchViewController()
-                let vc1 = HomeMapViewController()
-                
-                if var navstack = vc.navigationController?.viewControllers {
-                    navstack.append(contentsOf: [vc1, vc2])
-                    vc.navigationController?.setViewControllers(navstack, animated: true)
-                    vc.navigationController?.present(navstack[0], animated: true)
+                vc.commonServer.delete(idtoken: idtoken)
+            }.disposed(by: bag)
+        
+        commonServer.deleteStatus
+            .withUnretained(self)
+            .bind { vc, statusCode in
+                switch statusCode {
+                case .success:
+                    print("찾기중단 성공, 🚀")
+                    guard let viewControllers : [UIViewController] = vc.navigationController?.viewControllers as? [UIViewController] else { return  }
+                    vc.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: true)
+                case .matched:
+                    vc.showDefaultToast(message: .DeleteStatus(.matched))
+                case .firebaseTokenError:
+                    vc.showDefaultToast(message: .DeleteStatus(.firebaseTokenError))
+                case .notsignUpUser:
+                    vc.showDefaultToast(message: .DeleteStatus(.notsignUpUser))
+                case .serverError:
+                    vc.showDefaultToast(message: .DeleteStatus(.serverError))
+                case .clientError:
+                    vc.showDefaultToast(message: .DeleteStatus(.clientError))
                 }
-                print("눌리나여")
             }.disposed(by: bag)
     }
     

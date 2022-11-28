@@ -26,7 +26,7 @@ extension UILabel {
     }
 }
 
-extension BaseView {
+extension UIView {
     
     func setattributeText(view: UILabel, text: String, pointfont: UIFont, subfont: UIFont?, location: Int = 0, length: Int = 0, baseColor: UIColor, pointColor: UIColor) -> UILabel {
         let paragraphStyle = NSMutableParagraphStyle()
@@ -94,5 +94,34 @@ extension String {
        attributedString.addAttributes([.kern: -0.5, .paragraphStyle: paragraphStyle, .font: font], range: (self as NSString).range(of: self))
 
         return attributedString
+    }
+}
+
+class PaddingCutomLabel: UILabel {
+    private var padding = UIEdgeInsets(top: 4.0, left: 16.0, bottom: 6.0, right: 16.0)
+
+       convenience init(padding: UIEdgeInsets) {
+           self.init()
+           self.padding = padding
+       }
+
+       override func drawText(in rect: CGRect) {
+           super.drawText(in: rect.inset(by: padding))
+       }
+
+       override var intrinsicContentSize: CGSize {
+           var contentSize = super.intrinsicContentSize
+           contentSize.height += padding.top + padding.bottom
+           contentSize.width += padding.left + padding.right
+
+           return contentSize
+       }
+    
+    func setconfig(basecolor: UIColor, textcolor: UIColor, font: UIFont) {
+        self.backgroundColor = basecolor
+        self.textColor = textcolor
+        self.font = font
+        self.clipsToBounds = true
+        self.layer.cornerRadius = intrinsicContentSize.height * 4/7
     }
 }

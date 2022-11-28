@@ -37,7 +37,7 @@ extension UIViewController {
                 }
                 tapCompletion
             }
-      
+            
         case .Signup(let error):
             view.makeToast(error.message, duration: 1, position: .center) { didTap in
                 guard let tapCompletion = completion?() else {
@@ -77,6 +77,14 @@ extension UIViewController {
                 }
                 tapCompletion
             }
+        case .DeleteStatus(let status):
+            view.makeToast(status.massage
+                           , duration: 1, position: .bottom) { didTap in
+                guard let tapCompletion = completion?() else {
+                    return
+                }
+                tapCompletion
+            }
         }
     }
     
@@ -93,4 +101,4 @@ extension UIViewController {
 }
 
 
-                            
+

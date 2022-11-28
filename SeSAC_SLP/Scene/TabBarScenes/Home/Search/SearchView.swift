@@ -57,7 +57,7 @@ final class SearchView: BaseView {
     
     override func configure() {
         accessoryView.addSubview(searchButton)
-        [collectionView, searchButton].forEach { self.addSubview($0)  }
+        [collectionView, searchButton].forEach { addSubview($0)  }
     }
     
     override func setConstraints() {

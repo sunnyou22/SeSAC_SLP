@@ -23,6 +23,7 @@ enum SeSACAPI {
     case setMypage(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
     case matchingStatus //get
     case search(lat: Double, lon: Double, studylist: [String])
+    case delete
     case studyRequest(otheruid: String)
 }
 
@@ -42,7 +43,7 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/user/mypage")!
         case .matchingStatus:
             return URL(string: URLConstant.BaseURL + "/v1/queue/myQueueState")!
-        case .search:
+        case .search, .delete:
             return URL(string: URLConstant.BaseURL + "/v1/queue")! // 새싹 찾기 검색
         case .studyRequest:
             return URL(string: URLConstant.BaseURL + "/v1/queue/studyrequest")!
@@ -57,7 +58,7 @@ extension SeSACAPI {
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
             ]
-        case .getUserInfo, .searchSurroundings, .matchingStatus:
+        case .getUserInfo, .searchSurroundings, .matchingStatus, .delete:
             return [
                 "idtoken": idtoken
             ]
@@ -91,7 +92,7 @@ extension SeSACAPI {
                 "gender" : gender,
                 "study" : study
             ]
-        case .matchingStatus:
+        case .matchingStatus, .delete:
             return nil
         case .search(let lat, let lon, let studylist):
             return [

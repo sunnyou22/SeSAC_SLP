@@ -44,6 +44,7 @@ final class StartMatchingView: BaseView {
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         view.layer.borderColor = UIColor.setBrandColor(color: .green).cgColor
         view.layer.borderWidth = 1
+        view.setImage(UIImage(named: Icon.refreshButton.rawValue), for: .normal)
         return view
     }()
     
