@@ -101,6 +101,7 @@
 		90B4DF002933DED2001884BC /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DEFF2933DED2001884BC /* Extension.swift */; };
 		90B4DF022933F2FB001884BC /* StartMatchingCustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */; };
 		90B4DF042933F982001884BC /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF032933F982001884BC /* CustomButton.swift */; };
+		90B4DF4C2934DC2C001884BC /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF4B2934DC2C001884BC /* AlertViewModel.swift */; };
 		90DA96C7291CE03500B5CA76 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 90DA96C6291CE03500B5CA76 /* Toast */; };
 		90DB1CCC29334A630005D2A8 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB1CCB29334A630005D2A8 /* Protocol.swift */; };
 		90FD72622921849900BB0077 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72612921849900BB0077 /* Error.swift */; };
@@ -211,6 +212,7 @@
 		90B4DEFF2933DED2001884BC /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartMatchingCustomAlert.swift; sourceTree = "<group>"; };
 		90B4DF032933F982001884BC /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		90B4DF4B2934DC2C001884BC /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
 		90DB1CCB29334A630005D2A8 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		90FD72612921849900BB0077 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		90FD7263292187AF00BB0077 /* CautionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CautionModel.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 		902B0FD22918FE4100D03C0E /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				90B4DF442934C798001884BC /* APIComponent */,
 				90FD726529218AEE00BB0077 /* Manager */,
 				902B101B291C1A0000D03C0E /* APIService.swift */,
 				902B101F291C1AF200D03C0E /* Network.swift */,
@@ -503,12 +506,10 @@
 			children = (
 				90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */,
 				9082F8E0292A6CC50085D4BB /* CustomTabmanViewController.swift */,
+				90B4DEFF2933DED2001884BC /* Extension.swift */,
 				9082F8DF292A6C790085D4BB /* NearUser */,
 				907E2436293211F200401F1A /* RequestUser */,
-				907E243B29322B4500401F1A /* StartMatchingViewModel.swift */,
-				907E243F29322F6900401F1A /* StartMatchingView.swift */,
-				907E2441293230F000401F1A /* StartMatchingCollectionViewCell.swift */,
-				90B4DEFF2933DED2001884BC /* Extension.swift */,
+				90B4DF4B2934DC2C001884BC /* AlertViewModel.swift */,
 			);
 			path = StartMatching;
 			sourceTree = "<group>";
@@ -517,6 +518,9 @@
 			isa = PBXGroup;
 			children = (
 				907E24372932128500401F1A /* StartMatcingViewController.swift */,
+				907E243B29322B4500401F1A /* StartMatchingViewModel.swift */,
+				907E243F29322F6900401F1A /* StartMatchingView.swift */,
+				907E2441293230F000401F1A /* StartMatchingCollectionViewCell.swift */,
 			);
 			path = RequestUser;
 			sourceTree = "<group>";
@@ -586,7 +590,6 @@
 			children = (
 				90FD726629218B4A00BB0077 /* FirebaseManager.swift */,
 				9066127A2928A27700320F21 /* APIViewModel.swift */,
-				90B4DF442934C798001884BC /* APIComponent */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				902B0FAE2918BC1C00D03C0E /* ViewController.swift in Sources */,
 				90A8F30E29256667003083C8 /* SearchViewController.swift in Sources */,
 				90A8F30B2925664B003083C8 /* SearchView.swift in Sources */,
+				90B4DF4C2934DC2C001884BC /* AlertViewModel.swift in Sources */,
 				90FD729C2922718500BB0077 /* SetFrequentStudyView.swift in Sources */,
 				907C68E3292517B200AADECC /* CardViewTitleAndReview.swift in Sources */,
 				907636E72921747E00D289AB /* DelayModel.swift in Sources */,

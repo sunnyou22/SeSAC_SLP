@@ -10,7 +10,7 @@ import Toast
 
 extension UIViewController {
     
-    func showDefaultToast(message: Message, completion: (() -> Void)? = nil) {
+    func showDefaultToast(message: TestMessage, completion: (() -> Void)? = nil) {
         var style = ToastStyle()
         style.backgroundColor = .systemGray3
         style.messageColor = .white
@@ -56,6 +56,14 @@ extension UIViewController {
             
         case .defaultSignupMessage(let error):
             view.makeToast(error.signupMessage, duration: 1, position: .center) { didTap in
+                guard let tapCompletion = completion?() else {
+                    return
+                }
+                tapCompletion
+            }
+        case .StudyRequestStatus(let status):
+            view.makeToast(status.massage
+                           , duration: 1, position: .center) { didTap in
                 guard let tapCompletion = completion?() else {
                     return
                 }

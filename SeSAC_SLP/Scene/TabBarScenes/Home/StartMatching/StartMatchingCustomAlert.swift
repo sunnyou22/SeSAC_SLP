@@ -8,11 +8,16 @@
 import UIKit
 
 import SnapKit
+import RxCocoa
+import RxSwift
 
 class StartMatchingCustomAlert: BaseViewController {
+  
+    let viewModel = AlertViewModel()
+    let bag = DisposeBag()
     
     var type: StartMatcingViewController.Vctype
-    
+    let studyrequestMent = PublishRelay<StudyRequestStatus>() // 토스트 보내기
     var data: [FromQueueDB]?
     
     let alertView: CustomAlertView = {
@@ -34,8 +39,50 @@ class StartMatchingCustomAlert: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(data)
+        print(data as Any, "-> 값전달 🟢")
+        
+        bind()
     }
+    
+    func bind() {
+        let input = AlertViewModel.Input(tapOk: alertView.okButton.rx
+            .tap, tapNo: alertView.noButton.rx
+            .tap)
+        let output = viewModel.transform(input: input)
+        
+        output.tapOk
+            .drive { [weak self] _ in
+                guard let data = self?.data?[0], let self = self else { return }
+                self.viewModel.requestStudy(otheruid: data.uid, idToken: self.idToken, alertType: self.type)
+            }.disposed(by: bag)
+        
+        viewModel.studyrequestMent
+            .withUnretained(self)
+            .bind { vc, status in
+                switch status {
+                case .Success:
+                    vc.showDefaultToast(message: .StudyRequestStatus(.Success))
+                case .Requested:
+                    vc.showDefaultToast(message: .StudyRequestStatus(.Requested))
+                case .FirebaseTokenError:
+                    vc.showDefaultToast(message: .StudyRequestStatus(.FirebaseTokenError))
+                    FirebaseManager.shared.getIDTokenForcingRefresh()
+                    print("토큰만료 🔴")
+                case .NotsignUpUser:
+                    vc.showDefaultToast(message: .StudyRequestStatus(.NotsignUpUser))
+                case .ServerError:
+                    vc.showDefaultToast(message: .StudyRequestStatus(.ServerError))
+                case .ClientError:
+                    vc.showDefaultToast(message: .StudyRequestStatus(.ClientError))
+                }
+            }.disposed(by: bag)
+        
+        output.tapNo
+            .drive { _ in
+                self.dismiss(animated: true)
+            }
+    }
+    
     
     override func configure() {
         view.addSubview(alertView)
@@ -49,8 +96,11 @@ class StartMatchingCustomAlert: BaseViewController {
         }
     }
     
+  
 }
 
+
+    //MARK: - 커스텀 뷰
 class CustomAlertView: BaseView {
     let okButton: CutsomButton = {
         let view = CutsomButton(customtype: .defaultOk)

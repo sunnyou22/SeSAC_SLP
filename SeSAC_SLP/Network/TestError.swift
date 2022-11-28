@@ -7,6 +7,8 @@
 
 import Foundation
 
+//struc Status { } 이런식으로 묶어볼까
+
 enum UserStatus: Int, Error {
     case Success = 200
     case SignInUser = 201
@@ -50,9 +52,9 @@ enum QueueSearchStatus: Int, Error {
         case .FirebaseTokenError:
             return "누군가와 스터디를 함께하기로 약속하셨어요!"
         case .ServerError:
-            return "알 수 없는 에러입니다. 고객센터로 문의주세요!"
+            return "ERROR 500. 고객센터로 문의주세요!"
         case .ClientError:
-            return "알 수 없는 에러입니다. 고객센터로 문의주세요!"
+            return "ERROR 501. 고객센터로 문의주세요!"
         case .NotsignUpUser:
             return "미가입회원입니다."
         }
@@ -88,6 +90,33 @@ enum MyQueueStatus: Int, Error {
     case ClientError = 501
 }
 
+enum StudyRequestStatus: Int, Error {
+    case Success = 200
+    case Requested = 201
+    case FirebaseTokenError = 401
+    case NotsignUpUser = 406
+    case ServerError = 500
+    case ClientError = 501
+    
+    var massage: String {
+        switch self {
+        case .Success:
+            return "스터디요청을 보냈습니다"
+        case .Requested:
+            return "이미 매칭중이시네요!"
+        case .FirebaseTokenError:
+            return "요청대기시간이 지났습니다! 다시 시도해주세요"
+        case .NotsignUpUser:
+            return "미가입회원입니다"
+        case .ServerError:
+            return "ERROR 500! 알 수 없는 오류입니다. 고객센터로 문의주세요!"
+        case .ClientError:
+            return "ERROR 501! 알 수 없는 오류입니다. 고객센터로 문의주세요!"
+        }
+    }
+}
+
+
 enum TestMessage {
     // 공통에러 멘트
     case defaultQueueMessage(QueueSearchStatus)
@@ -96,6 +125,7 @@ enum TestMessage {
     // 세부 에러 멘트
     case QueueText(ServerStatus.QueueError)
     case Signup(ServerStatus.UserError)
+    case StudyRequestStatus(StudyRequestStatus)
     
     case AuthVerifyPhoneNumber(AuthVerifyPhoneNumber)
     case AuthCredentialText(AuthCredentialText)
