@@ -13,13 +13,14 @@ final class MoreButtonView: BaseView {
     
     let baseView: UIView = {
         let view = UIView()
-        view.layer.opacity = 0.5
+        view.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4)
+        view.isOpaque = false
         return view
     }()
     
     lazy var topCustomStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [reportButton, cancelButton, writeReviewButton])
-        view.backgroundColor = .setBaseColor(color: .black)
+        view.backgroundColor = .setBaseColor(color: .white)
         view.axis = .horizontal
         view.distribution = .fillEqually
         return view
@@ -46,6 +47,8 @@ final class MoreButtonView: BaseView {
     override func configure() {
         baseView.addSubview(topCustomStackView)
         addSubview(baseView)
+        
+        self.isHidden = true
     }
     
     override func setConstraints() {

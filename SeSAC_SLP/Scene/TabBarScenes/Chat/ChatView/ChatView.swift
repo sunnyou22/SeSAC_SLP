@@ -9,6 +9,8 @@ import UIKit
 
 class ChatView: BaseView {
     
+    let moreView = MoreButtonView()
+    
     let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .grouped)
         view.backgroundColor = .brown
@@ -53,10 +55,15 @@ class ChatView: BaseView {
     override func configure() {
         [messageTextView, sendbutton].forEach { containiview.addSubview($0) }
         accessoryView.addSubview(containiview)
-        [tableView, containiview].forEach { addSubview($0) }
+        [tableView, containiview, moreView].forEach { addSubview($0) }
     }
     
     override func setConstraints() {
+        
+        moreView.snp.makeConstraints { make in
+            make.edges.equalTo(self.safeAreaLayoutGuide)
+        }
+        
         tableView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
             make.centerX.equalToSuperview()

@@ -17,7 +17,6 @@ final class ChatiViewController: BaseViewController {
     private let viewModel = ChatViewModel()
     private let disposedBag = DisposeBag()
     private let rightbarButtonItem = UIBarButtonItem(image: UIImage(named: Icon.ChatIcon.more.rawValue), style: .plain, target: ChatiViewController.self, action: nil)
-    private let moreView = MoreButtonView()
     
     let mydumy = ["안녕하세요"]
     let youdumy = ["안녕하세요, 알고리이건 테스트입니다.이건 테스트입니다.이건 테스트입니다.이건 테스트입니다.이건 테스트입니다.이건 테스트입니다.이건 테스트입니다.이건 테스트입니다.이건 테스트입니다즘 스터딘느 넝제ㅏㅎ;ㅣㅏ뫃;오;ㅣㅁ호;이ㅏㅗ;ㅎ미ㅏㅗ;ㅣ아ㅗㅁ;히ㅗㅇ;미홍;ㅣㅁ호;ㅣㅁㅇ놓;ㅏㅣ"]
@@ -31,30 +30,42 @@ final class ChatiViewController: BaseViewController {
         
         view.backgroundColor = .blue
         
-        //채팅목록받아오기 test -> 최신날짜라로 받아와야함
-        print(viewModel.fetchChatData(from: UserDefaults.getUerIfo![0].id, lastchatDate: "2022-11-29T19:10:46.185Z", idtoken: idToken)!)
-        
         bindGesture()
         bind()
         // 채팅창에 진입할 때 나의 매칭상태 확인하기
         viewModel.checkMyQueueStatus(idtoken: idToken)
+        
+        //채팅목록받아오기 test -> 최신날짜라로 받아와야함
+        guard let id = UserDefaults.getUerIfo?[0].id else {
+            print("\(#file), \(#function) -> 유저 정보를 받아올 수 없습니다 🔴")
+            return }
+        print(viewModel.fetchChatData(from: id, lastchatDate: "2022-11-29T19:10:46.185Z", idtoken: idToken) ?? [])
+       
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //바 설정
+        navigationItem.title = "왜그래"
+        navigationItem.rightBarButtonItem = rightbarButtonItem
     }
     
     override func configure() {
         super.configure()
-        guard let name = UserDefaults.getUerIfo?[0].nick else {
-            print("\(#file), \(#function) -> 유저 정보를 받아올 수 없습니다 🔴")
-            return }
+   
         
         // 델리게이트 넘겨주기
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
         mainView.tableView.tableHeaderView = ChatHeaderView()
         
-        //바 설정
-        navigationItem.title = "\(name)"
-        navigationItem.rightBarButtonItem = rightbarButtonItem
+     
     }
+    
+//    guard let name = UserDefaults.getUerIfo?[0].nick else {
+//        print("\(#file), \(#function) -> 유저 정보를 받아올 수 없습니다 🔴")
+//        return }
     
     fileprivate func bind() {
         let input = ChatViewModel.Input(tapSendButton: mainView.sendbutton.rx.tap, changeMessage: mainView.messageTextView.rx.text)
@@ -130,8 +141,8 @@ final class ChatiViewController: BaseViewController {
             .withUnretained(self)
             .asDriver(onErrorJustReturn: (self, print("더보기 버튼 클릭")))
             .drive { (vc, _) in
-                
-            }
+                vc.mainView.moreView.isHidden = !vc.mainView.moreView.isHidden
+            }.disposed(by: disposedBag)
     }
 }
 

@@ -38,15 +38,15 @@ class ChatViewModel: EnableDataInNOut {
         matchingStatus.accept(commonServer.getMatchStatus(idtoken: idtoken))
     }
     
-    func fetchChatData(from: String, lastchatDate: String, idtoken: String) -> FetchingChatData? {
+    func fetchChatData(from: String, lastchatDate: String, idtoken: String) -> [FetchingChatData]? {
         let api = SeSACAPI.chatList(from: from, lastchatDate: lastchatDate)
-        var result: FetchingChatData?
+        var result: [FetchingChatData]?
         Network.shared.receiveRequestSeSAC(type: FetchingChatData.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode in
             guard let data = data else {
                 print("채팅목록 데이터를 받아올 수 없음 🔴", #file)
                 return
             }
-            result = data
+            result = [data]
             print("채팅목록 데이터 받아옴 🟢", data)
             guard let status = StatusOfFetchingChat(rawValue: statusCode) else {
                 print("채팅목록 상태코드를 받아 올 수 없습니다 🔴", #file)

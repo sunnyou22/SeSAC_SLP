@@ -27,19 +27,20 @@ class BaseViewController: UIViewController, BaseDelegate {
         
         // 확장해서 기본기능 넣으면 이렇게 호출해줘야함
         // 기본기능이 구현돼있기 때문에 자동으로 뜨지 않음
-//        setNavigation()
+        //        setNavigation()
     }
     
     func configure() {
         navigationItem.title = ""
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .white
+        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.setBaseColor(color: .black)]
         //        appearance.shadowColor = .clear
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.standardAppearance = appearance
     }
     
     func setConstraints() { }
-   
+    
     func fetchData() { }
 }

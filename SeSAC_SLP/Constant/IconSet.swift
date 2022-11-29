@@ -28,7 +28,7 @@ enum Icon: String {
             case .write:
                 return "리뷰 등록"
             default:
-                break
+                return ""
             }
         }
     }
