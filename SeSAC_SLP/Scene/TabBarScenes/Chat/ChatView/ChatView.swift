@@ -15,7 +15,7 @@ class ChatView: BaseView {
         view.register(ChatTableViewCell.self, forCellReuseIdentifier: ChatTableViewCell.reuseIdentifier)
         view.register(MyChatTableViewCell.self, forCellReuseIdentifier: MyChatTableViewCell.reuseIdentifier)
         view.backgroundColor = .brown
-//        view.register(ChatHeaderView.self, forHeaderFooterViewReuseIdentifier: ChatHeaderView.reuseIdentifier)
+        view.register(ChatHeaderView.self, forHeaderFooterViewReuseIdentifier: ChatHeaderView.reuseIdentifier)
         return view
     }()
     
@@ -49,6 +49,7 @@ class ChatView: BaseView {
         return view
     }()
     
+    
     override func configure() {
         [messageTextView, sendbutton].forEach { containiview.addSubview($0) }
         accessoryView.addSubview(containiview)
@@ -63,14 +64,14 @@ class ChatView: BaseView {
         }
         
         containiview.snp.makeConstraints { make in
-            make.height.equalTo(messageTextView.frame.self.height + 24)
+            make.height.equalTo(52)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-16)
             make.centerX.equalToSuperview()
         }
         
         messageTextView.snp.makeConstraints { make in
-            make.height.equalTo(messageTextView.contentSize.height)
+            make.verticalEdges.equalTo(containiview.snp.verticalEdges).inset(12)
             make.leading.equalTo(containiview.snp.leading).offset(12)
             make.trailing.equalTo(sendbutton.snp.leading).offset(8)
         }

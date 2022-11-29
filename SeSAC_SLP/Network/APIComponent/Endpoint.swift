@@ -16,8 +16,6 @@ struct URLConstant {
     }
 }
 
-///v1/chat/{from}?lastchatDate={lastchatDate}
-
 enum SeSACAPI {
     case signUp(phoneNumber: String, FCMtoken: String, nick: String, birth: Date, email: String, gender: Int)
     case getUserInfo // get
@@ -27,7 +25,9 @@ enum SeSACAPI {
     case search(lat: Double, lon: Double, studylist: [String])
     case delete
     case studyRequest(otheruid: String)
+    case studyAccept(otheruid: String)
     case chatList(from: String, lastchatDate: String)
+    case chat(to: String)
 }
 
 // 폴더 나눌 때 버전 빼기
@@ -50,15 +50,19 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/queue")! // 새싹 찾기 검색
         case .studyRequest:
             return URL(string: URLConstant.BaseURL + "/v1/queue/studyrequest")!
+        case .studyAccept:
+            return URL(string: URLConstant.BaseURL + "/v1/queue/studyaccept")!
         case .chatList(let from, let lastchatDate):
             return URL(string: URLConstant.BaseURL + "/v1/chat/\(from)?lastchatDate=\(lastchatDate)")! //중괄호있는거 맞나?
+        case .chat(let to):
+            return URL(string: URLConstant.BaseURL + "/v1/chat/\(to)")!
         }
     }
     
     //MARK: Header
     func getheader(idtoken: String) -> HTTPHeaders {
         switch self {
-        case .signUp, .setMypage, .search, .studyRequest, .chatList:
+        case .signUp, .setMypage, .search, .studyRequest, .chatList, .chat, .studyAccept:
             return [
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -82,7 +86,7 @@ extension SeSACAPI {
                 "email": email,
                 "gender": gender
             ]
-        case .getUserInfo, .delete, .matchingStatus:
+        case .getUserInfo, .delete, .matchingStatus, .chatList:
             return nil
         case .searchSurroundings(let lat, let long):
             return [
@@ -107,10 +111,18 @@ extension SeSACAPI {
             return [
                 "otheruid": otheruid
             ]
-        case .chatList(let from, let lastchatDate):
+//        case .chatList(let from, let lastchatDate):
+//            return [
+//                "from": from,
+//                "lastchatDate": lastchatDate
+//            ]
+        case .chat(let chat):
             return [
-                "from": from,
-                "lastchatDate": lastchatDate
+                "chat": chat
+            ]
+        case .studyAccept(let otheruid):
+            return [
+                "otheruid": otheruid
             ]
         }
     }

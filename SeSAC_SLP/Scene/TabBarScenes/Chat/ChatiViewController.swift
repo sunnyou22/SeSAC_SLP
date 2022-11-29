@@ -29,7 +29,10 @@ class ChatiViewController: BaseViewController {
         
         view.backgroundColor = .blue
         
+        print(viewModel.fetchChatData(from: "urCyfx9scGYW6hO7JUlsSeibxch1", lastchatDate: "2022-11-29T19:10:46.185Z", idtoken: idToken))
+        
         bindGesture()
+        bind()
     }
     
     override func configure() {
@@ -39,7 +42,22 @@ class ChatiViewController: BaseViewController {
     }
     
     func bind() {
+        let input = ChatViewModel.Input(tapSendButton: mainView.sendbutton.rx.tap, changeMessage: mainView.messageTextView.rx.text)
+        let output = viewModel.transform(input: input)
         
+        output.tapSendButton
+            .drive { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.sendChat(to: "urCyfx9scGYW6hO7JUlsSeibxch1", contents: self.viewModel.textViewText.value, idtoken: self.idToken)
+                print(self.viewModel.textViewText.value, "tapSendButton+++++++++++++++++++++++")
+            }.disposed(by: disposedBag)
+        
+        output.changeMessage
+            .drive { [weak self] text in
+                guard let self = self else { return }
+                self.viewModel.textViewText.accept(text)
+                print(text, "changeMessage============================")
+            }.disposed(by: disposedBag)
     }
     
     func bindGesture() {

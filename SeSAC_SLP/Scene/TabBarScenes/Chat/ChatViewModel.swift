@@ -12,37 +12,53 @@ import RxSwift
 
 class ChatViewModel: EnableDataInNOut {
     let fetchChatApi = PublishRelay<StatusOfFetchingChat>()
+    let chatApi = PublishRelay<StatusOfSendingChat>()
+    let textViewText: BehaviorRelay<String> = BehaviorRelay(value: "")
     
     struct Input {
         let tapSendButton: ControlEvent<Void>
+        let changeMessage: ControlProperty<String?>
     }
     
     struct Output {
         let tapSendButton: Driver<Void>
+        let changeMessage: Driver<String>
     }
     
     func transform(input: Input) -> Output {
         let tapSendButton = input.tapSendButton.asDriver()
-        
-        return Output(tapSendButton: tapSendButton)
+        let changeMessage = input.changeMessage.orEmpty.changed.asDriver()
+        return Output(tapSendButton: tapSendButton, changeMessage: changeMessage)
     }
     
-    func fetchChatData(from: String, lastchatDate: String, idtoken: String) -> Payload? {
+    func fetchChatData(from: String, lastchatDate: String, idtoken: String) -> FetchingChatData? {
         let api = SeSACAPI.chatList(from: from, lastchatDate: lastchatDate)
-        var result: Payload?
-        Network.shared.receiveRequestSeSAC(type: Payload.self, url: api.url, parameter: api.parameter, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode in
+        var result: FetchingChatData?
+        Network.shared.receiveRequestSeSAC(type: FetchingChatData.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode in
             guard let data = data else {
-                print("데이터를 받아올 수 없음 🔴", #file)
+                print("채팅목록 데이터를 받아올 수 없음 🔴", #file)
                 return
             }
-      result = data
-            
+            result = data
+            print("채팅목록 데이터 받아옴 🟢", data)
             guard let status = StatusOfFetchingChat(rawValue: statusCode) else {
-                print("상태코드를 받아 올 수 없습니다 🔴", #file)
+                print("채팅목록 상태코드를 받아 올 수 없습니다 🔴", #file)
                 return }
             self?.fetchChatApi.accept(status)
         }
         
         return result
+    }
+    
+    func sendChat(to: String, contents: String, idtoken: String) {
+        let api = SeSACAPI.chat(to: to)
+        
+        Network.shared.sendRequestSeSAC(url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] statusCode in
+            guard let status = StatusOfSendingChat(rawValue: statusCode) else {
+                print("채팅 보내기 상태코드를 받아 올 수 없습니다 🔴", #file)
+                return }
+            print("채팅보내기 성공 🟢")
+            self?.chatApi.accept(status)
+        }
     }
 }

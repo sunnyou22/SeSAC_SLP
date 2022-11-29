@@ -39,7 +39,7 @@ final class AlertViewModel: EnableDataInNOut {
         case .near:
             api = SeSACAPI.studyRequest(otheruid: otheruid)
         case .requested:
-            api = SeSACAPI.studyRequest(otheruid: otheruid) // 고치기
+            api = SeSACAPI.studyAccept(otheruid: otheruid) // 고치기
         }
      
         
@@ -54,4 +54,3 @@ final class AlertViewModel: EnableDataInNOut {
         }
     }
 }
-

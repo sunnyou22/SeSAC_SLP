@@ -148,8 +148,7 @@ class HomeMapViewController: BaseViewController {
                     viewcontrolller.currentLocation = vc.viewModel.manager.location?.coordinate
                     vc.transition(viewcontrolller, .push)
                 case .matched:
-                    let viewcontrolller =  SearchViewController()
-                    viewcontrolller.currentLocation = vc.viewModel.manager.location?.coordinate
+                    let viewcontrolller = ChatiViewController()
                     vc.transition(viewcontrolller, .push)
                 case .waiting:
                     let viewcontrolller =  SearchViewController()
@@ -259,10 +258,11 @@ class HomeMapViewController: BaseViewController {
     //MARK: rxmapview
     func bindMapViewData() {
         mainView.mapView.rx.willStartLoadingMap
-            .asDriver()
-            .drive(onNext: { [weak self] in
-                print("Map started loading")
-                self?.viewModel.checkUserDevieceLocationServiceAuthorization()
+            .withUnretained(self)
+            .asDriver(onErrorJustReturn: (self,  print("Map started loading")))
+            .drive(onNext: { vc, _ in
+               vc.viewModel.checkUserDevieceLocationServiceAuthorization()
+                vc.commonAPIviewModel.getMatchStatus(idtoken: vc.idToken)
             })
             .disposed(by: disposedBag)
         

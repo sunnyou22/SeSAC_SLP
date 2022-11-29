@@ -104,6 +104,8 @@ class StartMatchingCustomAlert: BaseViewController {
                     vc.showDefaultToast(message: .StudyAcceptedStatus(.accepted)) {
                         MapViewModel.ploatingButtonSet.accept(.matched)
                         vc.dismiss(animated: true)
+                        let chatVC = ChatiViewController()
+                        vc.transition(chatVC, .push)
                         print("채팅화면으로 이동 🟢")
                     }
                 case .othersmatched:

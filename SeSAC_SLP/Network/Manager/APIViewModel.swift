@@ -73,11 +73,12 @@ final class CommonServerManager {
             
             guard let data = data else {
                 print("MatchStatus 가져오기 실패 🔴")
+                MapViewModel.ploatingButtonSet.accept(UserMatchingStatus(rawValue: data?.matched ?? 2)!)
                 return
             }
             print("getMatchStatus🚀\n", data.matched ?? 100, data, myQueueStatus)
             // 호출할 때마다 유저의 상태를 알 수 잇도록
-            MapViewModel.ploatingButtonSet.accept(.init(rawValue: data.matched ?? 2)!)
+            MapViewModel.ploatingButtonSet.accept(UserMatchingStatus(rawValue: data.matched ?? 2)!)
         }
     }
     

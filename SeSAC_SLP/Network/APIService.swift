@@ -116,6 +116,6 @@ struct Payload: Codable {
 }
 
 // MARK: - SendChat
-struct Welcome: Codable {
+struct Chat: Codable {
     let chat: String?
 }

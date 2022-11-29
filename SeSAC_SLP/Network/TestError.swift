@@ -155,7 +155,7 @@ enum StudyAcceptStatus: Int, Error {
     var massage: String {
         switch self {
         case .success:
-            return "스터디요청을 수락했습니다"
+            return "스터디요청을 수락했습니다 "
         case .othersmatched:
             return "상대방이 이미 다른 새싹과 스터디를 함께 하는 중입니다"
         case .firebaseTokenError:
@@ -184,7 +184,33 @@ enum StatusOfFetchingChat: Int, Error {
     var message: String {
         switch self {
         case .success:
-            return "채팅목록 가져오기 성공"
+            return "채팅목록 가져오기 성공 🟢"
+        case .firebaseTokenError:
+            return "요청대기시간이 지났습니다! 다시 시도해주세요"
+        case .notsignUpUser:
+            return "미가입회원입니다"
+        case .serverError:
+            return "ERROR 500"
+        case .clientError:
+            return "ERROR 501"
+        }
+    }
+}
+
+enum StatusOfSendingChat: Int, Error {
+    case success = 200
+    case sendFail = 201
+    case firebaseTokenError = 401
+    case notsignUpUser = 406
+    case serverError = 500
+    case clientError = 501
+    
+    var message: String {
+        switch self {
+        case .success:
+            return "채팅보내기 성공 🟢"
+        case .sendFail:
+            return "채팅보내기 실패 🔴"
         case .firebaseTokenError:
             return "요청대기시간이 지났습니다! 다시 시도해주세요"
         case .notsignUpUser:
