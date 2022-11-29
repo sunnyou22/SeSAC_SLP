@@ -102,9 +102,10 @@
 		90B4DF022933F2FB001884BC /* StartMatchingCustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */; };
 		90B4DF042933F982001884BC /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF032933F982001884BC /* CustomButton.swift */; };
 		90B4DF4C2934DC2C001884BC /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF4B2934DC2C001884BC /* AlertViewModel.swift */; };
-		90B4DF4F29352C3E001884BC /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF4E29352C3E001884BC /* ChatViewController.swift */; };
 		90B4DF5129352DCB001884BC /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF5029352DCB001884BC /* ChatView.swift */; };
 		90B4DF532935303F001884BC /* ChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF522935303F001884BC /* ChatHeaderView.swift */; };
+		90B4DF55293547A0001884BC /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF54293547A0001884BC /* ChatViewModel.swift */; };
+		90B4DF5729354C08001884BC /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF5629354C08001884BC /* ChatTableViewCell.swift */; };
 		90DA96C7291CE03500B5CA76 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 90DA96C6291CE03500B5CA76 /* Toast */; };
 		90DB1CCC29334A630005D2A8 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB1CCB29334A630005D2A8 /* Protocol.swift */; };
 		90FD72622921849900BB0077 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72612921849900BB0077 /* Error.swift */; };
@@ -216,9 +217,10 @@
 		90B4DF012933F2FB001884BC /* StartMatchingCustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartMatchingCustomAlert.swift; sourceTree = "<group>"; };
 		90B4DF032933F982001884BC /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		90B4DF4B2934DC2C001884BC /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
-		90B4DF4E29352C3E001884BC /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		90B4DF5029352DCB001884BC /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		90B4DF522935303F001884BC /* ChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderView.swift; sourceTree = "<group>"; };
+		90B4DF54293547A0001884BC /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		90B4DF5629354C08001884BC /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		90DB1CCB29334A630005D2A8 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		90FD72612921849900BB0077 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		90FD7263292187AF00BB0077 /* CautionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CautionModel.swift; sourceTree = "<group>"; };
@@ -435,7 +437,9 @@
 		9051724F292F710C00DDBC13 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				90B4DF492934C817001884BC /* ChatView */,
 				90517250292F711E00DDBC13 /* ChatiViewController.swift */,
+				90B4DF54293547A0001884BC /* ChatViewModel.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -561,7 +565,6 @@
 		90B4DF442934C798001884BC /* APIComponent */ = {
 			isa = PBXGroup;
 			children = (
-				90B4DF492934C817001884BC /* Chat */,
 				90B4DF482934C807001884BC /* Queue */,
 				90B4DF472934C7E9001884BC /* User */,
 				902B101D291C1A8E00D03C0E /* Endpoint.swift */,
@@ -583,14 +586,14 @@
 			path = Queue;
 			sourceTree = "<group>";
 		};
-		90B4DF492934C817001884BC /* Chat */ = {
+		90B4DF492934C817001884BC /* ChatView */ = {
 			isa = PBXGroup;
 			children = (
-				90B4DF4E29352C3E001884BC /* ChatViewController.swift */,
 				90B4DF5029352DCB001884BC /* ChatView.swift */,
 				90B4DF522935303F001884BC /* ChatHeaderView.swift */,
+				90B4DF5629354C08001884BC /* ChatTableViewCell.swift */,
 			);
-			path = Chat;
+			path = ChatView;
 			sourceTree = "<group>";
 		};
 		90B4DF4D29350234001884BC /* Alert */ = {
@@ -829,6 +832,7 @@
 				90B4DF532935303F001884BC /* ChatHeaderView.swift in Sources */,
 				90FD72BD2922B78C00BB0077 /* ThumbButton.swift in Sources */,
 				90FD72A22922721700BB0077 /* SignOutView.swift in Sources */,
+				90B4DF55293547A0001884BC /* ChatViewModel.swift in Sources */,
 				90FD72D62923FFD400BB0077 /* MyPageListViewController.swift in Sources */,
 				907C68E5292519B500AADECC /* MypageInfoHeader.swift in Sources */,
 				90FD72A829227AF300BB0077 /* Common.swift in Sources */,
@@ -844,8 +848,8 @@
 				90B4DF022933F2FB001884BC /* StartMatchingCustomAlert.swift in Sources */,
 				907C68E729251B0400AADECC /* CardView.swift in Sources */,
 				90FD729E2922719500BB0077 /* SwitchView.swift in Sources */,
+				90B4DF5729354C08001884BC /* ChatTableViewCell.swift in Sources */,
 				90B4DF002933DED2001884BC /* Extension.swift in Sources */,
-				90B4DF4F29352C3E001884BC /* ChatViewController.swift in Sources */,
 				907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */,
 				9066126F2927FCCC00320F21 /* CardViewTableViewCell.swift in Sources */,
 				90AE5C4D292D1B9C00C3C772 /* TestError.swift in Sources */,

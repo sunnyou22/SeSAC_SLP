@@ -65,9 +65,12 @@ class LaunchScreenViewController: UIViewController {
                 case .InvaliedNickName:
                     print("InvaliedNickName // 온보딩에서 필요없는 코드")
                 case .Success:
-                    let homeMapController = CustomTabBarController()
-                    self?.setInitialViewController(to: homeMapController)
-                    print("기존 유저 정보를 받아 홈화면으로 진입 🟢")
+                    let testvc = ChatiViewController()
+                    sceneDelegate?.window?.rootViewController = testvc
+                    sceneDelegate?.window?.makeKeyAndVisible()
+//                    let homeMapController = CustomTabBarController()
+//                    self?.setInitialViewController(to: homeMapController)
+//                    print("기존 유저 정보를 받아 홈화면으로 진입 🟢")
                 case .FirebaseTokenError:
                     print("401")
                     //앱을 재시작할 수 있나

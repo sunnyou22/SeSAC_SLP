@@ -7,10 +7,11 @@
 
 import UIKit
 
-class ChatHeaderView: BaseView {
+class ChatHeaderView: UITableViewHeaderFooterView {
     
     let dataLabel: PaddingCutomLabel = {
         let view = PaddingCutomLabel()
+        view.text = "0월 00일 일요일"
         view.setconfig(basecolor: .setGray(color: .gray7), textcolor: .setBaseColor(color: .white), font: .title5_M12!)
         return view
     }()
@@ -25,7 +26,7 @@ class ChatHeaderView: BaseView {
         imageAttachment.image = UIImage(systemName: "bell", withConfiguration: config)
         imageAttachment.bounds = CGRect(x: 0, y: 0, width: 16, height: 16)
         attributedString.append(NSAttributedString(attachment: imageAttachment))
-        attributedString.append(NSAttributedString(string: "고래밥님과 매칭되었습니다", attributes: [ .foregroundColor: UIColor.setGray(color: .gray7), .font : UIFont.title3_M14!]))
+        attributedString.append(NSAttributedString(string: " 고래밥님과 매칭되었습니다", attributes: [ .foregroundColor: UIColor.setGray(color: .gray7), .font : UIFont.title3_M14!]))
         view.attributedText = attributedString
         view.sizeToFit()
         return view
@@ -39,11 +40,22 @@ class ChatHeaderView: BaseView {
         return view
     }()
 
-    override func configure() {
+    
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        configure()
+        setConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure() {
         [dataLabel, ment, subment].forEach { addSubview($0) }
     }
     
-    override func setConstraints() {
+    func setConstraints() {
         dataLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()

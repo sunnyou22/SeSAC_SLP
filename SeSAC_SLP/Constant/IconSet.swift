@@ -10,4 +10,6 @@ import Foundation
 enum Icon: String {
     case navigationBackButton = "arrow"
     case refreshButton = "arrow.clockwise"
+    case inactsender
+    case actsender
 }
