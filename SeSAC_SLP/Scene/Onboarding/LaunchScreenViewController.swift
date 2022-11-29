@@ -70,7 +70,7 @@ class LaunchScreenViewController: UIViewController {
                     sceneDelegate?.window?.makeKeyAndVisible()
 //                    let homeMapController = CustomTabBarController()
 //                    self?.setInitialViewController(to: homeMapController)
-//                    print("기존 유저 정보를 받아 홈화면으로 진입 🟢")
+                    print("기존 유저 정보를 받아 홈화면으로 진입 🟢")
                 case .FirebaseTokenError:
                     print("401")
                     //앱을 재시작할 수 있나

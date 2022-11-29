@@ -53,6 +53,7 @@ class ChatTableViewCell: BaseTableViewCell {
     override func configure() {
         [messegeLbl, timeLbl].forEach { containView.addSubview($0) }
         contentView.addSubview(containView)
+        self.selectionStyle = .none
     }
     
     override func setUpConstraints() {
@@ -80,6 +81,8 @@ class MyChatTableViewCell: ChatTableViewCell {
         [messegeLbl, timeLbl].forEach { containView.addSubview($0) }
         contentView.addSubview(containView)
         self.backgroundColor = .gray
+        
+        self.selectionStyle = .none
     }
     
     override func setUpConstraints() {

@@ -149,6 +149,7 @@ final class SetMyInfoViewController: BaseViewController {
         }
         var tracker = mainView.fixView.matchingAgeView.trackBar
         let genderInt = viewModel.genderStatus.value.0 == Gender.woman ? 0 : 1
+        
         viewModel.putUserInfo(searchable: viewModel.toggleStatus.value, ageMin: Int(tracker.lower) , ageMax: Int(tracker.upper), gender: genderInt, study: mainView.fixView.setFrequentStudyView.textField.text ?? "", idtoken: idtoken)
     }
     
