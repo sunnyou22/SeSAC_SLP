@@ -11,9 +11,12 @@ import RxCocoa
 import RxSwift
 
 class ChatViewModel: EnableDataInNOut {
+    let commonServer = CommonServerManager()
+    
     let fetchChatApi = PublishRelay<StatusOfFetchingChat>()
     let chatApi = PublishRelay<StatusOfSendingChat>()
     let textViewText: BehaviorRelay<String> = BehaviorRelay(value: "")
+    let matchingStatus: BehaviorRelay<[MatchStatus]> =  BehaviorRelay(value: [])
     
     struct Input {
         let tapSendButton: ControlEvent<Void>
@@ -29,6 +32,10 @@ class ChatViewModel: EnableDataInNOut {
         let tapSendButton = input.tapSendButton.asDriver()
         let changeMessage = input.changeMessage.orEmpty.changed.asDriver()
         return Output(tapSendButton: tapSendButton, changeMessage: changeMessage)
+    }
+    
+    func checkMyQueueStatus(idtoken: String) {
+        matchingStatus.accept(commonServer.getMatchStatus(idtoken: idtoken))
     }
     
     func fetchChatData(from: String, lastchatDate: String, idtoken: String) -> FetchingChatData? {

@@ -15,14 +15,14 @@ import FirebaseAuth
 //manager로 넣어줄건지 고민해보기
 
 final class CommonServerManager {
-
+    
     let userStatus = PublishRelay<UserStatus>()
     let queueSearchStatus = PublishRelay<QueueSearchStatus>()
     let matchingStatus = PublishRelay<MyQueueStatus>()
     let deleteStatus = PublishRelay<DeleteStatus>()
     //
     //MAKR: - 모델로 빼기
-
+    
     func USerInfoNetwork(idtoken: String, completion: ((GetUerIfo) -> Void)? = nil) {
         let api = SeSACAPI.getUserInfo
         
@@ -49,7 +49,7 @@ final class CommonServerManager {
         Network.shared.receiveRequestSeSAC(type: SearchSurroundings.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] data , statusCode  in
             
             guard let queueSearchStatus = QueueSearchStatus(rawValue: statusCode) else { return }
-           
+            
             self?.queueSearchStatus.accept(queueSearchStatus)
             
             guard let data = data else {
@@ -64,7 +64,8 @@ final class CommonServerManager {
     
     
     //5초 마다 상태 확인 필요 /v1/queue/myQueueState
-    func getMatchStatus(idtoken: String) {
+    func getMatchStatus(idtoken: String) -> [MatchStatus] {
+        var result: [MatchStatus]?
         let api = SeSACAPI.matchingStatus
         Network.shared.receiveRequestSeSAC(type: MatchStatus.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
             
@@ -79,7 +80,9 @@ final class CommonServerManager {
             print("getMatchStatus🚀\n", data.matched ?? 100, data, myQueueStatus)
             // 호출할 때마다 유저의 상태를 알 수 잇도록
             MapViewModel.ploatingButtonSet.accept(UserMatchingStatus(rawValue: data.matched ?? 2)!)
+            result = [data]
         }
+        return result ?? []
     }
     
     
@@ -92,7 +95,7 @@ final class CommonServerManager {
             guard let delete = DeleteStatus(rawValue: statusCode) else { return }
             self?.deleteStatus.accept(delete)
             
-//            MapViewModel.ploatingButtonSet.accept(.init(rawValue: data.matched ?? 2)!)
+            //            MapViewModel.ploatingButtonSet.accept(.init(rawValue: data.matched ?? 2)!)
         }
     }
 }

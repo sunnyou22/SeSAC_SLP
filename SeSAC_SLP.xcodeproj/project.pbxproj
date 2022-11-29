@@ -106,6 +106,8 @@
 		90B4DF532935303F001884BC /* ChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF522935303F001884BC /* ChatHeaderView.swift */; };
 		90B4DF55293547A0001884BC /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF54293547A0001884BC /* ChatViewModel.swift */; };
 		90B4DF5729354C08001884BC /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF5629354C08001884BC /* ChatTableViewCell.swift */; };
+		90B4DF5E29369B58001884BC /* RxRealm in Frameworks */ = {isa = PBXBuildFile; productRef = 90B4DF5D29369B58001884BC /* RxRealm */; };
+		90B4DF612936A393001884BC /* MoreButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF602936A393001884BC /* MoreButtonView.swift */; };
 		90DA96C7291CE03500B5CA76 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 90DA96C6291CE03500B5CA76 /* Toast */; };
 		90DB1CCC29334A630005D2A8 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB1CCB29334A630005D2A8 /* Protocol.swift */; };
 		90FD72622921849900BB0077 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72612921849900BB0077 /* Error.swift */; };
@@ -221,6 +223,7 @@
 		90B4DF522935303F001884BC /* ChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderView.swift; sourceTree = "<group>"; };
 		90B4DF54293547A0001884BC /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		90B4DF5629354C08001884BC /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		90B4DF602936A393001884BC /* MoreButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreButtonView.swift; sourceTree = "<group>"; };
 		90DB1CCB29334A630005D2A8 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		90FD72612921849900BB0077 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		90FD7263292187AF00BB0077 /* CautionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CautionModel.swift; sourceTree = "<group>"; };
@@ -259,6 +262,7 @@
 				90DA96C7291CE03500B5CA76 /* Toast in Frameworks */,
 				902B102A291C542700D03C0E /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				902B102E291C542700D03C0E /* FirebaseCrashlytics in Frameworks */,
+				90B4DF5E29369B58001884BC /* RxRealm in Frameworks */,
 				907E24342932110100401F1A /* Tabman in Frameworks */,
 				902B101A291C18D000D03C0E /* Alamofire in Frameworks */,
 				9066125A29275E4A00320F21 /* RxCocoa in Frameworks */,
@@ -437,6 +441,7 @@
 		9051724F292F710C00DDBC13 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				90B4DF5F2936A2C5001884BC /* MoreButton */,
 				90B4DF492934C817001884BC /* ChatView */,
 				90517250292F711E00DDBC13 /* ChatiViewController.swift */,
 				90B4DF54293547A0001884BC /* ChatViewModel.swift */,
@@ -605,6 +610,14 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		90B4DF5F2936A2C5001884BC /* MoreButton */ = {
+			isa = PBXGroup;
+			children = (
+				90B4DF602936A393001884BC /* MoreButtonView.swift */,
+			);
+			path = MoreButton;
+			sourceTree = "<group>";
+		};
 		90FD726529218AEE00BB0077 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -722,6 +735,7 @@
 				9082F8E5292ACCAD0085D4BB /* RxKeyboard */,
 				90517209292E207400DDBC13 /* RxGesture */,
 				907E24332932110100401F1A /* Tabman */,
+				90B4DF5D29369B58001884BC /* RxRealm */,
 			);
 			productName = SeSAC_SLP;
 			productReference = 902B0FA62918BC1C00D03C0E /* SeSAC_SLP.app */;
@@ -762,6 +776,7 @@
 				9082F8E4292ACCAD0085D4BB /* XCRemoteSwiftPackageReference "RxKeyboard" */,
 				90517208292E207400DDBC13 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				907E24322932110100401F1A /* XCRemoteSwiftPackageReference "Tabman" */,
+				90B4DF5C29369B58001884BC /* XCRemoteSwiftPackageReference "RxRealm" */,
 			);
 			productRefGroup = 902B0FA72918BC1C00D03C0E /* Products */;
 			projectDirPath = "";
@@ -863,6 +878,7 @@
 				906612712927FFBA00320F21 /* CardViewTableViewController.swift in Sources */,
 				902B1016291B7ABD00D03C0E /* SignInViewModel.swift in Sources */,
 				902B0FAA2918BC1C00D03C0E /* AppDelegate.swift in Sources */,
+				90B4DF612936A393001884BC /* MoreButtonView.swift in Sources */,
 				907E242D2931E72A00401F1A /* RecommandCollectionViewCell.swift in Sources */,
 				907E243C29322B4500401F1A /* StartMatchingViewModel.swift in Sources */,
 				90A55C7D2924BBF60005F56D /* SeSACTitleStackView.swift in Sources */,
@@ -1200,6 +1216,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		90B4DF5C29369B58001884BC /* XCRemoteSwiftPackageReference "RxRealm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxRealm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.5;
+			};
+		};
 		90DA96C5291CE03500B5CA76 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
@@ -1275,6 +1299,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9082F8E4292ACCAD0085D4BB /* XCRemoteSwiftPackageReference "RxKeyboard" */;
 			productName = RxKeyboard;
+		};
+		90B4DF5D29369B58001884BC /* RxRealm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90B4DF5C29369B58001884BC /* XCRemoteSwiftPackageReference "RxRealm" */;
+			productName = RxRealm;
 		};
 		90DA96C6291CE03500B5CA76 /* Toast */ = {
 			isa = XCSwiftPackageProductDependency;

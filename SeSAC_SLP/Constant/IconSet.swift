@@ -12,4 +12,24 @@ enum Icon: String {
     case refreshButton = "arrow.clockwise"
     case inactsender
     case actsender
+    
+    enum ChatIcon: String {
+        case siren = "siren"
+        case cancelmatch = "cancel_match"
+        case write = "write"
+        case more
+        
+        var title: String {
+            switch self {
+            case .cancelmatch:
+                return "스터디 취소"
+            case .siren:
+                return "새싹 신고"
+            case .write:
+                return "리뷰 등록"
+            default:
+                break
+            }
+        }
+    }
 }

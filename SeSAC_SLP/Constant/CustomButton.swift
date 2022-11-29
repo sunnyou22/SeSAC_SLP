@@ -56,3 +56,17 @@ final class CutsomButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+//MARK: chatbutton
+final class ChatMenuButton: UIButton {
+    func setDefault(title: String, imgname: String) {
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(named: imgname)
+        config.imagePadding = 4
+        config.imagePlacement = .top
+        config.title = title
+        config.baseForegroundColor = .setBaseColor(color: .black)
+        
+        self.configuration = config
+    }
+}
