@@ -28,6 +28,7 @@ extension UILabel {
 
 extension UIView {
     
+    @discardableResult
     func setattributeText(view: UILabel, text: String, pointfont: UIFont, subfont: UIFont?, location: Int = 0, length: Int = 0, baseColor: UIColor, pointColor: UIColor) -> UILabel {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 8

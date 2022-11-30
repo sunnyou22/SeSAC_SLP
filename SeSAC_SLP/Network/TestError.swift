@@ -174,6 +174,32 @@ enum StudyAcceptStatus: Int, Error {
     }
 }
 
+enum Dodge: Int, Error {
+    case success = 200
+    case wrongOtherId = 201
+    case firebaseTokenError = 401
+    case notsignUpUser = 406
+    case serverError = 500
+    case clientError = 501
+    
+    var massage: String {
+        switch self {
+        case .success:
+            return "스터디요청을 수락했습니다 "
+        case .wrongOtherId:
+            return "스터디를 취소하고 싶은 유저가 맞나요? :("
+        case .firebaseTokenError:
+            return "요청대기시간이 지났습니다! 다시 시도해주세요"
+        case .notsignUpUser:
+            return "미가입회원입니다"
+        case .serverError:
+            return "ERROR 500! 알 수 없는 오류입니다. 고객센터로 문의주세요!"
+        case .clientError:
+            return "ERROR 501! 알 수 없는 오류입니다. 고객센터로 문의주세요!"
+        }
+    }
+}
+
 enum StatusOfFetchingChat: Int, Error {
     case success = 200
     case firebaseTokenError = 401

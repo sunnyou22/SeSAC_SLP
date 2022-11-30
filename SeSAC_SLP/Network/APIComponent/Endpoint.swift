@@ -24,8 +24,7 @@ enum SeSACAPI {
     case matchingStatus //get
     case search(lat: Double, lon: Double, studylist: [String])
     case delete
-    case studyRequest(otheruid: String)
-    case studyAccept(otheruid: String)
+    case studyRequest(otheruid: String), studyAccept(otheruid: String), dodge(otheruid: String)
     case chatList(from: String, lastchatDate: String)
     case chat(to: String)
 }
@@ -36,9 +35,7 @@ extension SeSACAPI {
     //MARK: URL
     var url: URL {
         switch self {
-        case .signUp:
-            return URL(string: URLConstant.BaseURL + "/v1/user")!
-        case .getUserInfo:
+        case .signUp, .getUserInfo:
             return URL(string: URLConstant.BaseURL + "/v1/user")!
         case .searchSurroundings:
             return URL(string: URLConstant.BaseURL + "/v1/queue/search")! // 주변탐색
@@ -56,13 +53,15 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/chat/\(from)?lastchatDate=\(lastchatDate)")! //중괄호있는거 맞나?
         case .chat(let to):
             return URL(string: URLConstant.BaseURL + "/v1/chat/\(to)")!
+        case .dodge:
+            return URL(string: URLConstant.BaseURL + "/v1/queue/dodge")!
         }
     }
     
     //MARK: Header
     func getheader(idtoken: String) -> HTTPHeaders {
         switch self {
-        case .signUp, .setMypage, .search, .studyRequest, .chatList, .chat, .studyAccept:
+        case .signUp, .setMypage, .search, .studyRequest, .chatList, .chat, .studyAccept, .dodge:
             return [
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -107,20 +106,11 @@ extension SeSACAPI {
                 "lat": lat,
                 "studylist": studylist
             ]
-        case .studyRequest(let otheruid):
-            return [
-                "otheruid": otheruid
-            ]
-//        case .chatList(let from, let lastchatDate):
-//            return [
-//                "from": from,
-//                "lastchatDate": lastchatDate
-//            ]
         case .chat(let chat):
             return [
                 "chat": chat
             ]
-        case .studyAccept(let otheruid):
+        case .studyRequest(let otheruid), .studyAccept(let otheruid), .dodge(let otheruid):
             return [
                 "otheruid": otheruid
             ]

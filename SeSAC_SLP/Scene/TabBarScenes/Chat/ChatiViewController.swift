@@ -30,44 +30,36 @@ final class ChatiViewController: BaseViewController {
         
         view.backgroundColor = .blue
         
+        bindErrorStatus()
         bindGesture()
         bind()
-        // 채팅창에 진입할 때 나의 매칭상태 확인하기
-        viewModel.checkMyQueueStatus(idtoken: idToken)
         
         //채팅목록받아오기 test -> 최신날짜라로 받아와야함
         guard let id = UserDefaults.getUerIfo?[0].id else {
             print("\(#file), \(#function) -> 유저 정보를 받아올 수 없습니다 🔴")
             return }
         print(viewModel.fetchChatData(from: id, lastchatDate: "2022-11-29T19:10:46.185Z", idtoken: idToken) ?? [])
-       
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        //바 설정
-        navigationItem.title = "왜그래"
-        navigationItem.rightBarButtonItem = rightbarButtonItem
-    }
-    
+   
     override func configure() {
         super.configure()
    
-        
+        guard let name = UserDefaults.getUerIfo?[0].nick else {
+            print("\(#file), \(#function) -> 유저 정보를 받아올 수 없습니다 🔴")
+            return }
         // 델리게이트 넘겨주기
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
         mainView.tableView.tableHeaderView = ChatHeaderView()
         
-     
+        //바 설정
+        navigationItem.title = "\(name)"
+        navigationItem.rightBarButtonItem = rightbarButtonItem
+        
+        viewModel.checkMyQueueStatus(idtoken: idToken) // 수락을 나아중에 해서 상태가 변했을수도 있음
     }
-    
-//    guard let name = UserDefaults.getUerIfo?[0].nick else {
-//        print("\(#file), \(#function) -> 유저 정보를 받아올 수 없습니다 🔴")
-//        return }
-    
-    fileprivate func bind() {
+   
+    private func bind() {
         let input = ChatViewModel.Input(tapSendButton: mainView.sendbutton.rx.tap, changeMessage: mainView.messageTextView.rx.text)
         let output = viewModel.transform(input: input)
         
@@ -85,13 +77,34 @@ final class ChatiViewController: BaseViewController {
                 guard let self = self else { return }
                 self.viewModel.textViewText.accept(text)
             }.disposed(by: disposedBag)
+        
+        viewModel.studyStatus
+            .withUnretained(self)
+            .bind { vc, status in
+                switch status {
+                case .cancel:
+                       let alertVC = ChatAlertViewController()
+                    vc.transition(alertVC, .presentFullScreen)
+                case .finished:
+                    print("아직구현안됨")
+                }
+            }.disposed(by: disposedBag)
     }
     
-    fileprivate func bindErrorStatus() {
-        // 채팅화면에 진입했는데 스터디 취소가 된 상태라면?
+    private func bindErrorStatus() {
+        viewModel.commonServer.matchingStatus
+            .withUnretained(self)
+            .bind { vc, status in
+                switch status {
+                case .Success:
+                    vc.mainView.moreView.cancelButton.setTitle(vc.viewModel.studyStatus.value.rawValue, for: .normal)
+                default:
+                    print(#file, #function, "오류발생 🔴")
+                }
+            }.disposed(by: disposedBag)
     }
     
-    fileprivate func bindGesture() {
+    private func bindGesture() {
         RxKeyboard.instance.willShowVisibleHeight
             .drive(onNext: { [weak self] height in
                 guard let self = self else { return }
@@ -142,6 +155,7 @@ final class ChatiViewController: BaseViewController {
             .asDriver(onErrorJustReturn: (self, print("더보기 버튼 클릭")))
             .drive { (vc, _) in
                 vc.mainView.moreView.isHidden = !vc.mainView.moreView.isHidden
+                vc.viewModel.checkMyQueueStatus(idtoken: vc.idToken) // 현재 상태 쳌
             }.disposed(by: disposedBag)
     }
 }
