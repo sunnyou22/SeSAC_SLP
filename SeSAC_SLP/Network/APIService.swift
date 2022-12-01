@@ -119,3 +119,5 @@ struct Payload: Codable {
 struct Chat: Codable {
     let chat: String?
 }
+
+//MARK: 

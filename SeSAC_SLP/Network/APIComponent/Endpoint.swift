@@ -26,7 +26,7 @@ enum SeSACAPI {
     case delete
     case studyRequest(otheruid: String), studyAccept(otheruid: String), dodge(otheruid: String)
     case chatList(from: String, lastchatDate: String)
-    case chat(to: String)
+    case chat(to: String, chat: String)
 }
 
 // 폴더 나눌 때 버전 빼기
@@ -51,7 +51,7 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/queue/studyaccept")!
         case .chatList(let from, let lastchatDate):
             return URL(string: URLConstant.BaseURL + "/v1/chat/\(from)?lastchatDate=\(lastchatDate)")! //중괄호있는거 맞나?
-        case .chat(let to):
+        case .chat(let to, _):
             return URL(string: URLConstant.BaseURL + "/v1/chat/\(to)")!
         case .dodge:
             return URL(string: URLConstant.BaseURL + "/v1/queue/dodge")!
@@ -106,7 +106,7 @@ extension SeSACAPI {
                 "lat": lat,
                 "studylist": studylist
             ]
-        case .chat(let chat):
+        case .chat(_, let chat):
             return [
                 "chat": chat
             ]

@@ -14,6 +14,9 @@ class ChatView: BaseView {
     let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .grouped)
         view.backgroundColor = .brown
+        view.allowsSelection = false
+        view.separatorStyle = .none
+//        view.rowHeight = UITableView.automaticDimension
         view.register(ChatTableViewCell.self, forCellReuseIdentifier: ChatTableViewCell.reuseIdentifier)
         view.register(MyChatTableViewCell.self, forCellReuseIdentifier: MyChatTableViewCell.reuseIdentifier)
         view.backgroundColor = .brown

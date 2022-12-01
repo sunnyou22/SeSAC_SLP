@@ -87,6 +87,9 @@ extension UserDefaults {
     
     @UserDeaultHelper(key: "locationAuthorization", defaultValue: false)
     static var locationAuthorization: Bool
+    
+    @UserDeaultHelper(key: "otherUid", defaultValue: nil)
+    static var otherUid: String?
 
     
     // Codable
