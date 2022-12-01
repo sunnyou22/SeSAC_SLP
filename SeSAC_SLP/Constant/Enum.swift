@@ -94,6 +94,7 @@ enum literalString: Int, CaseIterable {
 
 enum CustomCornerRadius: CGFloat {
     case button = 8
+    case view_20 = 20
 }
 
 //MARK: - 뷰 나누기

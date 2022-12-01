@@ -15,7 +15,7 @@ class StartMatcingViewController: BaseViewController, Bindable {
     let mainView = StartMatchingView()
     
     var hidden = false
-  
+    
     let viewModel: StartMatchingViewModel
     let bag = DisposeBag() // 모델로 어떻게 뺄지 생각해보기
     let commonAPIviewModel = CommonServerManager()
@@ -95,7 +95,7 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         cell.requestButton.setTitle(type.buttonTitle, for: .normal)
         cell.requestButton.backgroundColor = type.buttonColor
         
-     
+        
         
         let sesacTitle = (titleStackView.rightVerticalStackView.arrangedSubviews + titleStackView.leftVerticalStackView.arrangedSubviews).sorted { $0.tag < $1.tag }
         
@@ -107,16 +107,14 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
             view.backgroundColor = viewModel.reputationValid(value) ? .setBrandColor(color: .green) : .clear
         }
         
-        
         // 컬렉션뷰 채택
         cell.cardView.expandableView.whishStudyView.collectionView.delegate = self
         cell.cardView.expandableView.whishStudyView.collectionView.dataSource = self
         cell.cardView.expandableView.whishStudyView.collectionView.collectionViewLayout = cell.cardView.expandableView.whishStudyView.configureCollectionViewLayout()
         
-    
         // 1. create a gesture recognizer (tap gesture)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
-
+        
         cell.cardView.nicknameView.addGestureRecognizer(tapGesture)
         cell.cardView.expandableView.isHidden = hidden // 암튼 일케하면 되긴함
         
@@ -124,22 +122,22 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
             .withUnretained(self)
             .bind { vc, bool in
                 tableView.reloadRows(at: [indexPath], with: .automatic)
-                    print("didselect")
+                print("didselect")
             }.disposed(by: bag)
-     
+        
         //얼럿
         cell.requestButton.addTarget(self, action: #selector(request), for: .touchUpInside)
         
         return cell
     }
-
+    
     // 3. this method is called when a tap is recognized
     @objc func handleTap(sender: UITapGestureRecognizer) {
         hidden = !hidden
         viewModel.test.accept(hidden)
         print("tap")
     }
-
+    
     @objc func request() {
         print("버튼 눌리야?")
         let vc = StartMatchingCustomAlert(type: type)

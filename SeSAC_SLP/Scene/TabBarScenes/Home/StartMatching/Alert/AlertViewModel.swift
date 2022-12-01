@@ -39,10 +39,9 @@ final class AlertViewModel: EnableDataInNOut {
         case .near:
             api = SeSACAPI.studyRequest(otheruid: otheruid)
         case .requested:
-            api = SeSACAPI.studyAccept(otheruid: otheruid) // 고치기
+            api = SeSACAPI.studyAccept(otheruid: otheruid) 
         }
      
-        
         Network.shared.sendRequestSeSAC(url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idToken)) { [weak self] statusCode in
             switch alertType {
             case .near:

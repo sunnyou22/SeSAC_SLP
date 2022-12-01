@@ -65,7 +65,7 @@ class LaunchScreenViewController: UIViewController {
                 case .InvaliedNickName:
                     print("InvaliedNickName // 온보딩에서 필요없는 코드")
                 case .Success:
-//                    let testvc = ChatiViewController()
+//                    let testvc = ReviewPopUpiViewController()
 //                    sceneDelegate?.window?.rootViewController = testvc
 //                    sceneDelegate?.window?.makeKeyAndVisible()
                     let homeMapController = CustomTabBarController()

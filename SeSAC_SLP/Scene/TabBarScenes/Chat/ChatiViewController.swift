@@ -59,7 +59,9 @@ final class ChatiViewController: BaseViewController {
             return }
         
         viewModel.fetchChatData(from: id, lastchatDate: "2000-01-01T00:00:00.000Z", idtoken: idToken)
+        
         print(viewModel.fetchChatData(from: id, lastchatDate: "2000-01-01T00:00:00.000Z", idtoken: idToken))
+        
         print(viewModel.matchingStatus.value)
     }
     

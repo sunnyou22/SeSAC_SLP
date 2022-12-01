@@ -23,20 +23,20 @@ final class StartMatchingViewModel: EnableDataInNOut {
     let data: BehaviorRelay<[FromQueueDB]> = BehaviorRelay<[FromQueueDB]>(value: [])
     var sesacTitle: Driver<[Int]>?
     let test = PublishRelay<Bool>() // 셀 접히기 test
- 
+    
     init(type: StartMatcingViewController.Vctype) {
         self.type = type
     }
     
     struct Input {
-//        let reputationValid: ControlProperty<Int>
+        //        let reputationValid: ControlProperty<Int>
         let tapChangeStudyBtn: ControlEvent<Void>
         let refreshButton: ControlEvent<Void>
     }
     
     // 바뀐 데이터의 형태여야함
     struct Output {
-//        let reputationValid: ControlProperty<Int>
+        //        let reputationValid: ControlProperty<Int>
         let tapChangeStudyBtn: Driver<Void>
         let refreshButton: Driver<Void>
     }
@@ -44,10 +44,10 @@ final class StartMatchingViewModel: EnableDataInNOut {
     func transform(input: Input) -> Output {
         let tapChangeStudyBtn = input.tapChangeStudyBtn.asDriver()
         let refreshButton = input.refreshButton.asDriver()
-    
+        
         return Output(tapChangeStudyBtn: tapChangeStudyBtn, refreshButton: refreshButton)
     }
-
+    
     func reputationValid(_ value: Int) -> Bool {
         return value != 0 ? true : false
     }

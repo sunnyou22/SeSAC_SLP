@@ -64,7 +64,7 @@ class StartMatchingCustomAlert: BaseViewController {
         output.tapNo
             .drive { _ in
                 self.dismiss(animated: true)
-            }
+            }.disposed(by: bag)
     }
     
     func bindErrorHandling() {

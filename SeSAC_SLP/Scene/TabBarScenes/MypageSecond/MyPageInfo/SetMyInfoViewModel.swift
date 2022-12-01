@@ -18,7 +18,7 @@ import Alamofire
 
 final class SetMyInfoViewModel {
     
-    // 데이터고
+    // 데이터고 - 나중에 모델로 빼기
     enum ButtonTitle: String, CaseIterable {
         case goodManner = "좋은 매너"
         case exactTimeAppointment = "정확한 시간 약속"

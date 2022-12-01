@@ -78,7 +78,7 @@ final class CommonServerManager {
             }
             
             print("getMatchStatus🚀\n", result.matched ?? 100, result, myQueueStatus)
-            UserDefaults.otherUid = result.matchedUid
+            UserDefaults.otherUid = result.matchedUid ?? ""
             // 호출할 때마다 유저의 상태를 알 수 잇도록
             MapViewModel.ploatingButtonSet.accept(UserMatchingStatus(rawValue: result.matched ?? 2)!)
         }

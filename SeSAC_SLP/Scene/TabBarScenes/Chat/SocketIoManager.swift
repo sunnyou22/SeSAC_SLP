@@ -20,14 +20,10 @@ class SocketIOManager {
     var socket: SocketIOClient!
     
     private init() {
-        guard let idtoken = UserDefaults.idtoken else {
-            print("토큰 없음", #file)
-            return
-        }
-       
+    
         // 누구랑 통신할거냐
         manager = SocketManager(socketURL: URL(string: URLConstant.BaseURL)!, config: [
-            .extraHeaders(["auth": idtoken])
+            .forceWebsockets(true)
         ])
         
         socket = manager.defaultSocket
@@ -35,7 +31,7 @@ class SocketIOManager {
         // 소켓 연결 메서드
         socket.on(clientEvent: .connect) { data, ack in
             print("Socket is connected", data, ack)
-            self.socket.emit("changesocketid", idtoken)
+            self.socket.emit("changesocketid", "bAO88VFDs2goBwg6nhsnZhUTA6G2")
         }
         // 연결해제
         socket.on(clientEvent: .disconnect) { data, ack in
@@ -65,7 +61,6 @@ class SocketIOManager {
     }
     
     func establistConnection() {
-        print("====================================d;t,t;alskjdf;ljsaf;lkdjsag;ksd")
         socket.connect()
     }
     
