@@ -26,13 +26,28 @@ final class ChatiViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(viewModel.getMessage(notification:)), name: NSNotification.Name(SocketIOManager.shared.NotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getMessage(notification:)), name: NSNotification.Name(SocketIOManager.shared.NotificationName), object: nil)
         
         view.backgroundColor = .blue
         
         bindErrorStatus()
         bindGesture()
         bind()
+    }
+    
+    @objc func getMessage(notification: NSNotification) {
+        
+        let id = notification.userInfo![Payload.CodingKeys.id.rawValue] as! String
+        let to = notification.userInfo![Payload.CodingKeys.to.rawValue] as! String
+        let from = notification.userInfo![Payload.CodingKeys.from.rawValue] as! String
+        let chat = notification.userInfo![Payload.CodingKeys.chat.rawValue] as! String
+        let createdAt = notification.userInfo![Payload.CodingKeys.createdAt.rawValue] as! String
+        
+        var apiValue: [Payload] = []
+        let value = Payload(id: id, to: to, from: from, chat: chat, createdAt: createdAt)
+//        apiValue.append(value)
+        // 소켓에서 오는 데이터를 여기서 넣어줌 -> 램에 저장해줘얗마
+//        chatData.accept(apiValue)
     }
  
     override func configure() {

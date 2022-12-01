@@ -27,21 +27,6 @@ final class ChatViewModel: EnableDataInNOut {
     var studyStatus: BehaviorRelay<MoreBtnUserStatus> = BehaviorRelay(value: .cancel)
     let chatData: BehaviorRelay<[Payload]> = BehaviorRelay(value: [])
     let myUid: BehaviorRelay<String?> = BehaviorRelay(value: "고래밥")
-   
-    @objc func getMessage(notification: NSNotification) {
-        
-        let id = notification.userInfo![Payload.CodingKeys.id.rawValue] as! String
-        let to = notification.userInfo![Payload.CodingKeys.to.rawValue] as! String
-        let from = notification.userInfo![Payload.CodingKeys.from.rawValue] as! String
-        let chat = notification.userInfo![Payload.CodingKeys.chat.rawValue] as! String
-        let createdAt = notification.userInfo![Payload.CodingKeys.createdAt.rawValue] as! String
-        
-        var apiValue: [Payload] = []
-        let value = Payload(id: id, to: to, from: from, chat: chat, createdAt: createdAt)
-        apiValue.append(value)
-        // 소켓에서 오는 데이터를 여기서 넣어줌 -> 램에 저장해줘얗마
-        chatData.accept(apiValue)
-    }
     
     struct Input {
         let tapSendButton: ControlEvent<Void>
