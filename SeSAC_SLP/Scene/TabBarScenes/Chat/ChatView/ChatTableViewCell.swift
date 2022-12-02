@@ -46,7 +46,7 @@ class ChatTableViewCell: BaseTableViewCell {
     
     let containView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .setGray(color: .gray6)
         return view
     }()
     
@@ -80,8 +80,7 @@ class MyChatTableViewCell: ChatTableViewCell {
     override func configure() {
         [messegeLbl, timeLbl].forEach { containView.addSubview($0) }
         contentView.addSubview(containView)
-        self.backgroundColor = .gray
-        
+        containView.backgroundColor = .setGray(color: .gray6)
         self.selectionStyle = .none
     }
     

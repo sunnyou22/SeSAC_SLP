@@ -7,8 +7,11 @@
 
 import Foundation
 
-import RxCocoa
 import RxSwift
+import RxCocoa
+import RxKeyboard
+import RealmSwift
+import RxRealm
 
 final class ChatViewModel: EnableDataInNOut {
     
@@ -26,7 +29,7 @@ final class ChatViewModel: EnableDataInNOut {
     let commonServer = CommonServerManager()
     
     let fetchChatApi = PublishRelay<StatusOfFetchingChat>()
-   static let chatApi = PublishRelay<StatusOfSendingChat>()
+    let chatApi = PublishRelay<StatusOfSendingChat>()
     let cancelApi = PublishRelay<Dodge>()
     let textViewText: BehaviorRelay<String> = BehaviorRelay(value: "")
     let matchingStatus: BehaviorRelay<[MatchStatus]> =  BehaviorRelay(value: [])
@@ -102,8 +105,8 @@ final class ChatViewModel: EnableDataInNOut {
                 return }
 
             guard let data = data else { return }
-        print("채팅보내기 성공 🟢")
-            ChatViewModel.chatApi.accept(status)
+//        print("채팅보내기 성공 🟢")
+            self.chatApi.accept(status)
         }
     }
     
@@ -116,7 +119,7 @@ final class ChatViewModel: EnableDataInNOut {
                 return }
 
             print("SENDCHAT STATUS ->", status)
-            ChatViewModel.chatApi.accept(status)
+            self.chatApi.accept(status)
         }
     }
     

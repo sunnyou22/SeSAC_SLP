@@ -30,6 +30,13 @@ struct CustomFormatter {
         
         return formatter.string(from: value)
     }
+    
+//    func setMessaage(date: Date) -> String {
+//
+//        let formatter = DateFormatter()
+//        formatter.locale = ko
+//        formatter.dateFormat = "a hh:mm"
+//    }
 }
 /*
  //시간 24시간 형태

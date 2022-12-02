@@ -14,24 +14,24 @@ import RxKeyboard
 //디이닛때 노티피케이션 없애주기
 final class ChatViewController: BaseViewController {
     
-    private let mainView = ChatView()
-    private let viewModel = ChatViewModel()
-    private let disposedBag = DisposeBag()
+    final let mainView = ChatView()
+    final let viewModel = ChatViewModel()
+    final let disposedBag = DisposeBag()
     private let rightbarButtonItem = UIBarButtonItem(image: UIImage(named: Icon.ChatIcon.more.rawValue), style: .plain, target: ChatViewController.self, action: nil)
     
+    //MARK: 뷰 생명주기
     override func loadView() {
         view = mainView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         
         // 수락을 나아중에 해서 상태가 변했을수도 있음
 //        채팅목록받아오기 test -> 최신날짜라로 받아와야함
         guard let id = UserDefaults.otherUid else {
             print("\(#function) -> 유저 정보를 받아올 수 없습니다 🔴")
             return }
-
         
         viewModel.fetchChatData(from: id, lastchatDate: "2000-01-01T00:00:00.000Z", idtoken: idToken)
         print(viewModel.fetchChatData(from: id, lastchatDate: "2000-01-01T00:00:00.000Z", idtoken: idToken))
@@ -45,32 +45,17 @@ final class ChatViewController: BaseViewController {
         bindGesture()
         bind()
     }
-    
-    @objc func getMessage(notification: NSNotification) {
-        
-        let id = notification.userInfo![Payload.CodingKeys.id.rawValue] as! String
-        let to = notification.userInfo![Payload.CodingKeys.to.rawValue] as! String
-        let from = notification.userInfo![Payload.CodingKeys.from.rawValue] as! String
-        let chat = notification.userInfo![Payload.CodingKeys.chat.rawValue] as! String
-        let createdAt = notification.userInfo![Payload.CodingKeys.createdAt.rawValue] as! String
-        
-            // Payload 데이터
-        let value = Payload(id: id, to: to, from: from, chat: chat, createdAt: createdAt)
-            // 데이터 쌓아줌, 뷰모델에서 chatList 이벤트 던짐 -> 시점 체크하기
-        viewModel.setchatList(addchatList: value)
-        
-        mainView.tableView.reloadData()
-        mainView.tableView.scrollToRow(at: IndexPath(row: viewModel.chatData.value.count - 1, section: 0), at: .bottom, animated: false)
-    }
  
     override func configure() {
         super.configure()
         
-        viewModel.myUid.accept(UserDefaults.getUerIfo?[0].nick ?? "")
-    
         guard let name = UserDefaults.getUerIfo?[0].nick else {
             print("\(#file), \(#function) -> 유저 정보를 받아올 수 없습니다 🔴")
             return }
+        
+        viewModel.myUid.accept(UserDefaults.getUerIfo?[0].uid)
+        print(UserDefaults.getUerIfo?[0].uid, "==================================")
+    
         // 델리게이트 넘겨주기
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
@@ -131,11 +116,11 @@ final class ChatViewController: BaseViewController {
                 if data.count != 0 {
                     vc.mainView.tableView.reloadData()
                     vc.mainView.tableView.scrollToRow(at: IndexPath(row: data.count - 1, section: 0), at: .bottom, animated: false)
-                    
                 }
             }.disposed(by: disposedBag)
     }
     
+    //MARK: - BindErrorStatus
     private func bindErrorStatus() {
         viewModel.commonServer.matchingStatus
             .withUnretained(self)
@@ -148,24 +133,15 @@ final class ChatViewController: BaseViewController {
                 }
             }.disposed(by: disposedBag)
         
-        ChatViewModel.chatApi
+        viewModel.chatApi
             .withUnretained(self)
             .asDriver(onErrorJustReturn: (self, .success))
             .drive { vc, status in
-                switch status {
-                case .success:
-                    vc.mainView.tableView.reloadData()
-                    vc.mainView.tableView.scrollToRow(at: IndexPath(row: vc.viewModel.chatData.value.count - 1, section: 0), at: .bottom, animated: false)
-                    
-                    vc.mainView.tableView.cellForRow(at: IndexPath(row: vc.viewModel.chatData.value.count - 1, section: 0))?.backgroundColor = .green
-                    
-                    // 여기서 디비 저장하기
-                default: break
-                   
-                }
+               
             }.disposed(by: disposedBag)
     }
     
+    //MARK: - BindGesture
     private func bindGesture() {
         //키보드 올리기
         RxKeyboard.instance.willShowVisibleHeight
@@ -211,6 +187,14 @@ final class ChatViewController: BaseViewController {
                 }
             }).disposed(by: disposedBag)
         
+//        mainView.messageTextView
+//            .rx
+//            .
+//            .withUnretained(self)
+//            .bind { (vc, _) in
+//                vc.mainView.messageTextView.resignFirstResponder()
+//            }.disposed(by: disposedBag)
+        
         //오른쪽 바 버튼 아이템 클뤽
         rightbarButtonItem.rx
             .tap
@@ -221,43 +205,5 @@ final class ChatViewController: BaseViewController {
                 vc.viewModel.commonServer.getMatchStatus(idtoken: vc.idToken)
              // 현재 상태 쳌
             }.disposed(by: disposedBag)
-    }
-}
-
-extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 100
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = ChatHeaderView()
-        return header
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.chatData.value.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let data = viewModel.chatData.value[indexPath.row]
-        
-        if data.from == viewModel.myUid.value {
-            guard let myCell = tableView.dequeueReusableCell(withIdentifier: MyChatTableViewCell.reuseIdentifier, for: indexPath) as? MyChatTableViewCell else { return UITableViewCell() }
-            myCell.messegeLbl.text = data.chat
-            myCell.timeLbl.text = data.createdAt
-            
-            return myCell
-        } else {
-            guard let yourCell = tableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.reuseIdentifier, for: indexPath) as? ChatTableViewCell else { return UITableViewCell() }
-            yourCell.messegeLbl.text = data.chat
-            yourCell.timeLbl.text = data.chat
-            return yourCell
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        mainView.messageTextView.resignFirstResponder()
     }
 }
