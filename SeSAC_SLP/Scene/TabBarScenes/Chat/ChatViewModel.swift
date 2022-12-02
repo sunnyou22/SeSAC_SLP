@@ -12,6 +12,12 @@ import RxSwift
 
 final class ChatViewModel: EnableDataInNOut {
     
+//    enum PostStatus {
+//        case success
+//        case networkfail
+//        case other
+//    }
+    
     enum MoreBtnUserStatus: String {
         case cancel = "스터디 취소"
         case finished = "스터디 종료"
@@ -20,14 +26,13 @@ final class ChatViewModel: EnableDataInNOut {
     let commonServer = CommonServerManager()
     
     let fetchChatApi = PublishRelay<StatusOfFetchingChat>()
-    let chatApi = PublishRelay<StatusOfSendingChat>()
+   static let chatApi = PublishRelay<StatusOfSendingChat>()
     let cancelApi = PublishRelay<Dodge>()
     let textViewText: BehaviorRelay<String> = BehaviorRelay(value: "")
     let matchingStatus: BehaviorRelay<[MatchStatus]> =  BehaviorRelay(value: [])
     var studyStatus: BehaviorRelay<MoreBtnUserStatus> = BehaviorRelay(value: .cancel)
     let chatData: BehaviorRelay<[Payload]> = BehaviorRelay(value: [])
     let myUid: BehaviorRelay<String?> = BehaviorRelay(value: "고래밥")
-  
     
     struct Input {
         let tapSendButton: ControlEvent<Void>
@@ -87,16 +92,31 @@ final class ChatViewModel: EnableDataInNOut {
             self?.fetchChatApi.accept(status)
         }
     }
+
+    func testsendChat(to: String, contents: String, idtoken: String) {
+        let api = SeSACAPI.chat(to: to, chat: contents)
+        
+        Network.shared.testSendReuestSeSAC(type: Payload.self, url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { data, statusCode in
+            guard let status = StatusOfSendingChat(rawValue: statusCode) else {
+                print("채팅 보내기 상태코드를 받아 올 수 없습니다 🔴", #file)
+                return }
+
+            guard let data = data else { return }
+        print("채팅보내기 성공 🟢")
+            ChatViewModel.chatApi.accept(status)
+        }
+    }
     
     func sendChat(to: String, contents: String, idtoken: String) {
         let api = SeSACAPI.chat(to: to, chat: contents)
         
-        Network.shared.sendRequestSeSAC(url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] statusCode in
+        Network.shared.sendRequestSeSAC(url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { statusCode in
             guard let status = StatusOfSendingChat(rawValue: statusCode) else {
                 print("채팅 보내기 상태코드를 받아 올 수 없습니다 🔴", #file)
                 return }
-            print("채팅보내기 성공 🟢")
-            self?.chatApi.accept(status)
+
+            print("SENDCHAT STATUS ->", status)
+            ChatViewModel.chatApi.accept(status)
         }
     }
     
@@ -107,7 +127,7 @@ final class ChatViewModel: EnableDataInNOut {
             guard let status = Dodge(rawValue: statusCode) else {
                 print("스터디를 취소할 수 없음 가드구문 🔴", #function)
                 return }
-            print("스터디 취소 성공 🟢")
+            print("스터디 취소 성공 🟢", status)
             self?.cancelApi.accept(status)
         }
     }

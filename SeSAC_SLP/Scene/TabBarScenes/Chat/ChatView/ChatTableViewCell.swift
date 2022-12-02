@@ -76,7 +76,7 @@ class ChatTableViewCell: BaseTableViewCell {
 }
 
 class MyChatTableViewCell: ChatTableViewCell {
-    
+
     override func configure() {
         [messegeLbl, timeLbl].forEach { containView.addSubview($0) }
         contentView.addSubview(containView)

@@ -43,8 +43,6 @@ final class Network {
         }
     }
     
-//    <T: Decodable>(type: T.Type = T.self, url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, headers: HTTPHeaders, completion: @escaping ((T?, Int) -> Void)) 이렇게 바꾸깅
-//
     func sendRequestSeSAC(url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, headers: HTTPHeaders, completion: @escaping ((Int) -> Void)) {
         
         AF.request(url, method: method, parameters: parameter, encoding: URLEncoding(arrayEncoding: .noBrackets), headers: headers)

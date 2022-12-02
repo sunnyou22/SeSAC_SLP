@@ -94,10 +94,15 @@ final class ChatViewController: BaseViewController {
         
         output.tapSendButton
             .drive { [weak self] _ in
-                guard let self = self, let uid = UserDefaults.otherUid else {
+                guard let self = self, let otheruid = UserDefaults.otherUid, let myuid = UserDefaults.getUerIfo?[0].uid else {
                     print("\(#file), \(#function) 상대방의 uid가 nil")
                     return }
-                self.viewModel.sendChat(to: uid, contents: self.viewModel.textViewText.value, idtoken: self.idToken)
+                let value = Payload(id: UserDefaults.getUerIfo?[0].id, to: otheruid, from: myuid, chat: self.viewModel.textViewText.value, createdAt: CustomFormatter.shared.setformatterToString(Date()))
+                
+                self.viewModel.setchatList(addchatList: value)
+                
+                self.viewModel.sendChat(to: otheruid, contents: self.viewModel.textViewText.value, idtoken: self.idToken)
+                print(otheruid, self.viewModel.textViewText.value, self.idToken)
             }.disposed(by: disposedBag)
         
         output.changeMessage
@@ -126,6 +131,7 @@ final class ChatViewController: BaseViewController {
                 if data.count != 0 {
                     vc.mainView.tableView.reloadData()
                     vc.mainView.tableView.scrollToRow(at: IndexPath(row: data.count - 1, section: 0), at: .bottom, animated: false)
+                    
                 }
             }.disposed(by: disposedBag)
     }
@@ -142,15 +148,20 @@ final class ChatViewController: BaseViewController {
                 }
             }.disposed(by: disposedBag)
         
-        viewModel.chatApi
+        ChatViewModel.chatApi
             .withUnretained(self)
-            .bind { vc, status in
+            .asDriver(onErrorJustReturn: (self, .success))
+            .drive { vc, status in
                 switch status {
-                    
                 case .success:
                     vc.mainView.tableView.reloadData()
+                    vc.mainView.tableView.scrollToRow(at: IndexPath(row: vc.viewModel.chatData.value.count - 1, section: 0), at: .bottom, animated: false)
+                    
+                    vc.mainView.tableView.cellForRow(at: IndexPath(row: vc.viewModel.chatData.value.count - 1, section: 0))?.backgroundColor = .green
+                    
                     // 여기서 디비 저장하기
                 default: break
+                   
                 }
             }.disposed(by: disposedBag)
     }
@@ -236,6 +247,7 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
             guard let myCell = tableView.dequeueReusableCell(withIdentifier: MyChatTableViewCell.reuseIdentifier, for: indexPath) as? MyChatTableViewCell else { return UITableViewCell() }
             myCell.messegeLbl.text = data.chat
             myCell.timeLbl.text = data.createdAt
+            
             return myCell
         } else {
             guard let yourCell = tableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.reuseIdentifier, for: indexPath) as? ChatTableViewCell else { return UITableViewCell() }

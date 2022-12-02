@@ -8,21 +8,43 @@
 import Foundation
 
 struct CustomFormatter {
-    
-    static let ko = Locale(identifier:"ko_KR")
-    
+    static let shared = CustomFormatter()
+    let ko = Locale(identifier:"ko_KR")
     //MARK: - 데이트포맷터
     
     //시간 24시간 형태
-    static func setformatter(date: Date) -> Date? {
+    func setformatter(date: Date) -> Date? {
         let formatter = DateFormatter()
-        formatter.locale = CustomFormatter.ko
+        formatter.locale = ko
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
         
         let str = formatter.string(from: date)
-    
+        
         return formatter.date(from: str)
     }
     
-    
+    func setformatterToString(_ value: Date) -> String? {
+        let formatter = DateFormatter()
+        formatter.locale = ko
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+        
+        return formatter.string(from: value)
+    }
 }
+/*
+ //시간 24시간 형태
+ static func setformatter<T>(_ value: T) -> T? {
+     let formatter = DateFormatter()
+     formatter.locale = CustomFormatter.ko
+     formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+     
+     if T.self == Date.self {
+         return formatter.string(from: value as! Date) as? T
+     } else if T.self == String.self {
+         return formatter.date(from: value as! String) as? T
+     } else {
+         
+     }
+ */
+    
+//}
