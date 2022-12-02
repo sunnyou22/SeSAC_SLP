@@ -31,6 +31,7 @@ class SocketIOManager {
         // 소켓 연결 메서드
         socket.on(clientEvent: .connect) { data, ack in
             print("Socket is connected", data, ack)
+            // 내 유아이디 리터럴한거 바꾸기
             self.socket.emit("changesocketid", "bAO88VFDs2goBwg6nhsnZhUTA6G2")
         }
         // 연결해제

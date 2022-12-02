@@ -10,7 +10,7 @@ import UIKit
 final class CustomTabBarController: UITabBarController {
     private let homeVC = HomeMapViewController()
     private let shopVC = ShopViewController()
-    private let chatVC = ChatiViewController()
+    private let chatVC = ChatViewController()
     private let mypageVC = MyPageListViewController()
     
     override func viewDidLoad() {

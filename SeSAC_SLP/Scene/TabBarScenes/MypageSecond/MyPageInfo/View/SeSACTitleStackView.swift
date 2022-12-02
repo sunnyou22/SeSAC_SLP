@@ -15,6 +15,8 @@ class TitleStackView: UIView {
         view.setTitle(SetMyInfoViewModel.ButtonTitle.goodManner.rawValue, for: .normal)
         view.setTitleColor(UIColor.setBaseColor(color: .black), for: .normal)
         view.titleLabel?.font = UIFont.title4_R14
+        view.adjustsImageWhenHighlighted = false
+        view.backgroundColor = .setBaseColor(color: .white)
         return setStackViewComponent(view, tag: 0)
     }()
     
@@ -22,6 +24,7 @@ class TitleStackView: UIView {
         let view = UIButton()
         view.setTitle(SetMyInfoViewModel.ButtonTitle.exactTimeAppointment.rawValue, for: .normal)
         view.setTitleColor(UIColor.setBaseColor(color: .black), for: .normal)
+        view.backgroundColor = .setBaseColor(color: .white)
         return setStackViewComponent(view, tag: 1)
     }()
     
@@ -29,6 +32,7 @@ class TitleStackView: UIView {
         let view = UIButton()
         view.setTitle(SetMyInfoViewModel.ButtonTitle.fastFeedback.rawValue, for: .normal)
         view.setTitleColor(UIColor.setBaseColor(color: .black), for: .normal)
+        view.backgroundColor = .setBaseColor(color: .white)
         return setStackViewComponent(view, tag: 2)
     }()
     
@@ -36,6 +40,7 @@ class TitleStackView: UIView {
         let view = UIButton()
         view.setTitle(SetMyInfoViewModel.ButtonTitle.kindPersonality.rawValue, for: .normal)
         view.setTitleColor(UIColor.setBaseColor(color: .black), for: .normal)
+        view.backgroundColor = .setBaseColor(color: .white)
         return setStackViewComponent(view, tag: 3)
     }()
 
@@ -43,6 +48,7 @@ class TitleStackView: UIView {
         let view = UIButton()
         view.setTitle(SetMyInfoViewModel.ButtonTitle.skillfulPersonality.rawValue, for: .normal)
         view.setTitleColor(UIColor.setBaseColor(color: .black), for: .normal)
+        view.backgroundColor = .setBaseColor(color: .white)
         return setStackViewComponent(view, tag: 4)
     }()
  
@@ -50,6 +56,7 @@ class TitleStackView: UIView {
         let view = UIButton()
         view.setTitle(SetMyInfoViewModel.ButtonTitle.usefulTime.rawValue, for: .normal)
         view.setTitleColor(UIColor.setBaseColor(color: .black), for: .normal)
+        view.backgroundColor = .setBaseColor(color: .white)
         return setStackViewComponent(view, tag: 5)
     }()
     

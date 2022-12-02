@@ -148,7 +148,7 @@ class HomeMapViewController: BaseViewController {
                     viewcontrolller.currentLocation = vc.viewModel.manager.location?.coordinate
                     vc.transition(viewcontrolller, .push)
                 case .matched:
-                    let viewcontrolller = ChatiViewController()
+                    let viewcontrolller = ChatViewController()
                     vc.transition(viewcontrolller, .push)
                   
                 case .waiting:

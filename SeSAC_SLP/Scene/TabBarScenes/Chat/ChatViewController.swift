@@ -12,12 +12,12 @@ import RxCocoa
 import RxKeyboard
 
 //디이닛때 노티피케이션 없애주기
-final class ChatiViewController: BaseViewController {
+final class ChatViewController: BaseViewController {
     
     private let mainView = ChatView()
     private let viewModel = ChatViewModel()
     private let disposedBag = DisposeBag()
-    private let rightbarButtonItem = UIBarButtonItem(image: UIImage(named: Icon.ChatIcon.more.rawValue), style: .plain, target: ChatiViewController.self, action: nil)
+    private let rightbarButtonItem = UIBarButtonItem(image: UIImage(named: Icon.ChatIcon.more.rawValue), style: .plain, target: ChatViewController.self, action: nil)
     
     override func loadView() {
         view = mainView
@@ -25,6 +25,17 @@ final class ChatiViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 수락을 나아중에 해서 상태가 변했을수도 있음
+//        채팅목록받아오기 test -> 최신날짜라로 받아와야함
+        guard let id = UserDefaults.otherUid else {
+            print("\(#function) -> 유저 정보를 받아올 수 없습니다 🔴")
+            return }
+
+        
+        viewModel.fetchChatData(from: id, lastchatDate: "2000-01-01T00:00:00.000Z", idtoken: idToken)
+        print(viewModel.fetchChatData(from: id, lastchatDate: "2000-01-01T00:00:00.000Z", idtoken: idToken))
+        print(viewModel.matchingStatus.value)
         
         NotificationCenter.default.addObserver(self, selector: #selector(getMessage(notification:)), name: NSNotification.Name(SocketIOManager.shared.NotificationName), object: nil)
         
@@ -43,11 +54,13 @@ final class ChatiViewController: BaseViewController {
         let chat = notification.userInfo![Payload.CodingKeys.chat.rawValue] as! String
         let createdAt = notification.userInfo![Payload.CodingKeys.createdAt.rawValue] as! String
         
-        var apiValue: [Payload] = []
+            // Payload 데이터
         let value = Payload(id: id, to: to, from: from, chat: chat, createdAt: createdAt)
-//        apiValue.append(value)
-        // 소켓에서 오는 데이터를 여기서 넣어줌 -> 램에 저장해줘얗마
-//        chatData.accept(apiValue)
+            // 데이터 쌓아줌, 뷰모델에서 chatList 이벤트 던짐 -> 시점 체크하기
+        viewModel.setchatList(addchatList: value)
+        
+        mainView.tableView.reloadData()
+        mainView.tableView.scrollToRow(at: IndexPath(row: viewModel.chatData.value.count - 1, section: 0), at: .bottom, animated: false)
     }
  
     override func configure() {
@@ -67,17 +80,6 @@ final class ChatiViewController: BaseViewController {
         navigationItem.title = "\(name)"
         navigationItem.rightBarButtonItem = rightbarButtonItem
         
-        // 수락을 나아중에 해서 상태가 변했을수도 있음
-//        채팅목록받아오기 test -> 최신날짜라로 받아와야함
-        guard let id = UserDefaults.otherUid else {
-            print("\(#file), \(#function) -> 유저 정보를 받아올 수 없습니다 🔴")
-            return }
-        
-        viewModel.fetchChatData(from: id, lastchatDate: "2000-01-01T00:00:00.000Z", idtoken: idToken)
-        
-        print(viewModel.fetchChatData(from: id, lastchatDate: "2000-01-01T00:00:00.000Z", idtoken: idToken))
-        
-        print(viewModel.matchingStatus.value)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -95,7 +97,6 @@ final class ChatiViewController: BaseViewController {
                 guard let self = self, let uid = UserDefaults.otherUid else {
                     print("\(#file), \(#function) 상대방의 uid가 nil")
                     return }
-          
                 self.viewModel.sendChat(to: uid, contents: self.viewModel.textViewText.value, idtoken: self.idToken)
             }.disposed(by: disposedBag)
         
@@ -118,7 +119,7 @@ final class ChatiViewController: BaseViewController {
                 vc.mainView.moreView.cancelButton.setTitle(status.rawValue, for: .normal)
             }.disposed(by: disposedBag)
         
-        //데이터 램에 저장해주는거 대신 넣어줘야함
+        //데이터 램에 저장해주는거 대신 넣어줘야함, indexpath 방식 말고 생각해보기
         viewModel.chatData
             .withUnretained(self)
             .bind { vc, data in
@@ -137,7 +138,7 @@ final class ChatiViewController: BaseViewController {
                 case .Success:
                     vc.mainView.moreView.cancelButton.setTitle(vc.viewModel.studyStatus.value.rawValue, for: .normal)
                 default:
-                    print(#file, #function, "오류발생 🔴")
+                    print(#function, "오류발생 🔴")
                 }
             }.disposed(by: disposedBag)
         
@@ -171,7 +172,7 @@ final class ChatiViewController: BaseViewController {
                     make.top.equalToSuperview().offset(height)
                     make.horizontalEdges.equalToSuperview()
                     make.centerX.equalToSuperview()
-                    make.bottom.equalTo(self.mainView.containiview.snp.top).offset(-height)
+                    make.bottom.equalTo(self.mainView.containiview.snp.top)
                 }
                 
                 self.mainView.layoutIfNeeded()
@@ -212,7 +213,7 @@ final class ChatiViewController: BaseViewController {
     }
 }
 
-extension ChatiViewController: UITableViewDelegate, UITableViewDataSource {
+extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 100

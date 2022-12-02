@@ -27,6 +27,7 @@ final class ChatViewModel: EnableDataInNOut {
     var studyStatus: BehaviorRelay<MoreBtnUserStatus> = BehaviorRelay(value: .cancel)
     let chatData: BehaviorRelay<[Payload]> = BehaviorRelay(value: [])
     let myUid: BehaviorRelay<String?> = BehaviorRelay(value: "고래밥")
+  
     
     struct Input {
         let tapSendButton: ControlEvent<Void>
@@ -47,16 +48,24 @@ final class ChatViewModel: EnableDataInNOut {
         return Output(tapSendButton: tapSendButton, cancelButton: cancelButton, changeMessage: changeMessage)
     }
     
+    func setchatList(addchatList: Payload) {
+        print(chatData.value, "======= addwish 이전")
+        var tempList = chatData.value
+        tempList.append(addchatList)
+        print(chatData.value, "======= addwish 이후")
+        chatData.accept(tempList)
+    }
+    
     func changeMorebuttontitle() {
         guard let matchstatus = matchingStatus.value[0].matched, let dogged = matchingStatus.value[0].dodged, let reviewed = matchingStatus.value[0].reviewed else {
-            print("\(#function), \(#file) 상대방 매칭상태 못 받아옴")
+            print("\(#function) 상대방 매칭상태 못 받아옴")
             return }
         if matchstatus == 1 {
         studyStatus.accept(ChatViewModel.MoreBtnUserStatus.cancel)
         } else if dogged == 1 || reviewed == 1 {
             studyStatus.accept(ChatViewModel.MoreBtnUserStatus.finished)
         } else {
-            print(#file, #function, "오류체크하기 더보기 버튼 사용자상태 조건문 다시 확인 🔴")
+            print( #function, "오류체크하기 더보기 버튼 사용자상태 조건문 다시 확인 🔴")
         }
     }
     
@@ -64,13 +73,13 @@ final class ChatViewModel: EnableDataInNOut {
         let api = SeSACAPI.chatList(from: from, lastchatDate: lastchatDate)
         Network.shared.receiveRequestSeSAC(type: FetchingChatData.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode in
             guard let data = data?.payload else {
-                print("채팅목록 데이터를 받아올 수 없음 🔴", #file)
+                print("채팅목록 데이터를 받아올 수 없음 🔴", #function)
                 return
             }
             self?.chatData.accept(data)
             print("채팅목록 데이터 받아옴 🟢", data)
             guard let status = StatusOfFetchingChat(rawValue: statusCode) else {
-                print("채팅목록 상태코드를 받아 올 수 없습니다 🔴", #file)
+                print("채팅목록 상태코드를 받아 올 수 없습니다 🔴", #function)
                 return }
             
             SocketIOManager.shared.establistConnection()
@@ -96,7 +105,7 @@ final class ChatViewModel: EnableDataInNOut {
         
         Network.shared.sendRequestSeSAC(url: api.url, parameter: api.parameter, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] statusCode in
             guard let status = Dodge(rawValue: statusCode) else {
-                print("스터디를 취소할 수 없음 가드구문 🔴", #file)
+                print("스터디를 취소할 수 없음 가드구문 🔴", #function)
                 return }
             print("스터디 취소 성공 🟢")
             self?.cancelApi.accept(status)
