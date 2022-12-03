@@ -13,7 +13,7 @@ class BaseViewController: UIViewController, BaseDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
       
-        if !(topViewController is SignInViewController) {
+        if !(topViewController is SignInViewController), !(topViewController is VerificationViewController) {
             guard let idtoken = UserDefaults.idtoken else {
                 let onboarding = OnboardingViewController()
                 setInitialViewController(to: onboarding)

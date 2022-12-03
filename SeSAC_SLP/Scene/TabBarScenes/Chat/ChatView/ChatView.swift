@@ -33,7 +33,7 @@ class ChatView: BaseView {
         view.textContainer.maximumNumberOfLines = 3
         view.textContainer.lineBreakMode = .byTruncatingTail
         view.backgroundColor = .setGray(color: .gray1)
-        view.textColor = .setBaseColor(color: .white)
+        view.textColor = .setBaseColor(color: .black)
         view.text = "메세지를 입력하세요"
         return view
     }()

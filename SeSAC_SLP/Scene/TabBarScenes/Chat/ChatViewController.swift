@@ -66,7 +66,6 @@ final class ChatViewController: BaseViewController {
         //바 설정
         navigationItem.title = "\(name)"
         navigationItem.rightBarButtonItem = rightbarButtonItem
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -125,7 +124,7 @@ final class ChatViewController: BaseViewController {
             .bind { vc, data in
                 if data.count != 0 {
                     vc.mainView.tableView.reloadData()
-                    vc.mainView.tableView.scrollToRow(at: IndexPath(row: data.count - 1, section: 0), at: .bottom, animated: false)
+//                    vc.mainView.tableView.scrollToRow(at: IndexPath(row: data.count - 1, section: 0), at: .bottom, animated: false)
                 }
             }.disposed(by: disposedBag)
     }

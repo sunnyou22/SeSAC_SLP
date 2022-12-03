@@ -60,11 +60,14 @@ class HomeMapViewController: BaseViewController {
         mainView.mapView.delegate = self
         mainView.mapView.showsUserLocation = false // 내 위치 지도에 표시
         mainView.mapView.setUserTrackingMode(.none, animated: true) // 내 위치를 기준으로 움직이기 위함
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //MARK: - viewWillAppear        super.viewWillAppear(animated)
+        //MARK: - viewWillAppear
+        super.viewWillAppear(animated)
+        
+        print("뷰 윌 어피엉~---------------------------------------------")
+        
         // 바인드로 맵에 대한 데이터 갱신
         bindMapData()
         
@@ -77,11 +80,27 @@ class HomeMapViewController: BaseViewController {
         // 현재위치를 기준으로 최초로 불러오기
         
         //        viewModel.fetchMapData(lat: (manager.location?.coordinate.latitude)!, long: (manager.location?.coordinate.longitude)!, idtoken: idtoken)
-        commonAPIviewModel.fetchMapData(lat: MapViewModel.LandmarkLocation.sesacLocation.latitude, long: MapViewModel.LandmarkLocation.sesacLocation.longitude, idtoken: idToken)
+//        commonAPIviewModel.fetchMapData(lat: MapViewModel.LandmarkLocation.sesacLocation.latitude, long: MapViewModel.LandmarkLocation.sesacLocation.longitude, idtoken: idToken)
         
         // 매칭상태가져오기 테스트
         commonAPIviewModel.getMatchStatus(idtoken: idToken)
     }
+    
+    /*
+     
+     self?.mainView.mapView.isUserInteractionEnabled = false
+     guard let location = self?.viewModel.manager.location?.coordinate else { return }
+     guard let idtoken = UserDefaults.idtoken else {
+         print("itocken만료")
+         return
+     }
+     //움직일 때 마다 주변 정보를 받아옴
+     //나중에 내 위치로 바궈주기
+     self?.commonAPIviewModel.fetchMapData(lat: MapViewModel.LandmarkLocation.sesacLocation.latitude, long: MapViewModel.LandmarkLocation.sesacLocation.longitude, idtoken: idtoken)
+     DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+         self?.mainView.mapView.isUserInteractionEnabled = true
+     }
+     */
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -277,19 +296,8 @@ class HomeMapViewController: BaseViewController {
         //
         mainView.mapView.rx.regionDidChangeAnimated
             .subscribe(onNext: { [weak self] _ in
-                print("Map region changed")
-                
-                self?.mainView.mapView.isUserInteractionEnabled = false
-                guard let location = self?.viewModel.manager.location?.coordinate else { return }
-                guard let idtoken = UserDefaults.idtoken else {
-                    print("itocken만료")
-                    return
-                }
-                //움직일 때 마다 주변 정보를 받아옴
-                self?.commonAPIviewModel.fetchMapData(lat: location.latitude, long: location.longitude, idtoken: idtoken)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                    self?.mainView.mapView.isUserInteractionEnabled = true
-                }
+                print("Map region changed0000000000===========================================")
+              
             }).disposed(by: disposedBag)
         
         mainView.mapView.rx.region

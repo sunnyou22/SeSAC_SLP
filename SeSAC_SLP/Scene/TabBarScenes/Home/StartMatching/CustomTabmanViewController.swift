@@ -62,7 +62,7 @@ final class CustomTabmanViewController: TabmanViewController {
             .bind { vc, statusCode in
                 switch statusCode {
                 case .success:
-                    print("찾기중단 성공, 🚀")
+                    print("찾기중단 성공")
                     guard let viewControllers : [UIViewController] = vc.navigationController?.viewControllers as? [UIViewController] else { return  }
                     vc.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: true)
                 case .matched:

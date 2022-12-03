@@ -74,6 +74,9 @@ extension ChatViewController {
             // 데이터 쌓아줌, 뷰모델에서 chatList 이벤트 던짐 -> 시점 체크하기
         viewModel.setchatList(addchatList: value) // 화면에 보여주고
         
+        guard viewModel.chatData.value.count != 0 else {
+           return
+        }
         mainView.tableView.reloadData()
         mainView.tableView.scrollToRow(at: IndexPath(row: viewModel.chatData.value.count - 1, section: 0), at: .bottom, animated: false)
     }

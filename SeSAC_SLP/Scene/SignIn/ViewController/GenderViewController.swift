@@ -103,6 +103,8 @@ class GenderViewController: BaseViewController {
                 case .ClientError:
                     print("클라에러🔴", #function)
                 case .SignInUser:
+                    let homeVC = HomeMapViewController()
+                    vc.setInitialViewController(to: homeVC)
                     print("이미가입한 유저🔴", #function)
                 case .InvaliedNickName:
                     vc.mainView.makeToast("사용할 수 없는 닉네임입니다", duration: 1, position: .center) { didTap in
@@ -114,13 +116,10 @@ class GenderViewController: BaseViewController {
                 }
             }.disposed(by: disposedBag)
     }
-
-//    
+   
     func deleteUserDefaults() {
         for key in 1...(UserDaultsKey.allCases.count - 1) {
             UserDefaults.standard.removeObject(forKey: UserDaultsKey.allCases[key].rawValue)
         }
-            
     }
-    
 }

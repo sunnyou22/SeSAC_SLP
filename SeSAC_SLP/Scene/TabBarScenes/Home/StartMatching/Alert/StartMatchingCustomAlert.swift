@@ -48,6 +48,7 @@ class StartMatchingCustomAlert: BaseViewController {
     
     func bind() {
         guard let data = data?[0] else {
+            print(data, "==================값전달받음" )
             print("데이터가 없슴다", #file)
             return }
         let input = AlertViewModel.Input(tapOk: alertView.okButton.rx
@@ -103,10 +104,11 @@ class StartMatchingCustomAlert: BaseViewController {
                 case .success:
                     vc.showDefaultToast(message: .StudyAcceptedStatus(.accepted)) {
                         MapViewModel.ploatingButtonSet.accept(.matched)
-                        vc.dismiss(animated: true)
-                        let chatVC = ChatViewController()
-                        vc.transition(chatVC, .push)
-                        print("채팅화면으로 이동 🟢")
+                        vc.dismiss(animated: true) {
+                            let chatVC = ChatViewController()
+                            vc.transition(chatVC, .push)
+                            print("채팅화면으로 이동 🟢")
+                        }
                     }
                 case .othersmatched:
                     vc.showDefaultToast(message: .StudyAcceptedStatus(.othersmatched))

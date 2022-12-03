@@ -55,7 +55,7 @@ class NicknameViewController: BaseViewController {
             .map { ($0.count < 10 && $0.count > 1) }
             .withUnretained(self)
             .bind { vc, bool in
-                print("닉네임 🚀 \(UserDefaults.nickname)")
+                print("닉네임 유저디폴츠 출력 \(UserDefaults.nickname)")
                 vc.mainView.nextButton.backgroundColor = bool ? .setBrandColor(color: .green) : .setGray(color: .gray6)
                 vc.viewModel.buttonValid.accept(bool)
             }.disposed(by: disposedBag)
@@ -69,7 +69,6 @@ class NicknameViewController: BaseViewController {
             .bind { vc, text in
                 vc.viewModel.textfield.accept(text)
                 UserDefaults.nickname = text
-                print("닉네임 🚀🚀 \(UserDefaults.nickname)")
 
             }.disposed(by: disposedBag)
         

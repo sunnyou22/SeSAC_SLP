@@ -27,7 +27,6 @@ final class CommonServerManager {
         let api = SeSACAPI.getUserInfo
         
         Network.shared.receiveRequestSeSAC(type: GetUerIfo.self, url: api.url, parameter: nil, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
-            
             guard let userStatus = UserStatus(rawValue: statusCode) else { return }
             self?.userStatus.accept(userStatus)
             
@@ -35,9 +34,7 @@ final class CommonServerManager {
                 print("userData 가져오기 실패 🔴")
                 return
             }
-            
-            print("로그인 성공 혹은 유저 정보가져오기 성공 ✅", data)
-            
+            print("로그인 성공 혹은 유저 정보가져오기 성공 ✅🔗🔗🔗", data)
             //성공
             completion?(data)
         }
@@ -58,7 +55,7 @@ final class CommonServerManager {
             }
             
             UserDefaults.searchData = [data]
-            print("주변 새싹 정보 받아오기 완료 유저디폴츠 출력✅", #function, "/n", UserDefaults.searchData)
+            print("주변 새싹 정보 받아오기 완료 유저디폴츠 출력✅🔗🔗🔗", #function, "/n", UserDefaults.searchData)
         }
     }
     
@@ -77,7 +74,7 @@ final class CommonServerManager {
                 return
             }
             
-            print("getMatchStatus🚀\n", result.matched ?? 100, result, myQueueStatus)
+            print("getMatchStatus 메서드 매칭상태 출력 \n", result.matched ?? 100, result, myQueueStatus)
             UserDefaults.otherUid = result.matchedUid ?? ""
             // 호출할 때마다 유저의 상태를 알 수 잇도록
             MapViewModel.ploatingButtonSet.accept(UserMatchingStatus(rawValue: result.matched ?? 2)!)

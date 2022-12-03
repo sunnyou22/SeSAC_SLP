@@ -34,7 +34,7 @@ class LaunchScreenViewController: UIViewController {
         view.backgroundColor = .setBaseColor(color: .white)
         configure()
         setContents()
-      
+        
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         
@@ -54,6 +54,8 @@ class LaunchScreenViewController: UIViewController {
         
         self.commonSerVerModel.USerInfoNetwork(idtoken: idtoken)
         
+//        UserDefaults.standard.removeObject(forKey: "idtoken")
+   
         //데이터 통신이 끝난 이후 불러지는 코드인데
         self.commonSerVerModel.userStatus
             .asDriver(onErrorJustReturn: (.InvaliedNickName))
