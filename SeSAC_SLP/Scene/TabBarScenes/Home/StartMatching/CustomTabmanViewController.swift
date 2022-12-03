@@ -68,6 +68,7 @@ final class CustomTabmanViewController: TabmanViewController {
                 case .matched:
                     vc.showDefaultToast(message: .DeleteStatus(.matched))
                 case .firebaseTokenError:
+                    FirebaseManager.shared.getIDTokenForcingRefresh()
                     vc.showDefaultToast(message: .DeleteStatus(.firebaseTokenError))
                 case .notsignUpUser:
                     vc.showDefaultToast(message: .DeleteStatus(.notsignUpUser))

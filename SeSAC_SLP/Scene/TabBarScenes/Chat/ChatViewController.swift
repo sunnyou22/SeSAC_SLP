@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Toast
 import RxSwift
 import RxCocoa
 import RxKeyboard
@@ -16,6 +17,8 @@ final class ChatViewController: BaseViewController {
     
     final let mainView = ChatView()
     final let viewModel = ChatViewModel()
+    final let commonserver = CommonServerManager()
+    
     final let realmViewModel = RealmViewModel()
     final let disposedBag = DisposeBag()
     private let rightbarButtonItem = UIBarButtonItem(image: UIImage(named: Icon.ChatIcon.more.rawValue), style: .plain, target: ChatViewController.self, action: nil)
@@ -27,16 +30,19 @@ final class ChatViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         
+        
+        print("Realm is located at:", ChatDataListRepository.shared.localRealm.configuration.fileURL!)
+  
+        // 지금 Test로 삭제했다가 다시 넣어주는 걸로 해보기
+       let tasks = ChatDataListRepository.shared.fetchDate()
+      
         // 수락을 나아중에 해서 상태가 변했을수도 있음
 //        채팅목록받아오기 test -> 최신날짜라로 받아와야함
         guard let id = UserDefaults.otherUid else {
             print("\(#function) -> 유저 정보를 받아올 수 없습니다 🔴")
             return }
         
-        viewModel.fetchChatData(from: id, lastchatDate: "2000-01-01T00:00:00.000Z", idtoken: idToken)
-        print(viewModel.fetchChatData(from: id, lastchatDate: "2000-01-01T00:00:00.000Z", idtoken: idToken))
-        print(viewModel.matchingStatus.value)
+        viewModel.fetchChatData(from: id, lastchatDate: tasks.last?.createdAt ?? "2000-01-01T00:00:00.000Z", idtoken: idToken)
         
         NotificationCenter.default.addObserver(self, selector: #selector(getMessage(notification:)), name: NSNotification.Name(SocketIOManager.shared.NotificationName), object: nil)
         
@@ -50,22 +56,18 @@ final class ChatViewController: BaseViewController {
  
     override func configure() {
         super.configure()
-        
-        guard let name = UserDefaults.getUerIfo?[0].nick else {
-            print("\(#file), \(#function) -> 유저 정보를 받아올 수 없습니다 🔴")
-            return }
-        
-        viewModel.myUid.accept(UserDefaults.getUerIfo?[0].uid)
-        print(UserDefaults.getUerIfo?[0].uid, "==================================")
-    
+        //내 uid 가져오기
+        commonserver.USerInfoNetwork(idtoken: idToken, completion: { [weak self] data in
+            print("chatviewcontroller에 data 가져오기 성공", data)
+            //바 설정 -> 네트워크 통신은 비동기이기 때문
+            self?.navigationItem.title = "\(self!.commonserver.userData.value[0].nick)"
+            self?.navigationItem.rightBarButtonItem = self?.rightbarButtonItem
+        })
+  
         // 델리게이트 넘겨주기
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
         mainView.tableView.tableHeaderView = ChatHeaderView()
-        
-        //바 설정
-        navigationItem.title = "\(name)"
-        navigationItem.rightBarButtonItem = rightbarButtonItem
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -75,7 +77,7 @@ final class ChatViewController: BaseViewController {
     }
     
     private func bindRealm() {
-        realmViewModel.task
+        realmViewModel.tasks
             .bind { _ in
                 print("Realm is located at:", ChatDataListRepository.shared.localRealm.configuration.fileURL!)
             }.disposed(by: disposedBag)
@@ -87,10 +89,10 @@ final class ChatViewController: BaseViewController {
         
         output.tapSendButton
             .drive { [weak self] _ in
-                guard let self = self, let otheruid = UserDefaults.otherUid, let myuid = UserDefaults.getUerIfo?[0].uid else {
+                guard let self = self, let otheruid = UserDefaults.otherUid else {
                     print("\(#file), \(#function) 상대방의 uid가 nil")
                     return }
-                let value = Payload(id: UserDefaults.getUerIfo?[0].id ?? "", to: otheruid, from: myuid, chat: self.viewModel.textViewText.value, createdAt: CustomFormatter.shared.setformatterToString(Date()) ?? "")
+                let value = Payload(id: self.commonserver.userData.value[0].id, to: otheruid, from: self.commonserver.userData.value[0].uid, chat: self.viewModel.textViewText.value, createdAt: CustomFormatter.shared.setformatterToString(Date()) ?? "")
                 
                 self.viewModel.setchatList(addchatList: value)
                 
@@ -119,7 +121,7 @@ final class ChatViewController: BaseViewController {
             }.disposed(by: disposedBag)
         
         //데이터 램에 저장해주는거 대신 넣어줘야함, indexpath 방식 말고 생각해보기
-        viewModel.chatData
+        viewModel.serverChatData
             .withUnretained(self)
             .bind { vc, data in
                 if data.count != 0 {
@@ -146,7 +148,18 @@ final class ChatViewController: BaseViewController {
             .withUnretained(self)
             .asDriver(onErrorJustReturn: (self, .success))
             .drive { vc, status in
-              
+                switch status {
+                case .success:
+                  print("채팅보내기 성공~")
+                default:
+                    print(status)
+                    vc.mainView.makeToast("메세지 전송에 실패했습니다", duration: 2, position: .center) { didTap in
+                        vc.mainView.tableView.reloadData()
+                        vc.viewModel.removeLastChat()
+                       
+                        // 마지막줄 리로드 스크롤
+                    }
+                }
             }.disposed(by: disposedBag)
         
         viewModel.fetchChatApi
@@ -155,15 +168,9 @@ final class ChatViewController: BaseViewController {
             .drive { vc, status in
                 switch status {
                 case .success:
-                    print("Realm is located at:", ChatDataListRepository.shared.localRealm.configuration.fileURL!)
-                    for i in vc.viewModel.chatData.value {
-                        let task = PayLoadListTable(id: i.id, to: i.to , from: i.from , chat: i.chat , createdAt: i.createdAt )
-                        ChatDataListRepository.shared.addItem(item: task) {
-                            print("램 payloadListTable add 완료")
-                        }
-                    }
+                    vc.viewModel.addLatestDataToRealm()
                 default:
-                    print("서버응답값 확인하기 ERROR")
+                    vc.mainView.makeToast("채팅을 연결할 수 없습니다 ㅜㅜ \(status)", duration: 2, position: .center)
                 }
             }.disposed(by: disposedBag)
     }

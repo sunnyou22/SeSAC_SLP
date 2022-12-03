@@ -12,5 +12,5 @@ import RxCocoa
 import RealmSwift
 
 class RealmViewModel {
-    var task = PublishRelay<Results<PayLoadListTable>>()
+    var tasks: BehaviorRelay<Results<PayLoadListTable>?> = BehaviorRelay(value: nil)
 }

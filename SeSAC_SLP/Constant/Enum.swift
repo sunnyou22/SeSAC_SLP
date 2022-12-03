@@ -143,3 +143,11 @@ enum Placeholder {
         }
     }
 }
+
+//MARK: - 렘 과 서버 비교
+
+enum CompareFetch {
+    case refresh
+    case updated
+    case error
+}

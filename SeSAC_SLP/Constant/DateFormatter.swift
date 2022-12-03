@@ -16,7 +16,7 @@ struct CustomFormatter {
     func setformatter(date: Date) -> Date? {
         let formatter = DateFormatter()
         formatter.locale = ko
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         
         let str = formatter.string(from: date)
         
@@ -26,10 +26,19 @@ struct CustomFormatter {
     func setformatterToString(_ value: Date) -> String? {
         let formatter = DateFormatter()
         formatter.locale = ko
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         
         return formatter.string(from: value)
     }
+    
+    func setformatterToDate(_ value: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.locale = ko
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        
+        return formatter.date(from: value)
+    }
+    
     
 //    func setMessaage(date: Date) -> String {
 //

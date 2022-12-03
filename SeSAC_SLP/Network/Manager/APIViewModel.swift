@@ -20,6 +20,7 @@ final class CommonServerManager {
     let queueSearchStatus = PublishRelay<QueueSearchStatus>()
     let matchingStatus = PublishRelay<MyQueueStatus>()
     let deleteStatus = PublishRelay<DeleteStatus>()
+    let userData: BehaviorRelay<[GetUerIfo]> = BehaviorRelay(value: [])
     //
     //MAKR: - 모델로 빼기
     
@@ -32,9 +33,13 @@ final class CommonServerManager {
             
             guard let data = data else {
                 print("userData 가져오기 실패 🔴")
+                self?.userData.accept([])
                 return
             }
+           
             print("로그인 성공 혹은 유저 정보가져오기 성공 ✅🔗🔗🔗", data)
+            
+            self?.userData.accept([data])
             //성공
             completion?(data)
         }
@@ -55,6 +60,7 @@ final class CommonServerManager {
             }
             
             UserDefaults.searchData = [data]
+          
             print("주변 새싹 정보 받아오기 완료 유저디폴츠 출력✅🔗🔗🔗", #function, "/n", UserDefaults.searchData)
         }
     }

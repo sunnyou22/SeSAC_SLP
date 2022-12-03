@@ -23,7 +23,7 @@ class ChatDataListRepository: ChatDataListRepositoryType {
     let localRealm = try! Realm()
     
     func fetchDate() -> Results<PayLoadListTable> {
-        return localRealm.objects(PayLoadListTable.self)
+        return localRealm.objects(PayLoadListTable.self).sorted(byKeyPath: "createdAt", ascending: true)
     }
    
     func addItem(item: PayLoadListTable, errorHandler: @escaping (() -> Void)) {

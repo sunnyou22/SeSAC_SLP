@@ -90,7 +90,6 @@ extension UserDefaults {
     
     @UserDeaultHelper(key: "otherUid", defaultValue: nil)
     static var otherUid: String?
-
     
     // Codable
     @UserDeaultCodable(key: "searchData", defaultValue: nil)

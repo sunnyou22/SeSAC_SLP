@@ -59,11 +59,12 @@ class HomeMapViewController: BaseViewController {
         viewModel.manager.requestWhenInUseAuthorization()
         mainView.mapView.delegate = self
         mainView.mapView.showsUserLocation = false // 내 위치 지도에 표시
-        mainView.mapView.setUserTrackingMode(.none, animated: true) // 내 위치를 기준으로 움직이기 위함
+        mainView.mapView.setUserTrackingMode(.none, animated: true) // 내 위치를 기준으로 움직이기 위함, 일단 non
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //MARK: - viewWillAppear        super.viewWillAppear(animated)
+        //MARK: - viewWillAppear
+        super.viewWillAppear(animated)
         // 바인드로 맵에 대한 데이터 갱신
         bindMapData()
         
@@ -186,11 +187,12 @@ class HomeMapViewController: BaseViewController {
         //                print(value, "==========================================================")
         //                vc.viewModel.getMatchStatus(idtoken: idtoken)
         //            }.disposed(by: disposedBag) // 화면에서 나갈 때 디스포스 백
-        //
+    
         viewModel.manager.rx
             .didUpdateLocations
             .debug("didUpdateLocations")
             .subscribe(onNext: { [weak self] value in
+  
                 guard let annotations = self?.viewModel.addAnnotations() else { return }
                 self?.mainView.mapView.addAnnotations(annotations)
             }).disposed(by: disposedBag)
@@ -214,6 +216,7 @@ class HomeMapViewController: BaseViewController {
         viewModel.setdefaultLocation
             .withUnretained(self)
             .bind { vc, location in
+                // 권한설정 기본 새싹위치로 넣어주고 잇음
                 let region = MKCoordinateRegion(center: location, latitudinalMeters: 700, longitudinalMeters: 700)
                 vc.mainView.mapView.setRegion(region, animated: true)
             }.disposed(by: disposedBag)
@@ -252,6 +255,7 @@ class HomeMapViewController: BaseViewController {
             .location
             .debug("location")
             .subscribe(onNext: { value in
+          
             }).disposed(by: disposedBag)
     }
     
@@ -277,7 +281,7 @@ class HomeMapViewController: BaseViewController {
         mainView.mapView.rx.regionDidChangeAnimated
             .subscribe(onNext: { [weak self] _ in
                 print("Map region changed")
-                
+             
                 self?.mainView.mapView.isUserInteractionEnabled = false
                 guard let location = self?.viewModel.manager.location?.coordinate else { return }
                 guard let idtoken = UserDefaults.idtoken else {
@@ -286,7 +290,10 @@ class HomeMapViewController: BaseViewController {
                 }
                 //움직일 때 마다 주변 정보를 받아옴
                 //나중에 내 위치로 바궈주기 뷰가 계속 움직이기까 마지막으로 움직였던 좌표를 기준으로 정보를 불러옴
-                self?.commonAPIviewModel.fetchMapData(lat: MapViewModel.LandmarkLocation.sesacLocation.latitude, long: MapViewModel.LandmarkLocation.sesacLocation.longitude, idtoken: idtoken)
+                
+//                self?.commonAPIviewModel.fetchMapData(lat: location.latitude, long: location.longitude, idtoken: idtoken) -> 현위치로 이후에 바꾸기
+                    // 뷰모델 현재위치 이용하기
+                self?.commonAPIviewModel.fetchMapData(lat:  MapViewModel.LandmarkLocation.sesacLocation.latitude, long: MapViewModel.LandmarkLocation.sesacLocation.longitude, idtoken: idtoken)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     self?.mainView.mapView.isUserInteractionEnabled = true
                 }

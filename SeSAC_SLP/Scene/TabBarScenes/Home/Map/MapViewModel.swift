@@ -40,16 +40,12 @@ final class MapViewModel {
             checkUserDevieceLocationServiceAuthorization(authorizationStatus)
         }
     }
-
-    func setcurrentRegion(location: CLLocation?, completion: @escaping ((MKCoordinateRegion) -> Void)) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            if let coordinate = location?.coordinate {
-                
-                // 현재 위치의 반경을 700으로 정해주기
-                let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 700, longitudinalMeters: 700)
-                completion(region)
-            }
-        }
+    
+    // 나중에 현재위치 넣어줄때 사용하기
+    func setcurrentRegion(location: CLLocationCoordinate2D, completion: @escaping ((MKCoordinateRegion) -> Void)) {
+        // 현재 위치의 반경을 700으로 정해주기
+        let region = MKCoordinateRegion(center: location, latitudinalMeters: 700, longitudinalMeters: 700)
+        completion(region)
     }
     
     func checkUserDevieceLocationServiceAuthorization(_ authorizationStatus: CLAuthorizationStatus) {
@@ -61,8 +57,12 @@ final class MapViewModel {
             print("DENIED, 아이폰 설정으로 유도")
             checkAuthorizationStatus.accept(.restricted)
             checkAuthorizationStatus.accept(.denied)
+            // 기본 새싹위치로 넣어주고 잇음
             setdefaultLocation.accept(MapViewModel.LandmarkLocation.sesacLocation)
         case .authorizedWhenInUse:
+            setcurrentRegion(location: MapViewModel.LandmarkLocation.sesacLocation) { _ in
+                print("들어오남")
+            }
             manager.startUpdatingLocation() // 이게 있어야 didUpdateLocation메서드가 호출
         default: print("DEFAULT")
         }
@@ -76,8 +76,7 @@ final class MapViewModel {
             search.fromQueueDB.forEach { data in
                 let center = CLLocationCoordinate2D(latitude: data.lat, longitude: data.long)
                 let annotation = MKPointAnnotation()
-                let region = MKCoordinateRegion(center: center, latitudinalMeters: 700, longitudinalMeters: 700)
-                
+          
                 annotation.coordinate = center
                 annotation.title = "\(data.nick)"
                 annotations.append(annotation)
