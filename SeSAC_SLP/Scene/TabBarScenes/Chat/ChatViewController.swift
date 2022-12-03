@@ -16,6 +16,7 @@ final class ChatViewController: BaseViewController {
     
     final let mainView = ChatView()
     final let viewModel = ChatViewModel()
+    final let realmViewModel = RealmViewModel()
     final let disposedBag = DisposeBag()
     private let rightbarButtonItem = UIBarButtonItem(image: UIImage(named: Icon.ChatIcon.more.rawValue), style: .plain, target: ChatViewController.self, action: nil)
     
@@ -41,6 +42,7 @@ final class ChatViewController: BaseViewController {
         
         view.backgroundColor = .blue
         
+        bindRealm()
         bindErrorStatus()
         bindGesture()
         bind()
@@ -73,6 +75,13 @@ final class ChatViewController: BaseViewController {
         SocketIOManager.shared.closeConnection()
     }
     
+    private func bindRealm() {
+        realmViewModel.task
+            .bind { _ in
+                print("Realm is located at:", ChatDataListRepository.shared.localRealm.configuration.fileURL!)
+            }.disposed(by: disposedBag)
+    }
+    
     private func bind() {
         let input = ChatViewModel.Input(tapSendButton: mainView.sendbutton.rx.tap, cancelButton: mainView.moreView.cancelButton.rx.tap, changeMessage: mainView.messageTextView.rx.text)
         let output = viewModel.transform(input: input)
@@ -82,11 +91,12 @@ final class ChatViewController: BaseViewController {
                 guard let self = self, let otheruid = UserDefaults.otherUid, let myuid = UserDefaults.getUerIfo?[0].uid else {
                     print("\(#file), \(#function) 상대방의 uid가 nil")
                     return }
-                let value = Payload(id: UserDefaults.getUerIfo?[0].id, to: otheruid, from: myuid, chat: self.viewModel.textViewText.value, createdAt: CustomFormatter.shared.setformatterToString(Date()))
+                let value = Payload(id: UserDefaults.getUerIfo?[0].id ?? "", to: otheruid, from: myuid, chat: self.viewModel.textViewText.value, createdAt: CustomFormatter.shared.setformatterToString(Date()) ?? "")
                 
                 self.viewModel.setchatList(addchatList: value)
                 
                 self.viewModel.sendChat(to: otheruid, contents: self.viewModel.textViewText.value, idtoken: self.idToken)
+                
                 print(otheruid, self.viewModel.textViewText.value, self.idToken)
             }.disposed(by: disposedBag)
         
@@ -137,7 +147,25 @@ final class ChatViewController: BaseViewController {
             .withUnretained(self)
             .asDriver(onErrorJustReturn: (self, .success))
             .drive { vc, status in
-               
+              
+            }.disposed(by: disposedBag)
+        
+        viewModel.fetchChatApi
+            .withUnretained(self)
+            .asDriver(onErrorJustReturn: (self, .success))
+            .drive { vc, status in
+                switch status {
+                case .success:
+                    print("Realm is located at:", ChatDataListRepository.shared.localRealm.configuration.fileURL!)
+                    for i in vc.viewModel.chatData.value {
+                        let task = PayLoadListTable(id: i.id, to: i.to , from: i.from , chat: i.chat , createdAt: i.createdAt )
+                        ChatDataListRepository.shared.addItem(item: task) {
+                            print("램 payloadListTable add 완료")
+                        }
+                    }
+                default:
+                    print("서버응답값 확인하기 ERROR")
+                }
             }.disposed(by: disposedBag)
     }
     

@@ -32,7 +32,7 @@ class SignInViewController: BaseViewController {
         bindData()
         
         print(UserDefaults.idtoken, "🚀")
-        print("저나번호", UserDefaults.phoneNumber, UserDefaults.phoneNumber)
+        print("저나번호", UserDefaults.phoneNumber)
     }
     
    private func bindData() {

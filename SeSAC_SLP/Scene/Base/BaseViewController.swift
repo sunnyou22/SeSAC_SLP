@@ -12,14 +12,16 @@ class BaseViewController: UIViewController, BaseDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let idtoken = UserDefaults.idtoken else {
-            let onboarding = OnboardingViewController()
-            setInitialViewController(to: onboarding)
-            print("토큰 없어서 온보딩으로 감", #file)
-            return
+      
+        if !(topViewController is SignInViewController) {
+            guard let idtoken = UserDefaults.idtoken else {
+                let onboarding = OnboardingViewController()
+                setInitialViewController(to: onboarding)
+                print("토큰 없어서 온보딩으로 감", #file)
+                return
+            }
+            idToken = idtoken
         }
-        idToken = idtoken
         
         configure()
         setConstraints()

@@ -11,7 +11,6 @@ import RxSwift
 import RxCocoa
 import RxKeyboard
 import RealmSwift
-import RxRealm
 
 final class ChatViewModel: EnableDataInNOut {
     
@@ -104,9 +103,14 @@ final class ChatViewModel: EnableDataInNOut {
                 print("채팅 보내기 상태코드를 받아 올 수 없습니다 🔴", #file)
                 return }
 
-            guard let data = data else { return }
-//        print("채팅보내기 성공 🟢")
-            self.chatApi.accept(status)
+            guard let data = data else {
+                self.chatApi.accept(status)
+                return }
+            //  200이 떴을 때 "램에 넣어주기 랑 셀의 상태도 바꿔줘야함
+            let task = PayLoadListTable(id: data.id, to: data.to, from: data.from, chat: data.chat, createdAt: data.createdAt)
+            ChatDataListRepository.shared.addItem(item: task) {
+                print("데이터 넣기 완료")
+            }
         }
     }
     

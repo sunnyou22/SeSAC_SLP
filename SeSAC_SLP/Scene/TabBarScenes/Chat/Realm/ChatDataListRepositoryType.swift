@@ -16,7 +16,7 @@ fileprivate protocol ChatDataListRepositoryType: AnyObject {
 }
 
 class ChatDataListRepository: ChatDataListRepositoryType {
-    
+ 
     static let shared = ChatDataListRepository()
     private init() { }
     
@@ -25,7 +25,7 @@ class ChatDataListRepository: ChatDataListRepositoryType {
     func fetchDate() -> Results<PayLoadListTable> {
         return localRealm.objects(PayLoadListTable.self)
     }
-    
+   
     func addItem(item: PayLoadListTable, errorHandler: @escaping (() -> Void)) {
         do {
             try localRealm.write({

@@ -43,11 +43,14 @@
 		902B102C291C542700D03C0E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102B291C542700D03C0E /* FirebaseAuth */; };
 		902B102E291C542700D03C0E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102D291C542700D03C0E /* FirebaseCrashlytics */; };
 		902B1030291C542700D03C0E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 902B102F291C542700D03C0E /* FirebaseMessaging */; };
+		90507CE029387EA500B76756 /* ReviewPopUpiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90507CDF29387EA500B76756 /* ReviewPopUpiViewController.swift */; };
+		90507CE229387EB300B76756 /* ReviewPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90507CE129387EB300B76756 /* ReviewPopView.swift */; };
+		90507CE42938A64D00B76756 /* ReviewPopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90507CE32938A64D00B76756 /* ReviewPopViewModel.swift */; };
 		9051720A292E207400DDBC13 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 90517209292E207400DDBC13 /* RxGesture */; };
 		9051720C292E332900DDBC13 /* BaseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9051720B292E332900DDBC13 /* BaseScrollView.swift */; };
 		9051724B292F6FC400DDBC13 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9051724A292F6FC400DDBC13 /* CustomTabBarController.swift */; };
 		9051724E292F70AD00DDBC13 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9051724D292F70AD00DDBC13 /* ShopViewController.swift */; };
-		90517251292F711E00DDBC13 /* ChatiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90517250292F711E00DDBC13 /* ChatiViewController.swift */; };
+		90517251292F711E00DDBC13 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90517250292F711E00DDBC13 /* ChatViewController.swift */; };
 		90517253292F734B00DDBC13 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90517252292F734B00DDBC13 /* Constants.swift */; };
 		90517258292F9ADB00DDBC13 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90517257292F9ADB00DDBC13 /* BaseCollectionViewCell.swift */; };
 		9051725A292FBFD000DDBC13 /* DynamicCollectionView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90517259292FBFD000DDBC13 /* DynamicCollectionView + Extension.swift */; };
@@ -106,10 +109,18 @@
 		90B4DF532935303F001884BC /* ChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF522935303F001884BC /* ChatHeaderView.swift */; };
 		90B4DF55293547A0001884BC /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF54293547A0001884BC /* ChatViewModel.swift */; };
 		90B4DF5729354C08001884BC /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF5629354C08001884BC /* ChatTableViewCell.swift */; };
-		90B4DF5E29369B58001884BC /* RxRealm in Frameworks */ = {isa = PBXBuildFile; productRef = 90B4DF5D29369B58001884BC /* RxRealm */; };
 		90B4DF612936A393001884BC /* MoreButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF602936A393001884BC /* MoreButtonView.swift */; };
+		90B4DF632936DD1D001884BC /* ChatAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4DF622936DD1D001884BC /* ChatAlertViewController.swift */; };
+		90C1E698293A83820082C340 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1E697293A83820082C340 /* RealmModel.swift */; };
+		90C1E69B293A91E10082C340 /* ChatViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1E69A293A91E10082C340 /* ChatViewController + Extension.swift */; };
+		90C1E69D293AA8B80082C340 /* ChatDataListRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1E69C293AA8B80082C340 /* ChatDataListRepositoryType.swift */; };
+		90C1E6A0293AA99A0082C340 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 90C1E69F293AA99A0082C340 /* Realm */; };
+		90C1E6A2293AA99A0082C340 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 90C1E6A1293AA99A0082C340 /* RealmSwift */; };
+		90C1E6A4293B23230082C340 /* RealmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1E6A3293B23230082C340 /* RealmViewModel.swift */; };
 		90DA96C7291CE03500B5CA76 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 90DA96C6291CE03500B5CA76 /* Toast */; };
 		90DB1CCC29334A630005D2A8 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB1CCB29334A630005D2A8 /* Protocol.swift */; };
+		90F74F162937966500F3DBEC /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 90F74F152937966500F3DBEC /* SocketIO */; };
+		90F74F182937A68200F3DBEC /* SocketIoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F74F172937A68200F3DBEC /* SocketIoManager.swift */; };
 		90FD72622921849900BB0077 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD72612921849900BB0077 /* Error.swift */; };
 		90FD7264292187AF00BB0077 /* CautionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD7263292187AF00BB0077 /* CautionModel.swift */; };
 		90FD726729218B4A00BB0077 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD726629218B4A00BB0077 /* FirebaseManager.swift */; };
@@ -167,10 +178,13 @@
 		902B101B291C1A0000D03C0E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		902B101D291C1A8E00D03C0E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		902B101F291C1AF200D03C0E /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		90507CDF29387EA500B76756 /* ReviewPopUpiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPopUpiViewController.swift; sourceTree = "<group>"; };
+		90507CE129387EB300B76756 /* ReviewPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPopView.swift; sourceTree = "<group>"; };
+		90507CE32938A64D00B76756 /* ReviewPopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPopViewModel.swift; sourceTree = "<group>"; };
 		9051720B292E332900DDBC13 /* BaseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollView.swift; sourceTree = "<group>"; };
 		9051724A292F6FC400DDBC13 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		9051724D292F70AD00DDBC13 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
-		90517250292F711E00DDBC13 /* ChatiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatiViewController.swift; sourceTree = "<group>"; };
+		90517250292F711E00DDBC13 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		90517252292F734B00DDBC13 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		90517257292F9ADB00DDBC13 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		90517259292FBFD000DDBC13 /* DynamicCollectionView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicCollectionView + Extension.swift"; sourceTree = "<group>"; };
@@ -224,7 +238,13 @@
 		90B4DF54293547A0001884BC /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		90B4DF5629354C08001884BC /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		90B4DF602936A393001884BC /* MoreButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreButtonView.swift; sourceTree = "<group>"; };
+		90B4DF622936DD1D001884BC /* ChatAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAlertViewController.swift; sourceTree = "<group>"; };
+		90C1E697293A83820082C340 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
+		90C1E69A293A91E10082C340 /* ChatViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController + Extension.swift"; sourceTree = "<group>"; };
+		90C1E69C293AA8B80082C340 /* ChatDataListRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDataListRepositoryType.swift; sourceTree = "<group>"; };
+		90C1E6A3293B23230082C340 /* RealmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmViewModel.swift; sourceTree = "<group>"; };
 		90DB1CCB29334A630005D2A8 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		90F74F172937A68200F3DBEC /* SocketIoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIoManager.swift; sourceTree = "<group>"; };
 		90FD72612921849900BB0077 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		90FD7263292187AF00BB0077 /* CautionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CautionModel.swift; sourceTree = "<group>"; };
 		90FD726629218B4A00BB0077 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -259,10 +279,12 @@
 				902B1030291C542700D03C0E /* FirebaseMessaging in Frameworks */,
 				9066125F29275ED100320F21 /* RxCoreLocation in Frameworks */,
 				902B102C291C542700D03C0E /* FirebaseAuth in Frameworks */,
+				90C1E6A0293AA99A0082C340 /* Realm in Frameworks */,
 				90DA96C7291CE03500B5CA76 /* Toast in Frameworks */,
 				902B102A291C542700D03C0E /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				90C1E6A2293AA99A0082C340 /* RealmSwift in Frameworks */,
 				902B102E291C542700D03C0E /* FirebaseCrashlytics in Frameworks */,
-				90B4DF5E29369B58001884BC /* RxRealm in Frameworks */,
+				90F74F162937966500F3DBEC /* SocketIO in Frameworks */,
 				907E24342932110100401F1A /* Tabman in Frameworks */,
 				902B101A291C18D000D03C0E /* Alamofire in Frameworks */,
 				9066125A29275E4A00320F21 /* RxCocoa in Frameworks */,
@@ -441,10 +463,14 @@
 		9051724F292F710C00DDBC13 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				90C1E696293A835E0082C340 /* Realm */,
+				90F74F1F29387E0200F3DBEC /* WriteReview */,
 				90B4DF5F2936A2C5001884BC /* MoreButton */,
 				90B4DF492934C817001884BC /* ChatView */,
-				90517250292F711E00DDBC13 /* ChatiViewController.swift */,
+				90517250292F711E00DDBC13 /* ChatViewController.swift */,
 				90B4DF54293547A0001884BC /* ChatViewModel.swift */,
+				90B4DF622936DD1D001884BC /* ChatAlertViewController.swift */,
+				90F74F172937A68200F3DBEC /* SocketIoManager.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -594,6 +620,7 @@
 		90B4DF492934C817001884BC /* ChatView */ = {
 			isa = PBXGroup;
 			children = (
+				90C1E699293A917F0082C340 /* + Extension */,
 				90B4DF5029352DCB001884BC /* ChatView.swift */,
 				90B4DF522935303F001884BC /* ChatHeaderView.swift */,
 				90B4DF5629354C08001884BC /* ChatTableViewCell.swift */,
@@ -616,6 +643,34 @@
 				90B4DF602936A393001884BC /* MoreButtonView.swift */,
 			);
 			path = MoreButton;
+			sourceTree = "<group>";
+		};
+		90C1E696293A835E0082C340 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				90C1E697293A83820082C340 /* RealmModel.swift */,
+				90C1E69C293AA8B80082C340 /* ChatDataListRepositoryType.swift */,
+				90C1E6A3293B23230082C340 /* RealmViewModel.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		90C1E699293A917F0082C340 /* + Extension */ = {
+			isa = PBXGroup;
+			children = (
+				90C1E69A293A91E10082C340 /* ChatViewController + Extension.swift */,
+			);
+			path = "+ Extension";
+			sourceTree = "<group>";
+		};
+		90F74F1F29387E0200F3DBEC /* WriteReview */ = {
+			isa = PBXGroup;
+			children = (
+				90507CDF29387EA500B76756 /* ReviewPopUpiViewController.swift */,
+				90507CE129387EB300B76756 /* ReviewPopView.swift */,
+				90507CE32938A64D00B76756 /* ReviewPopViewModel.swift */,
+			);
+			path = WriteReview;
 			sourceTree = "<group>";
 		};
 		90FD726529218AEE00BB0077 /* Manager */ = {
@@ -735,7 +790,9 @@
 				9082F8E5292ACCAD0085D4BB /* RxKeyboard */,
 				90517209292E207400DDBC13 /* RxGesture */,
 				907E24332932110100401F1A /* Tabman */,
-				90B4DF5D29369B58001884BC /* RxRealm */,
+				90F74F152937966500F3DBEC /* SocketIO */,
+				90C1E69F293AA99A0082C340 /* Realm */,
+				90C1E6A1293AA99A0082C340 /* RealmSwift */,
 			);
 			productName = SeSAC_SLP;
 			productReference = 902B0FA62918BC1C00D03C0E /* SeSAC_SLP.app */;
@@ -776,7 +833,8 @@
 				9082F8E4292ACCAD0085D4BB /* XCRemoteSwiftPackageReference "RxKeyboard" */,
 				90517208292E207400DDBC13 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				907E24322932110100401F1A /* XCRemoteSwiftPackageReference "Tabman" */,
-				90B4DF5C29369B58001884BC /* XCRemoteSwiftPackageReference "RxRealm" */,
+				90F74F142937966500F3DBEC /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
+				90C1E69E293AA99A0082C340 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 902B0FA72918BC1C00D03C0E /* Products */;
 			projectDirPath = "";
@@ -811,6 +869,7 @@
 			files = (
 				906612642927608D00320F21 /* HomeMapViewController.swift in Sources */,
 				90FD726729218B4A00BB0077 /* FirebaseManager.swift in Sources */,
+				90507CE229387EB300B76756 /* ReviewPopView.swift in Sources */,
 				9051724B292F6FC400DDBC13 /* CustomTabBarController.swift in Sources */,
 				907636E2292030C800D289AB /* IconSet.swift in Sources */,
 				90B4DF5129352DCB001884BC /* ChatView.swift in Sources */,
@@ -819,6 +878,7 @@
 				9051725A292FBFD000DDBC13 /* DynamicCollectionView + Extension.swift in Sources */,
 				902B1020291C1AF200D03C0E /* Network.swift in Sources */,
 				907C68E12925170500AADECC /* CardViewNickName.swift in Sources */,
+				90507CE029387EA500B76756 /* ReviewPopUpiViewController.swift in Sources */,
 				9082F8E3292A72200085D4BB /* SearchViewModel.swift in Sources */,
 				907E242A2931B71600401F1A /* SearchHeader.swift in Sources */,
 				902B0FD9291915FE00D03C0E /* BaseViewController.swift in Sources */,
@@ -842,6 +902,7 @@
 				907E2442293230F000401F1A /* StartMatchingCollectionViewCell.swift in Sources */,
 				902B0FF5291A41DC00D03C0E /* EmailView.swift in Sources */,
 				902B1007291AB76600D03C0E /* NicknameViewController.swift in Sources */,
+				90507CE42938A64D00B76756 /* ReviewPopViewModel.swift in Sources */,
 				907E24312931F20500401F1A /* WhishStudyView.swift in Sources */,
 				9051720C292E332900DDBC13 /* BaseScrollView.swift in Sources */,
 				90B4DF532935303F001884BC /* ChatHeaderView.swift in Sources */,
@@ -868,6 +929,7 @@
 				907636E0291FDA1400D289AB /* LaunchScreenViewController.swift in Sources */,
 				9066126F2927FCCC00320F21 /* CardViewTableViewCell.swift in Sources */,
 				90AE5C4D292D1B9C00C3C772 /* TestError.swift in Sources */,
+				90C1E6A4293B23230082C340 /* RealmViewModel.swift in Sources */,
 				902B0FE5291965BF00D03C0E /* VerificationViewController.swift in Sources */,
 				90FD72A42922722400BB0077 /* BaseTableViewCell.swift in Sources */,
 				902B0FE029193AFC00D03C0E /* SignUpView.swift in Sources */,
@@ -881,18 +943,21 @@
 				90B4DF612936A393001884BC /* MoreButtonView.swift in Sources */,
 				907E242D2931E72A00401F1A /* RecommandCollectionViewCell.swift in Sources */,
 				907E243C29322B4500401F1A /* StartMatchingViewModel.swift in Sources */,
+				90C1E69D293AA8B80082C340 /* ChatDataListRepositoryType.swift in Sources */,
 				90A55C7D2924BBF60005F56D /* SeSACTitleStackView.swift in Sources */,
 				90A55C78292418FB0005F56D /* Header.swift in Sources */,
 				90B4DF042933F982001884BC /* CustomButton.swift in Sources */,
 				9066127B2928A27700320F21 /* APIViewModel.swift in Sources */,
+				90B4DF632936DD1D001884BC /* ChatAlertViewController.swift in Sources */,
 				90DB1CCC29334A630005D2A8 /* Protocol.swift in Sources */,
 				902B0FAC2918BC1C00D03C0E /* SceneDelegate.swift in Sources */,
 				9066127D2928BBF800320F21 /* SetMyInfoViewModel.swift in Sources */,
 				902B0FE7291965DE00D03C0E /* VerifrcationView.swift in Sources */,
 				902B100B291AB85D00D03C0E /* EmailViewController.swift in Sources */,
+				90C1E698293A83820082C340 /* RealmModel.swift in Sources */,
 				902B0FED29196EA900D03C0E /* UILabel.swift in Sources */,
 				907636E92921783000D289AB /* SetInitialViewController.swift in Sources */,
-				90517251292F711E00DDBC13 /* ChatiViewController.swift in Sources */,
+				90517251292F711E00DDBC13 /* ChatViewController.swift in Sources */,
 				90517258292F9ADB00DDBC13 /* BaseCollectionViewCell.swift in Sources */,
 				902B0FDD29193A0F00D03C0E /* SignInViewController.swift in Sources */,
 				902B0FE92919665500D03C0E /* Enum.swift in Sources */,
@@ -905,9 +970,11 @@
 				90FD72622921849900BB0077 /* Error.swift in Sources */,
 				90B4DEFC2933C20A001884BC /* WhichStudyCollectionViewCell.swift in Sources */,
 				90FD7264292187AF00BB0077 /* CautionModel.swift in Sources */,
+				90C1E69B293A91E10082C340 /* ChatViewController + Extension.swift in Sources */,
 				9095C4E6291D81770055D1B7 /* PickerViewModel.swift in Sources */,
 				902B101C291C1A0000D03C0E /* APIService.swift in Sources */,
 				90FD72C22922D95500BB0077 /* UIImage.swift in Sources */,
+				90F74F182937A68200F3DBEC /* SocketIoManager.swift in Sources */,
 				902B0FEF291A15E500D03C0E /* PickerView.swift in Sources */,
 				902B101E291C1A8E00D03C0E /* Endpoint.swift in Sources */,
 				90FD72C62923488200BB0077 /* SetMyInfoViewController.swift in Sources */,
@@ -1216,12 +1283,12 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		90B4DF5C29369B58001884BC /* XCRemoteSwiftPackageReference "RxRealm" */ = {
+		90C1E69E293AA99A0082C340 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxRealm.git";
+			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.5;
+				minimumVersion = 10.33.0;
 			};
 		};
 		90DA96C5291CE03500B5CA76 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
@@ -1230,6 +1297,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.0.0;
+			};
+		};
+		90F74F142937966500F3DBEC /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 16.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1300,15 +1375,25 @@
 			package = 9082F8E4292ACCAD0085D4BB /* XCRemoteSwiftPackageReference "RxKeyboard" */;
 			productName = RxKeyboard;
 		};
-		90B4DF5D29369B58001884BC /* RxRealm */ = {
+		90C1E69F293AA99A0082C340 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 90B4DF5C29369B58001884BC /* XCRemoteSwiftPackageReference "RxRealm" */;
-			productName = RxRealm;
+			package = 90C1E69E293AA99A0082C340 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		90C1E6A1293AA99A0082C340 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90C1E69E293AA99A0082C340 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		90DA96C6291CE03500B5CA76 /* Toast */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 90DA96C5291CE03500B5CA76 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		90F74F152937966500F3DBEC /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90F74F142937966500F3DBEC /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
+			productName = SocketIO;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

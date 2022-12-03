@@ -38,12 +38,14 @@ extension UIViewController {
         sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
         
         if to is UITabBarController {
-            let vc = to
             sceneDelegate?.window?.rootViewController = to
             sceneDelegate?.window?.makeKeyAndVisible()
         } else if to is UINavigationController {
             let nav = UINavigationController(rootViewController: to)
             sceneDelegate?.window?.rootViewController = nav
+            sceneDelegate?.window?.makeKeyAndVisible()
+        } else {
+            sceneDelegate?.window?.rootViewController = to
             sceneDelegate?.window?.makeKeyAndVisible()
         }
     }

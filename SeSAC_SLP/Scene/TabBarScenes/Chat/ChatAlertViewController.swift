@@ -10,7 +10,6 @@ import UIKit
 import SnapKit
 import RxCocoa
 import RxSwift
-import RxRealm
 
 class ChatAlertViewController: BaseViewController {
     

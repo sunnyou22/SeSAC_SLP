@@ -106,8 +106,8 @@ struct FetchingChatData: Codable {
 
 // MARK: - Payload
 struct Payload: Codable {
-    let id, to, from, chat: String?
-    let createdAt: String?
+    let id, to, from, chat: String
+    let createdAt: String
 
     enum CodingKeys: String, CodingKey {
         case id = "_id"
