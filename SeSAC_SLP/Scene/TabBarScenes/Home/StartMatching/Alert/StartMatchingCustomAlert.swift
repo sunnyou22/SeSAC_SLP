@@ -19,7 +19,7 @@ class StartMatchingCustomAlert: BaseViewController {
     
     var type: StartMatcingViewController.Vctype
     let studyrequestMent = PublishRelay<StudyRequestStatus>() // 토스트 보내기
-    var data: [FromQueueDB]?
+    var data: FromQueueDB?
     
     let alertView: CustomAlertView = {
         let view = CustomAlertView()
@@ -47,10 +47,11 @@ class StartMatchingCustomAlert: BaseViewController {
     }
     
     func bind() {
-        guard let data = data?[0] else {
+        guard let data = data else {
             print(data, "==================값전달받음" )
             print("데이터가 없슴다", #file)
             return }
+        print("요청한 친구 데이터:", data)
         let input = AlertViewModel.Input(tapOk: alertView.okButton.rx
             .tap, tapNo: alertView.noButton.rx
             .tap)
@@ -70,7 +71,7 @@ class StartMatchingCustomAlert: BaseViewController {
     
     func bindErrorHandling() {
         
-        guard let data = data?[0] else {
+        guard let data = data else {
             print("데이터가 없슴다", #file)
             return }
         

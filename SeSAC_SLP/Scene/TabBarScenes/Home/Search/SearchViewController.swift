@@ -107,10 +107,10 @@ final class SearchViewController: BaseViewController {
             .asDriver(onErrorJustReturn: (self, print("서치바검색")))
             .drive { vc, _ in
                 let viewcontroller = CustomTabmanViewController()
-                guard let currentLocation = vc.currentLocation else {
-                    print("사용자의 위치를 받아올 수 없음 🔴", #function)
-                    return
-                }
+//                guard let currentLocation = vc.currentLocation else {
+//                    print("사용자의 위치를 받아올 수 없음 🔴", #function)
+//                    return
+//                }
                 
                 // 캠퍼스 위치로 Test
                 vc.viewModel.searchSeSACMate(lat: MapViewModel.LandmarkLocation.sesacLocation.latitude, long: MapViewModel.LandmarkLocation.sesacLocation.longitude, studylist: vc.viewModel.wishList.value.sorted(), idtoken: vc.idToken)

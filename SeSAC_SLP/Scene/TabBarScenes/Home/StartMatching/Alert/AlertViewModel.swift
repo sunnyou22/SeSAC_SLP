@@ -46,6 +46,7 @@ final class AlertViewModel: EnableDataInNOut {
             switch alertType {
             case .near:
                 self?.studyrequestMent.accept(StudyRequestStatus(rawValue: statusCode)!)
+                print(api.parameter)
             case .requested:
                 self?.studyacceptMent.accept(StudyAcceptStatus(rawValue: statusCode)!) // 바꾸기
             }

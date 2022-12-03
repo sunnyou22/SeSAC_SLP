@@ -16,7 +16,7 @@ final class Network {
     
     func receiveRequestSeSAC<T: Decodable>(type: T.Type = T.self, url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, headers: HTTPHeaders, completion: @escaping ((T?, Int) -> Void)) {
         
-        AF.request(url, method: method, parameters: parameter, encoding: URLEncoding.default, headers: headers)
+        AF.request(url, method: method, parameters: parameter, encoding: URLEncoding(arrayEncoding: .noBrackets), headers: headers)
             .responseDecodable(of: T.self) //responseString 찍어보기
         { response in
             print(response, "===================")
@@ -56,7 +56,7 @@ final class Network {
     
     func testSendReuestSeSAC<T: Decodable>(type: T.Type = T.self, url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, headers: HTTPHeaders, completion: @escaping ((T?, Int) -> Void)) {
         
-        AF.request(url, method: method, parameters: parameter, encoding: URLEncoding.default, headers: headers)
+        AF.request(url, method: method, parameters: parameter, encoding: URLEncoding(arrayEncoding: .noBrackets), headers: headers)
             .responseDecodable(of: T.self) //responseString 찍어보기
         { response in
             print(response, "===================")

@@ -41,5 +41,12 @@ class StartMatchingCollectionViewCell: BaseTableViewCell {
             make.height.equalTo(requestButton.snp.width).dividedBy(2)
         }
     }
+    
+    override func prepareForReuse() {
+    super.prepareForReuse()
+        requestButton.removeTarget(nil, action: nil, for: .touchUpInside)
+        cardView.nicknameView.gestureRecognizers?.forEach(cardView.nicknameView.removeGestureRecognizer(_:))
+    }
+    
 }
 

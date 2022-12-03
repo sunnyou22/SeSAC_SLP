@@ -127,6 +127,7 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         
         //얼럿
         cell.requestButton.addTarget(self, action: #selector(request), for: .touchUpInside)
+        cell.requestButton.tag = indexPath.row
         
         return cell
     }
@@ -138,11 +139,12 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         print("tap")
     }
     
-    @objc func request() {
+    @objc func request(_ sender: UIButton) {
         print("버튼 눌리야?")
         let vc = StartMatchingCustomAlert(type: type)
         vc.modalPresentationStyle = .formSheet
-        vc.data = viewModel.data.value
+        vc.data = viewModel.data.value[sender.tag]
+        print(sender.tag)
         present(vc, animated: true)
     }
 }
