@@ -229,27 +229,32 @@ final class ChatViewController: BaseViewController {
         mainView.messageTextView
             .rx
             .text.changed.asDriver().drive { text in
-                
                 guard let a = self.mainView.messageTextView.font?.lineHeight else { return }
-                
-                if  self.mainView.messageTextView.contentSize.height / a >= 3 {
-                    self.mainView.messageTextView.snp.remakeConstraints { make in
-                        make.height.equalTo(a * 3)
-                        make.verticalEdges.equalTo(self.mainView.containiview.snp.verticalEdges).inset(12)
-                        make.leading.equalTo(self.mainView.containiview.snp.leading).offset(12)
-                        make.trailing.equalTo(self.mainView.sendbutton.snp.leading).offset(8)
-                    }
-                    self.mainView.messageTextView.isScrollEnabled = true
-                    self.mainView.messageTextView.invalidateIntrinsicContentSize()
-                } else {
-                    self.mainView.messageTextView.isScrollEnabled = false
+                if self.mainView.messageTextView.contentSize.height / a >= 3 {
                     
-                    self.mainView.messageTextView.snp.remakeConstraints { make in
-                        make.verticalEdges.equalTo(self.mainView.containiview.snp.verticalEdges).inset(12)
-                        make.leading.equalTo(self.mainView.containiview.snp.leading).offset(12)
-                        make.trailing.equalTo(self.mainView.sendbutton.snp.leading).offset(8)
-                    }
                 }
+                
+                
+//                guard let a = self.mainView.messageTextView.font?.lineHeight else { return }
+//
+//                if self.mainView.messageTextView.contentSize.height / a >= 3 {
+//                    self.mainView.messageTextView.snp.remakeConstraints { make in
+//                        make.height.equalTo(a * 3)
+//                        make.verticalEdges.equalTo(self.mainView.containiview.snp.verticalEdges).inset(12)
+//                        make.leading.equalTo(self.mainView.containiview.snp.leading).offset(12)
+//                        make.trailing.equalTo(self.mainView.sendbutton.snp.leading).offset(8)
+//                    }
+//                    self.mainView.messageTextView.isScrollEnabled = true
+//                    self.mainView.messageTextView.invalidateIntrinsicContentSize()
+//                } else {
+//                    self.mainView.messageTextView.isScrollEnabled = false
+//
+//                    self.mainView.messageTextView.snp.remakeConstraints { make in
+//                        make.verticalEdges.equalTo(self.mainView.containiview.snp.verticalEdges).inset(12)
+//                        make.leading.equalTo(self.mainView.containiview.snp.leading).offset(12)
+//                        make.trailing.equalTo(self.mainView.sendbutton.snp.leading).offset(8)
+//                    }
+//                }
 //
 //                make.height.lessThanOrEqualTo(messageTextView.font!.lineHeight)
                
