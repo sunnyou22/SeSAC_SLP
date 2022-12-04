@@ -27,6 +27,7 @@ enum SeSACAPI {
     case studyRequest(otheruid: String), studyAccept(otheruid: String), dodge(otheruid: String)
     case chatList(from: String, lastchatDate: String)
     case chat(to: String, chat: String)
+    case review(otheruid: String, reputation: [Int], comment: String)
 }
 
 // 폴더 나눌 때 버전 빼기
@@ -55,13 +56,15 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/chat/\(to)")!
         case .dodge:
             return URL(string: URLConstant.BaseURL + "/v1/queue/dodge")!
+        case .review(let id, _, _):
+            return URL(string: URLConstant.BaseURL + "/v1/queue/rate/\(id)")!
         }
     }
     
     //MARK: Header
     func getheader(idtoken: String) -> HTTPHeaders {
         switch self {
-        case .signUp, .setMypage, .search, .studyRequest, .chatList, .chat, .studyAccept, .dodge:
+        case .signUp, .setMypage, .search, .studyRequest, .chatList, .chat, .studyAccept, .dodge, .review:
             return [
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -113,6 +116,12 @@ extension SeSACAPI {
         case .studyRequest(let otheruid), .studyAccept(let otheruid), .dodge(let otheruid):
             return [
                 "otheruid": otheruid
+            ]
+        case .review(let otheruid, let reputation, let comment):
+            return [
+                "otheruid": otheruid,
+                "reputation": reputation,
+                "comment": comment
             ]
         }
     }

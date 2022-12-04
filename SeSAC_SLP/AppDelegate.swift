@@ -16,9 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
  
+          // For iOS 10 display notification (sent via APNS)
+          UNUserNotificationCenter.current().delegate = self
+
+          let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+          UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: { _, _ in }
+          )
+        
+        application.registerForRemoteNotifications()
+        
         //메세지 대리자 설정
         Messaging.messaging().delegate = self
-        
         
         //MARK: 네비게이션 백버튼
         let backButtonImage = UIImage(named: Icon.navigationBackButton.rawValue)
@@ -45,12 +55,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    //포그라운드 알림 수신: 로컬/푸시 동일
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        completionHandler([.badge, .sound, .banner, .list]) // 뱃지카운팅은 올라가면 좋겠을 때ㅔ
+    }
+}
+
 extension AppDelegate: MessagingDelegate {
 
     //사용자가 앱을 삭제하거나, 핸드폰 기종을 바꿀 때 등으로 토큰에 대한 정보가 바뀔 때 불리는 메서드
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
       print("Firebase registration token: \(String(describing: fcmToken))")
+        
         UserDefaults.FCMToken = fcmToken!
+        print(UserDefaults.FCMToken, fcmToken!)
 
       let dataDict: [String: String] = ["token": fcmToken ?? ""]
       NotificationCenter.default.post(

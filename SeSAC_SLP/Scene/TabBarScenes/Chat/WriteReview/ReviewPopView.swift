@@ -49,6 +49,7 @@ final class ReviewPopView: BaseView {
     let reviewTextView: UITextView = {
         let view = UITextView(frame: CGRect(x: 0, y: 0, width: .zero, height: 124))
         view.clipsToBounds = true
+        view.textColor = .setBaseColor(color: .black)
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         view.backgroundColor = .setGray(color: .gray1)
         view.text = "자세한 피드백은 다른 새싹들에게 도움이 됩니다\n(500자 이내 작성)"
@@ -64,7 +65,7 @@ final class ReviewPopView: BaseView {
         return view
     }()
     
-   private lazy var stackView: UIStackView = {
+    lazy var stackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [title, subtile, reviewList, reviewTextView, registerButton])
        view.spacing = 24
        view.axis = .vertical
@@ -83,7 +84,6 @@ final class ReviewPopView: BaseView {
         stackView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
             make.verticalEdges.equalToSuperview().inset(16)
-            
             make.center.equalToSuperview()
         }
         closebutton.snp.makeConstraints { make in

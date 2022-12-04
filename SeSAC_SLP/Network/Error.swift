@@ -44,7 +44,7 @@ struct ServerStatus {
             case .Success:
                 return "매칭성공"
             case .FirebaseTokenError:
-                return "누군가와 스터디를 함께하기로 약속하셨어요!"
+                return "토큰갱신!"
             case .ServerError:
                 return "알 수 없는 에러입니다. 고객센터로 문의주세요!"
             case .ClientError:

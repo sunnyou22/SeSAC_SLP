@@ -120,4 +120,9 @@ struct Chat: Codable {
     let chat: String?
 }
 
-//MARK: 
+// MARK: - Review
+struct Review: Codable {
+    let otheruid: String
+    let reputation: [Int]
+    let comment: String
+}
