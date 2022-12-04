@@ -11,7 +11,7 @@ import RxSwift
 import RxKeyboard
 import RxGesture
 
-class ReviewPopUpiViewController: BaseViewController, Bindable {
+final class ReviewPopUpiViewController: BaseViewController, Bindable {
     
     private var alertView = ReviewPopView()
     private let commonserver = CommonServerManager()
@@ -49,7 +49,6 @@ class ReviewPopUpiViewController: BaseViewController, Bindable {
                 .withUnretained(self)
                 .asDriver(onErrorJustReturn: (self, print("tap구독완료, \(index)")))
                 .drive { vc, _ in
-     
                     list.isSelected = !list.isSelected
                     list.backgroundColor = list.isSelected ? .setBrandColor(color: .green) : .setBaseColor(color: .white)
                     vc.viewModel.temptList[index] = list.isSelected ? 1 : 0
@@ -96,7 +95,6 @@ class ReviewPopUpiViewController: BaseViewController, Bindable {
             .asDriver(onErrorJustReturn: (self, "자세한 피드백은 다른 새싹들에게 도움이 됩니다\n(500)"))
             .drive { vc, value in
                 vc.alertView.reviewTextView.text = value
-                print(value, vc.alertView.reviewTextView.text)
             }.disposed(by: bag)
         
         //키보드 올리기
@@ -110,7 +108,6 @@ class ReviewPopUpiViewController: BaseViewController, Bindable {
                     make.center.equalToSuperview()
                     make.bottom.equalToSuperview().offset(height)
                 }
-                self.alertView.layoutIfNeeded()
             }).disposed(by: bag)
         
         //키보드 숨기기
@@ -124,7 +121,6 @@ class ReviewPopUpiViewController: BaseViewController, Bindable {
                         make.horizontalEdges.equalToSuperview().inset(16)
                         make.center.equalToSuperview()
                     }
-                    self.alertView.layoutIfNeeded()
                 }
             }).disposed(by: bag)
         

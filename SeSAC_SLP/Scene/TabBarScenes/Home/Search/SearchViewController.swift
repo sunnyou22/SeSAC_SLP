@@ -75,8 +75,6 @@ final class SearchViewController: BaseViewController {
                     make.bottom.equalTo(self.mainView.safeAreaLayoutGuide).offset(height)
                     make.horizontalEdges.equalTo(self.mainView).inset(0)
                 }
-                
-                self.mainView.layoutIfNeeded()
             }).disposed(by: disposedBag)
         
         //키보드 숨기기
@@ -90,8 +88,6 @@ final class SearchViewController: BaseViewController {
                         make.bottom.equalTo(self.mainView.safeAreaLayoutGuide).offset(-16)
                         make.height.equalTo(48)
                     }
-                    
-                    self.mainView.layoutIfNeeded()
                 }
             }).disposed(by: disposedBag)
         //

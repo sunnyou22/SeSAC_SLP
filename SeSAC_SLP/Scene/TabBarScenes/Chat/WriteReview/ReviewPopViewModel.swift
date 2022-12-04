@@ -10,8 +10,6 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-
-
 final class ReviewPopViewModel {
     var reviewButtonList: BehaviorRelay<[Int]> = BehaviorRelay(value: Array(repeating: 0, count: 9))
     let postReviewStatus = PublishRelay<ReviewStatus>()

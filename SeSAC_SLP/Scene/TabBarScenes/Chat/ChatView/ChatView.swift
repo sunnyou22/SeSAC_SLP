@@ -23,15 +23,13 @@ class ChatView: BaseView {
         view.register(ChatHeaderView.self, forHeaderFooterViewReuseIdentifier: ChatHeaderView.reuseIdentifier)
         return view
     }()
-    
-    lazy var accessoryView: UIView = {
-        return UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: 80))
-    }()
-    
-    let messageTextView: UITextView = {
+
+    lazy var messageTextView: UITextView = {
         let view = UITextView()
-        view.textContainer.maximumNumberOfLines = 3
+//        view.textContainer.maximumNumberOfLines = 3
+        view.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         view.textContainer.lineBreakMode = .byTruncatingTail
+        view.font = .title3_M14
         view.backgroundColor = .setGray(color: .gray1)
         view.textColor = .setBaseColor(color: .black)
         view.text = "메세지를 입력하세요"
@@ -57,12 +55,12 @@ class ChatView: BaseView {
     
     override func configure() {
         [messageTextView, sendbutton].forEach { containiview.addSubview($0) }
-        accessoryView.addSubview(containiview)
+//        accessoryView.addSubview(containiview)
         [tableView, containiview, moreView].forEach { addSubview($0) }
     }
     
     override func setConstraints() {
-        
+       
         moreView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide)
         }
@@ -72,9 +70,10 @@ class ChatView: BaseView {
             make.centerX.equalToSuperview()
             make.bottom.equalTo(containiview.snp.top)
         }
-        
+    
+        //악세서리뷰
         containiview.snp.makeConstraints { make in
-            make.height.equalTo(52)
+            make.height.greaterThanOrEqualTo(52)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-16)
             make.centerX.equalToSuperview()
@@ -94,3 +93,16 @@ class ChatView: BaseView {
         }
     }
 }
+
+//class DynamicTextView: UITextView {
+//
+//    override var intrinsicContentSize: CGSize {
+//        return self.contentSize
+//    }
+//
+//    override var contentSize: CGSize {
+//        didSet {
+//            self.invalidateIntrinsicContentSize()
+//        }
+//    }
+//}

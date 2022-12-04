@@ -163,6 +163,5 @@ final class SetMyInfoViewController: BaseViewController {
             make.top.equalTo(mainView.cardView.expandableView.titleStackView.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview()
         }
-        self.mainView.layoutIfNeeded()
     }
 }

@@ -183,7 +183,7 @@ final class ChatViewController: BaseViewController {
                 guard let self = self else { return }
                 let height = height > 0 ? -height + (self.mainView.safeAreaInsets.bottom) : 0
                 self.mainView.containiview.snp.updateConstraints { make in
-                    make.height.equalTo(52)
+                    make.height.greaterThanOrEqualTo(52)
                     make.horizontalEdges.equalToSuperview().inset(16)
                     make.bottom.equalTo(self.mainView.safeAreaLayoutGuide).offset(height)
                     make.centerX.equalToSuperview()
@@ -195,8 +195,6 @@ final class ChatViewController: BaseViewController {
                     make.centerX.equalToSuperview()
                     make.bottom.equalTo(self.mainView.containiview.snp.top)
                 }
-                
-                self.mainView.layoutIfNeeded()
             }).disposed(by: disposedBag)
         
         //키보드 숨기기
@@ -206,7 +204,7 @@ final class ChatViewController: BaseViewController {
                 if bool {
                     guard let self = self else { return }
                     self.mainView.containiview.snp.updateConstraints { make in
-                        make.height.equalTo(52)
+                        make.height.greaterThanOrEqualTo(52)
                         make.horizontalEdges.equalToSuperview().inset(16)
                         make.bottom.equalTo(self.mainView.safeAreaLayoutGuide).offset(-16)
                         make.centerX.equalToSuperview()
@@ -217,7 +215,6 @@ final class ChatViewController: BaseViewController {
                         make.centerX.equalToSuperview()
                         make.bottom.equalTo(self.mainView.containiview.snp.top)
                     }
-                    self.mainView.layoutIfNeeded()
                 }
             }).disposed(by: disposedBag)
         
@@ -228,6 +225,35 @@ final class ChatViewController: BaseViewController {
 //            .bind { (vc, _) in
 //                vc.mainView.messageTextView.resignFirstResponder()
 //            }.disposed(by: disposedBag)
+        
+        mainView.messageTextView
+            .rx
+            .text.changed.asDriver().drive { text in
+                
+                guard let a = self.mainView.messageTextView.font?.lineHeight else { return }
+                
+                if  self.mainView.messageTextView.contentSize.height / a >= 3 {
+                    self.mainView.messageTextView.snp.remakeConstraints { make in
+                        make.height.equalTo(a * 3)
+                        make.verticalEdges.equalTo(self.mainView.containiview.snp.verticalEdges).inset(12)
+                        make.leading.equalTo(self.mainView.containiview.snp.leading).offset(12)
+                        make.trailing.equalTo(self.mainView.sendbutton.snp.leading).offset(8)
+                    }
+                    self.mainView.messageTextView.isScrollEnabled = true
+                    self.mainView.messageTextView.invalidateIntrinsicContentSize()
+                } else {
+                    self.mainView.messageTextView.isScrollEnabled = false
+                    
+                    self.mainView.messageTextView.snp.remakeConstraints { make in
+                        make.verticalEdges.equalTo(self.mainView.containiview.snp.verticalEdges).inset(12)
+                        make.leading.equalTo(self.mainView.containiview.snp.leading).offset(12)
+                        make.trailing.equalTo(self.mainView.sendbutton.snp.leading).offset(8)
+                    }
+                }
+//
+//                make.height.lessThanOrEqualTo(messageTextView.font!.lineHeight)
+               
+            }.disposed(by: disposedBag)
         
         //오른쪽 바 버튼 아이템 클뤽
         rightbarButtonItem.rx
