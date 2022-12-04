@@ -20,6 +20,8 @@ final class SearchViewModel {
     // 그다음 화면에서 검색된 데이터를 기반으로 뷰를 표현 -> 갱신될때 db갈아끼워주기
     var fromQueueDB = UserDefaults.searchData?[0].fromQueueDB ?? []
     var fromRecommend = UserDefaults.searchData?[0].fromRecommend ?? []
+    lazy var quoList = fetchQpueue()
+    
     var studyList = BehaviorRelay<[String]>(value: [])
     var validWishList = PublishRelay<Bool>()
     var wishList = BehaviorRelay<[String]>(value: [])
@@ -41,6 +43,12 @@ final class SearchViewModel {
         // 데이터의 흐름을 변환해주는 곳
         return Output(tapSearchButton: input.tapSearchButton, searchbarsearchButtonClicked: input.searchbarsearchButtonClicked)
     }
+
+    final func fetchQpueue() -> Array<String> {
+        print(fromRecommend, " ---------------------")
+        print(studyList.value,"==========")
+        return (fromRecommend + Set(studyList.value).sorted().filter { !$0.isEmpty })
+    }
     
     //list라는 값을 전달하고 싶음
     func countAroundStudylist() {
@@ -54,7 +62,6 @@ final class SearchViewModel {
     }
     
     // 하고싶은에 해당하는 list를 뷰에 그리고싶어 -> 이게 종착범
-    
     func setWishList(addWishList: [String]) {
         print(wishList.value, "======= addwish 이전")
         var tempList = wishList.value.sorted()

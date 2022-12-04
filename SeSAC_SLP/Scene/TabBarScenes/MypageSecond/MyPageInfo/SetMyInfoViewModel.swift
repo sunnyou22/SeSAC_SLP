@@ -47,7 +47,7 @@ final class SetMyInfoViewModel {
         
         let api = SeSACAPI.setMypage(searchable: searchable, ageMin: ageMin, ageMax: ageMax, gender: gender, study: study)
         
-        Network.shared.sendRequestSeSAC(url: api.url, parameter: api.parameter, method: .put, headers: api.getheader(idtoken: idtoken)) { [weak self] statusCode  in
+        Network.shared.sendRequestSeSAC(url: api.url, parameter: api.parameter, method: .put, headers: api.getheader(idtoken: idtoken)) { [weak self] statusCode in
             
                 guard let userStatus = UserStatus(rawValue: statusCode) else {
                     print("포스트 실패 🔴", #function)

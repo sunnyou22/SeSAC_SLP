@@ -28,7 +28,7 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let data = viewModel.serverChatData.value[indexPath.row]
-        
+//
         if data.from == commonserver.userData.value[0].uid {
             guard let myCell = tableView.dequeueReusableCell(withIdentifier: MyChatTableViewCell.reuseIdentifier, for: indexPath) as? MyChatTableViewCell else { return UITableViewCell() }
             myCell.messegeLbl.text = data.chat

@@ -12,7 +12,7 @@ import RxCocoa
 import RxSwift
 
 class StartMatchingCustomAlert: BaseViewController {
-  
+    
     let viewModel = AlertViewModel()
     let commonApiModel = CommonServerManager()
     let bag = DisposeBag()
@@ -46,6 +46,12 @@ class StartMatchingCustomAlert: BaseViewController {
         bindErrorHandling()
     }
     
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.goChatVC, object: nil)
+    }
+    
     func bind() {
         guard let data = data else {
             print(data, "==================값전달받음" )
@@ -60,7 +66,22 @@ class StartMatchingCustomAlert: BaseViewController {
         output.tapOk
             .drive { [weak self] _ in
                 guard let self = self else { return }
-                self.viewModel.requestStudy(otheruid: data.uid, idToken: self.idToken, alertType: self.type)
+                switch self.type {
+                case .near:
+                    self.viewModel.requestStudy(otheruid: data.uid, idToken: self.idToken, alertType: self.type)
+                    {
+                        
+                    }
+                case .requested:
+                    self.viewModel.requestStudy(otheruid: data.uid, idToken: self.idToken, alertType: self.type)
+                   {
+                        self.dismiss(animated: true) {
+                            let chatVC = ChatViewController()
+                            NotificationCenter.default.post(name: Notification.Name.goChatVC, object: nil)
+                        }
+                    }
+                }
+                
             }.disposed(by: bag)
         
         output.tapNo
@@ -83,7 +104,9 @@ class StartMatchingCustomAlert: BaseViewController {
                     vc.showDefaultToast(message: .StudyRequestStatus(.Success))
                 case .Requested: // 이미 상대방이 나한테 요청함
                     vc.showDefaultToast(message: .StudyRequestStatus(.Requested)) {
-                        vc.viewModel.requestStudy(otheruid: data.uid, idToken: vc.idToken, alertType: .requested)
+                        vc.viewModel.requestStudy(otheruid: data.uid, idToken: vc.idToken, alertType: .requested) {
+                            
+                        }
                     }
                 case .FirebaseTokenError:
                     vc.showDefaultToast(message: .StudyRequestStatus(.FirebaseTokenError))
@@ -105,11 +128,6 @@ class StartMatchingCustomAlert: BaseViewController {
                 case .success:
                     vc.showDefaultToast(message: .StudyAcceptedStatus(.accepted)) {
                         MapViewModel.ploatingButtonSet.accept(.matched)
-                        vc.dismiss(animated: true) {
-                            let chatVC = ChatViewController()
-                            vc.transition(chatVC, .push)
-                            print("채팅화면으로 이동 🟢")
-                        }
                     }
                 case .othersmatched:
                     vc.showDefaultToast(message: .StudyAcceptedStatus(.othersmatched))
@@ -147,7 +165,7 @@ class StartMatchingCustomAlert: BaseViewController {
 }
 
 
-    //MARK: - 커스텀 뷰
+//MARK: - 커스텀 뷰
 class CustomAlertView: BaseView {
     let okButton: CutsomButton = {
         let view = CutsomButton(customtype: .defaultOk)

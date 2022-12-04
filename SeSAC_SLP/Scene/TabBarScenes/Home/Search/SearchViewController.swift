@@ -116,6 +116,7 @@ final class SearchViewController: BaseViewController {
                 vc.viewModel.searchSeSACMate(lat: MapViewModel.LandmarkLocation.sesacLocation.latitude, long: MapViewModel.LandmarkLocation.sesacLocation.longitude, studylist: vc.viewModel.wishList.value.sorted(), idtoken: vc.idToken)
                 
                 vc.transition(viewcontroller, .push)
+                
                 viewcontroller.nearVC.viewModel.wishList = vc.viewModel.wishList.value
             }.disposed(by: disposedBag)
         
@@ -181,8 +182,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         viewModel.countAroundStudylist()
-     
-        return section == 0 ? (viewModel.fromRecommend.count + viewModel.studyList.value.count) : viewModel.wishList.value.count
+        return section == 0 ? viewModel.quoList.count : viewModel.wishList.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -191,13 +191,12 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         
         switch indexPath.section {
         case 0:
-            let quoList = viewModel.fromRecommend + viewModel.studyList.value
             //fromRecommend.count
             if indexPath.item >= 0, indexPath.item < viewModel.fromRecommend.count {
-                print(indexPath.item,  quoList[indexPath.item], "🔗🔗🔗🔗🔗🔗🔗🔗🔗🔗🔗🔗🔗")
+                print(indexPath.item, viewModel.quoList[indexPath.item], "🔗🔗🔗🔗🔗🔗🔗🔗🔗🔗🔗🔗🔗")
                 guard let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
                 
-                cell1.label.text = quoList[indexPath.item]
+                cell1.label.text = viewModel.quoList[indexPath.item]
                 cell1.xbutton.isHidden = true
                 cell1.customView.layer.borderColor = UIColor.setStatus(color: .success).cgColor // 색 바꾸기
                 
@@ -205,7 +204,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
             } else {
                 guard let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
                 
-                cell2.label.text = quoList[indexPath.item]
+                cell2.label.text = viewModel.quoList[indexPath.item]
                 cell2.xbutton.isHidden = true
                 cell2.customView.layer.borderColor = UIColor.setBaseColor(color: .black).cgColor // 색 바꾸기
                 return cell2
@@ -229,12 +228,11 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         
         switch indexPath.section {
         case 0:
-            let quoList = viewModel.fromRecommend + viewModel.studyList.value
             if indexPath.item >= 0, indexPath.item < viewModel.fromRecommend.count {
                 print("들어왔따4", indexPath.row)
-                viewModel.InvalidWishList(add: [quoList[indexPath.item]])
+                viewModel.InvalidWishList(add: [viewModel.quoList[indexPath.item]])
             } else {
-              viewModel.InvalidWishList(add: [quoList[indexPath.item]])
+              viewModel.InvalidWishList(add: [viewModel.quoList[indexPath.item]])
             }
             collectionView.reloadData()
         case 1:

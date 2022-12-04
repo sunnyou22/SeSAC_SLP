@@ -37,6 +37,18 @@ class StartMatcingViewController: BaseViewController, Bindable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bind()
+        
+        // 옵저버 등록
+        NotificationCenter.default.addObserver(self, selector: #selector(goChatVC(_:)), name: NSNotification.Name("goChatVC"), object: nil)
+    }
+    
+    
+    @objc func goChatVC(_ notification: Notification) {
+            print("노피케이션 실행됨")
+        let vc = ChatViewController()
+        transition(vc, .push)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -161,4 +173,8 @@ extension StartMatcingViewController: UICollectionViewDelegate, UICollectionView
         cell.label.text = viewModel.data.value[0].studylist[indexPath.item]
         return cell
     }
+}
+
+extension Notification.Name {
+    static let goChatVC = Notification.Name("goChatVC")
 }

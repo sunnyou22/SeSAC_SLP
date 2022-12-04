@@ -32,7 +32,8 @@ final class AlertViewModel: EnableDataInNOut {
     let studyrequestMent = PublishRelay<StudyRequestStatus>()
     let studyacceptMent = PublishRelay<StudyAcceptStatus>()
     
-    func requestStudy(otheruid: String, idToken: String, alertType: StartMatcingViewController.Vctype) {
+    func requestStudy(otheruid: String, idToken: String, alertType: StartMatcingViewController.Vctype, completion: @escaping (() -> Void)
+    ) {
         let api: SeSACAPI
         
         switch alertType {
@@ -47,8 +48,10 @@ final class AlertViewModel: EnableDataInNOut {
             case .near:
                 self?.studyrequestMent.accept(StudyRequestStatus(rawValue: statusCode)!)
                 print(api.parameter)
+                completion()
             case .requested:
                 self?.studyacceptMent.accept(StudyAcceptStatus(rawValue: statusCode)!) // 바꾸기
+                completion()
             }
            
         }
