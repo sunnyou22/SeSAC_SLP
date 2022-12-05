@@ -9,9 +9,10 @@ import UIKit
 
 class ShopContainerView: BaseView {
     lazy var collectionView: DynamicCollectionView = {
-        let view = DynamicCollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
+        let view = DynamicCollectionView(frame: .zero, collectionViewLayout: .init())
         view.backgroundColor = .setBaseColor(color: .white)
         view.register(SesacCollectionViewCell.self, forCellWithReuseIdentifier: SesacCollectionViewCell.reuseIdentifier)
+        view.register(BackgroundCollectionViewCell.self, forCellWithReuseIdentifier: BackgroundCollectionViewCell.reuseIdentifier)
         return view
     }()
     
@@ -26,14 +27,25 @@ class ShopContainerView: BaseView {
         }
     }
     // collectionView + extension 파일에 뺌
-    func configureCollectionViewLayout() -> UICollectionViewLayout {
+    func configureSesacCollectionViewLayout() -> UICollectionViewLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         
         return UICollectionViewCompositionalLayout.init(sectionProvider: { [weak self] sectionIndex, environment in
             
                 configuration.scrollDirection = .vertical
 //            configuration.
-            return self?.shopcompositionLayout()
+            return self?.shopSesacCompositionLayout()
+        }, configuration: configuration)
+    }
+    
+    func configureBackCollectionViewLayout() -> UICollectionViewLayout {
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        
+        return UICollectionViewCompositionalLayout.init(sectionProvider: { [weak self] sectionIndex, environment in
+            
+                configuration.scrollDirection = .vertical
+//            configuration.
+            return self?.shopBackcompositionLayout()
         }, configuration: configuration)
     }
 }

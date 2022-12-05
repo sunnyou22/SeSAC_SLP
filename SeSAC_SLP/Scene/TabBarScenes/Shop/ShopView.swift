@@ -48,6 +48,7 @@ class ShopView: BaseView {
     
     override func configure() {
         [background, sesac, saveBtn, tabmanView].forEach { addSubview($0) }
+        self.backgroundColor = .setBaseColor(color: .white)
     }
     
     override func setConstraints() {

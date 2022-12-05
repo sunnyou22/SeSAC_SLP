@@ -28,12 +28,26 @@ class SesacCollectionViewCell: BaseCollectionViewCell {
     
     lazy var priceBtn: UIButton = {
         let view = UIButton()
-        view.setTitle("보유중", for: .normal)
-        view.backgroundColor = .setGray(color: .gray2)
-        view.tintColor = .setGray(color: .gray7)
-        view.clipsToBounds = true
-        view.layer.cornerRadius = view.frame.size.height / 2
+        view.setTitle("8,888", for: .normal)
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+        config.buttonSize = .mini
+        
+        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = UIFont.title5_M12
+            return outgoing
+           }
+        config.baseBackgroundColor = .setGray(color: .gray7)
+        config.baseForegroundColor = .setBaseColor(color: .white)
+        view.configuration = config
+        //이것도 됨
+//        DispatchQueue.main.async {
+//            view.clipsToBounds = true
+//            view.layer.cornerRadius = view.frame.size.height / 2
+//        }
         return view
+        
     }()
     
     let explanation: UILabel = {
@@ -65,8 +79,8 @@ class SesacCollectionViewCell: BaseCollectionViewCell {
         priceBtn.snp.makeConstraints { make in
             make.trailing.equalTo(sesac.snp.trailing).offset(-8)
             make.centerY.equalTo(nameLbl.snp.centerY)
-            make.width.equalTo(52)
-            make.height.equalTo(20)
+//            make.width.equalTo(52)
+//            make.height.equalTo(20)
         }
         
         explanation.snp.makeConstraints { make in
