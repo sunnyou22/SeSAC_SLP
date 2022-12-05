@@ -30,7 +30,7 @@ class BaseTwoTabmanViewController: TabmanViewController {
         viewControllers.append(right)
         
         self.dataSource = self
-        
+     
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,4 +58,5 @@ extension BaseTwoTabmanViewController: TMBarDataSource, PageboyViewControllerDat
         item.title = title
         return item
     }
+ 
 }
