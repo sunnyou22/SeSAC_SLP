@@ -24,8 +24,8 @@ class ChatView: BaseView {
         return view
     }()
 
-    lazy var messageTextView: DynamicTextView = {
-        let view = DynamicTextView()
+    lazy var messageTextView: UITextView = {
+        let view = UITextView()
 //        view.textContainer.maximumNumberOfLines = 3
         view.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         view.textContainer.lineBreakMode = .byTruncatingTail
@@ -94,15 +94,15 @@ class ChatView: BaseView {
     }
 }
 
-class DynamicTextView: UITextView {
-
-    override var intrinsicContentSize: CGSize {
-        return self.contentSize
-    }
-
-    override var contentSize: CGSize {
-        didSet {
-            self.invalidateIntrinsicContentSize()
-        }
-    }
-}
+//class DynamicTextView: UITextView {
+//
+//    override var intrinsicContentSize: CGSize {
+//        return self.contentSize
+//    }
+//
+//    override var contentSize: CGSize {
+//        didSet {
+//            self.invalidateIntrinsicContentSize()
+//        }
+//    }
+//}
