@@ -28,7 +28,7 @@ final class MyPageHeaderView: UIView {
     
         lazy var imageView: UIImageView = {
             let view = UIImageView()
-            view.image = UIImage.setBackground(imagename: .sesacFace(.sesac_face_1))
+            view.image = UIImage(named: Sesac_Face.sesac_face_1.str)
             DispatchQueue.main.async {
                 view.contentMode = .scaleAspectFit
                 view.clipsToBounds = true

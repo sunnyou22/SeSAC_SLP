@@ -10,7 +10,7 @@ import UIKit
 class SesacCollectionViewCell: BaseCollectionViewCell {
     let sesac: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: Sesac_Face.sesac_face_1.rawValue)
+        view.image = UIImage(named: "searchPlaceholder")
         view.clipsToBounds = true
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         view.layer.borderColor = UIColor.setGray(color: .gray3).cgColor
@@ -20,7 +20,7 @@ class SesacCollectionViewCell: BaseCollectionViewCell {
     
     let nameLbl: UILabel = {
         let view = UILabel()
-        view.text = "새싹이름"
+        view.text = "준비중"
         view.font = .title2_R16
         view.textColor = .setBaseColor(color: .black)
         return view
@@ -52,7 +52,7 @@ class SesacCollectionViewCell: BaseCollectionViewCell {
     
     let explanation: UILabel = {
         let view = UILabel()
-        view.text = "이건 설명입니다.이건 설명입니다.이건 설명입니다.이건 설명입니다.이건 설명입니다.이건 설명입니다.이건 설명입니다.이건 설명입니다."
+        view.text = "아직 자라나지 않는 새싹자리입니다. 조금만 더 기다려주세요!"
         view.font = .Body3_R14
         view.textColor = .setBaseColor(color: .black)
         view.numberOfLines = 0

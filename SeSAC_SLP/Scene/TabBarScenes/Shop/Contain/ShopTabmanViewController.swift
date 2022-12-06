@@ -15,8 +15,8 @@ class ShopTabmanViewController: TabmanViewController {
     
     private var viewControllers = [UIViewController]()
     
-    let sesacVC = ShopContainedViewController(type: .sesac)
-    let backgruondVC = ShopContainedViewController(type: .backgruond)
+    let sesacVC = ShopContainedViewController(vctype: .sesac)
+    let backgruondVC = ShopContainedViewController(vctype: .backgruond)
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -30,7 +30,7 @@ enum ImageSet {
     case sesacFace(Sesac_Face)
 }
 
-enum SeSac_Background: String, CaseIterable {
+enum SeSac_Background: Int, CaseIterable {
     case sesac_background_1
     case sesac_background_2
     case sesac_background_3
@@ -40,14 +40,28 @@ enum SeSac_Background: String, CaseIterable {
     case sesac_background_7
     case sesac_background_8
     case sesac_background_9
+    
+    var str: String {
+        switch self {
+        default:
+            return "\(self)"
+        }
+    }
 }
 
-enum Sesac_Face: String, CaseIterable {
+enum Sesac_Face: Int, CaseIterable {
     case sesac_face_1
     case sesac_face_2
     case sesac_face_3
     case sesac_face_4
     case sesac_face_5
+    
+    var str: String {
+        switch self {
+        default:
+            return "\(self)"
+        }
+    }
 }
 
 extension UIStackView {

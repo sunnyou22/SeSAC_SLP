@@ -12,7 +12,7 @@ import SnapKit
 class Header: BaseView {
     let sesacImage: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage.setBackground(imagename: .sesacFace(.sesac_face_1))
+        view.image = UIImage(named: Sesac_Face.sesac_face_1.str)
         view.contentMode = .scaleAspectFit
         return view
     }()
@@ -20,7 +20,7 @@ class Header: BaseView {
     
  let imageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage.setBackground(imagename: .background(.sesac_background_1))
+     view.image = UIImage(named: SeSac_Background.sesac_background_1.str)
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue

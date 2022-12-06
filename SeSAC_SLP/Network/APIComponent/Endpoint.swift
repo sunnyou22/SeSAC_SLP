@@ -28,6 +28,7 @@ enum SeSACAPI {
     case chatList(from: String, lastchatDate: String)
     case chat(to: String, chat: String)
     case review(otheruid: String, reputation: [Int], comment: String)
+    case shopmyinfo
 }
 
 // 폴더 나눌 때 버전 빼기
@@ -58,6 +59,8 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/queue/dodge")!
         case .review(let id, _, _):
             return URL(string: URLConstant.BaseURL + "/v1/queue/rate/\(id)")!
+        case .shopmyinfo:
+            return URL(string: URLConstant.BaseURL + "/v1/user/shop/myinfo")!
         }
     }
     
@@ -69,7 +72,7 @@ extension SeSACAPI {
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
             ]
-        case .getUserInfo, .searchSurroundings, .matchingStatus, .delete:
+        case .getUserInfo, .searchSurroundings, .matchingStatus, .delete, .shopmyinfo:
             return [
                 "idtoken": idtoken
             ]
@@ -88,7 +91,7 @@ extension SeSACAPI {
                 "email": email,
                 "gender": gender
             ]
-        case .getUserInfo, .delete, .matchingStatus, .chatList:
+        case .getUserInfo, .delete, .matchingStatus, .chatList, .shopmyinfo:
             return nil
         case .searchSurroundings(let lat, let long):
             return [

@@ -11,7 +11,7 @@ class BackgroundCollectionViewCell: BaseCollectionViewCell {
     
     let background: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage.setBackground(imagename: .background(.sesac_background_1))
+        view.image = UIImage(named: "searchPlaceholder")
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
@@ -20,7 +20,7 @@ class BackgroundCollectionViewCell: BaseCollectionViewCell {
     
     let nameLbl: UILabel = {
         let view = UILabel()
-        view.text = "배경이름"
+        view.text = "준비중"
         view.font = .title3_M14
         view.textColor = .setBaseColor(color: .black)
         return view
@@ -39,7 +39,7 @@ class BackgroundCollectionViewCell: BaseCollectionViewCell {
     
     let explanation: UILabel = {
         let view = UILabel()
-        view.text = "이건 설명입니다.이건 설명입니다.이건 설명입니다.이건 설명입니다."
+        view.text = "준비중인 배경 아이템입니다. 조금만 더 기다려주세요!"
         view.font = .Body3_R14
         view.textColor = .setBaseColor(color: .black)
         view.numberOfLines = 0

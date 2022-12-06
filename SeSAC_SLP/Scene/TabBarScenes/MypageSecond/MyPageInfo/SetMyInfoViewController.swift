@@ -61,12 +61,12 @@ final class SetMyInfoViewController: BaseViewController {
         setnavigation()
     }
     
-    // 이후 새싹샵의 인덱스 값에 맞춰서 변경하기
-    private func setByThumbnail(backgroundImg: SeSac_Background, sesac: Sesac_Face) {
-        mainView.cardView.header.imageView.image = UIImage(named: backgroundImg.rawValue)
-        mainView.cardView.header.sesacImage.image = UIImage(named: sesac.rawValue)
-    }
-    
+//    // 이후 새싹샵의 인덱스 값에 맞춰서 변경하기
+//    private func setByThumbnail(backgroundImg: SeSac_Background, sesac: Sesac_Face) {
+//        mainView.cardView.header.imageView.image = UIImage(named: backgroundImg)
+//        mainView.cardView.header.sesacImage.image = UIImage(named: sesac.)
+//    }
+//    
     func bindData() {
         //초기설정 - 데이터 뿌리기
         viewModel.fetchingUserInfo
