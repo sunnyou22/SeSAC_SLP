@@ -74,13 +74,14 @@ class SesacCollectionViewCell: BaseCollectionViewCell {
         nameLbl.snp.makeConstraints { make in
             make.top.equalTo(sesac.snp.bottom).offset(8)
             make.leading.equalToSuperview()
+            make.width.lessThanOrEqualTo(contentView.snp.width).dividedBy(2)
         }
         
         priceBtn.snp.makeConstraints { make in
+            make.top.equalTo(sesac.snp.bottom).offset(8)
             make.trailing.equalTo(sesac.snp.trailing).offset(-8)
             make.centerY.equalTo(nameLbl.snp.centerY)
-//            make.width.equalTo(52)
-//            make.height.equalTo(20)
+            make.width.lessThanOrEqualTo(contentView.snp.width).dividedBy(2)
         }
         
         explanation.snp.makeConstraints { make in

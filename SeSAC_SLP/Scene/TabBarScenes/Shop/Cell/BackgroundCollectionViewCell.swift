@@ -90,4 +90,9 @@ class BackgroundCollectionViewCell: BaseCollectionViewCell {
             make.edges.equalToSuperview()
         }
     }
+    override func prepareForReuse() {
+    super.prepareForReuse()
+        priceBtn.removeTarget(nil, action: nil, for: .touchUpInside)
+       
+    }
 }

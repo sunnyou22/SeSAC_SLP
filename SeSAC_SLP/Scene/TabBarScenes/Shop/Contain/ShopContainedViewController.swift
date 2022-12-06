@@ -8,10 +8,12 @@
 import UIKit
 
 import StoreKit
+import RxSwift
+import RxCocoa
 
 //MARK: 포함되는 뷰컨
 class ShopContainedViewController: BaseViewController, Bindable {
-
+    
     var vctype: Vctype
     
     init(vctype: Vctype) {
@@ -21,9 +23,8 @@ class ShopContainedViewController: BaseViewController, Bindable {
     
     var mainview = ShopContainerView()
     
-    var product: SKProduct?
     lazy var viewModel = ShopViewModel(vctype: vctype)
-  
+    let bag = DisposeBag()
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -35,6 +36,13 @@ class ShopContainedViewController: BaseViewController, Bindable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.requestProductData(productIdentifiers: viewModel.productIdentifiers)// 상품정보요청
+        
+        bind()
+        
+        mainview.collectionView.delegate = self
+        mainview.collectionView.dataSource = self
+        
         switch vctype {
             
         case .sesac:
@@ -44,23 +52,24 @@ class ShopContainedViewController: BaseViewController, Bindable {
             mainview.backgroundColor = .lightGray
             mainview.collectionView.collectionViewLayout = mainview.configureBackCollectionViewLayout()
         }
-
+        
         viewModel.USerInfoNetwork(idtoken: idToken)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestProductDat(productIdentifiers: viewModel.productIdentifiers) { // 상품정보요청
-            print("===+++++++++++++====")
-            mainview.collectionView.delegate = self
-            mainview.collectionView.dataSource = self
-            mainview.collectionView.reloadData()
-        }
-        
+      
     }
     
     func bind() {
-
+        
+        viewModel.productarray
+            .bind { [weak self] _ in
+                DispatchQueue.main.async {
+                    self?.mainview.collectionView.reloadData()
+                }
+                
+            }.disposed(by: bag)
     }
 }
 
@@ -69,30 +78,61 @@ extension ShopContainedViewController: UICollectionViewDelegate, UICollectionVie
         
         switch vctype {
         case .sesac:
-            print(viewModel.productArray.value.0, viewModel.productArray.value.1.count + 1, "------------------------------------")
-           return (viewModel.productArray.value.1.count + 1)
+            return (viewModel.productarray.value.1.count + 1)
         case .backgruond:
-            print(viewModel.productArray.value.0, viewModel.productArray.value.1.count + 1, "------------------------------------")
-            return (viewModel.productArray.value.1.count + 1)
-          
+            return (viewModel.productarray.value.1.count + 1)
+            
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         switch vctype {
         case .sesac:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SesacCollectionViewCell.reuseIdentifier, for: indexPath) as? SesacCollectionViewCell else { return UICollectionViewCell() }
             switch indexPath.item {
             case 0:
+                cell.priceBtn.tag = indexPath.item
                 cell.sesac.image = UIImage(named: Sesac_Face.sesac_face_1.str)
                 cell.nameLbl.text = "기본 새싹"
+                cell.priceBtn.setTitle("보유", for: .normal)
+                cell.isUserInteractionEnabled = false
                 return cell
-            case ...viewModel.productArray.value.1.count:
+            case ...viewModel.productarray.value.1.count:
+                cell.priceBtn.tag = indexPath.item
                 cell.sesac.image = UIImage(named: Sesac_Face.allCases[indexPath.item].str)
                 cell.sesac.image = UIImage(named: Sesac_Face.allCases[indexPath.item].str)
-                cell.nameLbl.text = viewModel.productArray.value.1[indexPath.item - 1].localizedTitle
-                cell.explanation.text = viewModel.productArray.value.1[indexPath.item - 1].localizedDescription
-                cell.priceBtn.setTitle("2000", for: .normal)
+                cell.nameLbl.text = viewModel.productarray.value.1[indexPath.item - 1].localizedTitle
+                cell.explanation.text = viewModel.productarray.value.1[indexPath.item - 1].localizedDescription
+                
+                viewModel.myPurchaseInfo.value[0].sesacCollection.forEach { value in
+                    if indexPath.item == value {
+                        cell.priceBtn.setTitle("보유", for: .normal)
+                        cell.priceBtn.configuration?.baseBackgroundColor = .setGray(color: .gray7)
+                    } else {
+                        cell.priceBtn.configuration?.baseBackgroundColor = .setBrandColor(color: .green)
+                        cell.priceBtn.setTitle("\(viewModel.productarray.value.1[indexPath.item - 1].price)", for: .normal)
+                        // cell 버튼 클릭
+                        cell.priceBtn.addTarget(self, action: #selector(clickbutton), for: .touchUpInside)
+                    }
+                }
+                
+             
+                
+                
+//                cell.priceBtn.rx
+//                    .tap
+//                    .withUnretained(self)
+//                    .asDriver(onErrorJustReturn: (self, print("가격버튼 구독")))
+//                    .drive { vc, _ in
+//                        if viewModel.myPurchaseInfo.value[0].sesacCollection[<#Int#>] vc.viewModel.myPurchaseInfo.value[0].backgroundCollection.dropFirst().contains(cell.priceBtn.tag), indexPath.item ==  {
+//                            cell.priceBtn.backgroundColor = .setGray(color: .gray2)
+//                            cell.priceBtn.setTitle("보유", for: .normal)
+//                        } else {
+//                            cell.priceBtn.backgroundColor = .setBrandColor(color: .green)
+//                            cell.priceBtn.setTitle("\(vc.viewModel.productArray.value.1[indexPath.item - 1].price)", for: .normal)
+//                        }
+//                    }.disposed(by: bag)
                 return cell
             default:
                 cell.sesac.image = UIImage(named: "searchPlaceholder")
@@ -106,26 +146,46 @@ extension ShopContainedViewController: UICollectionViewDelegate, UICollectionVie
             case 0:
                 cell.background.image = UIImage(named: SeSac_Background.sesac_background_1.str)
                 cell.nameLbl.text = "기본 새싹"
+                cell.priceBtn.setTitle("보유", for: .normal)
+                cell.priceBtn.configuration?.baseBackgroundColor = .setGray(color: .gray7)
+                cell.isUserInteractionEnabled = false
                 return cell
-            case ...viewModel.productArray.value.1.count:
+            case ...viewModel.productarray.value.1.count:
                 cell.background.image = UIImage(named: SeSac_Background.allCases[indexPath.item].str)
-                cell.nameLbl.text = viewModel.productArray.value.1[indexPath.item - 1].localizedTitle
-                cell.explanation.text = viewModel.productArray.value.1[indexPath.item - 1].localizedDescription
+                cell.nameLbl.text = viewModel.productarray.value.1[indexPath.item - 1].localizedTitle
+                cell.explanation.text = viewModel.productarray.value.1[indexPath.item - 1].localizedDescription
                 cell.priceBtn.setTitle("2000", for: .normal)
+                
+                viewModel.myPurchaseInfo.value[0].backgroundCollection.forEach { value in
+                    if indexPath.item == value {
+                        cell.priceBtn.setTitle("보유", for: .normal)
+                        cell.priceBtn.configuration?.baseBackgroundColor = .setGray(color: .gray7)
+                    } else {
+                        cell.priceBtn.configuration?.baseBackgroundColor = .setBrandColor(color: .green)
+                        cell.priceBtn.setTitle("\(viewModel.productarray.value.1[indexPath.item - 1].price)", for: .normal)
+                        cell.priceBtn.addTarget(self, action: #selector(clickbutton), for: .touchUpInside)
+                    }
+                }
                 return cell
             default:
+                cell.isUserInteractionEnabled = false
                 cell.background.image = UIImage(named: "searchPlaceholder")
                 return cell
             }
         }
+    }
+    
+    @objc func clickbutton(_ sender: UIButton) {
+        viewModel.buy(index: sender.tag - 1)
+        print(viewModel.productIdentifiers.sorted()[sender.tag - 1])
     }
 }
 
 extension ShopContainedViewController {
     //뷰컨 타입
     enum Vctype: Int, CaseIterable {
-         case sesac
-         case backgruond
+        case sesac
+        case backgruond
         
         var title: String {
             switch self {
@@ -135,45 +195,8 @@ extension ShopContainedViewController {
                 return "배경"
             }
         }
-     }
-}
-
-extension ShopContainedViewController {
-    
-    // 상품조회 : productIdentifiers에 정의된 상품 ID에 대한 정보 가져오기 및 사용자의 디바이스가 인앱결제가 가능한지 여부 확인
-    func requestProductDat(productIdentifiers: Set<String>, completion: () -> Void) {
-        //인앱결제가능한지 확이
-        if SKPaymentQueue.canMakePayments() {
-            let request = SKProductsRequest(productIdentifiers: productIdentifiers)
-            request.delegate = self
-            request.start() //인앱 상품 조회
-            print("인앱 결제 가능")
-        } else {
-            print("In App Purchase Not Enabled")
-        }
-        completion()
     }
 }
 
-extension ShopContainedViewController: SKProductsRequestDelegate {
-    //3. 인앱 상품 정보 조회
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        
-        let products = response.products
-        
-        var productArray = Array<SKProduct>()
-        
-        if products.count > 0 {
-            
-            for i in products {
-                productArray.append(i)
-                product = i //옵션: 셀에서 구매하기 버튼 클릭
-                viewModel.productArray.accept((vctype, productArray))
-                print(i.localizedTitle, i.price, i.priceLocale, i.productIdentifier, i.localizedDescription)
-            }
-            
-        } else {
-            print("No Product Found") // 계약 업데이트, 유료 계약 ㄴㄴ .Capabilities ㄴㄴ 일때
-        }
-    }
-}
+
+
