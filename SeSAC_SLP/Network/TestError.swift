@@ -272,6 +272,81 @@ enum ReviewStatus: Int, Error {
     }
 }
 
+enum ShopMyInfoStatus: Int, Error {
+    case success = 200
+    case firebaseTokenError = 401
+    case notsignUpUser = 406
+    case serverError = 500
+    case clientError = 501
+    
+    var message: String {
+        switch self {
+        case .success:
+            return "새싹샵 내 정보 요청 성공 🟢"
+        case .firebaseTokenError:
+            return "요청대기시간이 지났습니다! 다시 시도해주세요"
+        case .notsignUpUser:
+            return "미가입회원입니다"
+        case .serverError:
+            return "ERROR 500"
+        case .clientError:
+            return "ERROR 501"
+        }
+    }
+}
+
+enum ReceiptValidationStatus: Int, Error {
+    case success = 200
+    case invalid = 201
+    case firebaseTokenError = 401
+    case notsignUpUser = 406
+    case serverError = 500
+    case clientError = 501
+    
+    var message: String {
+        switch self {
+        case .success:
+            return "새싹샵 내 정보 요청 성공 🟢"
+        case .invalid:
+            return "유효하지 않은 영수증 🔴"
+        case .firebaseTokenError:
+            return "요청대기시간이 지났습니다! 다시 시도해주세요"
+        case .notsignUpUser:
+            return "미가입회원입니다"
+        case .serverError:
+            return "ERROR 500"
+        case .clientError:
+            return "ERROR 501"
+        }
+    }
+}
+
+enum UserSelectedItemStatus: Int, Error {
+    case success = 200
+    case notowned = 201
+    case firebaseTokenError = 401
+    case notsignUpUser = 406
+    case serverError = 500
+    case clientError = 501
+    
+    var message: String {
+        switch self {
+        case .success:
+            return "변경완료 🟢"
+        case .notowned:
+            return "구매가 필요한 아이템이 있어요"
+        case .firebaseTokenError:
+            return "요청대기시간이 지났습니다! 다시 시도해주세요"
+        case .notsignUpUser:
+            return "미가입회원입니다"
+        case .serverError:
+            return "ERROR 500"
+        case .clientError:
+            return "ERROR 501"
+        }
+    }
+}
+
 enum TestMessage {
     // 공통에러 멘트
     case defaultQueueMessage(QueueSearchStatus)
@@ -283,6 +358,7 @@ enum TestMessage {
     case StudyRequestStatus(StudyRequestStatus)
     case StudyAcceptedStatus(StudyAcceptStatus)
     case DeleteStatus(DeleteStatus)
+    case ReceiptValidationStatus(ReceiptValidationStatus) // Item으로 바꾸기
     
     case AuthVerifyPhoneNumber(AuthVerifyPhoneNumber)
     case AuthCredentialText(AuthCredentialText)

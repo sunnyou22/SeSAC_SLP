@@ -61,6 +61,8 @@ extension UIViewController {
                 }
                 tapCompletion
             }
+            
+            // massage 오타수정하기
         case .StudyRequestStatus(let status):
             view.makeToast(status.massage
                            , duration: 1, position: .bottom) { didTap in
@@ -80,6 +82,14 @@ extension UIViewController {
         case .DeleteStatus(let status):
             view.makeToast(status.massage
                            , duration: 1, position: .bottom) { didTap in
+                guard let tapCompletion = completion?() else {
+                    return
+                }
+                tapCompletion
+            }
+        case .ReceiptValidationStatus(let status):
+            view.makeToast(status.message
+                           , duration: 1, position: .center) { didTap in
                 guard let tapCompletion = completion?() else {
                     return
                 }

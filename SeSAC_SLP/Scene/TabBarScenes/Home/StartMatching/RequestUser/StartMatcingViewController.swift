@@ -174,7 +174,3 @@ extension StartMatcingViewController: UICollectionViewDelegate, UICollectionView
         return cell
     }
 }
-
-extension Notification.Name {
-    static let goChatVC = Notification.Name("goChatVC")
-}

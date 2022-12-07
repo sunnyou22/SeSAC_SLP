@@ -28,6 +28,9 @@ enum SeSACAPI {
     case chatList(from: String, lastchatDate: String)
     case chat(to: String, chat: String)
     case review(otheruid: String, reputation: [Int], comment: String)
+    case shopmyinfo
+    case receiptVelidation(receipt: String, product: String)
+    case useritem(sesac: Int, background: Int)
 }
 
 // 폴더 나눌 때 버전 빼기
@@ -58,18 +61,24 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/queue/dodge")!
         case .review(let id, _, _):
             return URL(string: URLConstant.BaseURL + "/v1/queue/rate/\(id)")!
+        case .shopmyinfo:
+            return URL(string: URLConstant.BaseURL + "/v1/user/shop/myinfo")!
+        case .receiptVelidation:
+            return URL(string: URLConstant.BaseURL + "/v1/user/shop/ios")!
+        case .useritem:
+            return URL(string: URLConstant.BaseURL + "/v1/user/shop/item")!
         }
     }
     
     //MARK: Header
     func getheader(idtoken: String) -> HTTPHeaders {
         switch self {
-        case .signUp, .setMypage, .search, .studyRequest, .chatList, .chat, .studyAccept, .dodge, .review:
+        case .signUp, .setMypage, .search, .studyRequest, .chatList, .chat, .studyAccept, .dodge, .review, .receiptVelidation, .useritem:
             return [
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
             ]
-        case .getUserInfo, .searchSurroundings, .matchingStatus, .delete:
+        case .getUserInfo, .searchSurroundings, .matchingStatus, .delete, .shopmyinfo:
             return [
                 "idtoken": idtoken
             ]
@@ -88,7 +97,7 @@ extension SeSACAPI {
                 "email": email,
                 "gender": gender
             ]
-        case .getUserInfo, .delete, .matchingStatus, .chatList:
+        case .getUserInfo, .delete, .matchingStatus, .chatList, .shopmyinfo:
             return nil
         case .searchSurroundings(let lat, let long):
             return [
@@ -122,6 +131,16 @@ extension SeSACAPI {
                 "otheruid": otheruid,
                 "reputation": reputation,
                 "comment": comment
+            ]
+        case .receiptVelidation(let receipt, let product):
+            return [
+                "receipt": receipt,
+                "product": product
+            ]
+        case .useritem(let sesac, let background):
+            return [
+                "sesac": sesac,
+                "background": background
             ]
         }
     }

@@ -7,14 +7,14 @@
 
 import UIKit
 
-extension UIImage {
-   static func setBackground(imagename: ImageSet) -> Self {
-        switch imagename {
-        case .background(let background):
-            return self.init(named: background.rawValue)!
-        case .sesacFace(let sesac):
-            return self.init(named: sesac.rawValue)!
-        }
-    }
-}
+//extension UIImage {
+//   static func setBackground(imagename: ImageSet) -> Self {
+//        switch imagename {
+//        case .background(let background):
+//            return self.init(named: background.rawValue)!
+//        case .sesacFace(let sesac):
+//            return self.init(named: sesac.rawValue)!
+//        }
+//    }
+//}
 
