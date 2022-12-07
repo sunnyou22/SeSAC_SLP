@@ -44,7 +44,7 @@ final class ChatViewController: BaseViewController {
         
         viewModel.fetchChatData(from: id, lastchatDate: tasks.last?.createdAt ?? "2000-01-01T00:00:00.000Z", idtoken: idToken)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(getMessage(notification:)), name: NSNotification.Name(SocketIOManager.shared.NotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getMessage(notification:)), name: NSNotification.Name.getMessage, object: nil)
         
         view.backgroundColor = .blue
         

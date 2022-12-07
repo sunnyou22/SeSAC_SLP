@@ -11,10 +11,17 @@ import StoreKit
 import RxSwift
 import RxCocoa
 
+protocol Sendableitem: NSObject {
+    func sendSesacimgStr(_ name: String)
+    func sendBackgroundimgStr(_ name: String)
+}
+
 //MARK: 포함되는 뷰컨
 class ShopContainedViewController: BaseViewController, Bindable {
     
     var vctype: Vctype
+    
+   weak var delegate: Sendableitem? // weak는 참조에만 쓰이는데 그럼 프로토콜 자체가 클래스에서만 쓰일수있도록 제약사항을 줘야함
     
     init(vctype: Vctype) {
         self.vctype = vctype
@@ -23,7 +30,7 @@ class ShopContainedViewController: BaseViewController, Bindable {
     
     var mainview = ShopContainerView()
     
-    lazy var viewModel = ShopViewModel(vctype: vctype)
+    lazy var viewModel = ShopContainerViewModel(vctype: vctype)
     let bag = DisposeBag()
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -53,7 +60,7 @@ class ShopContainedViewController: BaseViewController, Bindable {
             mainview.collectionView.collectionViewLayout = mainview.configureBackCollectionViewLayout()
         }
         
-        viewModel.USerInfoNetwork(idtoken: idToken)
+        viewModel.myPurchaseInfo(idtoken: idToken)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +76,26 @@ class ShopContainedViewController: BaseViewController, Bindable {
                     self?.mainview.collectionView.reloadData()
                 }
                 
+            }.disposed(by: bag)
+        
+        viewModel.receiptValidationStatus
+            .withUnretained(self)
+            .bind { vc, status in
+              
+                switch status {
+                case .success:
+                    print("구매성공")
+                    vc.viewModel.myPurchaseInfo(idtoken: vc.idToken) { _ in
+                        vc.mainview.collectionView.reloadData()
+                        LoadingIndicator.hideLoading()
+                    }
+                case .invalid:
+                    print("검증실패")
+                    LoadingIndicator.hideLoading()
+                default:
+                    print("기타오류")
+                    LoadingIndicator.hideLoading()
+                }
             }.disposed(by: bag)
     }
 }
@@ -90,10 +117,12 @@ extension ShopContainedViewController: UICollectionViewDelegate, UICollectionVie
         switch vctype {
         case .sesac:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SesacCollectionViewCell.reuseIdentifier, for: indexPath) as? SesacCollectionViewCell else { return UICollectionViewCell() }
+            
             switch indexPath.item {
             case 0:
                 cell.priceBtn.tag = indexPath.item
                 cell.sesac.image = UIImage(named: Sesac_Face.sesac_face_1.str)
+                cell.priceBtn.configuration?.baseBackgroundColor = .setGray(color: .gray7)
                 cell.nameLbl.text = "기본 새싹"
                 cell.priceBtn.setTitle("보유", for: .normal)
                 cell.isUserInteractionEnabled = false
@@ -105,10 +134,11 @@ extension ShopContainedViewController: UICollectionViewDelegate, UICollectionVie
                 cell.nameLbl.text = viewModel.productarray.value.1[indexPath.item - 1].localizedTitle
                 cell.explanation.text = viewModel.productarray.value.1[indexPath.item - 1].localizedDescription
                 
-                viewModel.myPurchaseInfo.value[0].sesacCollection.forEach { value in
+                for value in viewModel.myPurchaseInfo.value[0].sesacCollection {
                     if indexPath.item == value {
                         cell.priceBtn.setTitle("보유", for: .normal)
                         cell.priceBtn.configuration?.baseBackgroundColor = .setGray(color: .gray7)
+                        break
                     } else {
                         cell.priceBtn.configuration?.baseBackgroundColor = .setBrandColor(color: .green)
                         cell.priceBtn.setTitle("\(viewModel.productarray.value.1[indexPath.item - 1].price)", for: .normal)
@@ -116,6 +146,10 @@ extension ShopContainedViewController: UICollectionViewDelegate, UICollectionVie
                         cell.priceBtn.addTarget(self, action: #selector(clickbutton), for: .touchUpInside)
                     }
                 }
+                
+//                viewModel.myPurchaseInfo.value[0].sesacCollection.forEach { value in
+//
+//                }
                 
              
                 
@@ -151,6 +185,7 @@ extension ShopContainedViewController: UICollectionViewDelegate, UICollectionVie
                 cell.isUserInteractionEnabled = false
                 return cell
             case ...viewModel.productarray.value.1.count:
+                cell.priceBtn.tag = indexPath.item
                 cell.background.image = UIImage(named: SeSac_Background.allCases[indexPath.item].str)
                 cell.nameLbl.text = viewModel.productarray.value.1[indexPath.item - 1].localizedTitle
                 cell.explanation.text = viewModel.productarray.value.1[indexPath.item - 1].localizedDescription
@@ -175,7 +210,18 @@ extension ShopContainedViewController: UICollectionViewDelegate, UICollectionVie
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch vctype {
+        case .sesac:
+            delegate?.sendSesacimgStr(Sesac_Face.allCases[indexPath.item].str)
+        case .backgruond:
+            delegate?.sendBackgroundimgStr(SeSac_Background.allCases[indexPath.item].str)
+        }
+    }
+    
     @objc func clickbutton(_ sender: UIButton) {
+       
+        LoadingIndicator.showLoading()
         viewModel.buy(index: sender.tag - 1)
         print(viewModel.productIdentifiers.sorted()[sender.tag - 1])
     }

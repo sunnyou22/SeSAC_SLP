@@ -160,3 +160,15 @@ struct ShopMyInfo: Codable {
              searchable, createdAt
     }
 }
+
+
+// MARK: - ReceiptValidation
+struct ReceiptValidation: Codable {
+    let receipt, product: Int
+}
+
+
+// MARK: - UserItem
+struct UserSelectedItem: Codable {
+    let sesac, background: Int
+}

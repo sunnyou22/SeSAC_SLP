@@ -12,8 +12,7 @@ import SocketIO
 class SocketIOManager {
     
     static let shared = SocketIOManager()
-    
-    let NotificationName = "getMessage"
+    // 빼놓은거 정리하기
     
     var manager: SocketManager!
     
@@ -51,7 +50,7 @@ class SocketIOManager {
             
             print("check >>>", chat, to, from, createdAt)
             
-            NotificationCenter.default.post(name: Notification.Name(SocketIOManager.shared.NotificationName), object: self, userInfo: [
+            NotificationCenter.default.post(name: Notification.Name.getMessage, object: self, userInfo: [
                 Payload.CodingKeys.id.rawValue: id,
                 Payload.CodingKeys.to.rawValue: to,
                 Payload.CodingKeys.from.rawValue: from,

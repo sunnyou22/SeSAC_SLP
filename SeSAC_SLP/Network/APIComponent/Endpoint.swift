@@ -29,6 +29,8 @@ enum SeSACAPI {
     case chat(to: String, chat: String)
     case review(otheruid: String, reputation: [Int], comment: String)
     case shopmyinfo
+    case receiptVelidation(receipt: String, product: String)
+    case useritem(sesac: Int, background: Int)
 }
 
 // 폴더 나눌 때 버전 빼기
@@ -61,13 +63,17 @@ extension SeSACAPI {
             return URL(string: URLConstant.BaseURL + "/v1/queue/rate/\(id)")!
         case .shopmyinfo:
             return URL(string: URLConstant.BaseURL + "/v1/user/shop/myinfo")!
+        case .receiptVelidation:
+            return URL(string: URLConstant.BaseURL + "/v1/user/shop/ios")!
+        case .useritem:
+            return URL(string: URLConstant.BaseURL + "/v1/user/shop/item")!
         }
     }
     
     //MARK: Header
     func getheader(idtoken: String) -> HTTPHeaders {
         switch self {
-        case .signUp, .setMypage, .search, .studyRequest, .chatList, .chat, .studyAccept, .dodge, .review:
+        case .signUp, .setMypage, .search, .studyRequest, .chatList, .chat, .studyAccept, .dodge, .review, .receiptVelidation, .useritem:
             return [
                 "idtoken": idtoken,
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -125,6 +131,16 @@ extension SeSACAPI {
                 "otheruid": otheruid,
                 "reputation": reputation,
                 "comment": comment
+            ]
+        case .receiptVelidation(let receipt, let product):
+            return [
+                "receipt": receipt,
+                "product": product
+            ]
+        case .useritem(let sesac, let background):
+            return [
+                "sesac": sesac,
+                "background": background
             ]
         }
     }
