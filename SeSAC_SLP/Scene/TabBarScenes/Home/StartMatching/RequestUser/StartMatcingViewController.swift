@@ -107,8 +107,6 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         cell.requestButton.setTitle(type.buttonTitle, for: .normal)
         cell.requestButton.backgroundColor = type.buttonColor
         
-        
-        
         let sesacTitle = (titleStackView.rightVerticalStackView.arrangedSubviews + titleStackView.leftVerticalStackView.arrangedSubviews).sorted { $0.tag < $1.tag }
         
         // 이렇게 하면 쌍으로 나옴
@@ -139,7 +137,9 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         
         //얼럿
         cell.requestButton.addTarget(self, action: #selector(request), for: .touchUpInside)
-        cell.requestButton.tag = indexPath.row
+        cell.requestButton.tag = indexPath.item
+
+        cell.cardView.nicknameView.tag = indexPath.item
         
         return cell
     }

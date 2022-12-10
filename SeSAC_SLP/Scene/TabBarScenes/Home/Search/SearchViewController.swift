@@ -189,7 +189,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         case 0:
             //fromRecommend.count
             if indexPath.item >= 0, indexPath.item < viewModel.fromRecommend.count {
-                print(indexPath.item, viewModel.quoList[indexPath.item], "🔗🔗🔗🔗🔗🔗🔗🔗🔗🔗🔗🔗🔗")
+                print(indexPath.item, viewModel.quoList[indexPath.item])
                 guard let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier, for: indexPath) as? SearchCollecitionViewCell else { return UICollectionViewCell() }
                 
                 cell1.label.text = viewModel.quoList[indexPath.item]

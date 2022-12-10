@@ -164,10 +164,10 @@ final class ChatViewModel: EnableDataInNOut {
                 return }
             
             //  200이 떴을 때 "램에 넣어주기 랑 셀의 상태도 바꿔줘야함
-            let task = PayLoadListTable(id: data.id, to: data.to, from: data.from, chat: data.chat, createdAt: data.createdAt)
-            ChatDataListRepository.shared.addItem(item: task) {
-                print("send chat 램에 레코드 넣기 완료 -> 넣은 메세지: ", task.chat)
-            }
+//            let task = PayLoadListTable(id: data.id, to: data.to, from: data.from, chat: data.chat, createdAt: data.createdAt)
+//            ChatDataListRepository.shared.addItem(item: task) {
+//                print("send chat 램에 레코드 넣기 완료 -> 넣은 메세지: ", task.chat)
+//            }
         }
     }
   

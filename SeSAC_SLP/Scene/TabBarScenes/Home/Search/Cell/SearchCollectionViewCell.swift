@@ -76,4 +76,5 @@ class SearchCollecitionViewCell: BaseCollectionViewCell {
            make.edges.equalToSuperview()
         }
     }
+    
 }
