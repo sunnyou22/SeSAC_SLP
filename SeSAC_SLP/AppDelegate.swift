@@ -55,10 +55,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+
 extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    enum PushKey: String, CaseIterable {
+        case matched
+        case dodge
+        case studyAccepted
+        case studyRequest
+        
+        var topViewcontroller: UIViewController {
+            guard let topViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController?.topViewController else { return HomeMapViewController() }
+            switch self {
+            case .matched:
+                return topViewController is ChatViewController ? ChatViewController() : HomeMapViewController()
+            case .dodge:
+                return HomeMapViewController()
+            case .studyAccepted:
+                return topViewController is StartMatcingViewController ? StartMatcingViewController(type: .near, viewModel: .init(type: .near)) : HomeMapViewController()
+            case .studyRequest:
+                return HomeMapViewController()
+            }
+        }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print(response.notification.request.content.userInfo)
+        
+        let userInfo = response.notification.request.content.userInfo
+        guard let topViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController?.topViewController else { return }
+        
+        
+        for key in userInfo.keys {
+            guard let key = key as? String, let viewController = AppDelegate.PushKey(rawValue: key)?.topViewcontroller else { return }
+            
+            let vc = viewController
+            topViewController.present(viewController, animated: true) // 네비게이션 바 아이템 점검해야함
+            break
+        }
+    }
+    
+    
     //포그라운드 알림 수신: 로컬/푸시 동일
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
+
         completionHandler([.badge, .sound, .banner, .list]) // 뱃지카운팅은 올라가면 좋겠을 때ㅔ
     }
 }

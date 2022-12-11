@@ -56,7 +56,7 @@ final class SearchViewModel {
         var tempList: Set<String> = []
         fromQueueDB.forEach { list in
             tempList = Set(list.studylist)
-            total += tempList.filter { $0 != "anything" }#imageLiteral(resourceName: "스크린샷 2022-12-10 00.45.32.jpg")
+            total += tempList.filter { $0 != "anything" }
         }
         studyList.accept(total.sorted())
     }
