@@ -48,27 +48,28 @@ final class ShopContainerViewModel: NSObject {
     final let myPurchaseInfo: BehaviorRelay<[ShopMyInfo]> = BehaviorRelay(value: [])
     
     final var productarray: BehaviorRelay<ProductArray> = BehaviorRelay(value: (nil, [])) // 상품정보
-    //
-    func postUserItem(idtoken: String, completion: ((ShopMyInfo) -> Void)? = nil) {
-        let api = SeSACAPI.shopmyinfo
-        
-        Network.shared.receiveRequestSeSAC(type: ShopMyInfo.self, url: api.url, parameter: nil, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
-            guard let shopmyinfo = ShopMyInfoStatus(rawValue: statusCode) else { return }
-            self?.shopMyInfoStatus.onNext(shopmyinfo)
-            
-            guard let data = data else {
-                print("구매데이터 가져오기 실패 🔴")
-                self?.shopMyInfoStatus.onNext(shopmyinfo)
-                return
-            }
-            
-            print("구매정보가져오기 성공 ✅", data)
-            
-            self?.myPurchaseInfo.accept([data])
-            //성공
-            completion?(data)
-        }
-    }
+    
+//    func postUserItem(idtoken: String, completion: ((ShopMyInfo) -> Void)? = nil) {
+//        let api = SeSACAPI.shopmyinfo
+//
+//        Network.shared.receiveRequestSeSAC(type: ShopMyInfo.self, url: api.url, parameter: nil, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in
+//            guard let shopmyinfo = ShopMyInfoStatus(rawValue: statusCode) else { return }
+//            self?.shopMyInfoStatus.onNext(shopmyinfo)
+//
+//            guard let data = data else {
+//                print("구매데이터 가져오기 실패 🔴")
+//                self?.shopMyInfoStatus.onNext(shopmyinfo)
+//                return
+//            }
+//
+//            print("구매정보가져오기 성공 ✅", data)
+//
+//            self?.myPurchaseInfo.accept([data])
+//
+//            //성공
+//            completion?(data)
+//        }
+//    }
     
     func myPurchaseInfo(idtoken: String, completion: ((ShopMyInfo) -> Void)? = nil) {
         let api = SeSACAPI.shopmyinfo
@@ -87,6 +88,7 @@ final class ShopContainerViewModel: NSObject {
             
             self?.myPurchaseInfo.accept([data])
             //성공
+           
             completion?(data)
         }
     }

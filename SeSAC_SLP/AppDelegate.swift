@@ -65,14 +65,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         case studyRequest
         
         var topViewcontroller: UIViewController {
-            guard let topViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController?.topViewController else { return HomeMapViewController() }
             switch self {
             case .matched:
-                return topViewController is ChatViewController ? ChatViewController() : HomeMapViewController()
+                return ChatViewController()
             case .dodge:
                 return HomeMapViewController()
             case .studyAccepted:
-                return topViewController is StartMatcingViewController ? StartMatcingViewController(type: .near, viewModel: .init(type: .near)) : HomeMapViewController()
+                return StartMatcingViewController(type: .near, viewModel: .init(type: .near))
             case .studyRequest:
                 return HomeMapViewController()
             }
@@ -80,18 +79,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print(response.notification.request.content.userInfo)
+        print(response.notification.request.content.body) // 바디는 알림메세지의 내용
+        print(response.notification.request.content.userInfo)// 파이어베이스에서 등록했던 키 밸류
         
         let userInfo = response.notification.request.content.userInfo
         guard let topViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController?.topViewController else { return }
         
-        
         for key in userInfo.keys {
-            guard let key = key as? String, let viewController = AppDelegate.PushKey(rawValue: key)?.topViewcontroller else { return }
-            
-            let vc = viewController
-            topViewController.present(viewController, animated: true) // 네비게이션 바 아이템 점검해야함
-            break
+            print(key, "반복문 들어옴")
+           if let key = key as? String, let viewController = AppDelegate.PushKey(rawValue: key)?.topViewcontroller {
+                print(key, viewController, topViewController, "화면전환")
+               topViewController.setInitialViewController(to: viewController) // 네비게이션 바 아이템 점검해야함
+               break
+           }
         }
     }
     

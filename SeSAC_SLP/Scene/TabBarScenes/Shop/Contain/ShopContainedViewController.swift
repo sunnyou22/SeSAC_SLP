@@ -60,7 +60,7 @@ class ShopContainedViewController: BaseViewController, Bindable {
             mainview.collectionView.collectionViewLayout = mainview.configureBackCollectionViewLayout()
         }
         
-        viewModel.myPurchaseInfo(idtoken: idToken)
+        viewModel.myPurchaseInfo(idtoken: idToken) 
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,14 +69,25 @@ class ShopContainedViewController: BaseViewController, Bindable {
     }
     
     func bind() {
-        
-        viewModel.productarray
-            .bind { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.mainview.collectionView.reloadData()
-                }
-                
-            }.disposed(by: bag)
+//
+//        viewModel.productarray
+//            .bind { [weak self] _ in
+//                LoadingIndicator.showLoading()
+//                DispatchQueue.main.asyncAfter(deadline: .now().clamped(to: .), execute: <#T##Dispatch.DispatchWorkItem#>) {
+//                    self?.mainview.collectionView.reloadData()
+//                    LoadingIndicator.hideLoading()
+//                }
+//
+//            }.disposed(by: bag)
+//
+//        viewModel.product
+//
+//            .asDriver()
+//            .drive(mainview.collectionView.rx.items(cellIdentifier: SesacCollectionViewCell.reuseIdentifier, cellType: SesacCollectionViewCell.self)) {
+//                item, ele, cell in
+
+//            }.disposed(by: bag)
+            
         
         viewModel.receiptValidationStatus
             .withUnretained(self)
@@ -241,7 +252,18 @@ extension ShopContainedViewController {
                 return "배경"
             }
         }
+        
+//        var button
     }
+    
+    /*
+     카테고리가 증가한다고 했을 때
+     페이지 안에 들어가는 이미지, 네임, 가격 등 하위항목을 Struct 내부에 enum 케이스로 정리해보는건
+     
+     구조를 바꿔서 bind로 컬렉션뷰를 구현한다고 했을 때:
+     시점 문제가 해결되는게 맞을까 이미지가 더 많다면? 데이터가 다 받아와지는 시점에 유저 액션을 받을수있도록 해야하나
+     그럼 현 구조에서 배경아이템을 구매한다고하면 데이터가 받아와지지 않았는데 인덱스에 접근하는 문제는 aysncAfter로 아니지 디스패치 그룹 사용해보기
+     */
 }
 
 

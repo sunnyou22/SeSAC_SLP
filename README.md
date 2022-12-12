@@ -1,6 +1,7 @@
 # 🌱 StudyMatchingService
 
 ## 프로젝트 소개
+REST API통신을 기반한  스터디 메이트 매칭 서비스 ( 11.07 - 12.07)
 
 ## 개발기간
 
