@@ -16,30 +16,27 @@ final class Network {
     
     private init() { }
     
-    func receiveRequestSeSAC<T: Decodable>(type: T.Type = T.self, url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, headers: HTTPHeaders, completion: @escaping ((T?, Int) -> Void)) {
-        
-        AF.request(url, method: method, parameters: parameter, encoding: URLEncoding(arrayEncoding: .noBrackets), headers: headers)
-            .responseDecodable(of: T.self) //responseString 찍어보기
-        { response in
-            print(response, "===================")
-            switch response.result {
-            case .success(let data):
-                
+    func receiveRequestSeSAC<T: Decodable>(type: T.Type = T.self, url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, headers: HTTPHeaders) -> Single<(T?, Int)> {
+        return Single<(T?, Int)>.create { (single) -> Disposable in
+          let request = AF.request(url, method: method, parameters: parameter, encoding: URLEncoding(arrayEncoding: .noBrackets), headers: headers)
+                .responseDecodable(of: T.self) //responseString 찍어보기
+            { response in
                 guard let statusCode = response.response?.statusCode else {
-                    print("상태코드가 없습니다 🔴 ")
+                    
                     return }
-                completion(data, statusCode)
-                print("네트워크 통신 success🔗 상태코드: \(statusCode),\n 데이터 : \(data)")
 
-            case .failure(let error):
-                guard let statusCode = response.response?.statusCode else { return }
-                //                guard let error = error(rawValue: statusCode) else { return }
-                // 기본적으로 계속 요청해야하는 코드이기 때문에 모델안에서 처리
-                // SignUpError에서 statusCode에 해당하는 case를 뱉음
-                completion(nil, statusCode)
-                print("서버 통신 fail🔗 상태코드: \(statusCode)")
-                
+                switch response.result {
+                case .success(let data):
+                    single(.success((data, statusCode)))
+                    print("네트워크 통신 success🔗 상태코드: \(statusCode),\n 데이터 : \(data)")
+                    
+                case .failure(let error):
+                    single(.success((nil, statusCode)))
+                    single(.failure(error))
+                    print("서버 통신 fail🔗 상태코드: \(statusCode)")
+                }
             }
+            return Disposables.create { request.cancel() }
         }
     }
     

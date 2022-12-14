@@ -25,6 +25,8 @@ final class ChatViewModel: EnableDataInNOut {
         case finished = "스터디 종료"
     }
     
+    let bag = DisposeBag()
+    
     let commonServer = CommonServerManager()
     
     let fetchChatApi = PublishRelay<StatusOfFetchingChat>()
@@ -89,23 +91,38 @@ final class ChatViewModel: EnableDataInNOut {
     
    final func fetchChatData(from: String, lastchatDate: String, idtoken: String) {
         let api = SeSACAPI.chatList(from: from, lastchatDate: lastchatDate)
-        Network.shared.receiveRequestSeSAC(type: FetchingChatData.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode in
-            guard let data = data?.payload else {
-                print("채팅목록 데이터를 받아올 수 없음 🔴", #function)
-                return
-            }
-            self?.serverChatData.accept(data)
-            print("채팅목록 데이터 받아옴 🟢", data)
-            
-            guard let status = StatusOfFetchingChat(rawValue: statusCode) else {
-                print("채팅목록 상태코드를 받아 올 수 없습니다 🔴", #function)
-                return }
-            
-            SocketIOManager.shared.establistConnection()
-            
-            self?.fetchChatApi.accept(status)
-        }
+        Network.shared.receiveRequestSeSAC(type: FetchingChatData.self, url: api.url, method: .get, headers: api.getheader(idtoken: idtoken))
+           .subscribe { [weak self] (data, statusCode) in
+               guard let data = data?.payload else { return }
+               guard let status = StatusOfFetchingChat(rawValue: statusCode) else { return }
+               
+               self?.serverChatData.accept(data)
+               
+               SocketIOManager.shared.establistConnection()
+               
+               self?.fetchChatApi.accept(status)
+           }.disposed(by: bag)
     }
+    
+    
+    /*
+     { [weak self] data, statusCode in
+        guard let data = data?.payload else {
+            print("채팅목록 데이터를 받아올 수 없음 🔴", #function)
+            return
+        }
+        self?.serverChatData.accept(data)
+        print("채팅목록 데이터 받아옴 🟢", data)
+        
+        guard let status = StatusOfFetchingChat(rawValue: statusCode) else {
+            print("채팅목록 상태코드를 받아 올 수 없습니다 🔴", #function)
+            return }
+        
+        SocketIOManager.shared.establistConnection()
+        
+        self?.fetchChatApi.accept(status)
+    }
+     */
     
    private func compareDate() {
         let tasks = ChatDataListRepository.shared.fetchDate() // 모델간의 상호작용이 맞을지 고민하기 중간다리 역할 모델을 두고 뷰모델에서 전부 처리한뒤 뷰컨에 보여주던가, 아님 중간다리 뷰모델 없이 그때그때 처리하던가흠,,
