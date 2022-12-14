@@ -44,7 +44,7 @@ final class ReviewPopUpiViewController: BaseViewController, Bindable {
             alertView.reviewList.six
         ]
         
-        for (index, list) in zip(btnList.indices, btnList) {
+        for (index, list) in btnList.enumerated() {
             list.rx.tap
                 .withUnretained(self)
                 .asDriver(onErrorJustReturn: (self, print("tap구독완료, \(index)")))
