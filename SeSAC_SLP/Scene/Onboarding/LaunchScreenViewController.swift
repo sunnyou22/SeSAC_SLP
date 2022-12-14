@@ -52,7 +52,7 @@ class LaunchScreenViewController: UIViewController {
         
         print(idtoken)
         
-        self.commonSerVerModel.USerInfoNetwork(idtoken: idtoken)
+        self.commonSerVerModel.UserInfoNetwork(idtoken: idtoken)
         
 //        UserDefaults.standard.removeObject(forKey: "idtoken")
    

@@ -24,7 +24,7 @@ final class CommonServerManager {
     //
     //MAKR: - 모델로 빼기
     
-    func USerInfoNetwork(idtoken: String, completion: ((GetUerIfo) -> Void)? = nil) {
+    func UserInfoNetwork(idtoken: String, completion: ((GetUerIfo) -> Void)? = nil) {
         let api = SeSACAPI.getUserInfo
         
         Network.shared.receiveRequestSeSAC(type: GetUerIfo.self, url: api.url, parameter: nil, method: .get, headers: api.getheader(idtoken: idtoken)) { [weak self] data, statusCode  in

@@ -57,7 +57,7 @@ final class ChatViewController: BaseViewController {
     override func configure() {
         super.configure()
         //내 uid 가져오기
-        commonserver.USerInfoNetwork(idtoken: idToken, completion: { [weak self] data in
+        commonserver.UserInfoNetwork(idtoken: idToken, completion: { [weak self] data in
             print("chatviewcontroller에 data 가져오기 성공", data)
             //바 설정 -> 네트워크 통신은 비동기이기 때문
             self?.navigationItem.title = "\(self!.commonserver.userData.value[0].nick)"

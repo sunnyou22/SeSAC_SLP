@@ -43,7 +43,7 @@ final class SetMyInfoViewController: BaseViewController {
             return }
         print(UserDefaults.idtoken)
         // 통신하기
-        apiViewModel.USerInfoNetwork(idtoken: idtoken) { [weak self] data in
+        apiViewModel.UserInfoNetwork(idtoken: idtoken) { [weak self] data in
             self?.viewModel.fetchingUserInfo.accept(data)
         }
         // 유저디폴츠에 저장된 값 변수에 넣기 -> 인풋아웃풋 구조랑 비슷한거 아닌가 흠
