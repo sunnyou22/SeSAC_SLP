@@ -20,7 +20,7 @@ final class ReviewPopViewModel {
         
         print(otherUid, reputation, comment, api.url, api.parameter, api.getheader(idtoken: idtoken), " ======================================")
         
-        Network.shared.sendRequestSeSAC(url: api.url, method: .post, headers: api.getheader(idtoken: idtoken)) { [weak self] statusCode in
+        Network.shared.sendRequestSeSAC(url: api.url, method: .sy, headers: api.getheader(idtoken: idtoken)) { [weak self] statusCode in
 
             guard let status = ReviewStatus(rawValue: statusCode) else {
                 print("statuscode 혹으 data를 받아오는 것에 실패했습니다./n DATA: /n STATUSCODE: \(statusCode) 🔴")
