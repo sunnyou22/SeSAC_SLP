@@ -13,6 +13,8 @@ import RxSwift
 
 class LaunchScreenViewController: UIViewController {
     
+    let test = LacunchViewMoldel()
+    
     let commonSerVerModel = CommonServerManager()
     let disposedBag = DisposeBag()
     let mainImageView: UIImageView = {
@@ -42,6 +44,7 @@ class LaunchScreenViewController: UIViewController {
         transition.type = .fade
                 transition.duration = 3
         sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
+        
         //분기처리
         //        UserDefaults.standard.removeObject(forKey: "idtoken")
         guard let idtoken = UserDefaults.idtoken else {
@@ -59,35 +62,38 @@ class LaunchScreenViewController: UIViewController {
         //데이터 통신이 끝난 이후 불러지는 코드인데
         self.commonSerVerModel.userStatus
             .asDriver(onErrorJustReturn: (.InvaliedNickName))
-            .drive(onNext: { [weak self] value in
+            .drive(with: self) { (vc, value) in
                 print(value, " =============")
                 switch value {
                 case .SignInUser:
                     print("201 안불려지는 메서드")
+                    
                 case .InvaliedNickName:
                     print("InvaliedNickName // 온보딩에서 필요없는 코드")
+                    
                 case .Success:
 //                    let testvc = ShopViewController()
 //                    sceneDelegate?.window?.rootViewController = testvc
 //                    sceneDelegate?.window?.makeKeyAndVisible()
                     let homeMapController = CustomTabBarController()
-                    self?.setInitialViewController(to: homeMapController)
+                    vc.setInitialViewController(to: homeMapController)
                     print("기존 유저 정보를 받아 홈화면으로 진입 🟢")
+                    
                 case .FirebaseTokenError:
                     print("401")
                     //앱을 재시작할 수 있나
 //                    self?.commonSerVerModel.USerInfoNetwork(idtoken: idtoken) // 무한 재귀호출~
-                    FirebaseManager.shared.getIDTokenForcingRefresh()
+                    vc.test.refreshIdtoken()
                 case .NotsignUpUser:
                     let nickNameViewController = NicknameViewController()
-                    self?.setInitialViewController(to: nickNameViewController)
+                    vc.setInitialViewController(to: nickNameViewController)
                     return
                 case .ServerError:
                     print("ServerError 🔴")
                 case .ClientError:
                     print("ClientError 🔴")
                 }
-            }).disposed(by: self.disposedBag)
+            }.disposed(by: self.disposedBag)
     }
     
     func configure() {

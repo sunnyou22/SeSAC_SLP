@@ -12,8 +12,6 @@ import RxCocoa
 
 enum NetworkCommonPrameter<T> {
     case common(type: T.Type = T.self, url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, header: HTTPHeaders)
-    
-    
 }
 
 
@@ -23,33 +21,26 @@ final class Network {
     
     private init() { }
     
-    func receiveRequestSeSAC<T: Decodable>(common: NetworkCommonPrameter<T>) -> Single<(T?, Int)> {
+    func receiveRequestSeSAC<T: Decodable>(type: T.Type = T.self, url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, headers: HTTPHeaders) -> Single<(T?, Int)> {
         return Single<(T?, Int)>.create { (single) -> Disposable in
-            
-            switch common {
-            case .common( _, let url, let parameter, let method, let headers):
+            let request = AF.request(url, method: method, parameters: parameter, encoding: URLEncoding(arrayEncoding: .noBrackets), headers: headers)
+                .responseDecodable(of: T.self) //responseString 찍어보기
+            { response in
+                guard let statusCode = response.response?.statusCode else { return }
                 
-                let request = AF.request(url, method: method, parameters: parameter, encoding: URLEncoding(arrayEncoding: .noBrackets), headers: headers)
-                    .responseDecodable(of: T.self) //responseString 찍어보기
-                { response in
-                    guard let statusCode = response.response?.statusCode else {
-                        
-                        return }
+                switch response.result {
+                case .success(let data):
+                    single(.success((data, statusCode)))
+                    print("네트워크 통신 success🔗 상태코드: \(statusCode),\n 데이터 : \(data)")
                     
-                    switch response.result {
-                    case .success(let data):
-                        single(.success((data, statusCode)))
-                        print("네트워크 통신 success🔗 상태코드: \(statusCode),\n 데이터 : \(data)")
-                        
-                    case .failure(let error):
-                        single(.success((nil, statusCode)))
-                        single(.failure(error))
-                        print("서버 통신 fail🔗 상태코드: \(statusCode)")
-                    }
+                case .failure(let error):
+                    single(.success((nil, statusCode)))
+                    single(.failure(error))
+                    print("서버 통신 fail🔗 상태코드: \(statusCode), === \(response.response)")
                 }
-                return Disposables.create { request.cancel() }
             }
-        }
+            return Disposables.create { request.cancel() }
+        }.debug("어떻게 나오냐", trimOutput: true)
     }
     
     func sendRequestSeSAC(url: URL, parameter: [String:Any]? = nil, method: HTTPMethod, headers: HTTPHeaders, completion: @escaping ((Int) -> Void)) {

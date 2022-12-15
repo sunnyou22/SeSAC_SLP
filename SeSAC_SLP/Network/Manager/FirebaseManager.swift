@@ -82,7 +82,7 @@ final class FirebaseManager {
 //        UserDefaults.
     }
     //✅
-    func getIDTokenForcingRefresh() {
+    func getIDTokenForcingRefresh(completion: (() -> Void)? = nil) {
         let currentUser = Auth.auth().currentUser
         currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
             print("들어가기전")

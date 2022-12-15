@@ -134,7 +134,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "25F71A92-DA2D-43CD-AFE2-FD6EBA9BBA39"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SeSAC_SLP/Scene/TabBarScenes/Shop/ShopViewModel.swift"
@@ -154,8 +154,8 @@
             filePath = "SeSAC_SLP/Scene/TabBarScenes/Shop/Contain/ShopContainedViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "clickbutton(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,8 +170,8 @@
             filePath = "SeSAC_SLP/Scene/TabBarScenes/Shop/Contain/ShopContainedViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "clickbutton(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -180,22 +180,6 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "6BE0C302-337E-403B-A068-9B85FCD7F6CB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SeSAC_SLP/Scene/TabBarScenes/Shop/Contain/ShopContainedViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "collectionView(_:didSelectItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "33D40B3A-A52F-4159-8515-1FF5BB2DB8D7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -211,32 +195,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CB393BCF-1BD1-47A1-B64B-725E4596495C"
+            uuid = "33D40B3A-A52F-4159-8515-1FF5BB2DB8D7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SeSAC_SLP/Scene/TabBarScenes/Shop/Contain/ShopContainerViewModel.swift"
+            filePath = "SeSAC_SLP/Scene/TabBarScenes/Shop/Contain/ShopContainedViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "myPurchaseInfo(idtoken:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "00ECD5E0-1052-458A-BC58-15AC90C59B24"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SeSAC_SLP/Scene/TabBarScenes/Shop/Contain/ShopContainerViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "myPurchaseInfo(idtoken:completion:)"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -330,9 +298,328 @@
             filePath = "SeSAC_SLP/Scene/TabBarScenes/Shop/Contain/ShopContainedViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
             landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "84A8A557-CF46-4A90-8BA3-FA9983B71E1E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Network/Manager/APIViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "UserInfoNetwork(idtoken:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D9D6DA76-C115-4510-B767-A17DB7BF79F9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Network/Manager/APIViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "UserInfoNetwork(idtoken:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0DCBF824-AD59-4BF6-AA1D-C6485C701CB3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Network/Manager/APIViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "UserInfoNetwork(idtoken:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "678874DE-C9B3-4178-8486-1BB211CF0078"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Network/Manager/FirebaseManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "getIDTokenForcingRefresh(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D349BD1D-6048-4E08-AD7C-3B809DEC2324"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "refreshIdtoken()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D349BD1D-6048-4E08-AD7C-3B809DEC2324 - 25a506fb2eebddd6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (SeSAC_SLP.LacunchViewMoldel, Swift.Error) -&gt; () in SeSAC_SLP.LacunchViewMoldel.refreshIdtoken() -&gt; ()"
+                  moduleName = "SeSAC_SLP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/SeSAC_SLP/SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "280">
+               </Location>
+               <Location
+                  uuid = "D349BD1D-6048-4E08-AD7C-3B809DEC2324 - 382dbf33043c9e6e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (RxSwift.Observable&lt;Swift.Error&gt;) -&gt; RxSwift.Observable&lt;Swift.Int&gt; in closure #2 (SeSAC_SLP.LacunchViewMoldel, Swift.Error) -&gt; () in SeSAC_SLP.LacunchViewMoldel.refreshIdtoken() -&gt; ()"
+                  moduleName = "SeSAC_SLP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/SeSAC_SLP/SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DBCB3990-BB43-40C1-9D2F-F501B7C87022"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "refreshIdtoken()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DBCB3990-BB43-40C1-9D2F-F501B7C87022 - 1365fccf31831710"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SeSAC_SLP.LacunchViewMoldel.refreshIdtoken() -&gt; ()"
+                  moduleName = "SeSAC_SLP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/SeSAC_SLP/SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "DBCB3990-BB43-40C1-9D2F-F501B7C87022 - d2ac04cbb9dde986"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SeSAC_SLP.LacunchViewMoldel, Swift.String) -&gt; () in SeSAC_SLP.LacunchViewMoldel.refreshIdtoken() -&gt; ()"
+                  moduleName = "SeSAC_SLP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/SeSAC_SLP/SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "280">
+               </Location>
+               <Location
+                  uuid = "DBCB3990-BB43-40C1-9D2F-F501B7C87022 - 25a506fb2eebda68"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (SeSAC_SLP.LacunchViewMoldel, Swift.Error) -&gt; () in SeSAC_SLP.LacunchViewMoldel.refreshIdtoken() -&gt; ()"
+                  moduleName = "SeSAC_SLP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/SeSAC_SLP/SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4E940009-4325-4C9E-B654-412465F9C6F3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "refreshIdtoken()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8838B208-ED35-444F-A417-CB82540FB83A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "refreshIdtoken()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8838B208-ED35-444F-A417-CB82540FB83A - 1365fccf318317b7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SeSAC_SLP.LacunchViewMoldel.refreshIdtoken() -&gt; ()"
+                  moduleName = "SeSAC_SLP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/SeSAC_SLP/SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "8838B208-ED35-444F-A417-CB82540FB83A - d2ac04cbb9dde9c0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SeSAC_SLP.LacunchViewMoldel, Swift.String) -&gt; () in SeSAC_SLP.LacunchViewMoldel.refreshIdtoken() -&gt; ()"
+                  moduleName = "SeSAC_SLP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/SeSAC_SLP/SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "80">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A215D0D8-8FDD-4581-923A-35451D87DD76"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "refreshIdtoken()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C13C9223-A325-412D-8AF6-7D65AD19334D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Scene/Onboarding/LaunchScreenViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BBAD5EB9-80BE-4918-9224-0575AF88E536"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "checkIdtoken()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "86CA0AF1-9647-42C9-AC08-739809D6E1E7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "checkIdtoken()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "28416C0A-6630-44B7-A901-E0E9E5981C9E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SeSAC_SLP/Scene/Onboarding/LacunchViewMoldel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "checkIdtoken()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

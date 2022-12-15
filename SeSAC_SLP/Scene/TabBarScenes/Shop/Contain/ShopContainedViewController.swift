@@ -87,19 +87,21 @@ class ShopContainedViewController: BaseViewController, Bindable {
 //                item, ele, cell in
 
 //            }.disposed(by: bag)
-            
+        
         
         viewModel.receiptValidationStatus
             .withUnretained(self)
             .bind { vc, status in
-              
+                
                 switch status {
                 case .success:
                     print("구매성공")
-                    vc.viewModel.myPurchaseInfo(idtoken: vc.idToken) { _ in
-                        vc.mainview.collectionView.reloadData()
-                        LoadingIndicator.hideLoading()
-                    }
+                    vc.viewModel.myPurchaseInfo(idtoken: vc.idToken)
+                        .subscribe { data in
+                            print(data, "🐙")
+                            vc.mainview.collectionView.reloadData()
+                            LoadingIndicator.hideLoading()
+                        }.disposed(by: vc.bag)
                 case .invalid:
                     print("검증실패")
                     LoadingIndicator.hideLoading()
