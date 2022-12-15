@@ -16,6 +16,8 @@ class LaunchScreenViewController: UIViewController {
     let test = LacunchViewMoldel()
     
     let commonSerVerModel = CommonServerManager()
+    let viewModel = LacunchViewMoldel()
+    
     let disposedBag = DisposeBag()
     let mainImageView: UIImageView = {
         let view = UIImageView()
@@ -44,37 +46,31 @@ class LaunchScreenViewController: UIViewController {
         transition.type = .fade
                 transition.duration = 3
         sceneDelegate?.window?.layer.add(transition, forKey: kCATransition)
-        
-        //분기처리
-        //        UserDefaults.standard.removeObject(forKey: "idtoken")
-        guard let idtoken = UserDefaults.idtoken else {
-            let onboardingViewController = OnboardingViewController()
-            setInitialViewController(to: onboardingViewController)
-            return
-        }
-        
-        print(idtoken)
-        
-        self.commonSerVerModel.UserInfoNetwork(idtoken: idtoken)
+    
+        // 토큰 유무
+        viewModel.checkIdtoken()
+            .subscribe(with: self) { vc, idtoken in
+                print("IdToken 있음 :",idtoken)
+                vc.commonSerVerModel.UserInfoNetwork(idtoken: idtoken)
+            } onFailure: { vc, _ in
+                let onboardingViewController = OnboardingViewController()
+                vc.setInitialViewController(to: onboardingViewController)
+                return
+            }.disposed(by: disposedBag)
         
 //        UserDefaults.standard.removeObject(forKey: "idtoken")
    
-        //데이터 통신이 끝난 이후 불러지는 코드인데
+        // 토큰 유효성 검사 필요 지점
         self.commonSerVerModel.userStatus
             .asDriver(onErrorJustReturn: (.InvaliedNickName))
             .drive(with: self) { (vc, value) in
                 print(value, " =============")
                 switch value {
-                case .SignInUser:
-                    print("201 안불려지는 메서드")
-                    
-                case .InvaliedNickName:
-                    print("InvaliedNickName // 온보딩에서 필요없는 코드")
                     
                 case .Success:
-//                    let testvc = ShopViewController()
-//                    sceneDelegate?.window?.rootViewController = testvc
-//                    sceneDelegate?.window?.makeKeyAndVisible()
+                    //                    let testvc = ShopViewController()
+                    //                    sceneDelegate?.window?.rootViewController = testvc
+                    //                    sceneDelegate?.window?.makeKeyAndVisible()
                     let homeMapController = CustomTabBarController()
                     vc.setInitialViewController(to: homeMapController)
                     print("기존 유저 정보를 받아 홈화면으로 진입 🟢")
@@ -82,16 +78,14 @@ class LaunchScreenViewController: UIViewController {
                 case .FirebaseTokenError:
                     print("401")
                     //앱을 재시작할 수 있나
-//                    self?.commonSerVerModel.USerInfoNetwork(idtoken: idtoken) // 무한 재귀호출~
-                    vc.test.refreshIdtoken()
+                    //                    self?.commonSerVerModel.USerInfoNetwork(idtoken: idtoken) // 무한 재귀호출~
+//                    vc.test.refreshIdtoken()
                 case .NotsignUpUser:
                     let nickNameViewController = NicknameViewController()
                     vc.setInitialViewController(to: nickNameViewController)
                     return
-                case .ServerError:
-                    print("ServerError 🔴")
-                case .ClientError:
-                    print("ClientError 🔴")
+                default:
+                    print("온보딩 userstatus 기타 에러 : \(value)")
                 }
             }.disposed(by: self.disposedBag)
     }

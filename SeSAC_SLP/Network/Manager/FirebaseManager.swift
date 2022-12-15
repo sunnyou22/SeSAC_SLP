@@ -8,6 +8,7 @@
 import Foundation
 
 import FirebaseAuth
+import RxSwift
 
 final class FirebaseManager {
     
@@ -79,23 +80,25 @@ final class FirebaseManager {
             }
             
         }
-//        UserDefaults.
+        //        UserDefaults.
     }
-    //✅
-    func getIDTokenForcingRefresh(completion: (() -> Void)? = nil) {
-        let currentUser = Auth.auth().currentUser
-        currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
-            print("들어가기전")
-            if let error = error {
-                print(error, "🔴 idtoken을 받아올 수 없습니다.")
-                return
-            } else {
-            print("itoken🐭🐭", idToken)
-                UserDefaults.idtoken = idToken // 유저디폴츠에 새로운 토큰 담기
-                print(UserDefaults.idtoken, "🐭🐭🐭🔴🔴🔴🔴🐭🐭")
+    
+    @discardableResult
+    func getIDTokenForcingRefresh() -> Single<String> {
+        return Single<String>.create { (single) -> Disposable in
+            let currentUser = Auth.auth().currentUser
+            currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+                guard let idToken = idToken else { return }
+                if let error = error {
+                    print(error, "idtoken 못 받아옴")
+                    single(.failure(error))
+                    return
+                }
+                UserDefaults.idtoken = idToken
+                single(.success(idToken))
             }
-            print("나옴") //Currentuser가 없어
+            return Disposables.create()
         }
     }
+    
 }
-

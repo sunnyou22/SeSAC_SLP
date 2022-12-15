@@ -19,12 +19,14 @@ final class LacunchViewMoldel {
     let bag = DisposeBag()
     let commonSerVerModel = CommonServerManager()
         
+    // 토큰이 있는 것까지 확인
     func checkIdtoken() -> Single<String> {
         return Single<String>.create { single -> Disposable in
             guard let idtoken = UserDefaults.idtoken else {
                 single(.failure(UserStatus.FirebaseTokenError))
                 return Disposables.create()
             }
+            
             single(.success(idtoken))
             
             return Disposables.create()
@@ -33,9 +35,9 @@ final class LacunchViewMoldel {
     
     func refreshIdtoken() {
         checkIdtoken()
-            .subscribe(with: self) { vc, statusCode in
+            .subscribe(with: self) { vc, idToken in
                 print("들어옴")
-                vc.commonSerVerModel.UserInfoNetwork(idtoken: statusCode)
+                vc.commonSerVerModel.UserInfoNetwork(idtoken: idToken)
             } onFailure: { vc, error in
                 print("들어옴2")
                 FirebaseManager.shared.getIDTokenForcingRefresh()

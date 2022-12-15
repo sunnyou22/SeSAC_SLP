@@ -30,16 +30,22 @@ final class CommonServerManager {
         let api = SeSACAPI.getUserInfo
         
         Network.shared.receiveRequestSeSAC(type: GetUerIfo.self, url: api.url, parameter: nil, method: .get, headers: api.getheader(idtoken: idtoken))
-           .debug("너는 어떻게 나오냐")
-            .subscribe { [weak self] (data, statusCode) in
+            .subscribe(with: self) { vc, valuse in
+                let (data, statusCode) = valuse
                 guard let userStatus = UserStatus(rawValue: statusCode) else { return }
                 guard let data = data else {
-                    self?.userStatus.accept(userStatus)
+                    vc.userStatus.accept(userStatus)
                     return }
           
-                self?.userData.accept([data])
-              
-                self?.userStatus.accept(userStatus)
+                if statusCode == 401 {
+                    FirebaseManager.shared.getIDTokenForcingRefresh()
+                        .subscribe { idtoken in
+                            vc.UserInfoNetwork(idtoken: idtoken)
+                        }.disposed(by: vc.bag)
+                }
+                
+                vc.userData.accept([data])
+                vc.userStatus.accept(userStatus)
             }.disposed(by: bag)
     }
         
