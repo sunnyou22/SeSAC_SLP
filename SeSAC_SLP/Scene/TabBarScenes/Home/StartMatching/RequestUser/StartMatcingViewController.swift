@@ -100,6 +100,9 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         var titleStackView = cell.cardView.expandableView.titleStackView
         var wishStudy = cell.cardView.expandableView.whishStudyView
         var review =  cell.cardView.expandableView.reviewLabel
+   
+        cell.cardView.nicknameView.tag = indexPath.item
+        print(cell.cardView.nicknameView.tag)
         
         name.text = viewModel.data.value[indexPath.row].nick
         review.text = viewModel.data.value[indexPath.row].reviews.last
@@ -111,7 +114,7 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         
         // 이렇게 하면 쌍으로 나옴
         let zip = zip(sesacTitle, viewModel.data.value[0].reputation)
-        print(zip, sesacTitle)
+
         zip.forEach { (view, value) in
             print(view.tag, value)
             view.backgroundColor = viewModel.reputationValid(value) ? .setBrandColor(color: .green) : .clear
@@ -126,7 +129,10 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         
         cell.cardView.nicknameView.addGestureRecognizer(tapGesture)
-        cell.cardView.expandableView.isHidden = hidden // 암튼 일케하면 되긴함
+        if cell.cardView.nicknameView.tag == indexPath.item {
+            cell.cardView.expandableView.isHidden = hidden // 암튼 일케하면 되긴함
+            print(cell.cardView.nicknameView.tag, indexPath.item, "--------------------------------------")
+        }
         
         viewModel.test
             .withUnretained(self)
@@ -138,9 +144,7 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         //얼럿
         cell.requestButton.addTarget(self, action: #selector(request), for: .touchUpInside)
         cell.requestButton.tag = indexPath.item
-
-        cell.cardView.nicknameView.tag = indexPath.item
-        
+  
         return cell
     }
     

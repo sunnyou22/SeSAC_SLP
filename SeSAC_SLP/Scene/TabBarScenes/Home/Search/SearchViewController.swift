@@ -57,10 +57,7 @@ final class SearchViewController: BaseViewController {
         mainView.collectionView.collectionViewLayout = mainView.configureCollectionViewLayout()
         mainView.collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchHeaderView.reuseIdentifier)
     }
-    
-    override func fetchData() {
-    }
-    
+  
     //MARK: - bindUI
     func bindDataUI() {
         let input = SearchViewModel.Input(tapSearchButton: mainView.searchButton.rx.tap, searchbarsearchButtonClicked: mainView.searchBar.rx.searchButtonClicked)
