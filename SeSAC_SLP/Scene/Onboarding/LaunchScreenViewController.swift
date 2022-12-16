@@ -68,9 +68,9 @@ class LaunchScreenViewController: UIViewController {
                 switch value {
                     
                 case .Success:
-                    //                    let testvc = ShopViewController()
-                    //                    sceneDelegate?.window?.rootViewController = testvc
-                    //                    sceneDelegate?.window?.makeKeyAndVisible()
+//                    let testvc = ShopViewController()
+//                    sceneDelegate?.window?.rootViewController = testvc
+//                    sceneDelegate?.window?.makeKeyAndVisible()
                     let homeMapController = CustomTabBarController()
                     vc.setInitialViewController(to: homeMapController)
                     print("기존 유저 정보를 받아 홈화면으로 진입 🟢")

@@ -32,17 +32,18 @@ final class CommonServerManager {
         Network.shared.receiveRequestSeSAC(type: GetUerIfo.self, url: api.url, parameter: nil, method: .get, headers: api.getheader(idtoken: idtoken))
             .subscribe(with: self) { vc, valuse in
                 let (data, statusCode) = valuse
-                guard let userStatus = UserStatus(rawValue: statusCode) else { return }
-                guard let data = data else {
-                    vc.userStatus.accept(userStatus)
-                    return }
-          
+              
                 if statusCode == 401 {
                     FirebaseManager.shared.getIDTokenForcingRefresh()
                         .subscribe { idtoken in
                             vc.UserInfoNetwork(idtoken: idtoken)
                         }.disposed(by: vc.bag)
                 }
+                
+                guard let userStatus = UserStatus(rawValue: statusCode) else { return }
+                guard let data = data else {
+                    vc.userStatus.accept(userStatus)
+                    return }
                 
                 vc.userData.accept([data])
                 vc.userStatus.accept(userStatus)

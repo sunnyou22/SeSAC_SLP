@@ -10,7 +10,7 @@ import UIKit
 final class CustomTabBarController: UITabBarController {
     private let homeVC = HomeMapViewController()
     private let shopVC = ShopViewController() // 임시로 바꿈
-    private let chatVC = ChatViewController()
+    private let chatVC = SearchViewController()
     private let mypageVC = MyPageListViewController()
     
     override func viewDidLoad() {
