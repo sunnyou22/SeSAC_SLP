@@ -11,38 +11,38 @@ final class FixedView: BaseView {
     
     let genderView: MyPageGenderView = {
         let view = MyPageGenderView()
-        view.backgroundColor = .green
+        view.backgroundColor = .white
         return view
     }()
     
     let setFrequentStudyView: SetFrequentStudyView = {
         let view = SetFrequentStudyView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .white
         return view
     }()
     
     let switchView: SwitchView = {
         let view = SwitchView()
-        view.backgroundColor = .cyan
+        view.backgroundColor = .white
         return view
     }()
     
     let matchingAgeView: MatchingAgeView = {
         let view = MatchingAgeView()
-        view.backgroundColor = .black
+        view.backgroundColor = .white
         return view
     }()
     
     let signOutView: SignOutView = {
         let view = SignOutView()
-        view.backgroundColor = .cyan
+        view.backgroundColor = .white
         return view
     }()
     
     
     let stackView: UIStackView = {
         let view = UIStackView()
-        view.backgroundColor = .brown
+        view.backgroundColor = .white
         view.axis = .vertical
         view.distribution = .equalSpacing
         view.spacing = 16

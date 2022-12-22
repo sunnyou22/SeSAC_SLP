@@ -15,6 +15,7 @@ class MyPageGenderView: BaseView {
     let title: UILabel = {
        let view = UILabel()
         view.text = "내 성별"
+        view.textColor = .black
         return view
     }()
     
@@ -22,6 +23,11 @@ class MyPageGenderView: BaseView {
         let view = UIButton()
         view.setTitle("남자", for: .normal)
         view.backgroundColor = .clear
+        
+        var config = UIButton.Configuration.plain()
+        config.baseForegroundColor = .black
+        view.configuration = config
+        
         view.clipsToBounds = true
         view.layer.cornerRadius = CustomCornerRadius.button.rawValue
         view.layer.borderColor = UIColor.setGray(color: .gray4).cgColor

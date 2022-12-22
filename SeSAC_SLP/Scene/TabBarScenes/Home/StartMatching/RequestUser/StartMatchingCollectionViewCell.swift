@@ -46,6 +46,7 @@ class StartMatchingCollectionViewCell: BaseTableViewCell {
     super.prepareForReuse()
         requestButton.removeTarget(nil, action: nil, for: .touchUpInside)
         cardView.nicknameView.gestureRecognizers?.forEach(cardView.nicknameView.removeGestureRecognizer(_:))
+
     }
     
 }

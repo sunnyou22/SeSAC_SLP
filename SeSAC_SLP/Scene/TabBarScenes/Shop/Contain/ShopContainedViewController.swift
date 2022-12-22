@@ -60,12 +60,12 @@ class ShopContainedViewController: BaseViewController, Bindable {
             mainview.collectionView.collectionViewLayout = mainview.configureBackCollectionViewLayout()
         }
         
-        viewModel.myPurchaseInfo(idtoken: idToken) 
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-      
+        viewModel.myPurchaseInfo(idtoken: idToken) 
     }
     
     func bind() {

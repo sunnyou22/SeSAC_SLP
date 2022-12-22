@@ -11,6 +11,7 @@ import SnapKit
 class CardViewNickName: BaseView {
     lazy var nameLabel: UILabel = {
         let view = UILabel()
+        view.text = "선우"
         view.font = UIFont.Body1_M16
        
         return view

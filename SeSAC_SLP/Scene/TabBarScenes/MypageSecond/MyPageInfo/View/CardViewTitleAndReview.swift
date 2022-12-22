@@ -31,6 +31,7 @@ class CardViewTitleAndReview: BaseView {
     lazy var reviewLabel: UILabel = {
         let view = UILabel()
         view.font = UIFont.Body3_R14
+        view.textColor = .gray
         view.text = "첫 리뷰를 기다리는 중이에요"
         view.numberOfLines = 0
         return view

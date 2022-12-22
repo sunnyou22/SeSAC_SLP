@@ -12,7 +12,7 @@ class MatchingAgeView: BaseView {
     
     let title: UILabel = {
        let view = UILabel()
-        view.text = "내 성별"
+        view.text = "상대방 연령대"
         return view
     }()
     

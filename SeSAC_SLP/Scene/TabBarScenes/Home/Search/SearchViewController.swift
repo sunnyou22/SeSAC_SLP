@@ -191,7 +191,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
                 
                 cell1.label.text = viewModel.quoList[indexPath.item]
                 cell1.xbutton.isHidden = true
-                cell1.customView.layer.borderColor = UIColor.setStatus(color: .success).cgColor // 색 바꾸기
+                cell1.customView.layer.borderColor = UIColor.setStatus(color: .error).cgColor // 색 바꾸기
                 
                 return cell1
             } else {

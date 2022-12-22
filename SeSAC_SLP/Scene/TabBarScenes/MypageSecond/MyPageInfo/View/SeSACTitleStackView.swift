@@ -24,15 +24,21 @@ class TitleStackView: UIView {
         let view = UIButton()
         view.setTitle(SetMyInfoViewModel.ButtonTitle.exactTimeAppointment.rawValue, for: .normal)
         view.setTitleColor(UIColor.setBaseColor(color: .black), for: .normal)
-        view.backgroundColor = .setBaseColor(color: .white)
+        
+        view.backgroundColor = .setBrandColor(color: .green)
+        
         return setStackViewComponent(view, tag: 1)
     }()
     
     lazy var third: UIButton = {
         let view = UIButton()
+      
         view.setTitle(SetMyInfoViewModel.ButtonTitle.fastFeedback.rawValue, for: .normal)
         view.setTitleColor(UIColor.setBaseColor(color: .black), for: .normal)
-        view.backgroundColor = .setBaseColor(color: .white)
+//        view.backgroundColor = .setBaseColor(color: .white)
+        
+//        view.tintColor = .setBrandColor(color: .green)
+        
         return setStackViewComponent(view, tag: 2)
     }()
     
@@ -46,9 +52,14 @@ class TitleStackView: UIView {
 
     lazy var five: UIButton = {
         let view = UIButton()
+        
         view.setTitle(SetMyInfoViewModel.ButtonTitle.skillfulPersonality.rawValue, for: .normal)
         view.setTitleColor(UIColor.setBaseColor(color: .black), for: .normal)
-        view.backgroundColor = .setBaseColor(color: .white)
+        
+        
+        view.backgroundColor = .setBrandColor(color: .green)
+        
+    
         return setStackViewComponent(view, tag: 4)
     }()
  
@@ -62,23 +73,23 @@ class TitleStackView: UIView {
     
   lazy var leftVerticalStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [first, third, five])
-       return view.setStackViewLayout(axis: .vertical, color: .magenta)
+      return view.setStackViewLayout(axis: .vertical, color: .white)
     }()
 
    lazy var rightVerticalStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [second, four, six])
-        return view.setStackViewLayout(axis: .vertical, color: .green)
+       return view.setStackViewLayout(axis: .vertical, color: .white)
     }()
    
     lazy var horizontalStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [leftVerticalStackView, rightVerticalStackView])
-       return view.setStackViewLayout(axis: .horizontal, color: .cyan)
+        return view.setStackViewLayout(axis: .horizontal, color: .white)
    }()
     
     private func setStackViewComponent(_ to: UIButton, tag: Int) -> UIButton {
         to.setTitle(SetMyInfoViewModel.ButtonTitle.allCases[tag].rawValue, for: .normal)
         to.setTitleColor(UIColor.setBaseColor(color: .black), for: .normal)
-        to.backgroundColor = .setBaseColor(color: .white)
+//        to.backgroundColor = .setBaseColor(color: .white)
         to.titleLabel?.font = UIFont.title4_R14
         to.clipsToBounds = true
         to.layer.cornerRadius = CustomCornerRadius.button.rawValue
@@ -114,7 +125,7 @@ class TitleStackView: UIView {
 //        }
         horizontalStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            
+            make.height.equalTo(100)
         }
     }
 }

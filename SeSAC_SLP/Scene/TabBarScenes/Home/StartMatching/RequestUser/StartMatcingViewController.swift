@@ -129,10 +129,10 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         
         cell.cardView.nicknameView.addGestureRecognizer(tapGesture)
-        if cell.cardView.nicknameView.tag == indexPath.item {
-            cell.cardView.expandableView.isHidden = hidden // 암튼 일케하면 되긴함
-            print(cell.cardView.nicknameView.tag, indexPath.item, "--------------------------------------")
-        }
+//        if cell.cardView.nicknameView.tag == indexPath.item {
+//         cell.cardView.expandableView.isHidden == true ?
+//            print(cell.cardView.nicknameView.tag, indexPath.item, "--------------------------------------")
+//        }
         
         viewModel.test
             .withUnretained(self)
@@ -150,7 +150,10 @@ extension StartMatcingViewController: UITableViewDataSource, UITableViewDelegate
     
     // 3. this method is called when a tap is recognized
     @objc func handleTap(sender: UITapGestureRecognizer) {
-        hidden = !hidden
+//        hidden = !hidden
+        guard var hidden = sender.view?.isHidden else { return }
+        sender.view?.isHidden = true
+        
         viewModel.test.accept(hidden)
         print("tap")
     }

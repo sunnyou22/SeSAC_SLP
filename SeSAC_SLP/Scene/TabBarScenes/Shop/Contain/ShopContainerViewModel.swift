@@ -69,7 +69,7 @@ final class ShopContainerViewModel: NSObject {
 //            //성공
 //            completion?(data)
 //        }
-    //    }
+//        }
     
     func myPurchaseInfo(idtoken: String) -> Single<ShopMyInfo> {
         let api = SeSACAPI.shopmyinfo

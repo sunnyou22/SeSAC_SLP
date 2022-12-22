@@ -45,7 +45,7 @@ class SearchCollecitionViewCell: BaseCollectionViewCell {
    
    override init(frame: CGRect) {
        super.init(frame: frame)
-       self.backgroundColor = .brown
+//       self.backgroundColor = .brown
        configrue()
        setConstraints()
    }

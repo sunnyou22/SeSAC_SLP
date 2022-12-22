@@ -36,7 +36,7 @@ final class SearchView: BaseView {
     lazy var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
         view.register(SearchCollecitionViewCell.self, forCellWithReuseIdentifier: SearchCollecitionViewCell.reuseIdentifier)
-        view.backgroundColor = .cyan
+//        view.backgroundColor = .cyan
         return view
     }()
     
@@ -52,7 +52,7 @@ final class SearchView: BaseView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = .brown
+ 
     }
     
     override func configure() {

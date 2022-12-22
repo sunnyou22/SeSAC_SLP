@@ -42,8 +42,8 @@ final class CardView: BaseView {
     }
     
     override func configure() {
-        nicknameView.backgroundColor = .red
-        expandableView.backgroundColor = .brown
+        nicknameView.backgroundColor = .white
+        expandableView.backgroundColor = .white
         
         [header, borderView].forEach { self.addSubview($0) }
         borderView.addSubview(stackView)

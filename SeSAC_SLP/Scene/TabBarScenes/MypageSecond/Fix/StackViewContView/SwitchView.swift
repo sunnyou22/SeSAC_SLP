@@ -19,7 +19,7 @@ class SwitchView: BaseView {
  let switchButton: UISwitch = {
         let view = UISwitch()
         view.onTintColor = .setBrandColor(color: .green)
-        view.backgroundColor = .setGray(color: .gray4)
+//        view.backgroundColor = .setGray(color: .gray4)
         return view
     }()
     
