@@ -5,7 +5,7 @@
 <br/>
 
 ## 디자인 기획
-<img src="https://user-images.githubusercontent.com/101683386/209084644-44d0837d-ae32-4ced-8f44-d832fe560e21.jpg" width="50%" height="30%">
+<img src="https://user-images.githubusercontent.com/101683386/209084644-44d0837d-ae32-4ced-8f44-d832fe560e21.jpg" width="60%" height="40%">
 
 <br/>
 
@@ -20,6 +20,9 @@
 | Dependency Manager | `SPM` |
 | Design | `Figma` |
 
+<br/>
+
 ## Trouble Shootiong
-> 트러블 슈팅을 러프하게 작성하는 페이지 입니다 :)
-[노션 트러블슈팅 페이지](https://www.notion.so/a3d78907c8294e02838fc7a43d3ee65e)
+> 트러블 슈팅을 러프하게 작성하는 페이지 입니다 :)  
+
+[노션 트러블슈팅 페이지 ✅](https://www.notion.so/a3d78907c8294e02838fc7a43d3ee65e)
