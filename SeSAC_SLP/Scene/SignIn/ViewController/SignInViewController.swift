@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import FirebaseCore
 import FirebaseAuth
+import NotiModel
 //import Toast
 
 class SignInViewController: BaseViewController {

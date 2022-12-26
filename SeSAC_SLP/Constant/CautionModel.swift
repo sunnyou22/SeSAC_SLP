@@ -97,17 +97,6 @@ extension UIViewController {
             }
         }
     }
-    
-    func showSelectedAlert(title: String?, message: String, okCompletion: ((UIAlertAction) -> Void)?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "네", style: .default, handler: okCompletion)
-        
-        let cancel = UIAlertAction(title: "아니오", style: .cancel)
-        alert.addAction(ok)
-        alert.addAction(cancel)
-        
-        self.present(alert, animated: true)
-    }
 }
 
 

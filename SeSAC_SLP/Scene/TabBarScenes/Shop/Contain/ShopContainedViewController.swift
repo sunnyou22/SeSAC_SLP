@@ -10,6 +10,7 @@ import UIKit
 import StoreKit
 import RxSwift
 import RxCocoa
+import NotiModel
 
 protocol Sendableitem: NSObject {
     func sendSesacimgStr(_ name: String)

@@ -8,7 +8,7 @@
 import Foundation
 import RxCocoa
 import RxSwift
-
+import NotiModel
 import StoreKit
 //뷰모델 분리하기
 final class ShopContainerViewModel: NSObject {

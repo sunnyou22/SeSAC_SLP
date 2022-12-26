@@ -12,6 +12,7 @@ import RxSwift
 import FirebaseCore
 import FirebaseAuth
 import Toast
+import NotiModel
 
 class VerificationViewController: BaseViewController {
     

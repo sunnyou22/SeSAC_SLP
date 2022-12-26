@@ -11,6 +11,7 @@ import RxCocoa
 import RxSwift
 import Alamofire
 import FirebaseAuth
+import NotiModel
 
 final class SignInViewModel {
     static var backToNicknameVC: BehaviorRelay<Bool> = BehaviorRelay(value: false)
